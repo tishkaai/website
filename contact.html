@@ -139,21 +139,20 @@
         <p>We help companies unlock real operational efficiency by identifying where AI and software can drive measurable impact and then building and implementing those solutions end-to-end. If you're looking for a partner who can cut through the noise and deliver AI that actually moves the needle, let's talk.</p>
       </div>
       <div class="form-card">
-        <!-- Manual lead capture (no n8n, no server): FormSubmit.co emails the details to Pete,
-             then redirects the visitor to Cal.com to book the diagnostic. -->
+        <!-- Lead capture via Web3Forms (free, no server). Access key = Pete's, from app.web3forms.com.
+             Emails the details to Pete, then redirects the visitor to Cal.com to book the diagnostic. -->
         <div id="form-success" class="form-message success" role="status" aria-live="polite">
           Thanks — you'll be taken to the booking page to pick a time for your free diagnostic.
         </div>
         <div id="form-error" class="form-message error" role="alert" aria-live="polite">
           Something went wrong sending your details. Please try again, or email Pete directly at <a href="mailto:pete@tishka.ai">pete@tishka.ai</a>.
         </div>
-        <form id="book-diagnostic-form" action="https://formsubmit.co/pete@tishka.ai" method="POST">
-          <!-- FormSubmit.co config -->
-          <input type="hidden" name="_subject" value="New diagnostic lead — Tishka AI">
-          <input type="hidden" name="_next" value="https://cal.com/tishka/30min?user=tishka&overlayCalendar=true">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
-          <input type="text" name="_honey" style="display:none">
+        <form id="book-diagnostic-form" action="https://api.web3forms.com/submit" method="POST">
+          <!-- Web3Forms config -->
+          <input type="hidden" name="access_key" value="b0c8b5e7-bb8b-4670-9e50-d31698f798af">
+          <input type="hidden" name="subject" value="New diagnostic lead — Tishka AI">
+          <input type="hidden" name="redirect" value="https://cal.com/tishka/30min?user=tishka&overlayCalendar=true">
+          <input type="checkbox" name="botcheck" style="display:none">
           <div class="form-grid">
             <div class="form-group">
               <label for="first-name">First Name</label>
