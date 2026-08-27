@@ -18,6 +18,7 @@
   // CONFIG — edit here. Flip webhook URLs to https://tishka.ai/... at go-live.
   // ─────────────────────────────────────────────────────────────
   const CONFIG = {
+    enabled:           false,   // HIDDEN for now — set true to show the chat bubble again
     webhookUrl:      'http://localhost:5678/webhook/chat',        // n8n chat endpoint (local test)
     emailWebhookUrl: 'http://localhost:5678/webhook/chat-email',  // email capture endpoint (Phase 4 — see note)
     botName:         'Tishka AI',
@@ -741,6 +742,7 @@
   // Init
   // ─────────────────────────────────────────────────────────────
   function init() {
+    if (!CONFIG.enabled) return; // hidden — flip CONFIG.enabled to true to show
     if (document.getElementById(IDs.root)) return; // already injected
 
     const hadHistory = restoreFromSessionStorage();
