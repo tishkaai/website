@@ -151,7 +151,6 @@
           <!-- Web3Forms config -->
           <input type="hidden" name="access_key" value="b0c8b5e7-bb8b-4670-9e50-d31698f798af">
           <input type="hidden" name="subject" value="New diagnostic lead — Tishka AI">
-          <input type="hidden" name="redirect" value="https://cal.com/tishka/30min?user=tishka&overlayCalendar=true">
           <input type="checkbox" name="botcheck" style="display:none">
           <div class="form-grid">
             <div class="form-group">
@@ -234,9 +233,43 @@
   </footer>
 
   <script>
-  // Lead capture is handled by FormSubmit.co (native form POST — no JS needed).
-  // On success the visitor is redirected to the Cal.com booking page (_next field above).
-  // Pete receives the lead details by email. No n8n, no server.
+  // Lead capture via Web3Forms (free plan). Web3Forms' built-in redirect only works
+  // same-domain on free — so we submit via fetch (client-side, allowed) and redirect
+  // to Cal.com ourselves. Pete gets the lead by email; visitor books the diagnostic.
+  (function () {
+    const form = document.getElementById('book-diagnostic-form');
+    const submitBtn = form.querySelector('.form-submit .btn');
+    const successEl = document.getElementById('form-success');
+    const errorEl = document.getElementById('form-error');
+    const BOOKING_URL = 'https://cal.com/tishka/30min?user=tishka&overlayCalendar=true';
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      submitBtn.classList.add('is-sending');
+      errorEl.style.display = 'none';
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: new FormData(form)
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error('Form rejected');
+
+        // Lead delivered — send the visitor to book the diagnostic.
+        window.location.href = BOOKING_URL;
+      } catch (err) {
+        errorEl.style.display = 'block';
+        submitBtn.classList.remove('is-sending');
+      }
+    });
+  })();
   </script>
 
 </body>
