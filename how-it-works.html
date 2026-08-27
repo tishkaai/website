@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How it works — Tishka AI</title>
+<meta name="description" content="An AI agent that learns your business, then handles the mental load. Second brain, agent, and automations — and the full journey from audit to ROI report.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Playdate design tokens */
+    --color-sunbeam-yellow: #ffc500;
+    --color-electric-violet: #7700ff;
+    --color-carbon: #312f27;
+    --color-paper-white: #ffffff;
+    --color-slate-gray: #788086;
+    --color-fog: #efefef;
+    --color-sand: #e9e4d9;
+    --color-ash: #b1afa7;
+
+    --font-roobert: 'Manrope', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    --text-caption: 19px;
+    --text-body: 22px;
+    --text-subheading: 24px;
+    --text-heading: 34px;
+    --text-heading-lg: 40px;
+    --text-display: 51px;
+    --text-hero: 68px;
+
+    --spacing-12: 12px;
+    --spacing-20: 20px;
+    --spacing-24: 24px;
+    --spacing-28: 28px;
+    --spacing-40: 40px;
+    --spacing-60: 60px;
+    --spacing-100: 100px;
+    --spacing-120: 120px;
+
+    --radius-cards: 2.85px;
+    --radius-buttons: 28.5px;
+    --radius-navbuttons: 22px;
+
+    --page-max-width: 1200px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-roobert);
+    color: var(--color-carbon);
+    background: var(--color-paper-white);
+    line-height: 1.3;
+    letter-spacing: -0.007em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  .container {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-24);
+  }
+
+  /* ---------- Navigation ---------- */
+  .nav {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 10;
+  }
+  .nav-inner {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: var(--spacing-24);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-left { display: flex; align-items: center; gap: var(--spacing-28); }
+  .nav-brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  .nav-brand img { height: 28px; width: auto; display: block; }
+  .nav-links { display: flex; gap: var(--spacing-24); }
+  .nav-links a {
+    font-weight: 700;
+    font-size: var(--text-caption);
+    color: var(--color-carbon);
+    text-decoration: none;
+  }
+  .nav-links a:hover { text-decoration: underline; }
+  .nav-cta {
+    background: var(--color-electric-violet);
+    color: var(--color-paper-white);
+    font-weight: 700;
+    font-size: 19px;
+    padding: 8px 16px;
+    border-radius: var(--radius-navbuttons);
+    text-decoration: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .nav-cta:hover { background: #5c00cc; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: var(--color-sunbeam-yellow);
+    padding: var(--spacing-120) 0 var(--spacing-100);
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: var(--text-hero);
+    font-weight: 800;
+    line-height: 1.0;
+    color: var(--color-carbon);
+    letter-spacing: -0.48px;
+    margin-bottom: var(--spacing-40);
+  }
+  .hero-tagline {
+    font-size: var(--text-heading-lg);
+    font-weight: 700;
+    color: var(--color-carbon);
+    margin-bottom: var(--spacing-20);
+  }
+  .hero-sub {
+    font-size: var(--text-body);
+    color: var(--color-carbon);
+    max-width: 640px;
+    margin: 0 auto var(--spacing-40);
+  }
+  .btn {
+    display: inline-block;
+    background: var(--color-electric-violet);
+    color: var(--color-paper-white);
+    font-weight: 700;
+    font-size: 21px;
+    padding: 14px 28px;
+    border-radius: var(--radius-buttons);
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .btn:hover { background: #5c00cc; }
+
+  /* ---------- Sections ---------- */
+  .section { padding: var(--spacing-100) 0; }
+  .section--white { background: var(--color-paper-white); }
+  .section--yellow { background: var(--color-sunbeam-yellow); }
+  .section--fog { background: var(--color-fog); }
+
+  .section-inner { max-width: 640px; margin: 0 auto; }
+
+  .eyebrow {
+    font-size: var(--text-caption);
+    font-weight: 700;
+    color: var(--color-electric-violet);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: var(--spacing-12);
+  }
+  .section h2 {
+    font-size: var(--text-heading-lg);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-carbon);
+    margin-bottom: var(--spacing-24);
+  }
+  .section p {
+    font-size: var(--text-body);
+    color: var(--color-carbon);
+    margin-bottom: var(--spacing-20);
+  }
+  .section ul {
+    list-style: none;
+    margin: var(--spacing-24) 0;
+  }
+  .section li {
+    font-size: var(--text-body);
+    color: var(--color-carbon);
+    padding: var(--spacing-12) 0;
+    border-bottom: 1px solid var(--color-ash);
+  }
+  .section li:last-child { border-bottom: none; }
+  .section li strong { font-weight: 800; }
+
+  /* ---------- Steps ---------- */
+  .steps { counter-reset: step; }
+  .step {
+    counter-increment: step;
+    padding: var(--spacing-24) 0;
+    border-bottom: 1px solid var(--color-ash);
+  }
+  .step:last-child { border-bottom: none; }
+  .step::before {
+    content: "Step " counter(step);
+    display: block;
+    font-size: var(--text-caption);
+    font-weight: 700;
+    color: var(--color-electric-violet);
+    margin-bottom: var(--spacing-12);
+  }
+  .step h3 {
+    font-size: var(--text-subheading);
+    font-weight: 800;
+    color: var(--color-carbon);
+    margin-bottom: var(--spacing-12);
+  }
+  .step p { margin-bottom: 0; }
+
+  /* ---------- Numbers table ---------- */
+  .table-wrap { overflow-x: auto; margin: var(--spacing-24) 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-paper-white);
+    border-radius: var(--radius-cards);
+    overflow: hidden;
+  }
+  th, td {
+    text-align: left;
+    padding: var(--spacing-20);
+    font-size: var(--text-body);
+    color: var(--color-carbon);
+    border-bottom: 1px solid var(--color-fog);
+  }
+  th { font-weight: 800; background: var(--color-fog); }
+  tr:last-child td { border-bottom: none; }
+  td strong { font-weight: 800; }
+  .table-note {
+    font-size: var(--text-caption);
+    color: var(--color-carbon);
+    opacity: 0.7;
+  }
+
+  /* ---------- Pricing ---------- */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--spacing-24);
+    margin-top: var(--spacing-40);
+  }
+  .price-card {
+    background: var(--color-paper-white);
+    border-radius: var(--radius-cards);
+    padding: var(--spacing-28);
+  }
+  .price-card h3 {
+    font-size: var(--text-subheading);
+    font-weight: 800;
+    color: var(--color-carbon);
+    margin-bottom: var(--spacing-12);
+  }
+  .price-card .price {
+    font-size: var(--text-heading);
+    font-weight: 800;
+    color: var(--color-carbon);
+    margin-bottom: var(--spacing-12);
+  }
+  .price-card p { font-size: var(--text-body); margin-bottom: 0; }
+
+  /* ---------- Quote ---------- */
+  .quote {
+    font-size: var(--text-heading);
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--color-carbon);
+    margin: var(--spacing-40) 0 var(--spacing-20);
+  }
+  .quote-attribution {
+    font-size: var(--text-caption);
+    color: var(--color-carbon);
+    opacity: 0.7;
+  }
+
+  /* ---------- CTA ---------- */
+  .cta { text-align: center; }
+  .cta h2 { margin-bottom: var(--spacing-20); }
+  .cta p { max-width: 640px; margin: 0 auto var(--spacing-40); }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    background: var(--color-carbon);
+    color: var(--color-paper-white);
+    padding: var(--spacing-60) 0;
+  }
+  .footer-inner {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-24);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-24);
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer p { font-size: var(--text-caption); color: var(--color-paper-white); }
+  .footer a {
+    color: var(--color-paper-white);
+    font-size: var(--text-caption);
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: var(--spacing-24);
+  }
+  .footer a:hover { text-decoration: underline; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 44px; }
+    .hero-tagline { font-size: 28px; }
+    .section h2 { font-size: 30px; }
+    .section { padding: var(--spacing-60) 0; }
+    .hero { padding: var(--spacing-100) 0 var(--spacing-60); }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a class="nav-brand" href="index.html"><img src="assets/Tishka_AI-dark.svg" alt="Tishka AI" height="28"></a>
+        <div class="nav-links">
+          <a href="how-it-works.html">How it works</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="about.html">About</a>
+          <a href="blog.html">Blog</a>
+          <a href="audit.html">Free audit</a>
+        </div>
+      </div>
+      <a class="nav-cta" href="contact.html">Book a call</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="top">
+    <div class="container">
+      <h1>How it works</h1>
+      <p class="hero-tagline">An AI agent that learns your business — then handles the mental load.</p>
+      <p class="hero-sub">Most AI tools are generic. They don't know your clients, your jobs, or how you like things done. Ours does. Here's how.</p>
+      <a class="btn" href="#journey">See the journey →</a>
+    </div>
+  </header>
+
+  <!-- 1. The second brain -->
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-inner">
+        <p class="eyebrow">1 · The second brain</p>
+        <h2>Your business, in a system that remembers.</h2>
+        <p>Every client gets a structured memory system that the agent reads from and writes to. It holds:</p>
+        <ul>
+          <li><strong>Your clients</strong> — who they are, what you do for them, their preferences</li>
+          <li><strong>Your business</strong> — services, pricing, processes, how you talk</li>
+          <li><strong>Your templates</strong> — invoices, quotes, emails, proposals</li>
+          <li><strong>Your agent's own notes</strong> — what it's learned, what needs attention</li>
+        </ul>
+        <p>This is what makes the agent not generic. It knows your business because your business lives in the brain.</p>
+        <p><strong>It's just files in a private GitHub repo you own.</strong> No proprietary format, no lock-in. Any AI tool can read them. You own your data, and every change is versioned — so you can roll back anything in one click.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. The agent -->
+  <section class="section section--yellow">
+    <div class="container">
+      <div class="section-inner">
+        <p class="eyebrow">2 · The agent</p>
+        <h2>On top of your software, not instead of it.</h2>
+        <p>The agent sits on top of your existing software — accounting, CRM, email, job management. It doesn't replace anything. It connects everything.</p>
+        <p><strong>What it does day to day:</strong></p>
+        <ul>
+          <li>Remembers every client, job, and deadline — so you don't have to</li>
+          <li>Prompts you at the right moment: "Job finished — shall I draft the invoice?"</li>
+          <li>Drafts everything in your voice: emails, quotes, follow-ups, updates</li>
+          <li>Flags what needs attention: overdue payments, clients going dark, deadlines approaching</li>
+          <li>Produces a weekly summary: what happened, what's coming, what needs a decision</li>
+        </ul>
+        <p><strong>You approve everything before it goes out.</strong> The agent drafts — you're always the final check. Nothing gets sent, created, or changed without your say-so.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. The automations -->
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-inner">
+        <p class="eyebrow">3 · The automations</p>
+        <h2>The repetitive stuff, running 24/7.</h2>
+        <p>Behind the scenes, automated workflows handle the repetitive stuff. These run 24/7 without you touching them.</p>
+        <p>What gets automated depends on your business. We figure that out together during the audit — we don't sell you a fixed menu of things you might not need. Common examples from businesses like yours:</p>
+        <ul>
+          <li>Invoice reminders that go out on schedule</li>
+          <li>Follow-ups that trigger when a lead goes quiet</li>
+          <li>Weekly reports that compile themselves</li>
+          <li>Data flowing between your tools without you being the middleman</li>
+          <li>AI voice agent answering your phone, booking appointments, handling routine calls (optional add-on)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- The full journey -->
+  <section class="section section--fog" id="journey">
+    <div class="container">
+      <div class="section-inner">
+        <p class="eyebrow">The full journey</p>
+        <h2>From audit to ROI report.</h2>
+        <div class="steps">
+          <div class="step">
+            <h3>Audit call (30 minutes, free)</h3>
+            <p>We talk. You tell us about your business — what you do, what eats your time, what tools you use. We listen, we score where the pain is, and we tell you honestly whether this makes sense for you. No pitch, no pressure. If it's not a fit, we'll tell you.</p>
+          </div>
+          <div class="step">
+            <h3>Proposal (within 48 hours)</h3>
+            <p>A written plan with specific recommendations, a 30/60/90 day timeline, and a fixed price. You'll see exactly what we'd build, what it would save, and how we'd measure it. No vagueness. No "trust us."</p>
+          </div>
+          <div class="step">
+            <h3>Setup (1–2 weeks)</h3>
+            <p>We build your second brain, connect your tools, and get your first workflow running. You log in, connect GitHub once, and we do the rest.</p>
+            <p>The 90-minute setup call covers everything: we fill the brain with your business knowledge, teach you the basics, and get you comfortable talking to the agent. After that, you talk to it in plain English.</p>
+          </div>
+          <div class="step">
+            <h3>30-day check-in</h3>
+            <p>First workflow measured against baseline. Hard numbers, not feelings. We adjust, then scope the next one.</p>
+          </div>
+          <div class="step">
+            <h3>60-day check-in</h3>
+            <p>Second workflow live. Combined measurement. You're seeing real time back by now.</p>
+          </div>
+          <div class="step">
+            <h3>90-day ROI report</h3>
+            <p>All workflows measured. Hard numbers: hours saved, money saved, response times. Written case study for your records — and a testimonial if you're happy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What you need -->
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-inner">
+        <p class="eyebrow">What you need</p>
+        <h2>Surprisingly little.</h2>
+        <ul>
+          <li><strong>A computer</strong> (Mac or Windows)</li>
+          <li><strong>The software you already use</strong> (we connect to it)</li>
+          <li><strong>90 minutes</strong> for the setup call</li>
+          <li><strong>A willingness to review and approve</strong> before things go out</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- What the agent doesn't do -->
+  <section class="section section--yellow">
+    <div class="container">
+      <div class="section-inner">
+        <p class="eyebrow">What the agent doesn't do</p>
+        <h2>It knows its limits.</h2>
+        <ul>
+          <li><strong>Replace your software</strong> — it works with what you have</li>
+          <li><strong>Make decisions without you</strong> — you approve everything</li>
+          <li><strong>Replace your team</strong> — it handles admin so they can do the real work</li>
+          <li><strong>Lock you in</strong> — your second brain is files in a repo you own. Any AI tool can use them.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--fog cta">
+    <div class="container">
+      <h2>Ready to see if this works for you?</h2>
+      <p>Book a free audit call. 30 minutes. We'll look at where your time's going and whether Tishka makes sense for you. No pitch, no pressure.</p>
+      <a class="btn" href="audit.html">Book a free audit →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Book a call</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

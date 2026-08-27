@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Tishka AI</title>
+<meta name="description" content="Resources and guides for small business owners. No jargon — written for business owners, not tech people.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Playdate design tokens */
+    --color-sunbeam-yellow: #ffc500;
+    --color-electric-violet: #7700ff;
+    --color-carbon: #312f27;
+    --color-paper-white: #ffffff;
+    --color-slate-gray: #788086;
+    --color-fog: #efefef;
+    --color-sand: #e9e4d9;
+    --color-ash: #b1afa7;
+
+    --font-roobert: 'Manrope', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    --text-caption: 19px;
+    --text-body: 22px;
+    --text-subheading: 24px;
+    --text-heading: 34px;
+    --text-heading-lg: 40px;
+    --text-display: 51px;
+    --text-hero: 68px;
+
+    --spacing-12: 12px;
+    --spacing-20: 20px;
+    --spacing-24: 24px;
+    --spacing-28: 28px;
+    --spacing-40: 40px;
+    --spacing-60: 60px;
+    --spacing-100: 100px;
+    --spacing-120: 120px;
+
+    --radius-cards: 2.85px;
+    --radius-buttons: 28.5px;
+    --radius-navbuttons: 22px;
+
+    --page-max-width: 1200px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-roobert);
+    color: var(--color-carbon);
+    background: var(--color-paper-white);
+    line-height: 1.3;
+    letter-spacing: -0.007em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  .container {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-24);
+  }
+
+  /* ---------- Navigation ---------- */
+  .nav {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 10;
+  }
+  .nav-inner {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: var(--spacing-24);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-left { display: flex; align-items: center; gap: var(--spacing-28); }
+  .nav-brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  .nav-brand img { height: 28px; width: auto; display: block; }
+  .nav-links { display: flex; gap: var(--spacing-24); }
+  .nav-links a {
+    font-weight: 700;
+    font-size: var(--text-caption);
+    color: var(--color-carbon);
+    text-decoration: none;
+  }
+  .nav-links a:hover { text-decoration: underline; }
+  .nav-cta {
+    background: var(--color-electric-violet);
+    color: var(--color-paper-white);
+    font-weight: 700;
+    font-size: 19px;
+    padding: 8px 16px;
+    border-radius: var(--radius-navbuttons);
+    text-decoration: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .nav-cta:hover { background: #5c00cc; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: var(--color-sunbeam-yellow);
+    padding: var(--spacing-120) 0 var(--spacing-100);
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: var(--text-hero);
+    font-weight: 800;
+    line-height: 1.0;
+    color: var(--color-carbon);
+    letter-spacing: -0.48px;
+    margin-bottom: var(--spacing-40);
+  }
+  .hero-tagline {
+    font-size: var(--text-heading-lg);
+    font-weight: 700;
+    color: var(--color-carbon);
+    margin-bottom: var(--spacing-20);
+  }
+  .hero-sub {
+    font-size: var(--text-body);
+    color: var(--color-carbon);
+    max-width: 640px;
+    margin: 0 auto var(--spacing-40);
+  }
+  .btn {
+    display: inline-block;
+    background: var(--color-electric-violet);
+    color: var(--color-paper-white);
+    font-weight: 700;
+    font-size: 21px;
+    padding: 14px 28px;
+    border-radius: var(--radius-buttons);
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .btn:hover { background: #5c00cc; }
+
+  /* ---------- Sections ---------- */
+  .section { padding: var(--spacing-100) 0; }
+  .section--white { background: var(--color-paper-white); }
+  .section--yellow { background: var(--color-sunbeam-yellow); }
+  .section--fog { background: var(--color-fog); }
+
+  .section-inner { max-width: 640px; margin: 0 auto; }
+
+  .eyebrow {
+    font-size: var(--text-caption);
+    font-weight: 700;
+    color: var(--color-electric-violet);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: var(--spacing-12);
+  }
+  .section h2 {
+    font-size: var(--text-heading-lg);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-carbon);
+    margin-bottom: var(--spacing-24);
+  }
+  .section p {
+    font-size: var(--text-body);
+    color: var(--color-carbon);
+    margin-bottom: var(--spacing-20);
+  }
+  .section ul {
+    list-style: none;
+    margin: var(--spacing-24) 0;
+  }
+  .section li {
+    font-size: var(--text-body);
+    color: var(--color-carbon);
+    padding: var(--spacing-12) 0;
+    border-bottom: 1px solid var(--color-ash);
+  }
+  .section li:last-child { border-bottom: none; }
+  .section li strong { font-weight: 800; }
+
+  /* ---------- CTA ---------- */
+  .cta { text-align: center; }
+  .cta h2 { margin-bottom: var(--spacing-20); }
+  .cta p { max-width: 640px; margin: 0 auto var(--spacing-40); }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    background: var(--color-carbon);
+    color: var(--color-paper-white);
+    padding: var(--spacing-60) 0;
+  }
+  .footer-inner {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-24);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-24);
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer p { font-size: var(--text-caption); color: var(--color-paper-white); }
+  .footer a {
+    color: var(--color-paper-white);
+    font-size: var(--text-caption);
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: var(--spacing-24);
+  }
+  .footer a:hover { text-decoration: underline; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 44px; }
+    .hero-tagline { font-size: 28px; }
+    .section h2 { font-size: 30px; }
+    .section { padding: var(--spacing-60) 0; }
+    .hero { padding: var(--spacing-100) 0 var(--spacing-60); }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a class="nav-brand" href="index.html"><img src="assets/Tishka_AI-dark.svg" alt="Tishka AI" height="28"></a>
+        <div class="nav-links">
+          <a href="how-it-works.html">How it works</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="about.html">About</a>
+          <a href="blog.html">Blog</a>
+          <a href="audit.html">Free audit</a>
+        </div>
+      </div>
+      <a class="nav-cta" href="contact.html">Book a call</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="top">
+    <div class="container">
+      <h1>Blog</h1>
+      <p class="hero-tagline">Resources and guides.</p>
+      <p class="hero-sub">Written for business owners, not tech people. No jargon.</p>
+    </div>
+  </header>
+
+  <!-- Lead magnet -->
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-inner">
+        <p class="eyebrow">Coming soon</p>
+        <h2>The Small Business Guide to AI Automation (2026)</h2>
+        <p>What AI can actually do for your business right now. What it costs. What to automate first. And how to avoid spending £12,000 on a platform you'll use 20% of.</p>
+        <p><em>Coming soon. Join the mailing list to get it first.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- More articles -->
+  <section class="section section--yellow">
+    <div class="container">
+      <div class="section-inner">
+        <p class="eyebrow">More articles planned</p>
+        <h2>What's coming.</h2>
+        <ul>
+          <li>How much is admin really costing you? (A 5-minute calculator)</li>
+          <li>Why most AI tools don't stick — and what to do about it</li>
+          <li>The 30/60/90 day automation roadmap</li>
+          <li>Voice AI for trades: answering calls while you're on site</li>
+          <li>How one consultancy saved 24 hours a week (case study)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mailing list -->
+  <section class="section section--fog cta">
+    <div class="container">
+      <h2>Want these when they're published?</h2>
+      <p>Drop us your email and we'll send each article the moment it's ready.</p>
+      <!-- PLACEHOLDER: replace with your real email address when ready -->
+      <a class="btn" href="mailto:hello@caniagentit.com">Get the articles first →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="contact.html">Book a call</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

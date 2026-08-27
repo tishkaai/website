@@ -1,0 +1,15 @@
+# macOS noise
+.DS_Store
+
+# Claude cache (machine-specific)
+.claude/
+
+# Throwaway HTML exports / mockups (not part of the live site)
+Qwen_html_*.html
+grokbot.html
+hostinger.html
+
+# Internal vault docs — NOT part of the live site. Keep out of the repo.
+*.md
+chat-test.html
+resource/

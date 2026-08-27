@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tishka AI — Book a Diagnostic</title>
+<meta name="description" content="Book a free diagnostic. Tell us about your business and we'll find where AI can transform it — no pitch, no pressure.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0a0a;
+    --bg-card: #111111;
+    --bg-elevated: #1a1a1a;
+    --border: #2a2a2a;
+    --text: #f5f5f5;
+    --text-muted: #a1a1a1;
+    --accent: #ffffff;
+    --green: #22c55e;
+    --blue: #3b82f6;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { display: inline-flex; align-items: center; }
+  .logo img { height: 28px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 28px; font-size: 0.9rem; color: var(--text-muted); }
+  .nav-links a:hover { color: var(--text); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 10px 18px; border-radius: 9999px; font-size: 0.9rem;
+    font-weight: 500; transition: all 0.15s ease; cursor: pointer; border: none;
+  }
+  .btn-primary { background: white; color: black; }
+  .btn-primary:hover { background: #e5e5e5; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-outline:hover { background: var(--bg-elevated); }
+
+  /* Intro + Form split */
+  .split { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; padding: 80px 0 40px; }
+  .intro-text { position: sticky; top: 96px; }
+  .intro-eyebrow {
+    font-size: 0.95rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;
+  }
+  .intro-text h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 650;
+    letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 24px;
+  }
+  .intro-text p { font-size: 1.25rem; color: var(--text-muted); max-width: 560px; line-height: 1.55; }
+  .intro-text p + p { margin-top: 20px; }
+
+  /* Form */
+  .form-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 40px 32px;
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 0.9rem; font-weight: 550; color: var(--text); }
+  input, select, textarea {
+    width: 100%;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+    color: var(--text); font-size: 0.95rem; padding: 12px 14px;
+    font-family: inherit; transition: border-color 0.15s ease;
+  }
+  input::placeholder, textarea::placeholder { color: var(--text-muted); }
+  input:focus, select:focus, textarea:focus {
+    outline: none; border-color: var(--accent);
+  }
+  select { appearance: none; -webkit-appearance: none; cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a1a1a1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center;
+    padding-right: 40px;
+  }
+  select option { background: var(--bg-card); color: var(--text); }
+  textarea { min-height: 140px; resize: vertical; }
+  .form-submit { grid-column: 1 / -1; margin-top: 8px; }
+
+  /* Footer */
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; margin-top: 60px; font-size: 0.9rem; color: var(--text-muted); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: 24px; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-links a:hover { color: var(--text); }
+  .footer-cta { color: var(--text); }
+
+  /* Form feedback states */
+  .form-message {
+    border-radius: 12px; padding: 20px 22px; font-size: 1rem; line-height: 1.5;
+    display: none;
+  }
+  .form-message.success { background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.3); color: var(--text); }
+  .form-message.error { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3); color: var(--text); }
+  .form-message a { color: var(--text); text-decoration: underline; }
+  .form-submit .btn { transition: opacity 0.15s ease; }
+  .form-submit .btn.is-sending { opacity: 0.6; pointer-events: none; }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .split { grid-template-columns: 1fr; gap: 40px; padding-top: 48px; }
+    .intro-text { position: static; }
+    .form-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo"><img src="assets/Tishka_AI.svg" alt="Tishka AI" height="28"></a>
+      <a href="#book" class="btn btn-primary">Book Diagnostic</a>
+    </div>
+  </header>
+
+  <!-- Intro (left) + Form (right) -->
+  <section id="book">
+    <div class="container split">
+      <div class="intro-text">
+        <p class="intro-eyebrow">Work With Us</p>
+        <h1>Ready to transform your business with AI?</h1>
+        <p>We help companies unlock real operational efficiency by identifying where AI and software can drive measurable impact and then building and implementing those solutions end-to-end. If you're looking for a partner who can cut through the noise and deliver AI that actually moves the needle, let's talk.</p>
+      </div>
+      <div class="form-card">
+        <!-- Manual lead capture (no n8n, no server): FormSubmit.co emails the details to Pete,
+             then redirects the visitor to Cal.com to book the diagnostic. -->
+        <div id="form-success" class="form-message success" role="status" aria-live="polite">
+          Thanks — you'll be taken to the booking page to pick a time for your free diagnostic.
+        </div>
+        <div id="form-error" class="form-message error" role="alert" aria-live="polite">
+          Something went wrong sending your details. Please try again, or email Pete directly at <a href="mailto:pete@tishka.ai">pete@tishka.ai</a>.
+        </div>
+        <form id="book-diagnostic-form" action="https://formsubmit.co/pete@tishka.ai" method="POST">
+          <!-- FormSubmit.co config -->
+          <input type="hidden" name="_subject" value="New diagnostic lead — Tishka AI">
+          <input type="hidden" name="_next" value="https://cal.com/tishka/30min?user=tishka&overlayCalendar=true">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="first-name">First Name</label>
+              <input id="first-name" name="first-name" type="text" required>
+            </div>
+            <div class="form-group">
+              <label for="last-name">Last Name</label>
+              <input id="last-name" name="last-name" type="text" required>
+            </div>
+            <div class="form-group">
+              <label for="work-email">Work Email</label>
+              <input id="work-email" name="work-email" type="email" placeholder="you@company.com" required>
+            </div>
+            <div class="form-group">
+              <label for="company">Company</label>
+              <input id="company" name="company" type="text">
+            </div>
+            <div class="form-group">
+              <label for="website">Company Website</label>
+              <input id="website" name="website" type="url" placeholder="https://...">
+            </div>
+            <div class="form-group">
+              <label for="role">Your Role</label>
+              <select id="role" name="role">
+                <option value="" disabled selected>Select your role</option>
+                <option>CEO / Founder</option>
+                <option>COO / Head of Operations</option>
+                <option>CFO / Finance Lead</option>
+                <option>CIO / CTO / Head of Data</option>
+                <option>VP / Director</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="size">Company Size</label>
+              <select id="size" name="size">
+                <option value="" disabled selected>Number of employees</option>
+                <option>1 - 50</option>
+                <option>50 - 100</option>
+                <option>100 - 500</option>
+                <option>500+</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="budget">Budget Range</label>
+              <select id="budget" name="budget">
+                <option value="" disabled selected>Select a range</option>
+                <option>$15K - $50K</option>
+                <option>$50K - $150K</option>
+                <option>$150K - $500K</option>
+                <option>Not Sure Yet</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="project">Tell Us About Your Project</label>
+              <textarea id="project" name="project" placeholder="What challenges are you facing? What does success look like for your business?"></textarea>
+            </div>
+            <div class="form-group full form-submit">
+              <button type="submit" class="btn btn-primary" style="width:100%; padding:14px 18px; font-size:1rem;">Book a free diagnostic &rarr;</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <div>TISHKA AI &copy; 2026</div>
+        <div class="footer-links">
+          <a href="terms.html">Terms &amp; Conditions</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a class="footer-cta" href="contact.html">Book a Diagnostic</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // Lead capture is handled by FormSubmit.co (native form POST — no JS needed).
+  // On success the visitor is redirected to the Cal.com booking page (_next field above).
+  // Pete receives the lead details by email. No n8n, no server.
+  </script>
+
+</body>
+</html>

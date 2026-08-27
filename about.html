@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Tishka AI</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0a0a;
+    --bg-card: #111111;
+    --bg-elevated: #1a1a1a;
+    --border: #2a2a2a;
+    --text: #f5f5f5;
+    --text-muted: #a1a1a1;
+    --accent: #ffffff;
+    --green: #22c55e;
+    --blue: #3b82f6;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { display: inline-flex; align-items: center; }
+  .logo img { height: 28px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 28px; font-size: 0.9rem; color: var(--text-muted); }
+  .nav-links a:hover { color: var(--text); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 10px 18px; border-radius: 9999px; font-size: 0.9rem;
+    font-weight: 500; transition: all 0.15s ease; cursor: pointer; border: none;
+  }
+  .btn-primary { background: white; color: black; }
+  .btn-primary:hover { background: #e5e5e5; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-outline:hover { background: var(--bg-elevated); }
+
+  /* Content */
+  .about-hero { padding: 100px 0 60px; text-align: center; }
+  h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 650;
+    letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 20px;
+  }
+  .about-sub { font-size: 1.25rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 60px; }
+
+  .content-section { max-width: 760px; margin: 0 auto 80px; }
+  .content-section p { 
+    font-size: 1.15rem; 
+    color: var(--text-muted); 
+    margin-bottom: 24px; 
+    line-height: 1.7;
+  }
+  .content-section p strong { color: var(--text); }
+
+  .linkedin-cta { 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 12px; 
+    padding: 16px 24px; 
+    background: var(--bg-elevated); 
+    border: 1px solid var(--border); 
+    border-radius: 12px; 
+    font-weight: 500; 
+    transition: all 0.2s ease;
+  }
+  .linkedin-cta:hover { border-color: var(--text-muted); background: #222; }
+
+  /* Footer */
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; margin-top: 60px; font-size: 0.9rem; color: var(--text-muted); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: 24px; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-links a:hover { color: var(--text); }
+  .footer-cta { color: var(--text); }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .about-hero { padding-top: 60px; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo"><img src="assets/Tishka_AI.svg" alt="Tishka AI" height="28"></a>
+      <div class="nav-links">
+        <a href="about.html" style="color: var(--text);">About</a>
+      </div>
+      <a href="contact.html" class="btn btn-primary">Book Diagnostic</a>
+    </div>
+  </header>
+
+  <section class="about-hero">
+    <div class="container">
+      <h1>Expertise in AI.<br>Rooted in operations.</h1>
+      <p class="about-sub">Bridging the gap between sophisticated AI capabilities and the practical, day-to-day reality of running a business.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="content-section">
+      <p>I’ve spent over 25 years building technology that drives business results. My perspective is rooted in the reality of running a company.</p>
+      
+      <p>As the founder of a digital agency for two decades and the creator of a B2B SaaS product sold across the UK and USA, I’ve lived the daily challenges business owners face—the operational friction, the repetitive admin, and the constant struggle to scale without burning out.</p>
+      
+      <p>Beyond entrepreneurship, I specialise in making complex AI usable. I spent nearly five years as a Senior UI/UX Designer at TES Global, where I led the design of AI-powered software used by millions, translating sophisticated ML capabilities into intuitive, high-impact tools.</p>
+      
+      <p><strong>Tishka AI is the result of this journey.</strong> I combine deep technical expertise in AI implementation with a founder’s understanding of operations to help small teams stop losing time and start seeing results.</p>
+
+      <div style="margin-top: 40px;">
+        <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" class="linkedin-cta">
+          View professional history on LinkedIn &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <div>TISHKA AI &copy; 2026</div>
+        <div class="footer-links">
+          <a href="terms.html">Terms &amp; Conditions</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a class="footer-cta" href="contact.html">Book a Diagnostic</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="chat-widget.js"></script>
+</body>
+</html>
