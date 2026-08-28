@@ -15,12 +15,12 @@
   'use strict';
 
   // ─────────────────────────────────────────────────────────────
-  // CONFIG — edit here. Flip webhook URLs to https://tishka.ai/... at go-live.
+  // CONFIG — edit here. Live webhooks point at the PikaPods n8n instance.
   // ─────────────────────────────────────────────────────────────
   const CONFIG = {
-    enabled:           false,   // HIDDEN for now — set true to show the chat bubble again
-    webhookUrl:      'http://localhost:5678/webhook/chat',        // n8n chat endpoint (local test)
-    emailWebhookUrl: 'http://localhost:5678/webhook/chat-email',  // email capture endpoint (Phase 4 — see note)
+    enabled:           true,    // LIVE — chat bubble shown
+    webhookUrl:      'https://armored-perch.pikapod.net/webhook/chat',        // n8n chat endpoint (live PikaPods)
+    emailWebhookUrl: 'https://armored-perch.pikapod.net/webhook/chat-email',  // email capture endpoint (live PikaPods)
     botName:         'Tishka AI',
     greeting:        "Hi! I'm Tishka's AI assistant. Ask me anything about our services, pricing, or how it works.",
     maxHistory: 10,    // past messages sent to the webhook for context
