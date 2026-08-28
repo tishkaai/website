@@ -22,7 +22,7 @@
     webhookUrl:      'https://armored-perch.pikapod.net/webhook/chat',        // n8n chat endpoint (live PikaPods)
     emailWebhookUrl: 'https://armored-perch.pikapod.net/webhook/chat-email',  // email capture endpoint (live PikaPods)
     botName:         'Tishka AI',
-    greeting:        "Hi! I'm Tishka's AI assistant. Ask me anything about our services, pricing, or how it works.",
+    greeting:        "Hi! I'm Tishka's AI assistant. Ask me anything about our services or how we work.",
     maxHistory: 10,    // past messages sent to the webhook for context
     timeout:    30000, // ms before showing the connection error (Ollama can be slow on follow-ups)
   };
