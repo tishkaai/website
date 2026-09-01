@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free AI Audit — Tishka AI</title>
-<meta name="description" content="5 minutes. We'll identify your highest-ROI automation opportunities and deliver a custom report.">
+<title>Does Your Business Need AI? — Free Assessment | Tishka AI</title>
+<meta name="description" content="Answer a few questions about how your business runs. Get an honest verdict on whether AI is worth it for you, where your bottlenecks are, and how many hours a week you could get back.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Playdate design tokens */
+    /* Playdate design tokens (shared with the rest of the site) */
     --color-sunbeam-yellow: #ffc500;
     --color-electric-violet: #7700ff;
     --color-carbon: #312f27;
@@ -27,8 +27,6 @@
     --text-subheading: 24px;
     --text-heading: 34px;
     --text-heading-lg: 40px;
-    --text-display: 51px;
-    --text-hero: 68px;
 
     --spacing-12: 12px;
     --spacing-20: 20px;
@@ -37,7 +35,6 @@
     --spacing-40: 40px;
     --spacing-60: 60px;
     --spacing-100: 100px;
-    --spacing-120: 120px;
 
     --radius-cards: 2.85px;
     --radius-buttons: 28.5px;
@@ -48,32 +45,19 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
     font-family: var(--font-roobert);
     color: var(--color-carbon);
     background: var(--color-paper-white);
-    line-height: 1.3;
+    line-height: 1.35;
     letter-spacing: -0.007em;
     -webkit-font-smoothing: antialiased;
   }
 
-  img { max-width: 100%; display: block; }
-
-  .container {
-    max-width: var(--page-max-width);
-    margin: 0 auto;
-    padding: 0 var(--spacing-24);
-  }
-
-  /* ---------- Navigation ---------- */
-  .nav {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    z-index: 10;
-  }
+  /* ---------- Navigation (same as site) ---------- */
+  .nav { position: absolute; top: 0; left: 0; right: 0; z-index: 10; }
   .nav-inner {
     max-width: var(--page-max-width);
     margin: 0 auto;
@@ -83,11 +67,7 @@
     justify-content: space-between;
   }
   .nav-left { display: flex; align-items: center; gap: var(--spacing-28); }
-  .nav-brand {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-  }
+  .nav-brand { display: inline-flex; align-items: center; text-decoration: none; }
   .nav-brand img { height: 28px; width: auto; display: block; }
   .nav-links { display: flex; gap: var(--spacing-24); }
   .nav-links a {
@@ -112,44 +92,190 @@
   /* ---------- Hero ---------- */
   .hero {
     background: var(--color-sunbeam-yellow);
-    padding: var(--spacing-120) 0 var(--spacing-100);
+    padding: var(--spacing-100) 0 var(--spacing-60);
     text-align: center;
   }
   .hero h1 {
-    font-size: var(--text-hero);
-    font-weight: 800;
-    line-height: 1.0;
-    color: var(--color-carbon);
-    letter-spacing: -0.48px;
-    margin-bottom: var(--spacing-40);
-  }
-  .hero-tagline {
     font-size: var(--text-heading-lg);
-    font-weight: 700;
+    font-weight: 800;
+    line-height: 1.05;
     color: var(--color-carbon);
+    letter-spacing: -0.4px;
     margin-bottom: var(--spacing-20);
   }
   .hero-sub {
     font-size: var(--text-body);
     color: var(--color-carbon);
-    max-width: 640px;
-    margin: 0 auto var(--spacing-40);
+    max-width: 620px;
+    margin: 0 auto;
   }
-  .hero .btn { margin-bottom: var(--spacing-20); }
-  .hero-link {
-    display: block;
+  .hero-trust {
+    margin-top: var(--spacing-20);
     font-size: var(--text-caption);
     font-weight: 700;
     color: var(--color-carbon);
+    opacity: 0.75;
   }
+
+  /* ---------- Chat ---------- */
+  .container {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-24);
+  }
+
+  .chat-section { background: var(--color-paper-white); padding: var(--spacing-60) 0 var(--spacing-100); }
+  .chat-shell {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-24);
+  }
+  .chat-card {
+    background: var(--color-paper-white);
+    border: 2px solid var(--color-carbon);
+    border-radius: var(--radius-cards);
+    box-shadow: 6px 6px 0 var(--color-carbon);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .chat-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    background: var(--color-carbon);
+    color: var(--color-paper-white);
+  }
+  .chat-head-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--color-sunbeam-yellow); flex: none; }
+  .chat-head-title { font-weight: 800; font-size: 17px; }
+  .chat-head-hint { margin-left: auto; font-size: 14px; font-weight: 700; opacity: 0.7; }
+
+  .chat-log {
+    padding: var(--spacing-20);
+    min-height: 320px;
+    max-height: 52vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: var(--color-fog);
+  }
+  .msg { display: flex; }
+  .msg--user { justify-content: flex-end; }
+  .msg-bubble {
+    max-width: 82%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 17px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .msg--bot .msg-bubble { background: var(--color-paper-white); border: 1.5px solid var(--color-ash); border-bottom-left-radius: 4px; }
+  .msg--user .msg-bubble { background: var(--color-electric-violet); color: var(--color-paper-white); border-bottom-right-radius: 4px; }
+  .msg--system .msg-bubble {
+    background: var(--color-sunbeam-yellow);
+    border: 1px solid var(--color-carbon);
+    font-size: 16px;
+    max-width: 100%;
+  }
+
+  .typing { display: none; align-items: center; gap: 6px; padding: 4px 6px; }
+  .typing.is-visible { display: flex; }
+  .typing span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--color-ash);
+    animation: bounce 1.2s infinite;
+  }
+  .typing span:nth-child(2) { animation-delay: 0.15s; }
+  .typing span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-5px); opacity: 1; } }
+
+  .chips { display: none; flex-wrap: wrap; gap: 8px; padding: 0 var(--spacing-20) 12px; background: var(--color-fog); }
+  .chips.is-visible { display: flex; }
+  .chip {
+    background: var(--color-paper-white);
+    border: 1.5px solid var(--color-carbon);
+    border-radius: 22px;
+    padding: 7px 14px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: var(--font-roobert);
+    color: var(--color-carbon);
+    cursor: pointer;
+  }
+  .chip:hover { background: var(--color-sunbeam-yellow); }
+  .chip.is-selected { background: var(--color-electric-violet); color: var(--color-paper-white); border-color: var(--color-electric-violet); }
+
+  .composer { display: flex; gap: 10px; padding: var(--spacing-20); background: var(--color-paper-white); border-top: 1px solid var(--color-fog); }
+  .composer input {
+    flex: 1;
+    font-family: var(--font-roobert);
+    font-size: 18px;
+    padding: 13px 16px;
+    border: 2px solid var(--color-ash);
+    border-radius: var(--radius-inputs, 6px);
+    color: var(--color-carbon);
+    outline: none;
+  }
+  .composer input:focus { border-color: var(--color-electric-violet); }
+  .composer button { flex: none; }
+
+  .gate { display: none; padding: var(--spacing-20); background: var(--color-fog); border-top: 2px solid var(--color-sunbeam-yellow); }
+  .gate.is-visible { display: block; }
+  .gate h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+  .gate p { font-size: 16px; color: var(--color-carbon); margin-bottom: var(--spacing-12); }
+  .gate-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .gate input {
+    flex: 1;
+    min-width: 200px;
+    font-family: var(--font-roobert);
+    font-size: 17px;
+    padding: 12px 14px;
+    border: 2px solid var(--color-ash);
+    border-radius: var(--radius-inputs, 6px);
+    outline: none;
+  }
+  .gate input:focus { border-color: var(--color-electric-violet); }
+  .gate-error { display: none; color: #c22; font-size: 15px; font-weight: 700; margin-top: 8px; }
+  .gate-error.is-visible { display: block; }
+
+  .report { display: none; background: var(--color-paper-white); padding: var(--spacing-60) 0 var(--spacing-100); }
+  .report.is-visible { display: block; }
+  .report-card {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--spacing-24);
+    border: 2px solid var(--color-carbon);
+    border-radius: var(--radius-cards);
+    box-shadow: 6px 6px 0 var(--color-sunbeam-yellow);
+  }
+  .report h2 { font-size: var(--text-heading); font-weight: 800; margin-bottom: var(--spacing-12); }
+  .report-md h1, .report-md h2 { font-size: 26px; font-weight: 800; margin: 24px 0 10px; }
+  .report-md h3 { font-size: 21px; font-weight: 800; margin: 18px 0 8px; }
+  .report-md p, .report-md li { font-size: 18px; margin-bottom: 10px; }
+  .report-md ul, .report-md ol { padding-left: 22px; margin-bottom: 14px; }
+  .report-cta { margin-top: var(--spacing-24); text-align: center; }
+  .report-cta-sub { display: block; margin-top: 10px; font-size: 15px; color: var(--color-slate-gray); }
+
+  .footer {
+    background: var(--color-carbon);
+    color: var(--color-paper-white);
+    text-align: center;
+    padding: var(--spacing-28) var(--spacing-24);
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .footer a { color: var(--color-sunbeam-yellow); }
 
   .btn {
     display: inline-block;
     background: var(--color-electric-violet);
     color: var(--color-paper-white);
     font-weight: 700;
-    font-size: 21px;
-    padding: 14px 28px;
+    font-size: 19px;
+    padding: 13px 26px;
     border-radius: var(--radius-buttons);
     text-decoration: none;
     border: none;
@@ -159,206 +285,16 @@
     letter-spacing: -0.007em;
   }
   .btn:hover { background: #5c00cc; }
-  .btn--ghost {
-    background: transparent;
-    color: var(--color-carbon);
-    box-shadow: none;
-    border: 2px solid var(--color-carbon);
-    padding: 12px 26px;
-  }
-  .btn--ghost:hover { background: rgba(0,0,0,0.05); }
+  .btn[disabled] { opacity: 0.5; cursor: wait; }
 
-  /* ---------- Sections ---------- */
-  .section { padding: var(--spacing-100) 0; }
-  .section--white { background: var(--color-paper-white); }
-  .section--yellow { background: var(--color-sunbeam-yellow); }
-  .section--fog { background: var(--color-fog); }
-
-  .section-inner { max-width: 640px; margin: 0 auto; }
-
-  .eyebrow {
-    font-size: var(--text-caption);
-    font-weight: 700;
-    color: var(--color-electric-violet);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    margin-bottom: var(--spacing-12);
-  }
-  .section h2 {
-    font-size: var(--text-heading-lg);
-    font-weight: 800;
-    line-height: 1.1;
-    color: var(--color-carbon);
-    margin-bottom: var(--spacing-24);
-  }
-  .section p {
-    font-size: var(--text-body);
-    color: var(--color-carbon);
-    margin-bottom: var(--spacing-20);
-  }
-
-  /* ---------- Form ---------- */
-  .form-card {
-    background: var(--color-paper-white);
-    border-radius: var(--radius-cards);
-    padding: var(--spacing-40);
-  }
-  .form-step { display: none; }
-  .form-step.is-active { display: block; }
-
-  .field-group { margin-bottom: var(--spacing-28); }
-  .field-group label,
-  .field-label {
-    display: block;
-    font-size: var(--text-subheading);
-    font-weight: 800;
-    color: var(--color-carbon);
-    margin-bottom: var(--spacing-12);
-  }
-  .field-hint {
-    font-size: var(--text-caption);
-    color: var(--color-carbon);
-    opacity: 0.7;
-    margin-top: var(--spacing-12);
-  }
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="url"],
-  select {
-    width: 100%;
-    background: var(--color-fog);
-    border: 1px solid var(--color-ash);
-    border-radius: var(--radius-inputs);
-    padding: 12px 16px;
-    font-size: 21px;
-    font-family: var(--font-roobert);
-    color: var(--color-carbon);
-    letter-spacing: -0.007em;
-  }
-  input:focus, select:focus {
-    outline: 2px solid var(--color-electric-violet);
-    outline-offset: 0;
-    border-color: transparent;
-  }
-
-  /* checkboxes */
-  .check-list { list-style: none; }
-  .check-list li { border-bottom: 1px solid var(--color-fog); }
-  .check-list li:last-child { border-bottom: none; }
-  .check-list label {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--spacing-20);
-    padding: var(--spacing-20) 0;
-    font-size: var(--text-body);
-    font-weight: 400;
-    cursor: pointer;
-  }
-  .check-list input[type="checkbox"] {
-    width: 24px;
-    height: 24px;
-    margin-top: 3px;
-    accent-color: var(--color-electric-violet);
-    flex-shrink: 0;
-  }
-
-  /* radios */
-  .radio-list { list-style: none; }
-  .radio-list li { border-bottom: 1px solid var(--color-fog); }
-  .radio-list li:last-child { border-bottom: none; }
-  .radio-list label {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--spacing-20);
-    padding: var(--spacing-20) 0;
-    font-size: var(--text-body);
-    font-weight: 400;
-    cursor: pointer;
-  }
-  .radio-list input[type="radio"] {
-    width: 22px;
-    height: 22px;
-    margin-top: 3px;
-    accent-color: var(--color-electric-violet);
-    flex-shrink: 0;
-  }
-
-  .form-nav {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--spacing-20);
-    margin-top: var(--spacing-40);
-  }
-
-  .conditional { display: none; }
-  .conditional.is-visible { display: block; }
-
-  .error-msg {
-    color: #c00;
-    font-size: var(--text-caption);
-    font-weight: 700;
-    margin-top: var(--spacing-20);
-    display: none;
-  }
-  .error-msg.is-visible { display: block; }
-
-  /* ---------- Success ---------- */
-  .success { text-align: center; display: none; }
-  .success.is-visible { display: block; }
-  .success h2 { margin-bottom: var(--spacing-20); }
-  .success p { max-width: 640px; margin: 0 auto var(--spacing-40); }
-
-  /* ---------- Steps indicator ---------- */
-  .progress { display: flex; justify-content: center; gap: var(--spacing-12); margin-bottom: var(--spacing-40); }
-  .progress-dot {
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    background: var(--color-ash);
-  }
-  .progress-dot.is-current { background: var(--color-electric-violet); }
-  .progress-dot.is-done { background: var(--color-carbon); }
-
-  /* ---------- CTA ---------- */
-  .cta { text-align: center; }
-  .cta h2 { margin-bottom: var(--spacing-20); }
-  .cta p { max-width: 640px; margin: 0 auto var(--spacing-40); }
-
-  /* ---------- Footer ---------- */
-  .footer {
-    background: var(--color-carbon);
-    color: var(--color-paper-white);
-    padding: var(--spacing-60) 0;
-  }
-  .footer-inner {
-    max-width: var(--page-max-width);
-    margin: 0 auto;
-    padding: 0 var(--spacing-24);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-24);
-    align-items: center;
-    justify-content: space-between;
-  }
-  .footer p { font-size: var(--text-caption); color: var(--color-paper-white); }
-  .footer a {
-    color: var(--color-paper-white);
-    font-size: var(--text-caption);
-    font-weight: 700;
-    text-decoration: none;
-    margin-left: var(--spacing-24);
-  }
-  .footer a:hover { text-decoration: underline; }
-
-  /* ---------- Responsive ---------- */
-  @media (max-width: 768px) {
-    .hero h1 { font-size: 44px; }
-    .hero-tagline { font-size: 28px; }
-    .section h2 { font-size: 30px; }
-    .section { padding: var(--spacing-60) 0; }
-    .hero { padding: var(--spacing-100) 0 var(--spacing-60); }
+  @media (max-width: 640px) {
     .nav-links { display: none; }
-    .form-card { padding: var(--spacing-24); }
+    .hero { padding: 88px 0 40px; }
+    .hero h1 { font-size: 30px; }
+    .hero-sub { font-size: 18px; }
+    .chat-log { max-height: 56vh; }
+    .msg-bubble { font-size: 16px; }
+    .btn { width: 100%; text-align: center; }
   }
 </style>
 </head>
@@ -382,338 +318,351 @@
   </nav>
 
   <!-- Hero -->
-  <header class="hero" id="top">
+  <header class="hero">
     <div class="container">
-      <h1>Get your free AI audit</h1>
-      <p class="hero-tagline">5 minutes.</p>
-      <p class="hero-sub">We'll identify your highest-ROI automation opportunities and deliver a custom report.</p>
-      <a class="hero-link" href="contact.html">Prefer to talk? Book a call instead →</a>
+      <h1>Does your business actually need AI?</h1>
+      <p class="hero-sub">Answer a few honest questions about how your business runs. We'll tell you where you're losing hours — or tell you plainly that AI isn't worth your money yet.</p>
+      <p class="hero-trust">Straight answers, no pitch. If it's a no, we'll say no.</p>
     </div>
   </header>
 
-  <!-- Audit form -->
-  <section class="section section--white" id="form">
-    <div class="container">
-      <div class="section-inner">
-
-        <form id="audit-form" novalidate>
-
-          <!-- Progress indicator -->
-          <div class="progress" aria-hidden="true">
-            <span class="progress-dot is-current" data-dot="0"></span>
-            <span class="progress-dot" data-dot="1"></span>
-            <span class="progress-dot" data-dot="2"></span>
-            <span class="progress-dot" data-dot="3"></span>
-            <span class="progress-dot" data-dot="4"></span>
+  <!-- Assessment chat -->
+  <section class="chat-section">
+    <div class="chat-shell" id="chat-panel">
+      <div class="chat-card" id="chat">
+          <div class="chat-head">
+            <span class="chat-head-dot"></span>
+            <span class="chat-head-title">Tishka Assessor</span>
+            <span class="chat-head-hint" id="progress-hint">about 2 minutes</span>
           </div>
-
-          <!-- Step 1: About You -->
-          <div class="form-step is-active" data-step="0">
-            <div class="field-group">
-              <label for="full-name">Full name <span style="opacity:.6">(required)</span></label>
-              <input type="text" id="full-name" name="full_name" autocomplete="name">
-            </div>
-            <div class="field-group">
-              <label for="work-email">Work email <span style="opacity:.6">(required)</span></label>
-              <input type="email" id="work-email" name="work_email" autocomplete="email">
-            </div>
-            <div class="field-group">
-              <label for="phone">Phone number</label>
-              <input type="tel" id="phone" name="phone" autocomplete="tel">
-            </div>
-            <div class="field-group">
-              <label for="company">Company name</label>
-              <input type="text" id="company" name="company" autocomplete="organization">
-            </div>
-            <div class="field-group">
-              <label for="website">Website URL <span style="opacity:.6">(optional)</span></label>
-              <input type="url" id="website" name="website" placeholder="https://">
-            </div>
-            <div class="form-nav">
-              <span></span>
-              <button type="button" class="btn" data-next>Next →</button>
-            </div>
+          <div class="chat-log" id="chat-log" aria-live="polite"></div>
+          <div class="chips" id="chips"></div>
+          <div class="composer" id="composer">
+            <input type="text" id="chat-input" placeholder="Type your answer…" autocomplete="off">
+            <button class="btn" id="send-btn" type="button">Send</button>
           </div>
-
-          <!-- Step 2: Your Business -->
-          <div class="form-step" data-step="1">
-            <div class="field-group">
-              <label for="industry">Industry <span style="opacity:.6">(required)</span></label>
-              <select id="industry" name="industry">
-                <option value="">Select your industry…</option>
-                <option>Accounting & Bookkeeping</option>
-                <option>Building & Construction</option>
-                <option>Consulting (Management, Strategy, Operations)</option>
-                <option>Electrical</option>
-                <option>Landscaping & Groundworks</option>
-                <option>Marketing & Creative Agency</option>
-                <option>Plumbing & Heating</option>
-                <option>Roofing</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="field-group">
-              <label for="industry-other">If other, what?</label>
-              <input type="text" id="industry-other" name="industry_other">
-            </div>
-            <div class="field-group">
-              <label for="revenue">Revenue range</label>
-              <select id="revenue" name="revenue">
-                <option value="">Select a range…</option>
-                <option>Under £50K</option>
-                <option>£50K–£100K</option>
-                <option>£100K–£250K</option>
-                <option>£250K–£500K</option>
-                <option>£500K–£1M</option>
-                <option>£1M+</option>
-              </select>
-            </div>
-            <div class="field-group">
-              <label for="team-size">Team size <span style="opacity:.6">(required)</span></label>
-              <select id="team-size" name="team_size">
-                <option value="">Select a size…</option>
-                <option>Just me</option>
-                <option>2–5</option>
-                <option>6–10</option>
-                <option>11–20</option>
-                <option>20+</option>
-              </select>
-            </div>
-            <div class="field-group">
-              <label for="role">Your role</label>
-              <select id="role" name="role">
-                <option value="">Select a role…</option>
-                <option>Owner / Founder</option>
-                <option>Director</option>
-                <option>Operations Manager</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="field-group">
-              <label for="role-other">If other, what?</label>
-              <input type="text" id="role-other" name="role_other">
-            </div>
-            <div class="form-nav">
-              <button type="button" class="btn btn--ghost" data-prev>← Back</button>
-              <button type="button" class="btn" data-next>Next →</button>
-            </div>
+          <div class="gate" id="gate">
+            <h3>That's the quick scan done</h3>
+            <p>Want the full report — where your hours actually go, what to automate first, and what it would honestly save you? Pop your details in and we'll keep going.</p>
+            <form id="gate-form" novalidate>
+              <div class="gate-form-row">
+                <input type="text" id="gate-name" placeholder="Your name" autocomplete="name">
+                <input type="email" id="gate-email" placeholder="Work email" autocomplete="email">
+                <button class="btn" type="submit" id="gate-btn">Get my report</button>
+              </div>
+              <div class="gate-error" id="gate-error"></div>
+            </form>
           </div>
-
-          <!-- Step 3: Challenges -->
-          <div class="form-step" data-step="2">
-            <p class="field-label" style="margin-bottom:0">Select all that apply: <span style="opacity:.6">(at least one required)</span></p>
-            <ul class="check-list" id="challenges">
-              <li><label><input type="checkbox" name="challenge" value="Quoting & Proposals"><span>Quoting & Proposals — takes too long, losing jobs to faster competitors</span></label></li>
-              <li><label><input type="checkbox" name="challenge" value="Lead Follow-up"><span>Lead Follow-up — enquiries go cold while I'm busy</span></label></li>
-              <li><label><input type="checkbox" name="challenge" value="Invoicing & Payments"><span>Invoicing & Payments — slow to invoice, slower to get paid</span></label></li>
-              <li><label><input type="checkbox" name="challenge" value="Client Updates & Comms"><span>Client Updates & Comms — "when are you starting?" calls eat my day</span></label></li>
-              <li><label><input type="checkbox" name="challenge" value="Scheduling & Job Tracking"><span>Scheduling & Job Tracking — who's doing what, when, and where</span></label></li>
-              <li><label><input type="checkbox" name="challenge" value="Reporting & Visibility"><span>Reporting & Visibility — don't know what's profitable or what's coming in</span></label></li>
-              <li><label><input type="checkbox" name="challenge" value="Phone Calls & Reception"><span>Phone Calls & Reception — missing calls, no time to answer</span></label></li>
-              <li><label><input type="checkbox" name="challenge" value="Data Entry"><span>Data Entry — typing the same thing into multiple systems</span></label></li>
-              <li><label><input type="checkbox" name="challenge" value="Email Overload"><span>Email Overload — drowning in inbox, things get missed</span></label></li>
-              <li><label><input type="checkbox" name="challenge" value="Supplier Ordering"><span>Supplier Ordering — materials not ordered on time, crew waiting</span></label></li>
-              <li><label><input type="checkbox" name="challenge" value="Compliance & Certificates"><span>Compliance & Certificates — tracking what needs renewing</span></label></li>
-              <li><label><input type="checkbox" name="challenge" value="Other"><span>Other</span></label></li>
-            </ul>
-            <div class="field-group conditional" id="challenge-other-wrap">
-              <label for="challenge-other">What's the other challenge?</label>
-              <input type="text" id="challenge-other" name="challenge_other">
-            </div>
-            <div class="form-nav">
-              <button type="button" class="btn btn--ghost" data-prev>← Back</button>
-              <button type="button" class="btn" data-next>Next →</button>
-            </div>
-          </div>
-
-          <!-- Step 4: Current Tools -->
-          <div class="form-step" data-step="3">
-            <div class="field-group">
-              <label for="crm">CRM</label>
-              <input type="text" id="crm" name="crm" placeholder="e.g. HubSpot, Salesforce, none">
-            </div>
-            <div class="field-group">
-              <label for="accounting">Accounting software</label>
-              <input type="text" id="accounting" name="accounting" placeholder="e.g. Xero, QuickBooks, FreeAgent">
-            </div>
-            <div class="field-group">
-              <label for="email-platform">Email platform</label>
-              <input type="text" id="email-platform" name="email_platform" placeholder="e.g. Gmail, Outlook">
-            </div>
-            <div class="field-group">
-              <label for="job-mgmt">Job management</label>
-              <input type="text" id="job-mgmt" name="job_mgmt" placeholder="e.g. Tradify, Jobber, none">
-            </div>
-            <div class="field-group">
-              <label for="scheduling">Scheduling tool</label>
-              <input type="text" id="scheduling" name="scheduling" placeholder="e.g. Calendly, none">
-            </div>
-            <div class="field-group">
-              <p class="field-label">Any automation currently?</p>
-              <ul class="radio-list">
-                <li><label><input type="radio" name="has_automation" value="Yes"><span>Yes</span></label></li>
-                <li><label><input type="radio" name="has_automation" value="No"><span>No</span></label></li>
-              </ul>
-            </div>
-            <div class="field-group conditional" id="automation-detail-wrap">
-              <label for="automation-detail">If yes, what?</label>
-              <input type="text" id="automation-detail" name="automation_detail" placeholder="What are you already automating?">
-            </div>
-            <div class="field-group">
-              <label for="tool-spend">Current monthly spend on tools</label>
-              <select id="tool-spend" name="tool_spend">
-                <option value="">Select a range…</option>
-                <option>Under £50</option>
-                <option>£50–£150</option>
-                <option>£150–£300</option>
-                <option>£300–£500</option>
-                <option>£500+</option>
-              </select>
-            </div>
-            <div class="form-nav">
-              <button type="button" class="btn btn--ghost" data-prev>← Back</button>
-              <button type="button" class="btn" data-next>Next →</button>
-            </div>
-          </div>
-
-          <!-- Step 5: Readiness -->
-          <div class="form-step" data-step="4">
-            <div class="field-group">
-              <p class="field-label">Timeline</p>
-              <ul class="radio-list">
-                <li><label><input type="radio" name="timeline" value="Ready to start within a month"><span>Ready to start within a month</span></label></li>
-                <li><label><input type="radio" name="timeline" value="1–3 months"><span>1–3 months</span></label></li>
-                <li><label><input type="radio" name="timeline" value="3–6 months"><span>3–6 months</span></label></li>
-                <li><label><input type="radio" name="timeline" value="Just researching"><span>Just researching</span></label></li>
-              </ul>
-            </div>
-            <div class="field-group">
-              <p class="field-label">Budget awareness</p>
-              <ul class="radio-list">
-                <li><label><input type="radio" name="budget" value="Yes, familiar with the £200/month range"><span>Yes, familiar with the £200/month range</span></label></li>
-                <li><label><input type="radio" name="budget" value="I'd need to discuss budget"><span>I'd need to discuss budget</span></label></li>
-                <li><label><input type="radio" name="budget" value="Not sure what this costs"><span>Not sure what this costs</span></label></li>
-              </ul>
-            </div>
-            <div class="field-group">
-              <p class="field-label">Are you the decision maker?</p>
-              <ul class="radio-list">
-                <li><label><input type="radio" name="decision_maker" value="Yes, it's my decision"><span>Yes, it's my decision</span></label></li>
-                <li><label><input type="radio" name="decision_maker" value="Part of a team"><span>Part of a team — I'll need to bring others in</span></label></li>
-                <li><label><input type="radio" name="decision_maker" value="Researching for someone else"><span>No, I'm researching for someone else</span></label></li>
-              </ul>
-            </div>
-
-            <p class="field-hint" style="margin-bottom:var(--spacing-28)">What happens next: We'll review your answers and send you a personalised report within 48 hours — top automation opportunities, estimated time savings, and whether Tishka is a fit. No pitch, no pressure.</p>
-
-            <div class="form-nav">
-              <button type="button" class="btn btn--ghost" data-prev>← Back</button>
-              <button type="submit" class="btn">Get my free report →</button>
-            </div>
-            <p class="error-msg" id="form-error"></p>
-          </div>
-
-        </form>
-
-        <!-- Success message -->
-        <div class="success" id="success">
-          <h2>Got it — you're in.</h2>
-          <p>We've received your audit. We'll review your answers and send your personalised report within 48 hours. No pitch, no pressure.</p>
-          <!-- PLACEHOLDER: swap in the confirmation copy you want shown after submit -->
         </div>
+    </div>
+  </section>
 
+  <!-- Report -->
+  <section class="report" id="report">
+    <div class="chat-shell">
+      <div class="report-card">
+        <h2 id="report-title">Your AI readiness report</h2>
+        <div class="report-md" id="report-md"></div>
+        <div class="report-cta" id="report-cta" style="display:none;">
+          <a class="btn" id="booking-btn" href="#" target="_blank" rel="noopener">Book my free diagnostic call</a>
+          <span class="report-cta-sub" id="booking-sub"></span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-inner">
-      <div>
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="contact.html">Book a call</a>
-      </div>
-    </div>
+    <p>Tishka AI — an AI operating system for small business. <a href="contact.html">Talk to a human</a> any time.</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
   <script>
-    var steps = document.querySelectorAll('.form-step');
-    var dots = document.querySelectorAll('.progress-dot');
-    var form = document.getElementById('audit-form');
-    var success = document.getElementById('success');
-    var errorMsg = document.getElementById('form-error');
-    var current = 0;
+  (function () {
+    'use strict';
 
-    function showStep(i) {
-      steps[current].classList.remove('is-active');
-      dots[current].classList.remove('is-current');
-      dots[current].classList.add('is-done');
-      current = i;
-      steps[current].classList.add('is-active');
-      dots[current].classList.add('is-current');
-      window.scrollTo({ top: document.getElementById('form').offsetTop - 40, behavior: 'smooth' });
+    // ─────────────────────────────────────────────────────────
+    // CONFIG — edit here.
+    // TODO(Pete): set bookingUrl to your real Calendly/diagnostic link before go-live.
+    // ─────────────────────────────────────────────────────────
+    var CONFIG = {
+      turnWebhook:   'https://armored-perch.pikapod.net/webhook/assessment-turn',
+      reportWebhook: 'https://armored-perch.pikapod.net/webhook/assessment-report',
+      bookingUrl:    'https://cal.com/tishka/30min?user=tishka',
+      timeoutMs:     30000,
+      storeKey:      'tishka-assessment-v1'
+    };
+
+    var GREETING = "Hi! I'm the Tishka Assessor. I ask a few questions about how your business runs, then tell you honestly whether AI would actually earn its keep — or not.\n\nSo, first up: what does your business do?";
+
+    var state = {
+      messages: [],      // { role: 'user'|'assistant', content: '...' } — transcript sent to the webhook
+      stage: 'tier1',    // 'tier1' → teaser+gate → 'tier2' → report
+      contact: null,     // { name, email }
+      awaitingReply: false,
+      pendingChips: null, // { chips: [...], multi: bool, selected: [...] }
+      teaserDone: false,
+      reportDone: false,
+      report: null
+    };
+
+    var elLog = document.getElementById('chat-log');
+    var elChips = document.getElementById('chips');
+    var elInput = document.getElementById('chat-input');
+    var elSend = document.getElementById('send-btn');
+    var elTyping = null;
+    var elGate = document.getElementById('gate');
+    var elGateForm = document.getElementById('gate-form');
+    var elGateName = document.getElementById('gate-name');
+    var elGateEmail = document.getElementById('gate-email');
+    var elGateError = document.getElementById('gate-error');
+    var elProgress = document.getElementById('progress-hint');
+    var elReport = document.getElementById('report');
+    var elReportMd = document.getElementById('report-md');
+    var elReportCta = document.getElementById('report-cta');
+    var elBookingBtn = document.getElementById('booking-btn');
+    var elBookingSub = document.getElementById('booking-sub');
+    var elSendBtn = document.getElementById('send-btn');
+    var elComposer = document.getElementById('composer');
+
+    // ─────────────────────────────────────────────────────────
+    // Helpers
+    // ─────────────────────────────────────────────────────────
+    function stripTags(text) {
+      return String(text || '').replace(/\[\[[^\]]*\]\]/g, '').trim();
     }
 
-    // Conditional "If yes, what?" — only shows when "Any automation currently?" = Yes
-    document.querySelectorAll('input[name="has_automation"]').forEach(function(r) {
-      r.addEventListener('change', function() {
-        var wrap = document.getElementById('automation-detail-wrap');
-        if (r.value === 'Yes') { wrap.classList.add('is-visible'); }
-        else { wrap.classList.remove('is-visible'); }
+    function addMessage(role, content, cls) {
+      var wrap = document.createElement('div');
+      wrap.className = 'msg msg--' + (cls || (role === 'user' ? 'user' : 'bot'));
+      var bubble = document.createElement('div');
+      bubble.className = 'msg-bubble';
+      bubble.textContent = content;
+      wrap.appendChild(bubble);
+      elLog.appendChild(wrap);
+      elLog.scrollTop = elLog.scrollHeight;
+      return wrap;
+    }
+
+    function addSystemMessage(content) {
+      return addMessage('assistant', content, 'system');
+    }
+
+    function showTyping() {
+      hideTyping();
+      elTyping = document.createElement('div');
+      elTyping.className = 'msg msg--bot typing is-visible';
+      elTyping.innerHTML = '<span></span><span></span><span></span>';
+      elLog.appendChild(elTyping);
+      elLog.scrollTop = elLog.scrollHeight;
+    }
+
+    function hideTyping() {
+      if (elTyping && elTyping.parentNode) elTyping.parentNode.removeChild(elTyping);
+      elTyping = null;
+    }
+
+    function setBusy(busy) {
+      state.awaitingReply = busy;
+      elSend.disabled = busy;
+      elInput.disabled = busy;
+      if (busy) showTyping(); else hideTyping();
+    }
+
+    function save() {
+      try {
+        sessionStorage.setItem(CONFIG.storeKey, JSON.stringify(state));
+      } catch (e) { /* private mode — fine */ }
+    }
+
+    function post(url, payload) {
+      var ctrl = new AbortController();
+      var timer = setTimeout(function () { ctrl.abort(); }, CONFIG.timeoutMs);
+      return fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: ctrl.signal
+      }).then(function (res) {
+        clearTimeout(timer);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
       });
-    });
+    }
 
-    // Conditional "Other" challenge field
-    document.getElementById('challenges').addEventListener('change', function(e) {
-      if (e.target.value === 'Other') {
-        document.getElementById('challenge-other-wrap').classList.add('is-visible');
+    // ─────────────────────────────────────────────────────────
+    // Conversation flow
+    // ─────────────────────────────────────────────────────────
+    function handleTurnResponse(data) {
+      var reply = String(data.reply || '');
+      var hasTeaser = reply.indexOf('[[TEASER_DONE]]') !== -1;
+      var hasReady = reply.indexOf('[[READY_FOR_REPORT]]') !== -1;
+
+      if (state.stage === 'tier1' && hasTeaser) {
+        state.stage = 'tier2';
+        state.teaserDone = true;
+        elProgress.textContent = 'now for the details — a few more questions';
       }
-    });
 
-    // Next / back buttons
-    document.querySelectorAll('[data-next]').forEach(function(btn) {
-      btn.addEventListener('click', function() { if (current < steps.length - 1) showStep(current + 1); });
-    });
-    document.querySelectorAll('[data-prev]').forEach(function(btn) {
-      btn.addEventListener('click', function() { if (current > 0) showStep(current - 1); });
-    });
+      var text = stripTags(reply);
+      if (text) addMessage('assistant', text);
+      state.messages.push({ role: 'assistant', content: reply }); // keep tags for the server's history filter
+      save();
 
-    // Validation + submit
-    form.addEventListener('submit', function(e) {
+      if (hasTeaser) showGate();
+      else if (hasReady) requestReport();
+      else showChips(data);
+    }
+
+    function showChips(data) {
+      if (!data || !data.chips || !data.chips.length) { elChips.classList.remove('is-visible'); elChips.innerHTML = ''; state.pendingChips = null; return; }
+      state.pendingChips = { chips: data.chips, multi: !!data.chipMulti, selected: [] };
+      elChips.innerHTML = '';
+      data.chips.forEach(function (c) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'chip';
+        b.textContent = c;
+        b.addEventListener('click', function () {
+          if (state.pendingChips.multi) {
+            var i = state.pendingChips.selected.indexOf(c);
+            if (i >= 0) { state.pendingChips.selected.splice(i, 1); b.classList.remove('is-selected'); }
+            else { state.pendingChips.selected.push(c); b.classList.add('is-selected'); }
+          } else {
+            elChips.classList.remove('is-visible'); elChips.innerHTML = '';
+            state.pendingChips = null;
+            submitText(c);
+          }
+        });
+        elChips.appendChild(b);
+      });
+      if (data.chipMulti) {
+        var done = document.createElement('button');
+        done.type = 'button';
+        done.className = 'chip';
+        done.style.background = 'var(--color-carbon)';
+        done.style.color = '#fff';
+        done.textContent = 'Done';
+        done.addEventListener('click', function () {
+          var sel = state.pendingChips ? state.pendingChips.selected : [];
+          elChips.classList.remove('is-visible'); elChips.innerHTML = '';
+          state.pendingChips = null;
+          submitText(sel.length ? sel.join(', ') : 'Not sure');
+        });
+        elChips.appendChild(done);
+      }
+      elChips.classList.add('is-visible');
+      save();
+    }
+
+    function showGate() {
+      elGate.classList.add('is-visible');
+      document.getElementById('gate-name').focus();
+    }
+
+    function handleGateSubmit(e) {
       e.preventDefault();
-      var name = document.getElementById('full-name').value.trim();
-      var email = document.getElementById('work-email').value.trim();
-      var industry = document.getElementById('industry').value;
-      var team = document.getElementById('team-size').value;
-      var challenges = form.querySelectorAll('input[name="challenge"]:checked');
+      var name = document.getElementById('gate-name').value.trim();
+      var email = document.getElementById('gate-email').value.trim();
+      var err = document.getElementById('gate-error');
+      if (!name) { err.textContent = 'Please tell us your name.'; err.classList.add('is-visible'); return; }
+      if (!email || email.indexOf('@') < 0) { err.textContent = "That email doesn't look right — please check it."; err.classList.add('is-visible'); return; }
+      err.classList.remove('is-visible');
+      state.contact = { name: name, email: email };
+      elGate.classList.remove('is-visible');
+      save();
+      // Move into the full diagnostic
+      state.stage = 'tier2';
+      submitText('(Contact details shared — carry on with the full diagnostic.)');
+    }
 
-      if (!name || !email || !industry || !team) {
-        errorMsg.textContent = 'Please fill in the required fields: full name, work email, industry, and team size.';
-        errorMsg.classList.add('is-visible');
-        return;
-      }
-      if (email.indexOf('@') < 0) {
-        errorMsg.textContent = 'That email address doesn\'t look right. Please check it.';
-        errorMsg.classList.add('is-visible');
-        return;
-      }
-      if (challenges.length === 0) {
-        errorMsg.textContent = 'Please select at least one challenge so we can point the report at the right areas.';
-        errorMsg.classList.add('is-visible');
-        return;
-      }
-      errorMsg.classList.remove('is-visible');
+    function requestReport() {
+      elChips.classList.remove('is-visible'); elChips.innerHTML = '';
+      elComposer.classList.add('is-hidden');
+      addMessage('assistant', 'Preparing your report — one moment…');
+      elProgress.textContent = 'writing your report';
+      post(CONFIG.reportWebhook, {
+        contact: state.contact || {},
+        transcript: state.messages
+      }).then(function (rep) {
+        renderReport(rep || {});
+      }).catch(function () {
+        setBusy(false);
+        addMessage('assistant', "Sorry — I couldn't generate your report just now. Please try once more; if it still fails, book a call directly and we'll do it together.");
+      });
+    }
 
-      // PLACEHOLDER: wire this to your database / Airtable / email endpoint.
-      // Send form data (see collectFormData()) to wherever you store audit submissions.
-      // After submit, also auto-send the confirmation email:
-      //   "We got your audit. You'll hear from us within 48 hours. — Pete"
+    function renderReport(rep) {
+      state.reportDone = true;
+      state.report = rep;
+      save();
+      document.getElementById('chat-panel').classList.add('is-hidden');
+      var md = typeof marked !== 'undefined' ? marked.parse(String(rep.report_md || '')) : '<p>' + String(rep.report_md || '').replace(/</g, '&lt;') + '</p>';
+      elReportMd.innerHTML = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(md) : md;
 
-      form.style.display = 'none';
-      success.classList.add('is-visible');
-      window.scrollTo({ top: document.getElementById('form').offsetTop - 40, behavior: 'smooth' });
-    });
+      var cta = document.getElementById('report-cta');
+      if (rep.booking_cta) {
+        document.getElementById('booking-btn').href = CONFIG.bookingUrl;
+        document.getElementById('booking-sub').textContent = (rep.verdict === 'partial')
+          ? 'Still want a human to look at this with you? The diagnostic call is free and pressure-free.'
+          : 'A free 30-minute call to map your first workflow. No pitch, no pressure.';
+        cta.style.display = 'block';
+      } else {
+        cta.style.display = 'none';
+      }
+      elReport.classList.add('is-visible');
+      elReport.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function submitText(text) {
+      if (state.awaitingReply || state.reportDone) return;
+      var msg = String(text || elInput.value || '').trim();
+      if (!msg) return;
+      elInput.value = '';
+      elChips.classList.remove('is-visible'); elChips.innerHTML = '';
+      state.pendingChips = null;
+      addMessage('user', msg);
+      state.messages.push({ role: 'user', content: msg });
+      save();
+      setBusy(true);
+      post(CONFIG.turnWebhook, { stage: state.stage, messages: state.messages.slice(-24) })
+        .then(function (data) {
+          setBusy(false);
+          handleTurnResponse(data || {});
+        })
+        .catch(function () {
+          setBusy(false);
+          addMessage('assistant', "Sorry — that didn't come through. Tap Send again, or refresh the page to pick up where you left off.");
+        });
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // Boot / restore
+    // ─────────────────────────────────────────────────────────
+    function boot() {
+      var restored = null;
+      try { restored = JSON.parse(sessionStorage.getItem(CONFIG.storeKey) || 'null'); } catch (e) {}
+      if (restored && restored.messages && restored.messages.length) {
+        state = Object.assign(state, restored);
+        state.messages.forEach(function (m) { addMessage(m.role, stripTags(m.content)); });
+        if (state.reportDone && state.report) {
+          renderReport(state.report);
+        } else if (state.teaserDone && !state.contact) {
+          showGate();
+        }
+      } else {
+        addMessage('assistant', GREETING);
+        state.messages.push({ role: 'assistant', content: GREETING });
+        save();
+      }
+    }
+
+    elSendBtn.addEventListener('click', function () { submitText(); });
+    elInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); submitText(); } });
+    document.getElementById('gate-form').addEventListener('submit', handleGateSubmit);
+
+    boot();
+  })();
   </script>
 
 </body>
