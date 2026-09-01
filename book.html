@@ -10,6 +10,7 @@
 
 <!-- Link-preview card (what LinkedIn shows when this URL is featured or shared) -->
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Tishka AI">
 <meta property="og:url" content="https://tishka.ai/book.html">
 <meta property="og:title" content="Find your agency's 17.7-hour leak">
 <meta property="og:description" content="Free 30-minute diagnostic for boutique UK recruitment agencies — no strings.">
@@ -22,13 +23,12 @@
 <meta name="twitter:description" content="Free 30-minute diagnostic for boutique UK recruitment agencies — no strings.">
 <meta name="twitter:image" content="https://tishka.ai/assets/og-book.png">
 
-<!-- Auto-redirect to the booking calendar (JS first, meta refresh as backstop) -->
+<!-- Auto-redirect to the booking calendar (JS only — a meta refresh in head makes some link-scrapers fail the preview) -->
 <script>
   setTimeout(function () {
     window.location.href = "https://cal.com/tishka/30min?user=tishka&overlayCalendar=true";
   }, 4000);
 </script>
-<meta http-equiv="refresh" content="6; url=https://cal.com/tishka/30min?user=tishka&overlayCalendar=true">
 
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
