@@ -4,538 +4,240 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pricing — Tishka AI</title>
-<meta name="description" content="One plan, everything included. Setup £500, monthly £200. No tiers, no hidden limits. Optional voice AI add-on.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
+<meta name="description" content="£500 setup, £200/month. No tiers, no hidden limits, no lock-in.">
 <style>
-  :root {
-    /* Playdate design tokens */
-    --color-sunbeam-yellow: #ffc500;
-    --color-electric-violet: #7700ff;
-    --color-carbon: #312f27;
-    --color-paper-white: #ffffff;
-    --color-slate-gray: #788086;
-    --color-fog: #efefef;
-    --color-sand: #e9e4d9;
-    --color-ash: #b1afa7;
-
-    --font-roobert: 'Manrope', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-
-    --text-caption: 19px;
-    --text-body: 22px;
-    --text-subheading: 24px;
-    --text-heading: 34px;
-    --text-heading-lg: 40px;
-    --text-display: 51px;
-    --text-hero: 68px;
-
-    --spacing-12: 12px;
-    --spacing-20: 20px;
-    --spacing-24: 24px;
-    --spacing-28: 28px;
-    --spacing-40: 40px;
-    --spacing-60: 60px;
-    --spacing-100: 100px;
-    --spacing-120: 120px;
-
-    --radius-cards: 2.85px;
-    --radius-buttons: 28.5px;
-    --radius-navbuttons: 22px;
-
-    --page-max-width: 1200px;
-  }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
+  :root {
+    --bg: #0a0a0a;
+    --bg-card: #111111;
+    --bg-elevated: #1a1a1a;
+    --border: #2a2a2a;
+    --text: #f5f5f5;
+    --text-muted: #a1a1a1;
+    --accent: #ffffff;
+    --green: #22c55e;
+    --blue: #3b82f6;
+  }
   body {
-    font-family: var(--font-roobert);
-    color: var(--color-carbon);
-    background: var(--color-paper-white);
-    line-height: 1.3;
-    letter-spacing: -0.007em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-  img { max-width: 100%; display: block; }
-
-  .container {
-    max-width: var(--page-max-width);
-    margin: 0 auto;
-    padding: 0 var(--spacing-24);
+  /* Header */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
   }
-
-  /* ---------- Navigation ---------- */
-  .nav {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    z-index: 10;
-  }
-  .nav-inner {
-    max-width: var(--page-max-width);
-    margin: 0 auto;
-    padding: var(--spacing-24);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .nav-left { display: flex; align-items: center; gap: var(--spacing-28); }
-  .nav-brand {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-  }
-  .nav-brand img { height: 28px; width: auto; display: block; }
-  .nav-links { display: flex; gap: var(--spacing-24); }
-  .nav-links a {
-    font-weight: 700;
-    font-size: var(--text-caption);
-    color: var(--color-carbon);
-    text-decoration: none;
-  }
-  .nav-links a:hover { text-decoration: underline; }
-  .nav-cta {
-    background: var(--color-electric-violet);
-    color: var(--color-paper-white);
-    font-weight: 700;
-    font-size: 19px;
-    padding: 8px 16px;
-    border-radius: var(--radius-navbuttons);
-    text-decoration: none;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-  }
-  .nav-cta:hover { background: #5c00cc; }
-
-  /* ---------- Hero ---------- */
-  .hero {
-    background: var(--color-sunbeam-yellow);
-    padding: var(--spacing-120) 0 var(--spacing-100);
-    text-align: center;
-  }
-  .hero h1 {
-    font-size: var(--text-hero);
-    font-weight: 800;
-    line-height: 1.0;
-    color: var(--color-carbon);
-    letter-spacing: -0.48px;
-    margin-bottom: var(--spacing-40);
-  }
-  .hero-tagline {
-    font-size: var(--text-heading-lg);
-    font-weight: 700;
-    color: var(--color-carbon);
-    margin-bottom: var(--spacing-20);
-  }
-  .hero-sub {
-    font-size: var(--text-body);
-    color: var(--color-carbon);
-    max-width: 640px;
-    margin: 0 auto var(--spacing-40);
-  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { display: inline-flex; align-items: center; }
+  .logo img { height: 28px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 28px; font-size: 0.9rem; color: var(--text-muted); }
+  .nav-links a:hover { color: var(--text); }
   .btn {
-    display: inline-block;
-    background: var(--color-electric-violet);
-    color: var(--color-paper-white);
-    font-weight: 700;
-    font-size: 21px;
-    padding: 14px 28px;
-    border-radius: var(--radius-buttons);
-    text-decoration: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 10px 18px; border-radius: 9999px; font-size: 0.9rem;
+    font-weight: 500; transition: all 0.15s ease; cursor: pointer; border: none;
   }
-  .btn:hover { background: #5c00cc; }
+  .btn-primary { background: white; color: black; }
+  .btn-primary:hover { background: #e5e5e5; }
 
-  /* ---------- Sections ---------- */
-  .section { padding: var(--spacing-100) 0; }
-  .section--white { background: var(--color-paper-white); }
-  .section--yellow { background: var(--color-sunbeam-yellow); }
-  .section--fog { background: var(--color-fog); }
+  /* Hero */
+  .hero { padding: 80px 0 60px; text-align: center; }
+  h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 650;
+    letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 20px;
+  }
+  .hero-sub { font-size: 1.25rem; color: var(--text-muted); max-width: 620px; margin: 0 auto 40px; }
 
-  .section-inner { max-width: 640px; margin: 0 auto; }
+  /* Pricing cards */
+  section { padding: 70px 0; }
+  .section-title { font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 600; letter-spacing: -0.03em; margin-bottom: 16px; text-align: center; }
+  .section-sub { text-align: center; color: var(--text-muted); max-width: 640px; margin: 0 auto 48px; font-size: 1.1rem; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 8px; }
+  .price-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; }
+  .price-card.featured { border-color: #ffffff40; background: linear-gradient(180deg, #1a1a1a, #111); }
+  .price-name { font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; }
+  .price-figure { font-size: 2.2rem; font-weight: 650; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .price-period { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px; }
+  .price-features { list-style: none; margin-bottom: 0; flex-grow: 1; }
+  .price-features li { padding: 6px 0; font-size: 0.95rem; color: var(--text-muted); display: flex; align-items: flex-start; gap: 8px; }
+  .price-features li::before { content: "✓"; color: var(--green); font-weight: 600; }
 
-  .eyebrow {
-    font-size: var(--text-caption);
-    font-weight: 700;
-    color: var(--color-electric-violet);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    margin-bottom: var(--spacing-12);
-  }
-  .section h2 {
-    font-size: var(--text-heading-lg);
-    font-weight: 800;
-    line-height: 1.1;
-    color: var(--color-carbon);
-    margin-bottom: var(--spacing-24);
-  }
-  .section p {
-    font-size: var(--text-body);
-    color: var(--color-carbon);
-    margin-bottom: var(--spacing-20);
-  }
-  .section ul {
-    list-style: none;
-    margin: var(--spacing-24) 0;
-  }
-  .section li {
-    font-size: var(--text-body);
-    color: var(--color-carbon);
-    padding: var(--spacing-12) 0;
-    border-bottom: 1px solid var(--color-ash);
-  }
-  .section li:last-child { border-bottom: none; }
-  .section li strong { font-weight: 800; }
+  /* No lock-in */
+  .no-lockin { text-align: center; max-width: 640px; margin: 0 auto; }
+  .no-lockin p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 16px; }
+  .no-lockin a { color: var(--text); text-decoration: underline; }
 
-  /* ---------- Steps ---------- */
-  .steps { counter-reset: step; }
-  .step {
-    counter-increment: step;
-    padding: var(--spacing-24) 0;
-    border-bottom: 1px solid var(--color-ash);
-  }
-  .step:last-child { border-bottom: none; }
-  .step::before {
-    content: "Step " counter(step);
-    display: block;
-    font-size: var(--text-caption);
-    font-weight: 700;
-    color: var(--color-electric-violet);
-    margin-bottom: var(--spacing-12);
-  }
-  .step h3 {
-    font-size: var(--text-subheading);
-    font-weight: 800;
-    color: var(--color-carbon);
-    margin-bottom: var(--spacing-12);
-  }
-  .step p { margin-bottom: 0; }
+  /* FAQ */
+  .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-weight: 550; margin-bottom: 8px; }
+  .faq-a { color: var(--text-muted); font-size: 0.95rem; }
+  .faq-a a { color: var(--text); text-decoration: underline; }
 
-  /* ---------- Tables ---------- */
-  .table-wrap { overflow-x: auto; margin: var(--spacing-24) 0; }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--color-paper-white);
-    border-radius: var(--radius-cards);
-    overflow: hidden;
-  }
-  th, td {
-    text-align: left;
-    padding: var(--spacing-20);
-    font-size: var(--text-body);
-    color: var(--color-carbon);
-    border-bottom: 1px solid var(--color-fog);
-  }
-  th { font-weight: 800; background: var(--color-fog); }
-  tr:last-child td { border-bottom: none; }
-  td strong { font-weight: 800; }
-  .table-note {
-    font-size: var(--text-caption);
-    color: var(--color-carbon);
-    opacity: 0.7;
-  }
+  /* CTA */
+  .download-section { text-align: center; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 48px 24px; margin: 40px 0; }
 
-  /* ---------- Pricing ---------- */
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: var(--spacing-24);
-    margin-top: var(--spacing-40);
-  }
-  .price-card {
-    background: var(--color-paper-white);
-    border-radius: var(--radius-cards);
-    padding: var(--spacing-28);
-  }
-  .price-card h3 {
-    font-size: var(--text-subheading);
-    font-weight: 800;
-    color: var(--color-carbon);
-    margin-bottom: var(--spacing-12);
-  }
-  .price-card .price {
-    font-size: var(--text-heading);
-    font-weight: 800;
-    color: var(--color-carbon);
-    margin-bottom: var(--spacing-12);
-  }
-  .price-card p { font-size: var(--text-body); margin-bottom: 0; }
+  /* Footer */
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; margin-top: 60px; font-size: 0.9rem; color: var(--text-muted); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: 24px; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+  .footer-links a:hover { color: var(--text); }
+  .footer-cta { color: var(--text); }
+  .social-icons { display: flex; gap: 14px; align-items: center; }
+  .social-icons a { display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: color 0.15s ease; }
+  .social-icons a:hover { color: var(--text); }
 
-  /* ---------- FAQ ---------- */
-  .faq { border-bottom: 1px solid var(--color-ash); padding: var(--spacing-20) 0; }
-  .faq:first-of-type { border-top: 1px solid var(--color-ash); }
-  .faq h3 {
-    font-size: var(--text-subheading);
-    font-weight: 800;
-    color: var(--color-carbon);
-    margin-bottom: var(--spacing-12);
-  }
-  .faq p { margin-bottom: 0; }
-
-  /* ---------- CTA ---------- */
-  .cta { text-align: center; }
-  .cta h2 { margin-bottom: var(--spacing-20); }
-  .cta p { max-width: 640px; margin: 0 auto var(--spacing-40); }
-
-  /* ---------- Footer ---------- */
-  .footer {
-    background: var(--color-carbon);
-    color: var(--color-paper-white);
-    padding: var(--spacing-60) 0;
-  }
-  .footer-inner {
-    max-width: var(--page-max-width);
-    margin: 0 auto;
-    padding: 0 var(--spacing-24);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-24);
-    align-items: center;
-    justify-content: space-between;
-  }
-  .footer p { font-size: var(--text-caption); color: var(--color-paper-white); }
-  .footer a {
-    color: var(--color-paper-white);
-    font-size: var(--text-caption);
-    font-weight: 700;
-    text-decoration: none;
-    margin-left: var(--spacing-24);
-  }
-  .footer a:hover { text-decoration: underline; }
-
-  /* ---------- Responsive ---------- */
-  @media (max-width: 768px) {
-    .hero h1 { font-size: 44px; }
-    .hero-tagline { font-size: 28px; }
-    .section h2 { font-size: 30px; }
-    .section { padding: var(--spacing-60) 0; }
-    .hero { padding: var(--spacing-100) 0 var(--spacing-60); }
+  @media (max-width: 640px) {
     .nav-links { display: none; }
+    .hero { padding-top: 48px; }
   }
 </style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-inner">
-      <div class="nav-left">
-        <a class="nav-brand" href="index.html"><img src="assets/Tishka_AI-dark.svg" alt="Tishka AI" height="28"></a>
-        <div class="nav-links">
-          <a href="how-it-works.html">How it works</a>
-          <a href="pricing.html">Pricing</a>
-          <a href="about.html">About</a>
-          <a href="blog.html">Blog</a>
-          <a href="audit.html">Free audit</a>
-        </div>
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo"><img src="assets/Tishka_AI.svg" alt="Tishka AI" height="28"></a>
+      <div class="nav-links">
+        <a href="pricing.html" style="color: var(--text);">Pricing</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </div>
-      <a class="nav-cta" href="contact.html">Book a call</a>
-    </div>
-  </nav>
-
-  <!-- Hero -->
-  <header class="hero" id="top">
-    <div class="container">
-      <h1>Pricing</h1>
-      <p class="hero-tagline">One plan. Everything included.</p>
-      <p class="hero-sub">We don't do tiered packages with hidden limits. You get the full system — second brain, agent, automations, support — for one price.</p>
+      <a href="contact.html" class="btn btn-primary">Book Diagnostic</a>
     </div>
   </header>
 
-  <!-- Core pricing -->
-  <section class="section section--white">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>One price. Everything included.</h1>
+      <p class="hero-sub">No tiers, no hidden limits. You get the full system — Company Brain, workflow, support — for one price.</p>
+      <a href="contact.html" class="btn btn-primary">Book a free diagnostic &rarr;</a>
+    </div>
+  </section>
+
+  <!-- Price cards -->
+  <section>
     <div class="container">
       <div class="pricing-grid">
-        <div class="price-card">
-          <h3>Setup</h3>
-          <p class="price">£500</p>
-          <p>One time. Includes your first workflow.</p>
+        <div class="price-card featured">
+          <div class="price-name">Setup</div>
+          <div class="price-figure">£500</div>
+          <div class="price-period">one-time</div>
+          <ul class="price-features">
+            <li>AIOS setup</li>
+            <li>Company Brain built with your business knowledge</li>
+            <li>Connection to your existing tools</li>
+            <li>Your first workflow live</li>
+            <li>Measured against a specific number</li>
+          </ul>
         </div>
         <div class="price-card">
-          <h3>Monthly</h3>
-          <p class="price">£200</p>
-          <p>Everything included, no limits.</p>
+          <div class="price-name">Monthly</div>
+          <div class="price-figure">£200<span style="font-size:1rem; color:var(--text-muted);">/mo</span></div>
+          <div class="price-period">everything included</div>
+          <ul class="price-features">
+            <li>Your workflow running</li>
+            <li>Maintenance</li>
+            <li>Support</li>
+            <li>Everything included</li>
+          </ul>
         </div>
         <div class="price-card">
-          <h3>Extra workflows</h3>
-          <p class="price">Fixed price</p>
-          <p>Quoted per job. You know the cost before we start.</p>
+          <div class="price-name">Additional work</div>
+          <div class="price-figure">Fixed price</div>
+          <div class="price-period">quoted per job</div>
+          <ul class="price-features">
+            <li>Quoted per job</li>
+            <li>Agreed before any work starts</li>
+            <li>No hourly billing, no surprise fees</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- What's included -->
-  <section class="section section--fog">
+  <!-- No lock-in -->
+  <section style="background: #0f0f0f;">
     <div class="container">
-      <div class="section-inner">
-        <p class="eyebrow">What's included</p>
-        <h2>Setup</h2>
-        <ul>
-          <li>Full system setup</li>
-          <li>Second brain built with your business knowledge</li>
-          <li>Connection to your existing software tools</li>
-          <li>Your first automated workflow, live within two weeks</li>
-          <li>90-minute setup call (setup, knowledge transfer, learn the basics)</li>
-          <li>Client handoff guide</li>
-        </ul>
-        <h2>Monthly</h2>
-        <ul>
-          <li>Agent running in the cloud</li>
-          <li>Workflow management and maintenance</li>
-          <li>Weekly brain cleanup (automatic — you get one question a week)</li>
-          <li>2 hours phone/email support</li>
-          <li>Remote updates and improvements</li>
-        </ul>
-        <h2>Additional workflows</h2>
-        <ul>
-          <li>Quoted per job at a fixed price — you'll always know the cost before we start</li>
-          <li>No hourly billing, no surprise fees</li>
-        </ul>
+      <div class="no-lockin">
+        <h2 class="section-title">No lock-in. Ever.</h2>
+        <p>Cancel any time. 30 days notice. Your data stays yours — always. Full details in our <a href="refund.html">refund policy</a>.</p>
+        <p style="margin-bottom: 0;">Refer a client who signs up, get £100 off your next month.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- Voice AI -->
-  <section class="section section--yellow">
-    <div class="container">
-      <div class="section-inner">
-        <p class="eyebrow">Voice AI (optional)</p>
-        <h2>Answers your phone. Books appointments. Knows your business.</h2>
-        <p>Add an AI voice agent that answers your phone, books appointments, and handles routine calls. Uses the same second brain as your agent — so it knows your business from day one. Never shares internal information with callers.</p>
-        <div class="table-wrap">
-          <table>
-            <tbody>
-              <tr>
-                <td><strong>Setup</strong></td>
-                <td>£200 (one-time)</td>
-              </tr>
-              <tr>
-                <td><strong>Monthly</strong></td>
-                <td>£85–150 (platform + number + minutes)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- What it saves -->
-  <section class="section section--white">
-    <div class="container">
-      <div class="section-inner">
-        <p class="eyebrow">What it saves</p>
-        <h2>The system pays for itself.</h2>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th></th>
-                <th>Without Tishka</th>
-                <th>With Tishka</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Admin hours/week</td>
-                <td>15</td>
-                <td>5</td>
-              </tr>
-              <tr>
-                <td>Value of admin time/year</td>
-                <td>£36,000</td>
-                <td>£12,000</td>
-              </tr>
-              <tr>
-                <td><strong>You save</strong></td>
-                <td>—</td>
-                <td><strong>£24,000</strong></td>
-              </tr>
-              <tr>
-                <td><strong>Our cost</strong></td>
-                <td>—</td>
-                <td><strong>£2,400/year</strong></td>
-              </tr>
-              <tr>
-                <td><strong>Your net gain</strong></td>
-                <td>—</td>
-                <td><strong>£21,600</strong></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p>That's a <strong>9x return.</strong> For less than the cost of a daily coffee.</p>
-        <p class="table-note">Based on a business valuing their time at £50/hr. We measure actuals, not estimates.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Own your data -->
-  <section class="section section--fog">
-    <div class="container">
-      <div class="section-inner">
-        <p class="eyebrow">You own your data. Always.</p>
-        <h2>Never stuck with us.</h2>
-        <p>Your second brain is just files in a private GitHub repo you own. No proprietary format, no lock-in. Any AI tool can read them. You're never stuck with us.</p>
-        <p>Cancel any time. 30 days notice. Your data stays in your repo where it's always been.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- How to start -->
-  <section class="section section--yellow cta">
-    <div class="container">
-      <h2>How to start</h2>
-      <p>Book a free 30-minute audit call. We'll look at where your time's going and whether this makes sense for you. If it's not a fit, we'll tell you.</p>
-      <a class="btn" href="audit.html">Book a free audit →</a>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="section section--white">
+  <section>
+    <div class="container" style="max-width: 720px;">
+      <h2 class="section-title">FAQs</h2>
+      <div class="faq-item">
+        <div class="faq-q">Are there hidden costs?</div>
+        <div class="faq-a">No. Additional work is quoted per job at a fixed price before we start.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is there a minimum term?</div>
+        <div class="faq-a">No. No lock-in, no minimum terms.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if we want to leave?</div>
+        <div class="faq-a">Give 30 days notice. If you leave mid-month, the unused part of that month's fee is refunded pro-rata — see our <a href="refund.html">refund policy</a>.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do we have to touch the tech?</div>
+        <div class="faq-a">No. We build the Company Brain, set up the workflow, and run it. Your team just gets the results.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section>
     <div class="container">
-      <div class="section-inner">
-        <p class="eyebrow">FAQ</p>
-        <h2>Questions you might have.</h2>
-        <div class="faq">
-          <h3>Why no tiers?</h3>
-          <p>Most businesses we work with need the same core things: a second brain, an agent that knows their business, and the admin off their plate. We keep it simple.</p>
-        </div>
-        <div class="faq">
-          <h3>What if I need more than the included support?</h3>
-          <p>Additional workflows are quoted per job at a fixed price. You'll always know the cost upfront.</p>
-        </div>
-        <div class="faq">
-          <h3>Can I add voice AI later?</h3>
-          <p>Yes. It works best once your second brain is built — the voice agent draws from the same knowledge base.</p>
-        </div>
-        <div class="faq">
-          <h3>Are there any hidden costs?</h3>
-          <p>No. The only additional cost is your AI model usage (paid directly to the provider, typically £15–30/month) and any third-party software subscriptions you choose to keep.</p>
-        </div>
-        <div class="faq">
-          <h3>What if I want to switch to a different AI tool later?</h3>
-          <p>Your second brain is just files. Any AI agent that can read files can use it. You're not locked into us or our software.</p>
-        </div>
+      <div class="download-section">
+        <h2 class="section-title" style="margin-bottom: 12px;">Book a free diagnostic.</h2>
+        <p class="section-sub" style="margin-bottom: 28px;">We'll map where the business is losing time and money, and show what one workflow would fix first — no pitch, no pressure.</p>
+        <a href="contact.html" class="btn btn-primary">Book a free diagnostic &rarr;</a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div>
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="refund.html">Refund Policy</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="contact.html">Book a call</a>
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <div class="social-icons">
+          <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+        <div>TISHKA AI &copy; 2026</div>
+        <div class="footer-links">
+          <a href="terms.html">Terms &amp; Conditions</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="refund.html">Refund Policy</a>
+          <a href="pricing.html">Pricing</a>
+          <a class="footer-cta" href="contact.html">Book a Diagnostic</a>
+        </div>
       </div>
     </div>
   </footer>
 
+  <!-- Chat widget (Tishka AI assistant) -->
+  <script src="chat-widget.js"></script>
 </body>
 </html>
