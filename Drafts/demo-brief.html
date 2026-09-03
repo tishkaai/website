@@ -233,6 +233,7 @@
       winDays = +b.dataset.days;
       var pv = document.querySelector('#pvMore');
       if (pv) pv.textContent = (WINDOWS[winDays].scanned - ITEMS.filter(function (i) { return i.days <= winDays; }).length);
+      if (played) render();
     });
   });
 

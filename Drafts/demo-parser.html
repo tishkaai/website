@@ -262,6 +262,7 @@
     sigName: /(?:cheers|regards|kind regards|thanks|thank you|best(?: wishes)?|many thanks)[,.!]?\s*\n+\s*([A-Z][\w'\u2019-]+(?:[ \t]+[A-Z][\w'\u2019-]+){0,2})/im,
     dashName: /\u2014\s*([A-Z][\w'\u2019.]*?(?:\s+[A-Z][\w'\u2019.]+)*)(?=\s*,|\s*$|\s*\n)/m,
     supplier: /([\w&.'\u2019-]+(?:\s+[\w&.'\u2019-]+){0,3})\s*[\u2014-]\s*Invoice/i,
+    exclDay: /(?:\bout\b|\baway\b|\bexcept\b|\bavoid\b|can'?t\s+(?:do|make)|not\s+available)\s+(?:on\s+)?((?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Mon|Tues|Weds|Thurs|Sat|Sun)\w*)/gi,
   };
   var URGENT_WORDS = /\b(leak|flood|soaked|burst|urgent|emergency|asap|no power|sparks?|burning|smoke|smell of burning|dangerous|unsafe|dead socket|total loss of power)\b/i;
   var POS_WORDS = /\b(great|thanks|thank you|happy|liked|keen|interested|looking forward|perfect|good news)\b/i;
@@ -291,6 +292,8 @@
     var name = clean(first(find(t, RX.contactLbl, 1))) || clean(first(find(t, RX.titledName, 1))) || clean(first(find(t, RX.sigName, 1))) || clean(first(find(t, RX.dashName, 1)));
     var company = clean(first(find(t, RX.company)));
     var days = uniq(find(t, RX.dayName)), rels = uniq(find(t, RX.rel)), dates = uniq(find(t, RX.date));
+    var excl = uniq(find(t, RX.exclDay, 1)).map(function (d) { return d.toLowerCase(); });
+    if (excl.length) days = days.filter(function (d) { return excl.indexOf(d.toLowerCase()) === -1; });
     var urgent = URGENT_WORDS.test(t);
     var sentiment = POS_WORDS.test(t) ? ['POSITIVE', 'pos'] : (NEG_WORDS.test(t) ? ['NEGATIVE', 'neg'] : ['NEUTRAL', 'flex']);
 
