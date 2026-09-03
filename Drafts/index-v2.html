@@ -115,6 +115,9 @@
   .roi-pline .k { font-size: 0.88rem; color: var(--text-muted); }
   .roi-pline .v { font-size: 1.05rem; font-weight: 700; }
   .roi-pline .v span { color: var(--text-muted); font-weight: 400; font-size: 0.85rem; }
+  .roi-gblabel { font-size: 0.92rem; font-weight: 600; margin-bottom: 6px; }
+  .roi-gb .roi-pline { margin-bottom: 2px; }
+  .roi-gb .roi-pline .v { font-size: 1.25rem; }
   .roi-cta { width: 100%; margin-top: 22px; }
   .roi-disc { font-size: 0.72rem; color: var(--text-muted); margin-top: 14px; line-height: 1.5; }
 
@@ -315,8 +318,11 @@
           <div class="roi-brow"><span class="k">Copying data into…</span><span class="v" id="roiB3">5.4 hrs/wk</span></div>
           <div class="roi-totline">
             <div class="roi-totalrow"><span class="k">Total time freed up</span><span class="roi-totalbig" id="roiTotal">10.5 <em>hrs/wk</em></span></div>
-            <div class="roi-pline"><span class="k">You get back</span><span class="v" id="roiWk">£366<span>/wk of your time</span></span></div>
-            <div class="roi-pline"><span class="k">Per month</span><span class="v" id="roiMo">£1,585<span>/mo</span></span></div>
+            <div class="roi-gb">
+              <p class="roi-gblabel">You get back&hellip;</p>
+              <div class="roi-pline"><span class="v" id="roiWk">£366<span>/wk</span></span></div>
+              <div class="roi-pline"><span class="v" id="roiMo">£1,585<span>/mo</span></span></div>
+            </div>
           </div>
           <a class="btn btn-primary roi-cta" href="#packages">Get your real numbers &rarr;</a>
           <p class="roi-disc">Illustrative estimate based on typical results across Tishka's live automations. Your free diagnostic gives you numbers specific to your business.</p>
@@ -531,7 +537,7 @@
       });
       var wk = total * hourly, mo = wk * 52 / 12;
       $('roiTotal').innerHTML = rHrs(total) + ' <em>hrs/wk</em>';
-      $('roiWk').innerHTML = rGbp(wk) + '<span>/wk of your time</span>';
+      $('roiWk').innerHTML = rGbp(wk) + '<span>/wk</span>';
       $('roiMo').innerHTML = rGbp(mo) + '<span>/mo</span>';
     }
     document.querySelectorAll('#roiSeg button').forEach(function (b) {
