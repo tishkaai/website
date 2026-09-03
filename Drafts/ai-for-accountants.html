@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — AI FOR ACCOUNTANTS (LOCAL DRAFT — NOT LIVE)
+  Built 2026-09-03 per plans/website-verticals-tracker-method-build-plan.md §2
+  — 9-block template. Gated on outputs/accountants-pain-research-2026-09.md (PASS):
+  every figure below is sourced there (GOV.UK MTD/CH pages, DBT research, HoursBack
+  vendor-flagged). Pitch rules from that research are binding here: sell the chase
+  layer between the firm and its clients — never "AI does the accounts".
+  [PETE-FLAG] Filename ai-for-accountants.html — final names + nav are Pete's.
+  Interlinks: ai-for-recruitment / ai-for-property / ai-for-trades / method /
+  tracker / check / index-v2 / demo-parser.
+============================================================= -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>AI for accountancy firms — the chasing layer, run for you | Tishka AI</title>
+<meta name="description" content="Making Tax Digital turns one tax return per client into five submissions a year — phased £50k/£30k/£20k from April 2026. We build and run the chase layer — records in, reminders out, queries triaged — on your existing practice tools, from £300/month.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Done-for-you AI operations for UK accountancy firms",
+  "provider": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
+  "areaServed": "GB",
+  "description": "We build and run the client-facing chase layer around an accountancy firm's existing practice tools — client record chases, MTD and filing deadline reminders, query triage, engagement-letter and onboarding chases — with a human approving anything that leaves the firm. Packages from £300/month, first build typically live in 1–2 weeks.",
+  "serviceType": "AI operations retainer"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tishka.ai/" },
+    { "@type": "ListItem", "position": 2, "name": "AI for accountants" }
+  ]
+}
+</script>
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<style>
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f7f7f8; --bg-card: #ffffff; --bg-elevated: #f1f1f4;
+    --border: #e4e4e9; --text: #121215; --text-muted: #5a5a63;
+    --accent: #121215; --green: #0b7f5a; --blue: #2563eb; --violet: #6d4cf0;
+    --header-bg: rgba(247,247,248,0.85); --band: #efeff3;
+    --btn-bg: #121215; --btn-fg: #ffffff; --btn-bg-hover: #2c2c31;
+    --ghost-hover: #e7e7ec; --warn: #a3701a; --bad: #d43f3f; --on-brass: #ffffff;
+    color-scheme: light;
+  }
+  html[data-theme="dark"] {
+    --bg: #0a0a0a; --bg-card: #111111; --bg-elevated: #1a1a1a;
+    --border: #2a2a2a; --text: #f5f5f5; --text-muted: #a1a1a1;
+    --accent: #ffffff; --green: #22c55e; --blue: #3b82f6; --violet: #7c5cf6;
+    --header-bg: rgba(10,10,10,0.85); --band: #0f0f0f;
+    --btn-bg: #ffffff; --btn-fg: #000000; --btn-bg-hover: #e5e5e5;
+    --ghost-hover: #222222; --warn: #d9a441; --bad: #ff5c5c; --on-brass: #0e0e10;
+    color-scheme: dark;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 10px; }
+  .logo img { height: 28px; width: auto; display: block; }
+  html:not([data-theme="dark"]) .logo img { filter: invert(1); }
+  .badge { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.62rem; letter-spacing: 0.12em;
+    text-transform: uppercase; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-muted);
+    border-radius: 6px; padding: 5px 10px; }
+  .theme-btn { font-family: ui-monospace, monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px;
+    background: var(--bg-card); cursor: pointer; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; padding: 11px 20px;
+    border-radius: 9999px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; transition: all .15s ease; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
+  .btn-ghost { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+
+  .hero { padding: 64px 0 40px; }
+  .eyebrow { display: inline-block; font-family: ui-monospace, monospace; font-size: 0.68rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--violet); margin-bottom: 14px; }
+  h1 { font-size: clamp(2rem, 4.5vw, 2.9rem); font-weight: 650; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 16px; }
+  .hero-sub { font-size: 1.1rem; color: var(--text-muted); max-width: 620px; margin-bottom: 24px; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-fig { display: inline-flex; flex-direction: column; border: 1px solid var(--border); background: var(--bg-card);
+    border-radius: 14px; padding: 14px 22px; margin-top: 28px; }
+  .hero-fig b { font-size: 1.7rem; font-weight: 700; color: var(--violet); letter-spacing: -0.02em; }
+  .hero-fig span { font-size: 0.78rem; color: var(--text-muted); }
+  .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items: start; }
+  @media (max-width: 800px) { .hero-grid { grid-template-columns: 1fr; } }
+
+  section { padding: 60px 0; }
+  section.band { background: var(--band); }
+  .section-title { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 650; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .section-sub { color: var(--text-muted); max-width: 640px; margin-bottom: 36px; }
+  .src { font-size: 0.72rem; color: var(--text-muted); }
+
+  .pain { border: 1px solid var(--border); background: var(--bg-card); border-radius: 14px; padding: 20px 22px; margin-bottom: 14px; }
+  .pain h3 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+  .pain p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 6px; }
+  .pain p b { color: var(--text); }
+  .pain .fig { font-size: 1.15rem; font-weight: 700; color: var(--violet); }
+
+  /* demo */
+  .demo-wrap { border: 1px solid var(--border); border-radius: 16px; background: var(--bg-card); padding: 22px; }
+  .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 820px) { .demo-grid { grid-template-columns: 1fr; } }
+  .demo-head { display: flex; align-items: center; gap: 8px; font-family: ui-monospace, monospace; font-size: 0.68rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+  .status { font-family: ui-monospace, monospace; font-size: 0.62rem; letter-spacing: 0.12em; border-radius: 5px;
+    padding: 3px 8px; margin-left: auto; background: var(--bg-elevated); color: var(--text-muted); }
+  .status.proc { background: rgba(217,164,65,0.14); color: var(--warn); }
+  .status.done { background: rgba(46,204,154,0.14); color: var(--green); }
+  textarea { width: 100%; min-height: 170px; background: var(--bg); color: var(--text); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px; font-size: 0.9rem; line-height: 1.55; font-family: inherit; resize: vertical; }
+  .samples { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+  .samples .lbl { font-family: ui-monospace, monospace; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .chip { font-size: 0.78rem; color: var(--text); background: transparent; border: 1px solid var(--border);
+    border-radius: 999px; padding: 6px 13px; cursor: pointer; }
+  .chip:hover { border-color: var(--violet); }
+  .parse { font-family: ui-monospace, monospace; font-size: 0.82rem; font-weight: 600; color: var(--on-brass);
+    background: var(--violet); border: 0; border-radius: 10px; padding: 10px 20px; cursor: pointer; margin-top: 12px; }
+  .parse:hover { filter: brightness(1.08); }
+  .steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; min-height: 24px; }
+  .step { font-family: ui-monospace, monospace; font-size: 0.62rem; letter-spacing: 0.08em; padding: 4px 10px;
+    border-radius: 6px; border: 1px solid var(--border); color: var(--text-muted); opacity: 0;
+    transform: translateY(4px); transition: all .3s ease; }
+  .step.show { opacity: 1; transform: none; }
+  .rec-row { display: flex; gap: 12px; padding: 6px 0; border-top: 1px solid var(--border); font-size: 0.87rem; }
+  .rec-row:first-of-type { border-top: none; }
+  .rec-k { color: var(--text-muted); width: 122px; flex-shrink: 0; font-size: 0.78rem; padding-top: 2px; }
+  .rec-v { color: var(--text); }
+  .rec-v.nf { color: var(--text-muted); }
+  .badge2 { font-family: ui-monospace, monospace; font-size: 0.6rem; letter-spacing: 0.1em; padding: 3px 8px; border-radius: 5px; }
+  .badge2.high { background: rgba(46,204,154,0.14); color: var(--green); }
+  .badge2.med { background: rgba(217,164,65,0.14); color: var(--warn); }
+  .badge2.low { background: rgba(255,92,92,0.14); color: var(--bad); }
+  .badge2.urgent { background: rgba(255,92,92,0.14); color: var(--bad); }
+  .badge2.duesoon { background: rgba(217,164,65,0.14); color: var(--warn); }
+  .badge2.flex { background: var(--bg-elevated); color: var(--text-muted); }
+  .connect { border: 1px dashed var(--violet); border-radius: 12px; background: rgba(124,92,246,0.06);
+    padding: 14px 16px; margin-top: 14px; }
+  .connect h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
+  .connect li { list-style: none; font-size: 0.84rem; padding: 2px 0; }
+  .connect li::before { content: "✓ "; color: var(--green); font-weight: 600; }
+  .demo-note { font-size: 0.72rem; color: var(--text-muted); margin-top: 12px; }
+  .empty { font-size: 0.85rem; color: var(--text-muted); padding: 14px 0; }
+
+  /* automations -> packages */
+  .auto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .price-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; }
+  .price-card.featured { border-color: var(--violet); }
+  .price-name { font-size: 1.05rem; font-weight: 600; }
+  .price-desc { color: var(--text-muted); font-size: 0.84rem; margin-bottom: 14px; }
+  .price-num { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 2px; }
+  .price-setup { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 16px; }
+  .price-features { list-style: none; margin-bottom: 18px; flex-grow: 1; }
+  .price-features li { padding: 5px 0; font-size: 0.89rem; color: var(--text-muted); display: flex; gap: 8px; }
+  .price-features li::before { content: "✓"; color: var(--green); font-weight: 600; }
+  .appr { font-family: ui-monospace, monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--green); background: rgba(11,127,90,0.08); border-radius: 6px; padding: 3px 8px; display: inline-block; margin-bottom: 10px; }
+
+  /* worked example */
+  .ex-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 800px) { .ex-grid { grid-template-columns: 1fr; } }
+  .ex-card { border: 1px solid var(--border); border-radius: 14px; padding: 22px; background: var(--bg-card); }
+  .ex-card.before { border-left: 3px solid var(--bad); }
+  .ex-card.after { border-left: 3px solid var(--green); }
+  .ex-card h3 { font-size: 0.78rem; font-family: ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 12px; }
+  .ex-card li { list-style: none; font-size: 0.9rem; padding: 4px 0; color: var(--text-muted); }
+  .ex-card li b { color: var(--text); }
+  .ex-card li::before { content: "· "; color: var(--violet); font-weight: 700; }
+
+  .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-weight: 600; margin-bottom: 8px; }
+  .faq-a { color: var(--text-muted); font-size: 0.95rem; }
+
+  .proof { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .proof-card { border: 1px solid var(--border); border-radius: 14px; padding: 20px; background: var(--bg-card); }
+  .proof-card b { display: block; font-size: 1.3rem; font-weight: 700; color: var(--violet); }
+  .proof-card span { font-size: 0.85rem; color: var(--text-muted); }
+
+  .cta-card { text-align: center; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 44px 24px; }
+  .cta-card h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 650; margin-bottom: 10px; }
+  .cta-card p { color: var(--text-muted); max-width: 520px; margin: 0 auto 24px; }
+  .cta-two { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .notfor { border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; background: var(--bg-card); }
+  .notfor li { list-style: none; font-size: 0.92rem; color: var(--text-muted); padding: 3px 0; }
+  .notfor li::before { content: "— "; color: var(--bad); font-weight: 700; }
+  .nextlinks { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  footer { border-top: 1px solid var(--border); padding: 40px 0 30px; margin-top: 50px; font-size: 0.9rem; color: var(--text-muted); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .footer-links a:hover { color: var(--text); }
+
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index-v2.html" class="logo"><img src="../assets/Tishka_AI.svg" alt="Tishka AI" height="28"></a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button id="themeToggle" class="theme-btn" type="button" aria-label="Switch colour theme">Dark</button>
+      <a href="../contact.html" class="btn btn-primary" style="padding:9px 16px;font-size:0.82rem;">Book Diagnostic</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ============ 1 · HERO: THE COST ============ -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">For UK accountancy firms</span>
+        <h1>Five submissions per client<br>a year is already here.</h1>
+        <p class="hero-sub">Making Tax Digital made the £50k-plus clients file quarterly from April 2026 — the rest of the client base phases in through 2027 and 2028. The compliance software handles the forms. The chasing — records, receipts, approvals, queries — still lands on your team. We build and run that layer for you, on the practice tools you already use. From £300/month.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#demo">See it work on a client chase &rarr;</a>
+          <a class="btn btn-ghost" href="check.html">Get your free AI check</a>
+        </div>
+      </div>
+      <div>
+        <div class="hero-fig" style="display:block;">
+          <b>4 + 1</b><br><span>four quarterly updates plus the year-end return — five submissions per MTD client a year, where there was one (GOV.UK, MTD for Income Tax guidance, checked 2026-09-03).</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2 · LIVE DEMO (parser, pre-loaded) ============ -->
+  <section id="demo" class="band">
+    <div class="container">
+      <h2 class="section-title">Try it on a client chase, right here.</h2>
+      <p class="section-sub">The real extraction engine, running in your browser — the same logic that live turns a client's rambling email into a deadline, a chase and a clean task. Paste your own email instead of the sample; nothing is sent or stored.</p>
+      <div class="demo-wrap">
+        <div class="demo-grid">
+          <div>
+            <div class="demo-head">Client email <span class="status idle" id="dStatus">IDLE</span></div>
+            <div class="samples" id="dSamples">
+              <span class="lbl">Samples:</span>
+              <button type="button" class="chip" data-s="0">Records chase</button>
+              <button type="button" class="chip" data-s="1">Deadline check</button>
+            </div>
+            <textarea id="dTxt" spellcheck="false">Morning — MTD quarterly update for Oakfield Trading Ltd is due 07/10/2026 and we still haven't had the Nov/Dec receipts. Client says the shoebox is 'nearly ready' and he's on holiday until 20/10/2026. Can you chase again and confirm the quarter end? — Priya Shah, Shah &amp; Co</textarea>
+            <button class="parse" id="dParse">Parse &rarr;</button>
+          </div>
+          <div>
+            <div class="demo-head">Extracted <span class="status" id="dStatus2" hidden></span></div>
+            <div class="steps" id="dSteps" hidden></div>
+            <div id="dOut"><div class="empty">Press Parse — clean fields land here. Anything it can't find stays blank, never invented.</div></div>
+            <div class="connect" id="dConnect" hidden>
+              <h4>In your practice, this email becomes:</h4>
+              <ul id="dConnectLines"></ul>
+            </div>
+          </div>
+        </div>
+        <p class="demo-note">Runs entirely in your browser — no backend on this page. Live, it reads the client inbox, builds the chase list, files against the deadline calendar and drafts every reminder — you approve what sends.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3 · WHERE THE WEEK GOES ============ -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Where the week actually goes.</h2>
+      <p class="section-sub">Four places the hours leak — each with its number, sourced and dated.</p>
+      <div class="pain">
+        <div class="fig">£50k → £30k → £20k</div>
+        <h3>The MTD wave, phased and dated</h3>
+        <p>MTD for Income Tax went mandatory on 6 April 2026 for self-employment/property income over £50,000 — clients earning over £30,000 follow from 6 April 2027, over £20,000 from 6 April 2028 (GOV.UK). From <b>September 2026</b>, HMRC starts force-signing-up anyone who hasn't signed up — the opt-out era is over. <span class="src">GOV.UK MTD sign-up + phasing guidance, checked 2026-09-03.</span></p>
+      </div>
+      <div class="pain">
+        <div class="fig">18 Nov 2025 — already law</div>
+        <h3>Companies House verification is inside the workload too</h3>
+        <p>Identity verification became a legal requirement on 18 November 2025, in a 12-month transition: directors' codes ride on each confirmation statement, PSCs have 14-day windows — and GOV.UK says firms will need to <b>register as authorised agents (ACSPs) to file on behalf of clients</b>. That's your own compliance layer, on top of every client's. <span class="src">GOV.UK Companies House identity verification guidance, updated 2026, checked 2026-09-03.</span></p>
+      </div>
+      <div class="pain">
+        <div class="fig">24% of late payments = admin errors</div>
+        <h3>The chase nobody has time to do properly</h3>
+        <p>Government research: <b>24%</b> of businesses attribute late payments they receive to administrative errors like failing to log invoices — and <b>33%</b> don't chase formally to protect the relationship (44% among micro businesses). "Chasing the client for records" is exactly this shape: repetitive, delicate, and nobody's favourite job. <span class="src">DBT late payments research, 19 Sept 2024.</span></p>
+      </div>
+      <div class="pain">
+        <div class="fig">12 hrs/wk of admin (vendor figure, flagged)</div>
+        <h3>And the hours add up</h3>
+        <p>A vendor assessment (bias flagged — they sell automation) puts accountants at <b>12 hrs/week of admin</b> per person. No independent survey exists — the tracker on this site measures your firm's real number in five days. <span class="src">HoursBack, June 2026 — vendor, directional only.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4 · WHAT WE RUN FOR YOU (packages) ============ -->
+  <section class="band">
+    <div class="container">
+      <h2 class="section-title">What we run for you.</h2>
+      <p class="section-sub">Not the accounts — the software you already trust does that. The chase layer around them: records in, reminders out, queries triaged, deadlines never a surprise. Everything that sends starts in draft — you approve.</p>
+      <div class="auto-grid">
+        <div class="price-card">
+          <span class="appr">Approval-first on every send</span>
+          <div class="price-name">Front Desk</div>
+          <div class="price-desc">The client inbox, handled. Nothing slips before 9am.</div>
+          <div class="price-num">£300<small style="font-size:0.85rem;color:var(--text-muted)"> /mo</small></div>
+          <div class="price-setup">+ £1,500 one-off setup</div>
+          <ul class="price-features">
+            <li>Client queries classified, answered or drafted — you approve the replies</li>
+            <li>Records chases sent on a schedule, replies logged</li>
+            <li>Engagement-letter and onboarding doc chases, with escalation</li>
+            <li>Urgent client emails flagged the moment they land</li>
+          </ul>
+          <a href="../contact.html" class="btn btn-ghost">Start here &rarr;</a>
+        </div>
+        <div class="price-card featured">
+          <span class="appr">Approval-first on every send</span>
+          <div class="price-name">Ops Desk</div>
+          <div class="price-desc">Everything in Front Desk, plus the deadline calendar.</div>
+          <div class="price-num">£500<small style="font-size:0.85rem;color:var(--text-muted)"> /mo</small></div>
+          <div class="price-setup">+ £3,000 one-off setup</div>
+          <ul class="price-features">
+            <li>Per-client deadline calendar: VAT, CT, SA and MTD quarters, 60/30/7-day nudges</li>
+            <li>Missing-records list built automatically for each client</li>
+            <li>Reconciliation nags and quarter-end checklists, tracked</li>
+            <li>Morning brief: today's deadlines, chases due, anything at risk</li>
+          </ul>
+          <a href="../contact.html" class="btn btn-primary">Get a quote &rarr;</a>
+        </div>
+        <div class="price-card">
+          <span class="appr">Approval-first on every send</span>
+          <div class="price-name">AI Ops Partner</div>
+          <div class="price-desc">A watched practice — plus new builds, monthly.</div>
+          <div class="price-num">£800<small style="font-size:0.85rem;color:var(--text-muted)"> /mo</small></div>
+          <div class="price-setup">+ £5,000 one-off setup</div>
+          <ul class="price-features">
+            <li>Everything in Ops Desk</li>
+            <li>Company Brain: watches every client deadline and chase — warns before things slip</li>
+            <li>Monthly review with your own measured numbers</li>
+            <li>New workflows built and added as the practice changes</li>
+          </ul>
+          <a href="../contact.html" class="btn btn-ghost">Talk to us &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · WORKED EXAMPLE (composite, labelled) ============ -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">One client's quarter, before and after.</h2>
+      <p class="section-sub">A composite from the documented pain points — labelled as such because there are no client numbers here yet. The diagnostic measures your real ones.</p>
+      <div class="ex-grid">
+        <div class="ex-card before">
+          <h3>Before — by hand</h3>
+          <ul>
+            <li><b>Someone remembers</b> the quarter ends in three weeks — usually the spreadsheet, sometimes nobody</li>
+            <li><b>4 chase emails</b> for the missing receipts, each written from scratch</li>
+            <li>Client replies "nearly ready" — twice</li>
+            <li>Quarter-end week: chase, reconcile, chase again, file late-night</li>
+            <li>Times five (per MTD client, per year) and multiply by the client base</li>
+          </ul>
+        </div>
+        <div class="ex-card after">
+          <h3>After — the built layer</h3>
+          <ul>
+            <li>Every client's quarter dates live on one watched calendar</li>
+            <li>Missing-records chases <b>drafted</b> on schedule — you approve, it logs the replies</li>
+            <li>"Nearly ready" twice → escalation task, drafted, human decides</li>
+            <li>Morning brief shows today's deadlines and anything drifting</li>
+            <li>The chase count is measurable — the workload stops being invisible</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6 · MONEY BLOCK ============ -->
+  <section class="band">
+    <div class="container">
+      <h2 class="section-title">What it costs and how it starts.</h2>
+      <div class="pain" style="border-left:3px solid var(--violet);">
+        <h3>Days to first build, not months</h3>
+        <p>The first automation is typically live in <b>1–2 weeks</b>. Setup is split <b>50/50</b>: half on agreement, half on go-live. The monthly covers hosting, fixes and the person who keeps it working — <b>no lock-in, 30 days' notice</b>.</p>
+      </div>
+      <div class="pain">
+        <h3>What you own</h3>
+        <p>The system runs on your practice's accounts and your clients' data under your control. Everything built for you is exportable and documented — leave any time and take it. We read what the workflows need (inbox, practice software); nothing else.</p>
+      </div>
+      <div class="notfor" style="margin-top:14px;">
+        <h3 style="font-size:1rem;font-weight:600;margin-bottom:10px;">Who this is not for</h3>
+        <ul>
+          <li>Firms wanting AI to do the bookkeeping — your existing software bundle is already going there.</li>
+          <li>Sole practitioners with a stable, tiny client list — the maths needs a team behind the chases.</li>
+          <li>Firms with their own automation team — you'd be paying us to duplicate what you build.</li>
+        </ul>
+        <p class="src">We'd rather say it here than take the money.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7 · PROOF STRIP ============ -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Why you can believe any of this.</h2>
+      <p class="section-sub">We run our own business on the machinery we sell — built by us, for us, before we sold it to anyone.</p>
+      <div class="proof">
+        <div class="proof-card"><b>8am</b><span>a written briefing lands every weekday in our own AI system — priorities, risks, numbers</span></div>
+        <div class="proof-card"><b>Daily</b><span>a run sheet of what to do next, generated by the system, not by memory</span></div>
+        <div class="proof-card"><b>Logged</b><span>every piece of work recorded with hours-saved figures — the same measurement we'd run for you</span></div>
+        <div class="proof-card"><b>Pre-launch</b><span>honest label: no client numbers here yet — every figure above is published research, dated and sourced</span></div>
+      </div>
+      <p style="margin-top:18px;"><span class="src">See it working: <a href="demo-dashboard.html" style="color:var(--violet);">the dashboard demo</a> · <a href="demo-brief.html" style="color:var(--violet);">the morning-brief demo</a> · <a href="demo-parser.html" style="color:var(--violet);">the parser, with your own text</a></span></p>
+    </div>
+  </section>
+
+  <!-- ============ 8 · FAQ (visible, schema matches exactly) ============ -->
+  <section class="band">
+    <div class="container" style="max-width:760px;">
+      <h2 class="section-title">Questions firm owners actually ask.</h2>
+      <div class="faq-item"><div class="faq-q">What does it cost, honestly?</div>
+        <div class="faq-a">Packages start at £300/month plus a one-off setup — £1,500 for Front Desk, £3,000 for Ops Desk, £5,000 for AI Ops Partner. Setup is split 50/50 (half on agreement, half on go-live). No lock-in: 30 days' notice cancels the monthly. The first diagnostic is free.</div></div>
+      <div class="faq-item"><div class="faq-q">We're accountants — we already automate. What's left for you?</div>
+        <div class="faq-a">The part your software doesn't touch: the client. Chasing records, chasing approvals, chasing engagement letters, triaging queries, watching every deadline across every client. The platforms automate the ledger; the chasing layer between the firm and its clients is still email and memory. That's the layer we build and run.</div></div>
+      <div class="faq-item"><div class="faq-q">What about client data — privacy and GDPR?</div>
+        <div class="faq-a">We work inside the access you grant — typically read access to the client inbox and your practice tools — on your systems, with exports and documentation handed over. Client data is used to run your workflows, never sold, never used to train outside models, and anything leaving the firm waits for a human approval. Full detail is agreed in writing before any build.</div></div>
+      <div class="faq-item"><div class="faq-q">What if it chases a client wrongly, or a reminder goes out at the wrong moment?</div>
+        <div class="faq-a">Everything starts in draft — a wrong chase is a two-second delete, not a sent email. Sensitive categories (money, compliance notices, anything client-facing that could sour a relationship) stay approval-only permanently, and every send is logged so you can see exactly what went out and when.</div></div>
+      <div class="faq-item"><div class="faq-q">What do you need from us to build it?</div>
+        <div class="faq-a">Read access to the inbox (or a forwarding rule), your deadline list — even a spreadsheet — and a look at whatever tracks clients today. No new logins for your team, nothing for clients to install, and your data stays yours: exports and documentation come with the build.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ 9 · TWO-DOOR CLOSE ============ -->
+  <section>
+    <div class="container">
+      <div class="cta-card">
+        <h2>Two ways to start — pick your speed.</h2>
+        <p>A real answer in 3 minutes, or the measured one first. Both free — no account, no email held hostage.</p>
+        <div class="cta-two">
+          <a class="btn btn-primary" href="check.html">Take the 3-minute AI check &rarr;</a>
+          <a class="btn btn-ghost" href="tracker.html">Run the 5-day leak tracker &rarr;</a>
+        </div>
+        <p style="margin-top:22px;" class="nextlinks">
+          <span class="src">Other trades we build for: <a href="ai-for-recruitment.html" style="color:var(--violet);">Recruitment</a> · <a href="ai-for-property.html" style="color:var(--violet);">Property &amp; lettings</a> · <a href="ai-for-trades.html" style="color:var(--violet);">Trades</a> · <a href="method.html" style="color:var(--violet);">How the method works</a></span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <div>TISHKA AI © 2026 · DRAFT — NOT LIVE</div>
+      <div class="footer-links">
+        <a href="index-v2.html">Home draft</a>
+        <a href="method.html">The method</a>
+        <a href="tracker.html">Time Leak Tracker</a>
+        <a href="check.html">Free AI check</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* ============ theme toggle ============ */
+  var themeBtn = document.getElementById('themeToggle');
+  function themeLabel() {
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    themeBtn.textContent = dark ? 'Light' : 'Dark';
+  }
+  themeBtn.addEventListener('click', function () {
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+    else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+    themeLabel();
+  });
+  themeLabel();
+
+  /* ============ vertical parser demo (engine reused from demo-parser.html) ============ */
+  var $ = function (s) { return document.querySelector(s); };
+  var NF = '\u2014 not found';
+  var SAMPLES = [
+    "Morning \u2014 MTD quarterly update for Oakfield Trading Ltd is due 07/10/2026 and we still haven't had the Nov/Dec receipts. Client says the shoebox is 'nearly ready' and he's on holiday until 20/10/2026. Can you chase again and confirm the quarter end? \u2014 Priya Shah, Shah & Co",
+    "VAT return for Millbrook Engineering Ltd due 07/11/2026 \u2014 figures still missing two supplier invoices (Edmundson Electrical, invoice INV-2291 \u00a31,049.60). Client replied 'this week', chased twice already. Records requested 14/09/2026."
+  ];
+  var RX = {
+    phone: /\b(?:\+44[\s-]?|0)(?:\d[\s-]?){9,10}\b/g,
+    email: /[\w.+-]+@[\w-]+\.[\w.-]{2,}/g,
+    date: /\b\d{1,2}\/\d{1,2}\/(?:\d{4})\b/g,
+    rel: /\b(?:this week|next week|tomorrow|this morning|this afternoon|asap|as soon as possible)\b/gi,
+    company: /\b[A-Z][\w&.'\u2019-]*(?:[ \t]+(?:[A-Z&][\w&.'\u2019-]*|of|the)){0,3}[ \t]+(?:Ltd|Limited|LLP|PLC|Ltd\.|& Co)\b/g,
+    sigName: /(?:cheers|regards|kind regards|thanks|thank you|best(?: wishes)?|many thanks)[,.! ]*\n?\s*(?:\u2014|-)?\s*([A-Z][\w'\u2019-]+(?:[ \t]+[A-Z][\w'\u2019-]+){0,2})/im,
+    dashName: /\u2014\s*([A-Z][\w'\u2019.]*?(?:\s+[A-Z][\w'\u2019.]+)*)(?=\s*,|\s*$|\s*\n)/m,
+    mtd: /\b(MTD|quarterly update|VAT return|CT600|Self Assessment|SA return|accounts filing|confirmation statement)\b/i,
+    missing: /\b(missing|outstanding|haven'?t had|not received|awaiting|still to come)\b[^.;\n]{0,60}/gi
+  };
+  var URGENT_WORDS = /\b(overdue|penalt\w*|late filing|tomorrow|today|asap|urgent)\b/i;
+  function find(text, re, group) {
+    var out = [], m; re.lastIndex = 0;
+    while ((m = re.exec(text)) !== null) { out.push(group && m[group] ? m[group].trim() : (m[0] || '').trim()); if (out.length > 6) break; }
+    return out;
+  }
+  function uniq(a) { var s = [], seen = {}; a.forEach(function (x) { var k = x.toLowerCase(); if (!seen[k]) { seen[k] = 1; s.push(x); } }); return s; }
+  function first(a) { return a.length ? a[0] : null; }
+  function clean(x) { return x ? String(x).replace(/\s+/g, ' ').trim() : null; }
+
+  function parseClient(t) {
+    var phones = uniq(find(t, RX.phone)), emails = uniq(find(t, RX.email));
+    var name = clean(first(find(t, RX.sigName, 1))) || clean(first(find(t, RX.dashName, 1)));
+    var company = clean(first(find(t, RX.company)));
+    var dates = uniq(find(t, RX.date));
+    var mtdItem = clean(first(find(t, RX.mtd, 1)));
+    var missingBits = uniq(find(t, RX.missing)).slice(0, 2);
+    var chasing = /\b(chas\w*|replied|nagged|again|reminder|second)\b/i.test(t);
+    var urgent = URGENT_WORDS.test(t);
+    var rows = [];
+    function add(k, v) { rows.push([k, v || NF, v ? '' : 'nf']); }
+    add('Type', mtdItem ? 'Deadline / compliance chase' : 'Client request');
+    if (mtdItem) add('Filing', mtdItem);
+    add('Client', company);
+    add('Contact', name);
+    add('Phone', phones.length ? phones[0] : null);
+    add('Email', emails.length ? emails[0] : null);
+    add('Key dates', dates.length ? dates.join(' \u00b7 ') : null);
+    if (missingBits.length) add('Missing', missingBits.join(' \u00b7 '));
+    rows.push(['Urgency', urgent ? '<span class="badge2 urgent">URGENT</span>' : (dates.length ? '<span class="badge2 duesoon">DUE SOON</span>' : '<span class="badge2 flex">FLEXIBLE</span>')]);
+    rows.push(['Chase detected', chasing ? '<span class="badge2 urgent">YES \u2014 chased before</span>' : '<span class="badge2 flex">NO</span>']);
+    return rows;
+  }
+
+  function renderRows(rows) {
+    var out = $('#dOut'); out.innerHTML = '';
+    rows.forEach(function (row) {
+      var div = document.createElement('div'); div.className = 'rec-row';
+      div.innerHTML = '<span class="rec-k">' + row[0] + '</span><span class="rec-v' + (row[2] ? ' ' + row[2] : '') + '">' + row[1] + '</span>';
+      out.appendChild(div);
+    });
+  }
+  function setStatus(k, label) { var s = $('#dStatus'); s.className = 'status ' + k; s.textContent = label; }
+
+  function runParse() {
+    var text = $('#dTxt').value.trim();
+    if (!text) { setStatus('idle', 'IDLE'); $('#dOut').innerHTML = '<div class="empty">Paste an email first \u2014 or load a sample above.</div>'; $('#dConnect').hidden = true; return; }
+    setStatus('proc', 'PARSING\u2026');
+    var btn = $('#dParse'); btn.disabled = true; btn.textContent = 'Parsing\u2026';
+    $('#dConnect').hidden = true;
+    var steps = ['READ', 'CLASSIFY', 'EXTRACT'];
+    var box = $('#dSteps'); box.innerHTML = ''; box.hidden = false;
+    var els = steps.map(function (s) { var d = document.createElement('span'); d.className = 'step'; d.textContent = s; box.appendChild(d); return d; });
+    els.forEach(function (el, i) { setTimeout(function () { el.classList.add('show'); }, 140 + i * 320); });
+    setTimeout(function () {
+      var rows = parseClient(text);
+      var core = rows.filter(function (r) { return r[0] !== 'Type' && r[0] !== 'Chase detected'; });
+      var emptyish = core.every(function (r) { return String(r[1]) === NF; });
+      if (emptyish) {
+        $('#dOut').innerHTML = '<div class="empty">Couldn\u2019t pull clean fields from that \u2014 and it never invents them. Try a sample, or paste text with a name, number or date in it.</div>';
+        $('#dConnect').hidden = true;
+      } else {
+        renderRows(rows);
+        $('#dConnect').hidden = false;
+      }
+      setStatus('done', 'COMPLETE');
+      btn.disabled = false; btn.textContent = 'Parse again';
+      setTimeout(function () { box.hidden = true; }, 700);
+    }, 140 + els.length * 320 + 150);
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('#dSamples .chip'), function (c) {
+    c.addEventListener('click', function () { $('#dTxt').value = SAMPLES[+c.dataset.s]; runParse(); });
+  });
+  $('#dParse').addEventListener('click', runParse);
+})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does it cost, honestly?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Packages start at £300/month plus a one-off setup — £1,500 for Front Desk, £3,000 for Ops Desk, £5,000 for AI Ops Partner. Setup is split 50/50 (half on agreement, half on go-live). No lock-in: 30 days' notice cancels the monthly. The first diagnostic is free." }
+    },
+    {
+      "@type": "Question",
+      "name": "We're accountants — we already automate. What's left for you?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The part your software doesn't touch: the client. Chasing records, chasing approvals, triaging queries, watching every deadline across every client. The platforms automate the ledger; the chase layer between the firm and its clients is still email and memory. That's the layer we build and run." }
+    },
+    {
+      "@type": "Question",
+      "name": "What about client data — privacy and GDPR?",
+      "acceptedAnswer": { "@type": "Answer", "text": "We work inside the access you grant — typically read access to the client inbox — on your systems, with exports and documentation handed over. Client data is used to run your workflows, never sold, never used to train outside models, and anything client-facing waits for a human approval. Full detail is agreed in writing before any build." }
+    },
+    {
+      "@type": "Question",
+      "name": "What if it chases a client wrongly, or a reminder goes out at the wrong moment?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Everything starts in draft — a wrong chase is a two-second delete, not a sent email. Sensitive categories (money, compliance notices, relationship-sensitive messages) stay approval-only permanently, and every send is logged so you can see exactly what went out and when." }
+    },
+    {
+      "@type": "Question",
+      "name": "What do you need from us to build it?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Read access to the inbox (or a forwarding rule), your deadline list — even a spreadsheet — and a look at whatever tracks clients today. No new logins for the team, nothing for clients to install, and your data stays yours: exports and documentation come with the build." }
+    }
+  ]
+}
+</script>
+</body>
+</html>
