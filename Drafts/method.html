@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — THE METHOD PAGE (LOCAL DRAFT — NOT LIVE, NOT DEPLOYED)
+  Built 2026-09-03 per plans/website-verticals-tracker-method-build-plan.md §3
+  + structure doc §6: 5 phases, each ending with two doors (DIY exact steps /
+  we do it for you: cost + time); tracker embedded as phase 1 (iframe);
+  interactive prioritiser (client-side: hours × risk-if-wrong × rule-based);
+  proof artifacts = the three demo pages + our own operation's rhythm;
+  our own five mistakes; anti-pitch section.
+  [PETE-FLAG] Prioritiser scoring weights (time × risk × rule-based) are a
+  starter rule set — Pete may want them tuned.
+  [PETE-FLAG] Phase-1 tracker is embedded via iframe of tracker.html (same
+  folder) — nav placement of the method page is Pete's.
+============================================================= -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>How we find the money leaking out of your admin — the method | Tishka AI</title>
+<meta name="description" content="The five-phase method: measure a real week, rank what's worth automating, build small, keep a human in the loop, monitor monthly. Every phase ends with two doors — do it yourself, or we do it for you.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tishka.ai/" },
+    { "@type": "ListItem", "position": 2, "name": "The method" }
+  ]
+}
+</script>
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f7f7f8; --bg-card: #ffffff; --bg-elevated: #f1f1f4;
+    --border: #e4e4e9; --text: #121215; --text-muted: #5a5a63;
+    --accent: #121215; --green: #0b7f5a; --blue: #2563eb; --violet: #6d4cf0;
+    --header-bg: rgba(247,247,248,0.85); --band: #efeff3;
+    --btn-bg: #121215; --btn-fg: #ffffff; --btn-bg-hover: #2c2c31;
+    --ghost-hover: #e7e7ec; --warn: #a3701a; --bad: #d43f3f;
+    color-scheme: light;
+  }
+  html[data-theme="dark"] {
+    --bg: #0a0a0a; --bg-card: #111111; --bg-elevated: #1a1a1a;
+    --border: #2a2a2a; --text: #f5f5f5; --text-muted: #a1a1a1;
+    --accent: #ffffff; --green: #22c55e; --blue: #3b82f6; --violet: #7c5cf6;
+    --header-bg: rgba(10,10,10,0.85); --band: #0f0f0f;
+    --btn-bg: #ffffff; --btn-fg: #000000; --btn-bg-hover: #e5e5e5;
+    --ghost-hover: #222222; --warn: #d9a441; --bad: #ff5c5c;
+    color-scheme: dark;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 10px; }
+  .logo img { height: 28px; width: auto; display: block; }
+  html:not([data-theme="dark"]) .logo img { filter: invert(1); }
+  .badge { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.62rem; letter-spacing: 0.12em;
+    text-transform: uppercase; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-muted);
+    border-radius: 6px; padding: 5px 10px; }
+  .theme-btn { font-family: ui-monospace, monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px;
+    background: var(--bg-card); cursor: pointer; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; padding: 11px 20px;
+    border-radius: 9999px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; transition: all .15s ease; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
+  .btn-ghost { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+
+  .hero { padding: 60px 0 20px; text-align: center; }
+  .eyebrow { display: inline-block; font-family: ui-monospace, monospace; font-size: 0.68rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--violet); margin-bottom: 14px; }
+  h1 { font-size: clamp(2rem, 4.5vw, 2.8rem); font-weight: 650; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 16px; }
+  .hero-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 620px; margin: 0 auto; }
+
+  section { padding: 50px 0; }
+  section.band { background: var(--band); }
+  .section-title { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 650; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .section-sub { color: var(--text-muted); max-width: 640px; margin-bottom: 30px; }
+
+  .phase { border: 1px solid var(--border); border-radius: 16px; background: var(--bg-card); padding: 28px; margin-bottom: 22px; }
+  .phase .num { font-family: ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--violet); margin-bottom: 8px; }
+  .phase h2 { font-size: 1.35rem; font-weight: 650; margin-bottom: 10px; }
+  .phase p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; }
+  .phase p b { color: var(--text); }
+  .doors { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+  @media (max-width: 700px) { .doors { grid-template-columns: 1fr; } .phase { padding: 20px 16px; } }
+  .door { border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; background: var(--bg); }
+  .door h3 { font-size: 0.72rem; font-family: ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 8px; }
+  .door.us { border-color: var(--violet); background: rgba(124,92,246,0.05); }
+  .door li { list-style: none; font-size: 0.87rem; color: var(--text-muted); padding: 2px 0; }
+  .door li::before { content: "· "; color: var(--violet); font-weight: 700; }
+  .door .cost { font-size: 0.82rem; color: var(--text); font-weight: 600; margin-top: 8px; }
+  .door a { color: var(--violet); }
+
+  .tracker-frame { width: 100%; height: 760px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); }
+  .embed-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 10px; }
+
+  /* prioritiser */
+  .prio-card { border: 1px solid var(--violet); box-shadow: 0 0 0 1px var(--violet); }
+  .prow { display: grid; grid-template-columns: 1fr 90px 120px 110px 40px; gap: 8px; align-items: center; margin-bottom: 8px; }
+  .prow.head { font-family: ui-monospace, monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 10px; }
+  @media (max-width: 700px) { .prow { grid-template-columns: 1fr 70px 100px 100px 36px; } }
+  .prow input[type=text] { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 10px; font-size: 0.85rem; font-family: inherit; }
+  .prow input[type=number] { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 10px; font-size: 0.88rem; font-family: inherit; }
+  .prow select { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 8px; font-size: 0.82rem; font-family: inherit; }
+  .prow .rm { background: transparent; border: 1px solid var(--border); color: var(--text-muted); border-radius: 8px;
+    padding: 6px 0; cursor: pointer; font-size: 0.75rem; }
+  .prow .rm:hover { color: var(--bad); border-color: var(--bad); }
+  .pranked { margin-top: 16px; }
+  .prank { display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 14px; margin-bottom: 8px; background: var(--bg-card); font-size: 0.88rem; }
+  .prank .s { font-family: ui-monospace, monospace; color: var(--violet); font-weight: 700; width: 52px; flex-shrink: 0; }
+  .prank .t { font-weight: 600; }
+  .prank .v { margin-left: auto; font-family: ui-monospace, monospace; font-size: 0.62rem; letter-spacing: 0.08em;
+    text-transform: uppercase; border-radius: 6px; padding: 3px 8px; flex-shrink: 0; }
+  .prank .v.first { background: rgba(11,127,90,0.12); color: var(--green); }
+  .prank .v.next { background: rgba(109,76,240,0.1); color: var(--violet); }
+  .prank .v.later { background: var(--bg-elevated); color: var(--text-muted); }
+  .prank .v.leave { background: rgba(212,63,63,0.1); color: var(--bad); }
+  .pmethod { font-size: 0.75rem; color: var(--text-muted); margin-top: 12px; }
+
+  .mist li { list-style: none; font-size: 0.93rem; color: var(--text-muted); padding: 8px 0; border-bottom: 1px dashed var(--border); }
+  .mist li:last-child { border-bottom: none; }
+  .mist li b { color: var(--text); }
+
+  .proof { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .proof-card { border: 1px solid var(--border); border-radius: 14px; padding: 20px; background: var(--bg-card); }
+  .proof-card b { display: block; font-size: 1.25rem; font-weight: 700; color: var(--violet); }
+  .proof-card span { font-size: 0.85rem; color: var(--text-muted); }
+
+  .cta-card { text-align: center; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 44px 24px; }
+  .cta-card h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 650; margin-bottom: 10px; }
+  .cta-card p { color: var(--text-muted); max-width: 520px; margin: 0 auto 24px; }
+  .cta-two { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  footer { border-top: 1px solid var(--border); padding: 40px 0 30px; margin-top: 50px; font-size: 0.9rem; color: var(--text-muted); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .footer-links a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index-v2.html" class="logo"><img src="../assets/Tishka_AI.svg" alt="Tishka AI" height="28"></a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button id="themeToggle" class="theme-btn" type="button" aria-label="Switch colour theme">Dark</button>
+      <a href="../contact.html" class="btn btn-primary" style="padding:9px 16px;font-size:0.82rem;">Book Diagnostic</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="hero">
+    <span class="eyebrow">The method</span>
+    <h1>How we find the money leaking<br>out of your admin.</h1>
+    <p class="hero-sub">Five phases, in order. Every phase ends with two doors: the exact steps to do it yourself — or what it costs and how long it takes for us to do it for you. Use the page either way; it's the same method we run.</p>
+  </div>
+
+  <!-- ============ PHASE 1 ============ -->
+  <div class="phase">
+    <div class="num">Phase 1 · Measure</div>
+    <h2>Find out where the week actually goes.</h2>
+    <p>Not from memory — from a log. For five working days, note the interruptions: the chase, the re-type, the "where's my job up to" call. Ten seconds an entry, or a 90-second catch-up in the evening. The tracker is right here:</p>
+    <iframe class="tracker-embed tracker" src="tracker.html" title="Time Leak Tracker" loading="lazy" style="width:100%;height:760px;border:1px solid var(--border);border-radius:12px;background:var(--bg-card);"></iframe>
+    <p class="embed-note">Or open it full-page: <a href="tracker.html" style="color:var(--violet);">the Time Leak Tracker</a>. No account, no email — data stays in your browser.</p>
+    <div class="doors">
+      <div class="door">
+        <h3>Door 1 — do it yourself</h3>
+        <ul>
+          <li>Pick one week, no holidays, no deadline week — a normal one</li>
+          <li>Log every interruption for 5 working days (estimate mode is fine — label it)</li>
+          <li>Read the day-3 report, then the day-5 one</li>
+          <li>Ask: which of these would I pay someone £15/hour to stop doing?</li>
+        </ul>
+        <p class="cost">Cost: £0 · Time: ~10 min total</p>
+      </div>
+      <div class="door us">
+        <h3>Door 2 — we do it with you</h3>
+        <ul>
+          <li>Free 30-minute diagnostic: we map the leaks on a call</li>
+          <li>We set the tracker up for your trade and read the report with you</li>
+          <li>The proposal is built from your numbers, not our guesses</li>
+        </ul>
+        <p class="cost">Cost: free · Time: 30 min call</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PHASE 2 ============ -->
+  <section class="band" style="padding:50px 0;">
+    <div class="phase" style="margin-bottom:0;">
+      <div class="num">Phase 2 · Rank</div>
+      <h2>Decide what's worth automating first.</h2>
+      <p>Three questions rank any task: <b>how much time</b> does it eat, <b>what happens if AI gets it wrong</b>, and <b>how rule-based</b> is it. Score them here — the maths is visible, nothing is hidden:</p>
+      <div class="prow" style="margin-top:16px;">
+        <span style="font-family:ui-monospace,monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Task</span>
+        <span style="font-family:ui-monospace,monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Hrs/wk</span>
+        <span style="font-family:ui-monospace,monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">If AI gets it wrong</span>
+        <span style="font-family:ui-monospace,monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Rule-based?</span>
+        <span></span>
+      </div>
+      <div id="pRows"></div>
+      <div style="margin-top:12px;">
+        <button class="btn btn-ghost" id="pAdd" type="button">+ Add a task</button>
+      </div>
+      <div class="pranked" id="pRanked"></div>
+      <p class="pmethod">Scoring: hours/week × risk factor (low 1.0 · medium 0.6 · high 0.3) × rule-based factor (fully 1.0 · partly 0.6 · not 0.2). High score = automate first. A "not rule-based" task with real risk scores near zero on purpose — judgment calls stay human. Starter rules, shown so you can argue with them.</p>
+      <div class="doors">
+        <div class="door">
+          <h3>Door 1 — do it yourself</h3>
+          <ul>
+            <li>List every recurring admin task from your week's log</li>
+            <li>Score each: hours, blast radius if wrong, how rule-based it is</li>
+            <li>Anything judgment-based (pricing, who-gets-what) → leave it alone</li>
+          </ul>
+          <p class="cost">Cost: £0 · Time: 20 min</p>
+        </div>
+        <div class="door us">
+          <h3>Door 2 — we do it with you</h3>
+          <ul>
+            <li>We score the list with you in the diagnostic, on your numbers</li>
+            <li>You get a ranked map: automate first / needs your OK / leave alone</li>
+          </ul>
+          <p class="cost">Cost: free (part of the diagnostic)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PHASE 3 ============ -->
+  <section>
+    <div class="phase">
+      <div class="num">Phase 3 · Build small</div>
+      <h2>One automation, live in 1–2 weeks.</h2>
+      <p>Don't build a "system". Build <b>the one thing</b> that scored highest, measure it against last month, then decide. Small proof first, bigger gains next — never asked to bet on a promise.</p>
+      <div class="doors">
+        <div class="door">
+          <h3>Door 1 — do it yourself</h3>
+          <ul>
+            <li>Pick the top-ranked task. Nothing else</li>
+            <li>Write down today's baseline: how many, how long, who does it</li>
+            <li>Build with draft-only output first — nothing sends for two weeks</li>
+            <li>Measure after 2 weeks against the baseline; keep, fix, or kill</li>
+          </ul>
+          <p class="cost">Cost: your evenings · Time: 1–2 weeks</p>
+        </div>
+        <div class="door us">
+          <h3>Door 2 — we do it for you</h3>
+          <ul>
+            <li>We build it, host it and run it — first automation live in 1–2 weeks</li>
+            <li>Setup split 50/50: half on agreement, half on go-live</li>
+            <li>Packages from £300/month; you own what's built, 30 days' notice, no lock-in</li>
+          </ul>
+          <p class="cost">Cost: from £300/mo + £1,500 setup · Time: 1–2 weeks</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PHASE 4 ============ -->
+  <section class="band" style="padding:50px 0;">
+    <div class="phase" style="margin-bottom:0;">
+      <div class="num">Phase 4 · Keep a human in the loop</div>
+      <h2>Approval first. Always, at the start.</h2>
+      <p>Every send starts as a draft that waits for a person. Once you trust a routine category, you switch it to auto — <b>per category, your choice</b>. Money, compliance and anything sensitive stay approval-only permanently. See the approve-flow working:</p>
+      <p style="margin-top:8px;"><span class="section-sub" style="margin-bottom:0;"><a href="demo-brief.html" style="color:var(--violet);">The morning-brief demo</a> — scan, draft, approve or edit, all in the browser.</span></p>
+      <div class="doors">
+        <div class="door">
+          <h3>Door 1 — do it yourself</h3>
+          <ul>
+            <li>Draft mode on everything for at least two weeks</li>
+            <li>Only flip a category to auto after a spotless fortnight</li>
+            <li>Keep money, compliance and legal approval-only forever</li>
+          </ul>
+          <p class="cost">Cost: £0 · Time: discipline</p>
+        </div>
+        <div class="door us">
+          <h3>Door 2 — we do it for you</h3>
+          <ul>
+            <li>Approval-first is how every Tishka build works, by default</li>
+            <li>We set the categories with you and keep the send-log clean</li>
+          </ul>
+          <p class="cost">Cost: included in every package</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PHASE 5 ============ -->
+  <section>
+    <div class="phase">
+      <div class="num">Phase 5 · Monitor &amp; compound</div>
+      <h2>Measure monthly. Add the next one.</h2>
+      <p>Automations drift: inboxes change, a supplier renames a form, a team member invents a new workaround. A monthly look at the numbers catches it — and the next-ranked task from Phase 2 becomes the next build. This is the part that compounds.</p>
+      <div class="doors">
+        <div class="door">
+          <h3>Door 1 — do it yourself</h3>
+          <ul>
+            <li>Re-run the tracker one day a month and compare</li>
+            <li>Fix what drifted before it quietly rots</li>
+            <li>Pick the next task off the Phase-2 list when capacity allows</li>
+          </ul>
+          <p class="cost">Cost: £0 · Time: ~1 hr/month</p>
+        </div>
+        <div class="door us">
+          <h3>Door 2 — we do it for you</h3>
+          <ul>
+            <li>Monthly review with your measured numbers is what the £300+ tiers are for</li>
+            <li>Fixes, prompt updates and new builds are included, not upsold</li>
+          </ul>
+          <p class="cost">Cost: included from £300/mo</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROOF ============ -->
+  <section class="band">
+    <div class="container">
+      <h2 class="section-title">The proof: we run on this.</h2>
+      <p class="section-sub">Our own business runs on the same five phases — the briefing, the run sheet, the ledger of hours saved. Click through the real thing:</p>
+      <div class="proof">
+        <div class="proof-card"><b>8am</b><span>a written briefing lands every weekday in our own AI operating system</span></div>
+        <div class="proof-card"><b>Daily</b><span>a run sheet of exactly what to do next — generated, not remembered</span></div>
+        <div class="proof-card"><b>Logged</b><span>every piece of work recorded with hours-saved figures — measurement, not vibes</span></div>
+        <div class="proof-card"><b>Pre-launch</b><span>honest label: no client numbers yet — the demos below are real and clickable</span></div>
+      </div>
+      <p style="margin-top:18px;"><span style="font-size:0.85rem;color:var(--text-muted);">Demos: <a href="demo-dashboard.html" style="color:var(--violet);">the dashboard</a> · <a href="demo-brief.html" style="color:var(--violet);">the morning brief</a> · <a href="demo-parser.html" style="color:var(--violet);">the parser — paste your own text</a></span></p>
+    </div>
+  </section>
+
+  <!-- ============ OUR MISTAKES ============ -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Our own five mistakes — made here, so you skip them.</h2>
+      <p class="section-sub">The same honesty we'd want from anyone we paid.</p>
+      <ul class="mist">
+        <li><b>Building for the edge case first.</b> The weird 5% of cases is where builds go to die. Ship the boring 95%, keep a human for the rest.</li>
+        <li><b>Automating a judgment call.</b> The one time AI priced the job, we paid for the lesson. If it needs judgment, it needs a human — permanently.</li>
+        <li><b>Shipping without a review step.</b> An automation with no approval gate is a machine for making mistakes faster. Draft mode isn't caution, it's the design.</li>
+        <li><b>Scoping from a chat instead of data.</b> "Walk me through your week" from memory is the least reliable data there is. That's why the tracker exists.</li>
+        <li><b>Treating it as a project with an end date.</b> Inboxes change, tools update, people improvise. Whatever isn't maintained drifts — the maintenance is the product.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ ANTI-PITCH ============ -->
+  <section class="band">
+    <div class="container">
+      <h2 class="section-title">What this method won't give you.</h2>
+      <ul class="mist">
+        <li><b>No £10/month magic.</b> Real automations need real setup and a real person keeping them honest. Anyone promising otherwise is selling you the trial.</li>
+        <li><b>Nothing automated that needs judgment.</b> Pricing, hiring, which client gets the good slot — that stays yours. We mark it "leave it alone" in writing.</li>
+        <li><b>No fake precision.</b> Estimates are labelled as estimates, the maths behind every number is visible, and there's no "readiness score out of 100" because nobody can defend one.</li>
+        <li><b>No replacing your team.</b> The point is the repetitive work off their plate — not fewer people. If a pitch implies otherwise, walk away.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ CLOSE ============ -->
+  <section>
+    <div class="container">
+      <div class="cta-card">
+        <h2>Start where you like.</h2>
+        <p>Measure a week with the tracker, take the 3-minute check, or just book the diagnostic and bring your questions. All free, no account, no email held hostage.</p>
+        <div class="cta-two">
+          <a class="btn btn-primary" href="../contact.html">Book a free diagnostic &rarr;</a>
+          <a class="btn btn-ghost" href="tracker.html">Run the 5-day leak tracker &rarr;</a>
+          <a class="btn btn-ghost" href="check.html">Take the 3-minute AI check &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <div>TISHKA AI © 2026 · DRAFT — NOT LIVE</div>
+      <div class="footer-links">
+        <a href="index-v2.html">Home draft</a>
+        <a href="ai-for-recruitment.html">Recruitment</a>
+        <a href="ai-for-property.html">Property</a>
+        <a href="ai-for-accountants.html">Accountants</a>
+        <a href="ai-for-trades.html">Trades</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* ============ theme toggle ============ */
+  var themeBtn = document.getElementById('themeToggle');
+  function themeLabel() {
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    themeBtn.textContent = dark ? 'Light' : 'Dark';
+  }
+  themeBtn.addEventListener('click', function () {
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+    else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+    themeLabel();
+  });
+  themeLabel();
+
+  /* ============ prioritiser (client-side, visible maths) ============ */
+  var RISK = { low: 1.0, medium: 0.6, high: 0.3 };
+  var RULE = { fully: 1.0, partly: 0.6, not: 0.2 };
+  function scoreTask(hours, risk, rule) {
+    var h = Math.max(0, Math.min(40, +hours || 0));
+    var rf = RISK[risk] != null ? RISK[risk] : 0.6;
+    var cf = RULE[rule] != null ? RULE[rule] : 0.6;
+    return Math.round(h * rf * cf * 10) / 10;
+  }
+  function verdictFor(score, risk, rule) {
+    if (rule === 'not' && (risk === 'high' || risk === 'medium')) return 'leave';
+    if (score >= 3) return 'first';
+    if (score >= 1) return 'next';
+    return 'later';
+  }
+  var LABELS = {
+    first: { t: 'Automate first', cls: 'first' },
+    next: { t: 'Next in line', cls: 'next' },
+    later: { t: 'Later', cls: 'later' },
+    leave: { t: 'Leave it alone', cls: 'leave' }
+  };
+
+  var rows = [
+    { task: 'Chasing invoices', hours: 3, risk: 'low', rule: 'fully' },
+    { task: 'Drafting quotes', hours: 4, risk: 'medium', rule: 'partly' },
+    { task: 'Pricing decisions', hours: 1, risk: 'high', rule: 'not' }
+  ];
+  var seed = 0;
+  function addRow(r) {
+    var box = document.getElementById('pRows');
+    var div = document.createElement('div'); div.className = 'prow';
+    div.innerHTML =
+      '<input type="text" placeholder="e.g. chasing invoices" value="' + (r ? r.task.replace(/"/g, '&quot;') : '') + '">' +
+      '<input type="number" min="0" max="40" step="0.5" value="' + (r ? r.hours : 1) + '">' +
+      '<select><option value="low">Low — easy undo</option><option value="medium" selected>Medium</option><option value="high">High — money or trust</option></select>' +
+      '<select><option value="fully">Fully rule-based</option><option value="partly" selected>Partly</option><option value="not">Needs judgment</option></select>' +
+      '<button type="button" class="rm" aria-label="Remove task">✕</button>';
+    if (r) { div.children[2].value = r.risk; div.children[3].value = r.rule; }
+    box.appendChild(div);
+    div.querySelector('.rm').addEventListener('click', function () { div.remove(); renderRank(); });
+    div.querySelectorAll('input,select').forEach(function (el) { el.addEventListener('input', renderRank); });
+    seed++;
+  }
+  function renderRank() {
+    var out = document.getElementById('pRanked');
+    var items = [];
+    document.querySelectorAll('#pRows .prow').forEach(function (row) {
+      var task = row.children[0].value.trim();
+      if (!task) return;
+      var hours = +row.children[1].value || 0;
+      var risk = row.children[2].value;
+      var rule = row.children[3].value;
+      var s = scoreTask(hours, risk, rule);
+      var v = verdictFor(s, risk, rule);
+      items.push({ task: task, s: s, v: v });
+    });
+    items.sort(function (a, b) { return b.s - a.s; });
+    out.innerHTML = items.map(function (it) {
+      var L = LABELS[it.v];
+      return '<div class="prank"><span class="s">' + it.s.toFixed(1) + '</span><span class="t">' + it.task.replace(/</g, '&lt;') + '</span><span class="v ' + L.cls + '">' + L.t + '</span></div>';
+    }).join('') || '<div class="prank"><span class="t" style="color:var(--text-muted);font-weight:400;">Add your tasks above — the ranked list builds here.</span></div>';
+  }
+  document.getElementById('pAdd').addEventListener('click', function () { addRow(null); renderRank(); });
+  addRow(rows[0]); addRow(rows[1]); addRow(rows[2]);
+  renderRank();
+})();
+</script>
+</body>
+</html>
