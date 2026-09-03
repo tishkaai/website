@@ -3,19 +3,34 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light dark" />
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 <title>Tishka demo — Parser (runs in your browser)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
+    --bg: #f6f6f8; --bg-raise: #ffffff; --bg-card: #ffffff;
+    --line: #e3e3e8; --line-soft: #ececf1;
+    --ink: #131316; --ink-dim: #55555e; --ink-faint: #808089;
+    --brass: #6d4cf0; --brass-bright: #5a38e8; --brass-deep: #b39afb;
+    --good: #0b7f5a; --warn: #a3701a; --bad: #d43f3f;
+    --on-brass: #ffffff;
+    --btn-solid-bg: #131316; --btn-solid-fg: #ffffff;
+    --sans: "DM Sans", -apple-system, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    color-scheme: light;
+  }
+  html[data-theme="dark"] {
     --bg: #0e0e10; --bg-raise: #18181b; --bg-card: #1c1c1f;
     --line: #2a2a2e; --line-soft: #232327;
     --ink: #ffffff; --ink-dim: #a7a7ad; --ink-faint: #77777c;
     --brass: #7c5cf6; --brass-bright: #a78bfa; --brass-deep: #673de6;
     --good: #2ecc9a; --warn: #d9a441; --bad: #ff5c5c;
-    --sans: "DM Sans", -apple-system, sans-serif;
-    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --on-brass: #0e0e10;
+    --btn-solid-bg: #ffffff; --btn-solid-fg: #0e0e10;
+    color-scheme: dark;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; }
@@ -29,10 +44,13 @@
   .backlink:hover { color: var(--ink); }
   .brandchip { display: flex; align-items: center; gap: 10px; }
   .brandchip .mark { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--brass-bright), var(--brass-deep));
-    display: grid; place-items: center; font-weight: 600; color: #0e0e10; font-size: 15px; }
+    display: grid; place-items: center; font-weight: 600; color: var(--btn-solid-fg); font-size: 15px; }
   .brandchip .name { font-size: 15px; font-weight: 500; }
   .demo-badge { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--warn);
     border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; background: var(--bg-raise); }
+  .theme-btn { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-dim);
+    border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; background: var(--bg-raise); cursor: pointer; }
+  .theme-btn:hover { color: var(--ink); border-color: var(--brass-deep); }
 
   .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px;
     letter-spacing: .14em; text-transform: uppercase; color: var(--brass); margin-bottom: 14px; }
@@ -44,8 +62,8 @@
   .tab { font-family: var(--mono); font-size: 12px; color: var(--ink-dim); background: var(--bg-raise);
     border: 1px solid var(--line); border-radius: 10px; padding: 9px 16px; cursor: pointer; }
   .tab .auto { font-size: 9px; letter-spacing: .1em; color: var(--brass); margin-left: 6px; text-transform: uppercase; }
-  .tab.on { background: var(--brass); border-color: var(--brass); color: #0e0e10; font-weight: 600; }
-  .tab .auto.on2 { color: #0e0e10; }
+  .tab.on { background: var(--brass); border-color: var(--brass); color: var(--on-brass); font-weight: 600; }
+  .tab .auto.on2 { color: var(--on-brass); }
 
   .samples { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 22px; }
   .samples .lbl { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
@@ -68,7 +86,7 @@
   textarea:focus { outline: 1px solid var(--brass-deep); }
 
   .input-actions { display: flex; align-items: center; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
-  .parse { font-family: var(--mono); font-size: 13px; font-weight: 600; color: #0e0e10; background: var(--brass);
+  .parse { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--on-brass); background: var(--brass);
     border: 0; border-radius: 10px; padding: 11px 22px; cursor: pointer; }
   .parse:hover { background: var(--brass-bright); }
   .parse[disabled] { background: var(--line); color: var(--ink-faint); cursor: default; }
@@ -113,7 +131,7 @@
   .mode-toggle { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
   .mode-toggle button { font-size: 11.5px; font-family: var(--mono); padding: 6px 14px; border-radius: 999px;
     border: 1px solid var(--line); background: transparent; color: var(--ink-dim); cursor: pointer; }
-  .mode-toggle button.on { background: var(--brass); color: #0e0e10; border-color: var(--brass); font-weight: 600; }
+  .mode-toggle button.on { background: var(--brass); color: var(--on-brass); border-color: var(--brass); font-weight: 600; }
 
   .demo-note { font-size: 11.5px; color: var(--ink-faint); margin-top: 16px; }
   .foot { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line);
@@ -128,7 +146,10 @@
 
   <div class="topbar">
     <div class="brandchip"><div class="mark">t</div><div class="name">Tishka · Parser</div></div>
-    <span class="demo-badge">DEMO · RUNS ENTIRELY IN YOUR BROWSER · NOTHING SENT OR STORED</span>
+    <span style="display:flex;align-items:center;gap:10px;">
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch colour theme">Dark</button>
+      <span class="demo-badge">DEMO · RUNS ENTIRELY IN YOUR BROWSER · NOTHING SENT OR STORED</span>
+    </span>
   </div>
 
   <div class="eyebrow"><span class="dot"></span> Lead &amp; document parser</div>
@@ -568,6 +589,23 @@
   $('#copyJson').addEventListener('click', function () { doCopy('#copyJson', resultJson); });
   $('#copyCsv').addEventListener('click', function () { doCopy('#copyCsv', resultCsv); });
 })();
+</script>
+<script>
+  // Theme toggle — light default, dark opt-in; choice remembered across pages.
+  (function () {
+    var btn = document.getElementById('themeBtn');
+    function paint() {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      btn.textContent = dark ? 'Light' : 'Dark';
+    }
+    btn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+      else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+      paint();
+    });
+    paint();
+  })();
 </script>
 </body>
 </html>

@@ -15,30 +15,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 <title>Tishka AI — Stop losing time, money, and customers</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
+    --bg: #f7f7f8; --bg-card: #ffffff; --bg-elevated: #f1f1f4;
+    --border: #e4e4e9; --text: #121215; --text-muted: #5a5a63;
+    --accent: #121215; --green: #0b7f5a; --blue: #2563eb; --violet: #6d4cf0;
+    --header-bg: rgba(247,247,248,0.85);
+    --band: #efeff3;
+    --btn-bg: #121215; --btn-fg: #ffffff; --btn-bg-hover: #2c2c31;
+    --ghost-hover: #e7e7ec;
+    --feat-bg: linear-gradient(180deg, #ffffff, #f6f3ff);
+    --feat-border: #cdbcf7;
+    --on-brass: #ffffff;
+    color-scheme: light;
+  }
+  html[data-theme="dark"] {
     --bg: #0a0a0a; --bg-card: #111111; --bg-elevated: #1a1a1a;
     --border: #2a2a2a; --text: #f5f5f5; --text-muted: #a1a1a1;
     --accent: #ffffff; --green: #22c55e; --blue: #3b82f6; --violet: #7c5cf6;
+    --header-bg: rgba(10,10,10,0.85);
+    --band: #0f0f0f;
+    --btn-bg: #ffffff; --btn-fg: #000000; --btn-bg-hover: #e5e5e5;
+    --ghost-hover: #222222;
+    --feat-bg: linear-gradient(180deg, #1a1a1a, #111111);
+    --feat-border: #ffffff40;
+    --on-brass: #0e0e10;
+    color-scheme: dark;
   }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
   .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-  header { position: sticky; top: 0; z-index: 50; background: rgba(10,10,10,0.85);
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
   .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
   .logo img { height: 28px; width: auto; display: block; }
+  html:not([data-theme="dark"]) .logo img { filter: invert(1); }
   .btn { display: inline-flex; align-items: center; justify-content: center;
     padding: 10px 18px; border-radius: 9999px; font-size: 0.9rem; font-weight: 500;
     transition: all 0.15s ease; cursor: pointer; border: none; }
-  .btn-primary { background: white; color: black; }
-  .btn-primary:hover { background: #e5e5e5; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
   .btn-ghost { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text); }
-  .btn-ghost:hover { background: #222; }
+  .btn-ghost:hover { background: var(--ghost-hover); }
 
   .hero { padding: 72px 0 48px; text-align: center; }
   h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 650; letter-spacing: -0.04em;
@@ -65,7 +89,7 @@
   .roi-seg { display: inline-flex; border: 1px solid var(--border); border-radius: 9999px; padding: 3px; }
   .roi-seg button { background: transparent; color: var(--text-muted); border: 0; border-radius: 9999px;
     padding: 6px 14px; font-size: 0.78rem; font-weight: 700; cursor: pointer; }
-  .roi-seg button.on { background: var(--violet); color: #0e0e10; }
+  .roi-seg button.on { background: var(--violet); color: var(--on-brass); }
   .roi-sliderline { display: flex; align-items: center; gap: 16px; }
   .roi-sliderline.indent { padding-left: 44px; }
   .roi-rateval { width: 96px; flex-shrink: 0; text-align: right; font-size: 1.15rem; font-weight: 700; }
@@ -94,6 +118,8 @@
   .roi-cta { width: 100%; margin-top: 22px; }
   .roi-disc { font-size: 0.72rem; color: var(--text-muted); margin-top: 14px; line-height: 1.5; }
 
+  section.band { background: var(--band); }
+
   section { padding: 70px 0; }
   .section-title { font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 600; letter-spacing: -0.03em;
     margin-bottom: 16px; text-align: center; }
@@ -109,7 +135,7 @@
   .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
   .price-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
     padding: 32px; display: flex; flex-direction: column; }
-  .price-card.featured { border-color: #ffffff40; background: linear-gradient(180deg, #1a1a1a, #111); }
+  .price-card.featured { border-color: var(--feat-border); background: var(--feat-bg); }
   .price-name { font-size: 1.15rem; font-weight: 600; margin-bottom: 4px; }
   .price-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
   .price-num { font-size: 2rem; font-weight: 650; letter-spacing: -0.03em; margin-bottom: 2px; }
@@ -139,7 +165,7 @@
   .demo-tag { display: inline-block; font-family: ui-monospace,SFMono-Regular,monospace; font-size: 0.68rem;
     letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 6px;
     background: var(--bg-elevated); color: var(--text-muted); margin-bottom: 12px; }
-  .demo-tag.live { background: var(--violet); color: #0e0e10; font-weight: 600; }
+  .demo-tag.live { background: var(--violet); color: var(--on-brass); font-weight: 600; }
   .demo-h { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
   .demo-p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px; }
   .steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; min-height: 26px; }
@@ -165,7 +191,7 @@
   .mode-toggle { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
   .mode-toggle button { font-size: 0.75rem; padding: 5px 12px; border-radius: 9999px;
     border: 1px solid var(--border); background: transparent; color: var(--text-muted); cursor: pointer; }
-  .mode-toggle button.on { background: var(--violet); color: #0e0e10; border-color: var(--violet); font-weight: 600; }
+  .mode-toggle button.on { background: var(--violet); color: var(--on-brass); border-color: var(--violet); font-weight: 600; }
   .demo-note { font-size: 0.72rem; color: var(--text-muted); margin-top: 12px; }
   .draft-box { border: 1px solid var(--border); border-left: 3px solid var(--violet); border-radius: 10px;
     background: var(--bg-elevated); padding: 14px; font-size: 0.88rem; margin-top: 12px; display: none; }
@@ -217,7 +243,10 @@
   <header>
     <div class="container nav">
       <a href="../index.html" class="logo"><img src="../assets/Tishka_AI.svg" alt="Tishka AI" height="28"></a>
-      <a href="../contact.html" class="btn btn-primary">Book Diagnostic</a>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button id="themeToggle" class="btn btn-ghost" type="button" aria-label="Switch colour theme">Dark mode</button>
+        <a href="../contact.html" class="btn btn-primary">Book Diagnostic</a>
+      </div>
     </div>
   </header>
 
@@ -331,7 +360,7 @@
   </section>
 
   <!-- ============ PACKAGES ============ -->
-  <section id="packages" style="background:#0f0f0f;">
+  <section id="packages" class="band">
     <div class="container">
       <h2 class="section-title">Packages — a price on the website.</h2>
       <p class="section-sub">No "request a quote" runaround. Setup is a one-off, split half on agreement and half on go-live. Monthly covers hosting, maintenance and support — not just access to what we built. No lock-ins. Cancel with 30 days' notice.</p>
@@ -381,7 +410,7 @@
   </section>
 
   <!-- ============ THE GAP (kept from current page) ============ -->
-  <section style="background:#0f0f0f;">
+  <section class="band">
     <div class="container">
       <h2 class="section-title">Stop experimenting. Start seeing results.</h2>
       <div class="grid-2">
@@ -411,7 +440,7 @@
   </section>
 
   <!-- ============ FAQ ============ -->
-  <section style="background:#0f0f0f;">
+  <section class="band">
     <div class="container" style="max-width:720px;">
       <h2 class="section-title">FAQs</h2>
       <div class="faq-item"><div class="faq-q">What does it cost?</div>
@@ -462,6 +491,20 @@
 
   <script>
   (function () {
+    /* ---------- theme toggle (light default, dark opt-in) ---------- */
+    var themeBtn = document.getElementById('themeToggle');
+    function themeLabel() {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      themeBtn.textContent = dark ? 'Light mode' : 'Dark mode';
+    }
+    themeBtn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+      else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+      themeLabel();
+    });
+    themeLabel();
+
     /* ---------- Hero ROI calculator (Rora's exact math) ---------- */
     var $ = function (id) { return document.getElementById(id); };
     var roiRate = $('roiRate');

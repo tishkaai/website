@@ -3,12 +3,36 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light dark" />
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 <title>Tishka demo — Today dashboard (sample data)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
+    --bg: #f6f6f8;
+    --bg-raise: #ffffff;
+    --bg-card: #ffffff;
+    --line: #e3e3e8;
+    --line-soft: #ececf1;
+    --ink: #131316;
+    --ink-dim: #55555e;
+    --ink-faint: #808089;
+    --brass: #6d4cf0;
+    --brass-bright: #5a38e8;
+    --brass-deep: #b39afb;
+    --good: #0b7f5a;
+    --warn: #a3701a;
+    --bad: #d43f3f;
+    --on-brass: #ffffff;
+    --btn-solid-bg: #131316;
+    --btn-solid-fg: #ffffff;
+    --sans: "DM Sans", -apple-system, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    color-scheme: light;
+  }
+  html[data-theme="dark"] {
     --bg: #0e0e10;
     --bg-raise: #18181b;
     --bg-card: #1c1c1f;
@@ -23,8 +47,10 @@
     --good: #2ecc9a;
     --warn: #d9a441;
     --bad: #ff5c5c;
-    --sans: "DM Sans", -apple-system, sans-serif;
-    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --on-brass: #0e0e10;
+    --btn-solid-bg: #ffffff;
+    --btn-solid-fg: #0e0e10;
+    color-scheme: dark;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -79,7 +105,7 @@
     display: grid; place-items: center;
     font-family: var(--sans);
     font-weight: 600;
-    color: #0e0e10;
+    color: var(--btn-solid-fg);
     font-size: 19px;
   }
   .brand .name { font-family: var(--sans); font-size: 20px; font-weight: 500; letter-spacing: -0.01em; }
@@ -350,7 +376,7 @@
     transition: color .15s, border-color .15s, background .15s;
   }
   .saved .tab:hover { color: var(--ink); border-color: var(--brass-deep); }
-  .saved .tab.active { color: #0e0e10; background: var(--brass); border-color: var(--brass); font-weight: 600; }
+  .saved .tab.active { color: var(--on-brass); background: var(--brass); border-color: var(--brass); font-weight: 600; }
 
   /* weekly view: a bar per day, hours stacking up */
   .saved .week { display: flex; flex-direction: column; gap: 10px; }
@@ -493,8 +519,10 @@
   .backlink { font-family: var(--mono); font-size: 12px; color: var(--ink-dim); text-decoration: none; letter-spacing: .04em; }
   .backlink:hover { color: var(--ink); }
   .demo-badge { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--warn); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; background: var(--bg-raise); }
+  .theme-btn { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-dim); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; background: var(--bg-raise); cursor: pointer; }
+  .theme-btn:hover { color: var(--ink); border-color: var(--brass-deep); }
   .ot-actions { display: flex; align-items: center; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
-  .ot-btn { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: #0e0e10; background: var(--brass); border: 0; border-radius: 8px; padding: 9px 16px; cursor: pointer; font-weight: 600; }
+  .ot-btn { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--on-brass); background: var(--brass); border: 0; border-radius: 8px; padding: 9px 16px; cursor: pointer; font-weight: 600; }
   .ot-btn:hover { background: var(--brass-bright); }
   .ot-btn[disabled] { background: var(--line); color: var(--ink-faint); cursor: default; }
   .ot-dots { display: flex; gap: 6px; }
@@ -507,7 +535,7 @@
   .sec-label .count { font-family: var(--mono); font-size: 11px; color: var(--brass); border: 1px solid var(--brass-deep); border-radius: 6px; padding: 2px 8px; letter-spacing: .06em; }
   .d-actions { display: flex; gap: 8px; margin-top: 12px; }
   .d-btn { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; padding: 7px 14px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--ink-dim); cursor: pointer; }
-  .d-btn.approve { background: var(--brass); border-color: var(--brass); color: #0e0e10; font-weight: 600; }
+  .d-btn.approve { background: var(--brass); border-color: var(--brass); color: var(--on-brass); font-weight: 600; }
   .d-btn:hover { color: var(--ink); border-color: var(--brass-deep); }
   .decision.resolved { border-color: var(--good); }
   .decision .d-note { margin-top: 12px; font-size: 12.5px; color: var(--good); }
@@ -523,7 +551,7 @@
   .draftbox-text { font-size: 13.5px; color: var(--ink); line-height: 1.5; }
   .draftbox-text[contenteditable="true"] { outline: 1px solid var(--brass-deep); border-radius: 6px; padding: 6px; }
   .draftbox-actions { display: flex; gap: 8px; margin-top: 10px; }
-  .db-approve { font-size: 12px; padding: 6px 14px; border-radius: 999px; border: 0; background: #fff; color: #0e0e10; font-weight: 500; cursor: pointer; }
+  .db-approve { font-size: 12px; padding: 6px 14px; border-radius: 999px; border: 0; background: var(--btn-solid-bg); color: var(--btn-solid-fg); font-weight: 500; cursor: pointer; }
   .db-edit { font-size: 12px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink-dim); cursor: pointer; }
   .db-queued { margin-top: 10px; font-size: 12.5px; color: var(--good); }
 
@@ -541,7 +569,10 @@
   <!-- demo chrome -->
   <div class="topbar">
     <a class="backlink" href="index-v2.html">&larr; Back to the site</a>
-    <span class="demo-badge">DEMO · SAMPLE DATA · NOTHING CONNECTED</span>
+    <span style="display:flex;align-items:center;gap:10px;">
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch colour theme">Dark</button>
+      <span class="demo-badge">DEMO · SAMPLE DATA · NOTHING CONNECTED</span>
+    </span>
   </div>
 
   <!-- masthead -->
@@ -693,7 +724,7 @@
       <div class="value">£9,400</div>
       <div class="delta up">▲ 12% vs last week</div>
       <svg class="spark" viewBox="0 0 100 40" preserveAspectRatio="none">
-        <polyline points="0,34 14,30 28,32 42,24 56,26 70,18 84,12 100,8" fill="none" stroke="#2ecc9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="0,34 14,30 28,32 42,24 56,26 70,18 84,12 100,8" fill="none" stroke="#2ecc9a" stroke-width="2" style="stroke:var(--good)" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
     <div class="kpi">
@@ -701,7 +732,7 @@
       <div class="value">£8,400</div>
       <div class="delta up">▲ £2,200 vs last week</div>
       <svg class="spark" viewBox="0 0 100 40" preserveAspectRatio="none">
-        <polyline points="0,30 14,28 28,22 42,24 56,16 70,18 84,10 100,6" fill="none" stroke="#2ecc9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="0,30 14,28 28,22 42,24 56,16 70,18 84,10 100,6" fill="none" stroke="#2ecc9a" stroke-width="2" style="stroke:var(--good)" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
     <div class="kpi">
@@ -709,7 +740,7 @@
       <div class="value">5</div>
       <div class="delta up">▲ 3 this week</div>
       <svg class="spark" viewBox="0 0 100 40" preserveAspectRatio="none">
-        <polyline points="0,32 14,28 28,30 42,22 56,20 70,14 84,12 100,8" fill="none" stroke="#2ecc9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="0,32 14,28 28,30 42,22 56,20 70,14 84,12 100,8" fill="none" stroke="#2ecc9a" stroke-width="2" style="stroke:var(--good)" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
     <div class="kpi">
@@ -717,7 +748,7 @@
       <div class="value">£2,640</div>
       <div class="delta flat">— 1 invoice</div>
       <svg class="spark" viewBox="0 0 100 40" preserveAspectRatio="none">
-        <polyline points="0,20 14,22 28,18 42,20 56,19 70,21 84,20 100,19" fill="none" stroke="#a7a7ad" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="0,20 14,22 28,18 42,20 56,19 70,21 84,20 100,19" fill="none" stroke="#a7a7ad" stroke-width="2" style="stroke:var(--ink-dim)" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
   </div>
@@ -739,7 +770,7 @@
           </linearGradient>
         </defs>
         <!-- grid -->
-        <g stroke="#232327" stroke-width="1">
+        <g stroke-width="1" style="stroke:var(--line-soft)">
           <line x1="0" y1="30" x2="560" y2="30"/>
           <line x1="0" y1="80" x2="560" y2="80"/>
           <line x1="0" y1="130" x2="560" y2="130"/>
@@ -1049,6 +1080,23 @@
         if (!on) txt.focus();
       });
     });
+  })();
+</script>
+<script>
+  // Theme toggle — light default, dark opt-in; choice remembered across pages.
+  (function () {
+    var btn = document.getElementById('themeBtn');
+    function paint() {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      btn.textContent = dark ? 'Light' : 'Dark';
+    }
+    btn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+      else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+      paint();
+    });
+    paint();
   })();
 </script>
 </body>
