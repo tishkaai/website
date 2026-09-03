@@ -228,8 +228,7 @@
       <p class="hero-sub">Growing companies still leak all three because information lives in silos and no one has time to join it up. We connect the tools already in use, build one Company Brain that watches the business, and run it for you — from £300/month.</p>
 
       <!-- ROI CALCULATOR (Rora-style layout) -->
-      <div class="roi-eyebrow"><span class="roi-dash"></span>Try it yourself</div>
-      <h2 class="roi-h2">What is manual admin actually costing you?</h2>
+      <h2 class="roi-h2" style="margin-top:44px;">What is manual admin actually costing you?</h2>
       <p class="roi-sub">Drag the sliders for your own numbers. No email required, this stays in your browser.</p>
       <div class="roi-grid">
         <div class="roi-card">
@@ -289,7 +288,6 @@
             <div class="roi-totalrow"><span class="k">Total time freed up</span><span class="roi-totalbig" id="roiTotal">10.5 <em>hrs/wk</em></span></div>
             <div class="roi-pline"><span class="k">Worth roughly</span><span class="v" id="roiWk">£368<span>/wk</span></span></div>
             <div class="roi-pline"><span class="k">Per month</span><span class="v" id="roiMo">£1,593<span>/mo</span></span></div>
-            <div class="roi-pline"><span class="k">Net of the £300/mo Front Desk tier</span><span class="v" id="roiNet">£1,293<span>/mo</span></span></div>
           </div>
           <a class="btn btn-primary roi-cta" href="#packages">Get your real numbers &rarr;</a>
           <p class="roi-disc">Illustrative estimate based on typical results across Tishka's live automations. Your free diagnostic gives you numbers specific to your business.</p>
@@ -519,11 +517,10 @@
         c.hrs.textContent = (h % 1 ? h.toFixed(1) : h) + ' hrs/wk';
         c.bk.textContent = (Math.round(b * 10) / 10) + ' hrs/wk';
       });
-      var wk = total * hr, mo = wk * 4.33, net = mo - 300;
+      var wk = total * hr, mo = wk * 4.33;
       $('roiTotal').innerHTML = (Math.round(total * 10) / 10) + ' <em>hrs/wk</em>';
       $('roiWk').innerHTML = fmtGbp(wk) + '<span>/wk</span>';
       $('roiMo').innerHTML = fmtGbp(mo) + '<span>/mo</span>';
-      $('roiNet').innerHTML = fmtGbp(Math.max(0, net)) + '<span>/mo</span>';
     }
     document.querySelectorAll('#roiSeg button').forEach(function (b) {
       b.addEventListener('click', function () {
@@ -532,8 +529,13 @@
         var newMode = b.dataset.mode;
         if (newMode !== rateMode) {
           rateMode = newMode;
-          if (rateMode === 'day') roiRate.value = Math.min(150, Math.round((+roiRate.value || 35) * 8));
-          else roiRate.value = Math.max(15, Math.round((+roiRate.value || 280) / 8));
+          if (rateMode === 'day') {
+            roiRate.min = '120'; roiRate.max = '1200';
+            roiRate.value = Math.min(1200, Math.max(120, Math.round((+roiRate.value || 35) * 8)));
+          } else {
+            roiRate.min = '15'; roiRate.max = '150';
+            roiRate.value = Math.max(15, Math.min(150, Math.round((+roiRate.value || 960) / 8)));
+          }
         }
         roiCalc();
       });
