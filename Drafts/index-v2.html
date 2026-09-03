@@ -4,11 +4,11 @@
   Built 2026-09-03 per Pete: ROI calculator replaces the dashboard
   mockup in the hero; packages (£300 floor) + demos section added;
   existing hero copy / Gap / 3 steps / FAQ / footer kept.
-  Preview: open this file directly in a browser, or
-  python3 -m http.server 8080  →  http://localhost:8000/Drafts/index-v2.html
-  (dashboard demo iframe expects ../dashboard-mockup.html — present in repo)
-  Parser demo runs on sample data client-side (Phase 1) — see
-  outputs/spec-parser-demo-and-home-v2-2026-09-03.md for the live-wire plan.
+  Preview: http://localhost:8123/Drafts/index-v2.html
+  (python3 -m http.server 8123 from Business/Website/)
+  Demos = launcher cards opening three standalone interactive pages
+  in this folder: demo-dashboard.html · demo-brief.html · demo-parser.html.
+  Calculator math = Rora's exact engine — do not change without Pete.
 ============================================================= -->
 <!DOCTYPE html>
 <html lang="en">
@@ -300,67 +300,31 @@
   <section>
     <div class="container">
       <h2 class="section-title">See it work before you buy.</h2>
-      <p class="section-sub">Three live demos. No signup, no call, no card. The third one is the real thing — paste your own text and watch it get filed.</p>
-
-      <!-- 1 · Dashboard -->
-      <div class="browser-frame">
-        <div class="browser-bar">
-          <div class="traffic"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span></div>
-          <div class="url-bar">app.tishka.ai/today</div>
-        </div>
-        <iframe src="../dashboard-mockup.html" class="browser-iframe" title="Your Tishka dashboard, live"></iframe>
-      </div>
+      <p class="section-sub">Three demos, each on its own page. No signup, no call, no card. The parser really parses — in your browser, nothing sent anywhere.</p>
 
       <div class="demo-grid">
-        <!-- 2 · Inbox -->
+        <!-- 1 · Dashboard -->
         <div class="demo-card card">
-          <span class="demo-tag live">DEMO · INBOX</span>
-          <div class="demo-h">An enquiry lands. The draft is waiting.</div>
-          <div class="demo-p">Click an enquiry and watch it get read, classified and drafted — approval stays with you.</div>
-          <div class="inbox-item" id="inb1">
-            <div><div class="from">Sarah M · Rightmove-style portal enquiry</div><div class="sub">23:41 Saturday — "Is 14 Oak Rd still available? Free evenings…"</div></div>
-            <span class="tag">HOT</span>
-          </div>
-          <div class="steps" id="inbSteps"></div>
-          <div class="draft-box" id="inbDraft">
-            <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:6px;">DRAFT — waiting for your approval</div>
-            <div class="tl-text">Hi Sarah — yes, 14 Oak Rd is still available (£1,650 pcm, from 1 July). Evenings suit you: Mon 5:30, Wed 6:00 or Sat 10:00 — reply with whichever works.<br><br>Best wishes,<br>The team</div>
-            <div class="draft-actions">
-              <button id="inbApprove">Approve &amp; send</button>
-              <button class="alt">Edit</button>
-            </div>
-            <div class="queued" id="inbQueued">✓ Queued — you approved this draft. In auto mode, routine categories send without asking.</div>
-          </div>
+          <span class="demo-tag live">DEMO · DASHBOARD</span>
+          <div class="demo-h">Your business, watched overnight.</div>
+          <div class="demo-p">Open the dashboard your morning brief lives on. Tick things off, approve decisions, draft a chase email, watch the numbers move.</div>
+          <a class="btn btn-ghost" href="demo-dashboard.html">Open the demo &rarr;</a>
+        </div>
+
+        <!-- 2 · Morning brief -->
+        <div class="demo-card card">
+          <span class="demo-tag live">DEMO · MORNING BRIEF</span>
+          <div class="demo-h">The inbox, turned into an action plan.</div>
+          <div class="demo-p">Run the brief on a sample inbox — priorities, what the backlog is costing you, and drafts waiting for your approval.</div>
+          <a class="btn btn-ghost" href="demo-brief.html">Open the demo &rarr;</a>
         </div>
 
         <!-- 3 · Parser -->
         <div class="demo-card card">
-          <span class="demo-tag live">DEMO · TRY IT</span>
+          <span class="demo-tag live">DEMO · PARSER — TRY IT</span>
           <div class="demo-h">Paste your mess. Watch it get filed.</div>
-          <div class="demo-p">Any enquiry, job note or invoice → one clean record → filed into your systems. Try ours, or paste your own text.</div>
-          <textarea class="parse-in" id="parseIn">Hi, the kitchen tap's been leaking since Tuesday and now the cupboard under it is soaked. Can someone come this week? I'm out Tuesday but any other morning works. — D. Hughes, 12 Marlow Rd</textarea>
-          <button class="btn btn-primary" id="parseBtn" style="margin-top:12px;">Parse it &rarr;</button>
-          <div class="steps" id="parseSteps"></div>
-          <div class="record" id="parseRecord" style="display:none;">
-            <h4>Record ready</h4>
-            <div class="rec-row"><span class="rec-k">Job type</span><span class="rec-v">Emergency plumbing repair (leak)</span></div>
-            <div class="rec-row"><span class="rec-k">Where</span><span class="rec-v">12 Marlow Rd</span></div>
-            <div class="rec-row"><span class="rec-k">Contact</span><span class="rec-v">D. Hughes</span></div>
-            <div class="rec-row"><span class="rec-k">Urgency</span><span class="rec-v urgent">URGENT — active leak, 3 days, secondary damage</span></div>
-            <div class="rec-row"><span class="rec-k">When</span><span class="rec-v">Any morning except Tuesday</span></div>
-            <div class="rec-row"><span class="rec-k">Next action</span><span class="rec-v">Dispatch plumber · call to confirm slot</span></div>
-          </div>
-          <div class="connect" id="parseConnect">
-            <h4>In your business, this record files itself:</h4>
-            <li>Lead created in your job system — 12 Marlow Rd, emergency leak</li>
-            <li>Contact matched — existing customer, 3 previous jobs</li>
-            <li>Team alerted — WhatsApp + inbox, URGENT tag</li>
-            <div class="mode-toggle" id="modeToggle">
-              <button class="on" data-mode="approve">Approval first — nothing files until you approve</button>
-              <button data-mode="auto">Auto for routine — you opt in, per category</button>
-            </div>
-          </div>
-          <div class="demo-note" style="margin-top:12px;">Demo runs on sample data. Live, it reads your real enquiries and files them into the systems you already use — built in your first two weeks.</div>
+          <div class="demo-p">Paste your own text, upload a file, or load a sample — it parses for real, right in your browser. Nothing is sent or stored.</div>
+          <a class="btn btn-ghost" href="demo-parser.html">Open the demo &rarr;</a>
         </div>
       </div>
     </div>
@@ -545,48 +509,6 @@
     roiRate.addEventListener('input', function () { roiShown = +roiRate.value || roiShown; roiCalc(); });
     roiCats.forEach(function (c) { c.el.addEventListener('input', roiCalc); });
     roiCalc();
-
-    /* ---------- step animation helper ---------- */
-    function playSteps(container, steps, done, stepMs) {
-      container.innerHTML = '';
-      var els = steps.map(function (s) {
-        var d = document.createElement('span'); d.className = 'step'; d.textContent = s; container.appendChild(d); return d;
-      });
-      els.forEach(function (el, i) { setTimeout(function () { el.classList.add('show'); }, 350 + i * (stepMs || 420)); });
-      if (done) setTimeout(done, 350 + els.length * (stepMs || 420) + 250);
-    }
-
-    /* ---------- Inbox demo ---------- */
-    var ibPlayed = false;
-    $('inb1').addEventListener('click', function () {
-      if (ibPlayed) return; ibPlayed = true;
-      $('inb1').style.borderColor = '#7c5cf6aa';
-      playSteps($('inbSteps'), ['READ', 'CLASSIFY · HOT', 'VERIFY AVAILABILITY', 'DRAFT'], function () {
-        $('inbDraft').classList.add('show');
-        $('inbDraft').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      });
-    });
-    $('inbApprove').addEventListener('click', function () { $('inbQueued').classList.add('show'); });
-
-    /* ---------- Parser demo ---------- */
-    $('parseBtn').addEventListener('click', function () {
-      $('parseRecord').style.display = 'none';
-      $('parseConnect') && $('parseConnect').classList.remove('show');
-      $('parseConnect2') && $('parseConnect2').classList.remove('show');
-      var con = document.querySelector('.connect'); if (con) con.classList.remove('show');
-      $('parseBtn').textContent = 'Parsing…'; $('parseBtn').disabled = true;
-      playSteps($('parseSteps'), ['READ', 'CLASSIFY · REPAIR / URGENT', 'EXTRACT · who, where, when', 'RECORD READY'], function () {
-        $('parseRecord').style.display = 'block';
-        $('parseBtn').textContent = 'Parse it again'; $('parseBtn').disabled = false;
-        setTimeout(function () { con && con.classList.add('show'); }, 1200);
-      }, 480);
-    });
-    document.querySelectorAll('#modeToggle button').forEach(function (b) {
-      b.addEventListener('click', function () {
-        document.querySelectorAll('#modeToggle button').forEach(function (x) { x.classList.remove('on'); });
-        b.classList.add('on');
-      });
-    });
   })();
   </script>
 </body>

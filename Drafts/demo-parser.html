@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tishka demo — Parser (runs in your browser)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0e0e10; --bg-raise: #18181b; --bg-card: #1c1c1f;
+    --line: #2a2a2e; --line-soft: #232327;
+    --ink: #ffffff; --ink-dim: #a7a7ad; --ink-faint: #77777c;
+    --brass: #7c5cf6; --brass-bright: #a78bfa; --brass-deep: #673de6;
+    --good: #2ecc9a; --warn: #d9a441; --bad: #ff5c5c;
+    --sans: "DM Sans", -apple-system, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(1100px 560px at 80% -10%, rgba(124,92,246,0.07), transparent 60%),
+                radial-gradient(900px 500px at 0% 110%, rgba(124,92,246,0.04), transparent 55%); }
+  .shell { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 28px 40px 64px; }
+
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 30px; }
+  .backlink { font-family: var(--mono); font-size: 12px; color: var(--ink-dim); text-decoration: none; letter-spacing: .04em; }
+  .backlink:hover { color: var(--ink); }
+  .brandchip { display: flex; align-items: center; gap: 10px; }
+  .brandchip .mark { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--brass-bright), var(--brass-deep));
+    display: grid; place-items: center; font-weight: 600; color: #0e0e10; font-size: 15px; }
+  .brandchip .name { font-size: 15px; font-weight: 500; }
+  .demo-badge { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--warn);
+    border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; background: var(--bg-raise); }
+
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--brass); margin-bottom: 14px; }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 4px rgba(124,92,246,0.15); }
+  h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 500; letter-spacing: -0.015em; margin-bottom: 10px; }
+  .sub { font-size: 15px; color: var(--ink-dim); max-width: 62ch; margin-bottom: 26px; }
+
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .tab { font-family: var(--mono); font-size: 12px; color: var(--ink-dim); background: var(--bg-raise);
+    border: 1px solid var(--line); border-radius: 10px; padding: 9px 16px; cursor: pointer; }
+  .tab .auto { font-size: 9px; letter-spacing: .1em; color: var(--brass); margin-left: 6px; text-transform: uppercase; }
+  .tab.on { background: var(--brass); border-color: var(--brass); color: #0e0e10; font-weight: 600; }
+  .tab .auto.on2 { color: #0e0e10; }
+
+  .samples { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 22px; }
+  .samples .lbl { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+  .chip { font-size: 12.5px; color: var(--ink-dim); background: transparent; border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+  .chip:hover { color: var(--ink); border-color: var(--brass-deep); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 16px; align-items: start; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .card { border: 1px solid var(--line); border-radius: 14px; background: var(--bg-card); padding: 18px 20px; }
+  .card .head { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 12px; }
+  .status { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; border-radius: 5px; padding: 3px 8px; margin-left: auto; }
+  .status.idle { background: var(--bg-raise); color: var(--ink-faint); }
+  .status.proc { background: rgba(217,164,65,0.14); color: var(--warn); }
+  .status.done { background: rgba(46,204,154,0.14); color: var(--good); }
+
+  textarea { width: 100%; min-height: 220px; background: var(--bg-raise); color: var(--ink); border: 1px solid var(--line);
+    border-radius: 10px; padding: 14px; font-size: 13.5px; line-height: 1.55; font-family: var(--sans); resize: vertical; }
+  textarea:focus { outline: 1px solid var(--brass-deep); }
+
+  .input-actions { display: flex; align-items: center; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  .parse { font-family: var(--mono); font-size: 13px; font-weight: 600; color: #0e0e10; background: var(--brass);
+    border: 0; border-radius: 10px; padding: 11px 22px; cursor: pointer; }
+  .parse:hover { background: var(--brass-bright); }
+  .parse[disabled] { background: var(--line); color: var(--ink-faint); cursor: default; }
+  .upload { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; padding: 10px 16px;
+    border-radius: 10px; border: 1px solid var(--line); background: transparent; color: var(--ink-dim); cursor: pointer; }
+  .upload:hover { color: var(--ink); border-color: var(--brass-deep); }
+  .input-hint { font-size: 11.5px; color: var(--ink-faint); margin-top: 10px; }
+
+  .steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; min-height: 26px; }
+  .step { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; padding: 4px 10px; border-radius: 6px;
+    border: 1px solid var(--line); color: var(--ink-dim); opacity: 0; transform: translateY(4px); transition: all .3s ease; }
+  .step.show { opacity: 1; transform: none; }
+
+  .rec-row { display: flex; gap: 12px; padding: 7px 0; border-top: 1px solid var(--line-soft); font-size: 13.5px; }
+  .rec-row:first-of-type { border-top: none; }
+  .rec-k { color: var(--ink-faint); width: 128px; flex-shrink: 0; font-size: 12.5px; padding-top: 1px; }
+  .rec-v { color: var(--ink); }
+  .rec-v.nf { color: var(--ink-faint); }
+  .rec-v.money { color: var(--brass-bright); font-family: var(--mono); }
+  .badge { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; padding: 3px 8px; border-radius: 5px; }
+  .badge.high { background: rgba(46,204,154,0.14); color: var(--good); }
+  .badge.med { background: rgba(217,164,65,0.14); color: var(--warn); }
+  .badge.low { background: rgba(255,92,92,0.14); color: var(--bad); }
+  .badge.urgent { background: rgba(255,92,92,0.14); color: var(--bad); }
+  .badge.duesoon { background: rgba(217,164,65,0.14); color: var(--warn); }
+  .badge.flex { background: var(--bg-raise); color: var(--ink-dim); }
+  .badge.pos { background: rgba(46,204,154,0.14); color: var(--good); }
+  .badge.neg { background: rgba(255,92,92,0.14); color: var(--bad); }
+
+  .copy-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  .copy-row button { font-family: var(--mono); font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase;
+    padding: 7px 14px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--ink-dim); cursor: pointer; }
+  .copy-row button:hover { color: var(--ink); border-color: var(--brass-deep); }
+
+  .empty { font-size: 13px; color: var(--ink-faint); padding: 20px 0; }
+
+  .connect { border: 1px dashed rgba(124,92,246,0.5); border-radius: 12px; background: rgba(124,92,246,0.06);
+    padding: 16px; margin-top: 16px; }
+  .connect h4 { font-size: 13.5px; font-weight: 500; margin-bottom: 10px; }
+  .connect li { list-style: none; font-size: 13px; padding: 3px 0; color: var(--ink); }
+  .connect li::before { content: "✓ "; color: var(--good); font-weight: 600; }
+  .mode-toggle { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .mode-toggle button { font-size: 11.5px; font-family: var(--mono); padding: 6px 14px; border-radius: 999px;
+    border: 1px solid var(--line); background: transparent; color: var(--ink-dim); cursor: pointer; }
+  .mode-toggle button.on { background: var(--brass); color: #0e0e10; border-color: var(--brass); font-weight: 600; }
+
+  .demo-note { font-size: 11.5px; color: var(--ink-faint); margin-top: 16px; }
+  .foot { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
+  .foot a { color: var(--ink-dim); text-decoration: none; }
+  .foot a:hover { color: var(--ink); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="topbar">
+    <div class="brandchip"><div class="mark">t</div><div class="name">Tishka · Parser</div></div>
+    <span class="demo-badge">DEMO · RUNS ENTIRELY IN YOUR BROWSER · NOTHING SENT OR STORED</span>
+  </div>
+
+  <div class="eyebrow"><span class="dot"></span> Lead &amp; document parser</div>
+  <h1>Paste your mess. Watch it get filed.</h1>
+  <p class="sub">Paste an enquiry, quote, invoice or contract — or load a sample, or upload a file. It parses for real, right here in your browser. Nothing is sent anywhere, nothing is stored, and no email is taken.</p>
+
+  <div class="tabs" id="tabs">
+    <button class="tab on" data-type="enquiry">Lead / Enquiry<span class="auto">Auto-detect</span></button>
+    <button class="tab" data-type="invoice">Invoice</button>
+    <button class="tab" data-type="contract">Contract</button>
+    <button class="tab" data-type="report">Report</button>
+    <button class="tab" data-type="general">General</button>
+  </div>
+
+  <div class="samples">
+    <span class="lbl">Or try a sample:</span>
+    <button class="chip" data-s="0">Trade enquiry</button>
+    <button class="chip" data-s="1">Quote request</button>
+    <button class="chip" data-s="2">Supplier invoice</button>
+    <button class="chip" data-s="3">Contract clause</button>
+    <button class="chip" data-s="4">Monthly report</button>
+    <button class="chip" data-s="5">Portfolio EICR</button>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="head">Your text</div>
+      <textarea id="txt" spellcheck="false">Hi, the kitchen tap's been leaking since Tuesday and now the cupboard under it is soaked. Can someone come this week? I'm out Tuesday but any other morning works. — D. Hughes, 12 Marlow Rd</textarea>
+      <div class="input-actions">
+        <button class="parse" id="parseBtn">Parse &rarr;</button>
+        <button class="upload" id="uploadBtn">Upload a file</button>
+        <input type="file" id="fileIn" accept=".txt,.csv,.md,.pdf" hidden />
+      </div>
+      <p class="input-hint">Uploads: .txt / .csv / .md parse here and now. PDFs are read in-browser too — if the reader can't load, paste the text instead.</p>
+    </div>
+
+    <div class="card">
+      <div class="head">Extracted data <span class="status idle" id="status">IDLE</span></div>
+      <div class="steps" id="steps" hidden></div>
+      <div id="out"><div class="empty">Parse something and the clean record lands here — fields it can't find stay empty, never invented.</div></div>
+      <div class="copy-row" id="copyRow" hidden>
+        <button id="copyText">Copy as text</button>
+        <button id="copyJson">Copy as JSON</button>
+        <button id="copyCsv">Copy as CSV row</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+      <div class="connect" id="connect" hidden>
+        <h4>In your business, this record files itself:</h4>
+        <ul id="connectLines"></ul>
+        <div class="mode-toggle" id="modeToggle">
+          <button class="on" data-mode="approve">Approval first — nothing files until you approve</button>
+          <button data-mode="auto">Auto for routine — you opt in, per category</button>
+        </div>
+      </div>
+      <p class="demo-note">This demo is a real parser running in your browser — sample text or yours, treated the same. Live, it reads your real enquiries and files them into the systems you already use, with your approval. Built in your first two weeks.</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>Nothing you paste or upload leaves this page — there is no backend on this demo.</span>
+    <span><a href="index-v2.html">&larr; Back to the site</a></span>
+  </div>
+
+</div>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  var NF = '\u2014 not found';
+
+  var SAMPLES = [
+    "Hi, the kitchen tap's been leaking since Tuesday and now the cupboard under it is soaked. Can someone come this week? I'm out Tuesday but any other morning works. \u2014 D. Hughes, 12 Marlow Rd",
+    "Hi there,\nWe're looking for a quote for a full rewire on a 3-bed terrace in Preston before our tenant moves in this October. Ideally someone certified. Can you email a rough price? Best number is 07700 900432.\nThanks,\nMaria Kell\nKell Properties Ltd",
+    "Edmundson Electrical \u2014 Invoice INV-2291\nDate: 28/08/2026 \u00b7 Due: 28/09/2026\n6242Y cable 100m x 4 @ \u00a3182.40\nFCU switched x 12 @ \u00a39.60\nTotal: \u00a31,049.60 inc VAT\nPay by BACS, reference MER-2291. Payment terms 30 days.",
+    "Clause 14 \u2014 Termination. Either party may terminate on 30 days' written notice after the initial 12-month term. The term auto-renews for 12 months unless cancelled in writing. Payment terms: 30 days from invoice. This agreement is governed by the laws of England & Wales. Effective 01/09/2026. Expires 31/08/2027. Parties: Meridian Electrical Ltd and Beechwood Care Home.",
+    "August report \u2014 Meridian Electrical. Revenue \u00a39,400, up 12% on July. 14 jobs completed. Outstanding invoices \u00a38,400, of which \u00a32,640 overdue by 13 days. 5 new leads. Recommend chasing the Hollins invoice and confirming the Beechwood start date.",
+    "EICR request \u2014 Kings Cross Estates, portfolio of 12 units. Landlord certificates due 30/09/2026; three units were C1 observed last cycle. Access weekdays 9am\u20133pm. Contact: Jo Ellams, 01772 900 331."
+  ];
+
+  var docType = 'enquiry', lastResult = null, lastText = '';
+
+  /* ---------- generic extractors (real, in-browser, no invention) ---------- */
+  function find(text, re, group) {
+    var out = [], m;
+    re.lastIndex = 0;
+    while ((m = re.exec(text)) !== null) { out.push(group && m[group] ? m[group].trim() : (m[0] || '').trim()); if (out.length > 6) break; }
+    return out;
+  }
+  function uniq(a) { var s = [], seen = {}; a.forEach(function (x) { var k = x.toLowerCase(); if (!seen[k]) { seen[k] = 1; s.push(x); } }); return s; }
+  function first(a) { return a.length ? a[0] : null; }
+  function clean(x) { return x ? String(x).replace(/\s+/g, ' ').trim() : null; }
+  function biggest(a) {
+    var best = null, bv = -1;
+    a.forEach(function (x) {
+      var n = parseFloat(String(x).replace(/[\u00a3,\s]/g, ''));
+      if (!isNaN(n) && n > bv) { bv = n; best = x; }
+    });
+    return best ? String(best).replace(/\s+/g, '') : null;
+  }
+
+  var RX = {
+    phone: /\b(?:\+44[\s-]?|0)(?:\d[\s-]?){9,10}\b/g,
+    email: /[\w.+-]+@[\w-]+\.[\w.-]{2,}/g,
+    amount: /\u00a3\s?\d[\d,]*(?:\.\d{1,2})?/g,
+    postcode: /\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b/,
+    address: /\b\d+[A-Za-z]?\s+[A-Z][\w'\u2019-]*(?:\s+[A-Z][\w'\u2019-]*)*\s+(?:Rd|Road|St|Street|Ave|Avenue|Ln|Lane|Dr|Drive|Cl|Close|Way|Grove|Terrace|Rise|Walk)\b/,
+    date: /\b\d{1,2}\/\d{1,2}\/(?:\d{4})\b/g,
+    dayName: /\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Mon|Tues|Weds|Thurs|Sat|Sun)\b/g,
+    rel: /\b(?:this week|next week|tomorrow|this morning|this afternoon|asap|as soon as possible)\b/gi,
+    company: /\b[\w&.'\u2019-]+(?:[ \t]+[\w&.'\u2019-]+){0,3}[ \t]+(?:Ltd|Limited|LLP|PLC|Ltd\.)\b/g,
+    invNo: /(?:invoice|inv|ref\.?)\s*(?:no\.?|number|#|:)?\s*([A-Z]{0,3}-?\d{3,6})\b/i,
+    due: /(?:due|pay(?:ment)? by|expiry|expires|due date)\s*(?:date)?\s*[:\-]?\s*(\d{1,2}\/\d{1,2}\/\d{4})/i,
+    invDate: /(?:invoice date|dated|date)\s*[:\-]?\s*(\d{1,2}\/\d{1,2}\/\d{4})/i,
+    payRef: /(?:reference|ref|payment ref(?:erence)?)\s*[:\-]?\s*([A-Z0-9][A-Z0-9-]{2,})/i,
+    terms: /payment terms\s*[:\-]?\s*([^.;\n]{3,40})/i,
+    notice: /(\d+)\s*days?['\u2019]?\s*(?:written\s*)?notice/i,
+    autoRenew: /auto-?renew/i,
+    law: /governed by the laws of\s+([^.;\n]{3,40})/i,
+    effective: /effective\s+(\d{1,2}\/\d{1,2}\/\d{4})/i,
+    expires: /expir(?:es|y|y date)?\s+(\d{1,2}\/\d{1,2}\/\d{4})/i,
+    party: /parties\s*:\s*([^.;\n]{5,80})/i,
+    updown: /\b(up|down)\s+(\d{1,2})%/i,
+    revenue: /revenue\s+(?:of\s+)?\u00a3?\s?([\d,]*\d(?:\.\d{1,2})?)/i,
+    outstanding: /outstanding(?: invoices)?\s+(?:of|is|:)?\s*\u00a3?\s?([\d,]*\d(?:\.\d{1,2})?)/i,
+    overdueAmt: /(?:overdue(?:\s+by)?|of which)\s*\u00a3?\s?([\d,]*\d(?:\.\d{1,2})?)(?:\s+overdue)?/i,
+    leads: /(\d+)\s+(?:new\s+)?leads/i,
+    period: /\b(January|February|March|April|May|June|July|August|September|October|November|December)\b/,
+    dueIso: /(?:due|certificates due|due by)\s+(\d{1,2}\/\d{1,2}\/\d{4})/i,
+    contactLbl: /contact\s*[:\u2014-]\s*([A-Z][\w'\u2019-]+(?:[ \t]+[A-Z][\w'\u2019-]+){0,2})/i,
+    titledName: /(?:landlord|tenant|contact|for the attention of|faos?)\s+(?:is\s+|[:\u2014-]\s*)?((?:Mr|Mrs|Ms|Miss|Dr)\.?\s+[A-Z][\w'\u2019-]*?(?:[ \t]+[A-Z][\w'\u2019-]+){0,2})/i,
+    sigName: /(?:cheers|regards|kind regards|thanks|thank you|best(?: wishes)?|many thanks)[,.!]?\s*\n+\s*([A-Z][\w'\u2019-]+(?:[ \t]+[A-Z][\w'\u2019-]+){0,2})/im,
+    dashName: /\u2014\s*([A-Z][\w'\u2019.]*?(?:\s+[A-Z][\w'\u2019.]+)*)(?=\s*,|\s*$|\s*\n)/m,
+    supplier: /([\w&.'\u2019-]+(?:\s+[\w&.'\u2019-]+){0,3})\s*[\u2014-]\s*Invoice/i,
+  };
+  var URGENT_WORDS = /\b(leak|flood|soaked|burst|urgent|emergency|asap|no power|sparks?|burning|smoke|smell of burning|dangerous|unsafe|dead socket|total loss of power)\b/i;
+  var POS_WORDS = /\b(great|thanks|thank you|happy|liked|keen|interested|looking forward|perfect|good news)\b/i;
+  var NEG_WORDS = /\b(complain|complaint|unhappy|delay|overdue|problem|issue|bad|poor|still waiting|no response)\b/i;
+
+  function detect(text) {
+    if (/invoice/i.test(text) && RX.amount.test(text)) return 'invoice';
+    if (/clause|agreement|terminate|parties|governing law|notice period/i.test(text)) return 'contract';
+    if (/report|jobs completed|outstanding invoices/i.test(text) && RX.period.test(text)) return 'report';
+    return 'enquiry';
+  }
+
+  function dueBadge(dueStr) {
+    if (!dueStr) return null;
+    var p = dueStr.split('/'); var d = new Date(+p[2], +p[1] - 1, +p[0]);
+    var days = Math.round((d - new Date()) / 86400000);
+    if (days < 0) return ['OVERDUE', 'urgent'];
+    if (days <= 30) return ['DUE SOON', 'duesoon'];
+    return ['FLEXIBLE', 'flex'];
+  }
+
+  function parseText(text) {
+    var t = text || '';
+    var type = docType === 'general' ? 'general' : (docType === 'enquiry' ? 'enquiry' : docType);
+    var phones = uniq(find(t, RX.phone)), emails = uniq(find(t, RX.email)), amounts = find(t, RX.amount);
+    var pc = clean(first(find(t, RX.postcode))), addr = clean(first(find(t, RX.address)));
+    var name = clean(first(find(t, RX.contactLbl, 1))) || clean(first(find(t, RX.titledName, 1))) || clean(first(find(t, RX.sigName, 1))) || clean(first(find(t, RX.dashName, 1)));
+    var company = clean(first(find(t, RX.company)));
+    var days = uniq(find(t, RX.dayName)), rels = uniq(find(t, RX.rel)), dates = uniq(find(t, RX.date));
+    var urgent = URGENT_WORDS.test(t);
+    var sentiment = POS_WORDS.test(t) ? ['POSITIVE', 'pos'] : (NEG_WORDS.test(t) ? ['NEGATIVE', 'neg'] : ['NEUTRAL', 'flex']);
+
+    if (docType === 'enquiry' && type === 'enquiry') {
+      if (/invoice/i.test(t) && amounts.length) type = 'invoice';
+      else if (/clause|agreement|parties|governing/i.test(t)) type = 'contract';
+      else if (/report|jobs completed|outstanding/i.test(t) && RX.period.test(t)) type = 'report';
+    }
+
+    var rows = [], score = 0, meta = {};
+    function add(k, v, cls, counts) { rows.push([k, v, cls || '']); if (v && v !== NF && counts !== false && k !== 'Type' && k !== 'Next action') score++; }
+
+    if (type === 'invoice') {
+      var invNo = clean(first(find(t, RX.invNo, 1)));
+      var supplier = clean(first(find(t, RX.supplier, 1)));
+      var invDate = clean(first(find(t, RX.invDate, 1)));
+      var due = clean(first(find(t, RX.due, 1)));
+      var ref = clean(first(find(t, RX.payRef, 1)));
+      var terms = clean(first(find(t, RX.terms, 1)));
+      var db = dueBadge(due);
+      add('Type', 'Invoice');
+      add('Invoice no.', invNo || NF);
+      add('From / supplier', supplier || company || NF);
+      add('Invoice date', invDate || NF);
+      var badgeHtml = db ? '<span class="badge ' + db[1] + '">' + db[0] + '</span>' : NF;
+      rows.push(['Due date', (due || NF) + (due && db ? ' &nbsp;' + badgeHtml : '')]); if (due) score++;
+      add('Total', amounts.length ? biggest(amounts) + (/\binc\b|\bvat\b/i.test(t) ? ' (inc VAT)' : '') : NF, 'money');
+      add('Payment ref', ref || NF);
+      add('Payment terms', terms || NF);
+      add('Contact', (name || emails[0] || phones[0]) ? (name || emails[0] || phones[0]) : NF);
+      meta.next = 'Match against purchase orders \u00b7 queue for your approval \u2014 nothing pays without you.';
+    } else if (type === 'contract') {
+      var parties = clean(first(find(t, RX.party, 1)));
+      var p1, p2;
+      if (parties) { var bits = parties.split(/\s+and\s+|\s*&\s*/i); p1 = clean(bits[0]); p2 = bits[1] ? clean(bits[1]) : null; }
+      if (!p1 && company) p1 = company;
+      add('Type', 'Contract');
+      add('Party 1', p1 || NF);
+      add('Party 2', p2 || NF);
+      add('Effective date', clean(first(find(t, RX.effective, 1))) || NF);
+      add('Expiry date', clean(first(find(t, RX.expires, 1))) || NF);
+      var n = clean(first(find(t, RX.notice, 1)));
+      add('Notice period', n ? n + ' days written notice' : NF);
+      add('Auto-renewal', RX.autoRenew.test(t) ? 'YES' : (/renew/i.test(t) ? 'NO' : NF));
+      add('Payment terms', clean(first(find(t, RX.terms, 1))) || NF);
+      add('Governing law', clean(first(find(t, RX.law, 1))) || NF);
+      meta.next = 'Expiry + notice dates diarised \u00b7 key terms flagged \u00b7 filed to your document store.';
+    } else if (type === 'report') {
+      var ud = first(find(t, RX.updown));
+      add('Type', 'Report');
+      add('Period', clean(first(find(t, RX.period))) ? first(find(t, RX.period)) + (/\b20\d\d\b/.test(t) ? ' ' + first(find(t, /\b20\d\d\b/g)) : '') : NF);
+      add('Revenue', clean(first(find(t, RX.revenue, 1))) ? '\u00a3' + first(find(t, RX.revenue, 1)) : NF, 'money');
+      add('vs prior month', clean(first(find(t, RX.updown))) || NF);
+      add('Outstanding', clean(first(find(t, RX.outstanding, 1))) ? '\u00a3' + first(find(t, RX.outstanding, 1)) : NF, 'money');
+      add('Overdue', clean(first(find(t, RX.overdueAmt, 1))) ? '\u00a3' + first(find(t, RX.overdueAmt, 1)) : NF, 'money');
+      add('New leads', clean(first(find(t, RX.leads, 1))) || NF);
+      var rec = /recommend[^.\n]*[.\n]?/i.exec(t);
+      add('Flags / actions', rec ? clean(rec[0]) : NF);
+      meta.next = 'Numbers land on your dashboard \u00b7 actions drafted \u2014 you approve before anything sends.';
+    } else if (type === 'general') {
+      add('Type', 'General');
+      add('Summary', t.replace(/\s+/g, ' ').slice(0, 140) + (t.length > 140 ? '\u2026' : ''));
+      add('People / companies', [name, company].filter(Boolean).join(' \u00b7 ') || NF);
+      add('Phones', phones.length ? phones.join(' \u00b7 ') : NF);
+      add('Emails', emails.length ? emails.join(' \u00b7 ') : NF);
+      add('Dates / days', [days[0], dates[0]].filter(Boolean).join(' \u00b7 ') || NF);
+      add('Amounts', amounts.length ? amounts.join(' \u00b7 ') : NF);
+      add('Location', [addr, pc].filter(Boolean).join(', ') || NF);
+      meta.next = 'Filed to the right place \u00b7 any reply drafted for your approval.';
+    } else {
+      var whenBits = [];
+      if (rels.length) whenBits.push(first(rels));
+      if (days.length) whenBits.push(first(days));
+      if (dates.length) whenBits.push(first(dates));
+      var monthName = first(find(t, RX.period));
+      if (monthName && whenBits.indexOf(monthName) < 0) whenBits.push(monthName);
+      var due2 = clean(first(find(t, RX.dueIso, 1)));
+      if (due2) whenBits.unshift(due2);
+      whenBits = uniq(whenBits);
+      add('Type', 'Lead / enquiry');
+      add('Name', name || NF);
+      add('Company', company || NF);
+      add('Phone', phones.length ? phones[0] : NF);
+      add('Email', emails.length ? emails[0] : NF);
+      add('Where', [addr, pc].filter(Boolean).join(', ') || NF);
+      var urg = urgent ? 'URGENT' : (due2 ? 'DUE SOON' : (whenBits.length ? 'DUE SOON' : 'FLEXIBLE'));
+      var urgCls = urgent ? 'urgent' : (whenBits.length || due2 ? 'duesoon' : 'flex');
+      rows.push(['Urgency', '<span class="badge ' + urgCls + '">' + urg + '</span>' + (urgent ? '' : '')]); if (urgent) score++;
+      add('When', whenBits.length ? whenBits.join(' \u00b7 ') : NF);
+      add('Amounts mentioned', amounts.length ? amounts.join(' \u00b7 ') : NF, 'money');
+      add('Next action', meta.next || (urgent ? 'Call ' + (name || 'them') + ' now \u00b7 job created for approval.' : 'Create job \u00b7 reply drafted for your approval.'));
+    }
+
+    var conf = score >= 5 ? ['HIGH', 'high'] : (score >= 3 ? ['MEDIUM', 'med'] : ['LOW', 'low']);
+    return { rows: rows, confidence: conf, sentiment: type === 'enquiry' ? sentiment : null, type: type, meta: meta };
+  }
+
+  /* ---------- render ---------- */
+  function renderResult(r) {
+    var out = $('#out'); out.innerHTML = '';
+    r.rows.forEach(function (row) {
+      var div = document.createElement('div'); div.className = 'rec-row';
+      var v = String(row[1] === null || row[1] === undefined || row[1] === '' ? NF : row[1]);
+      var cls = 'rec-v' + (v === NF ? ' nf' : (row[2] === 'money' && v !== NF ? ' money' : ''));
+      div.innerHTML = '<span class="rec-k">' + row[0] + '</span><span class="' + cls + '">' + v + '</span>';
+      out.appendChild(div);
+    });
+    var conf = document.createElement('div'); conf.style.marginTop = '12px';
+    conf.innerHTML = '<span class="badge ' + r.confidence[1] + '">CONFIDENCE · ' + r.confidence[0] + '</span>' +
+      (r.sentiment ? ' <span class="badge ' + (r.sentiment[1] === 'pos' ? 'high' : r.sentiment[1] === 'neg' ? 'neg' : 'flex') + '" style="margin-left:6px;">' + r.sentiment[0] + '</span>' : '');
+    out.appendChild(conf);
+    $('#copyRow').hidden = false;
+    $('#connect').hidden = false;
+    var lines = {
+      invoice: ['Filed to your accounting \u2014 matched against the purchase order', 'Queued for your approval \u2014 nothing pays without you', 'Payment reminder drafted automatically if it slips'],
+      contract: ['Key terms extracted \u2014 expiry + notice dates go in the diary', 'Auto-renewal caught and flagged before it bites', 'Filed to your document store, searchable'],
+      report: ['Numbers land on your dashboard \u2014 no spreadsheet copying', 'Actions drafted \u2014 you approve before anything sends', 'Filed with this month\u2019s pack, searchable'],
+      general: ['Filed to the right place in your systems', 'Any reply drafted \u2014 waiting for your approval', 'Team alerted if it needs a human today'],
+      enquiry: ['Lead created in your job system \u2014 no retyping', 'Contact matched against your customer list', 'Team alerted \u2014 inbox + WhatsApp' + (URGENT_WORDS.test(lastText) ? ', URGENT tag' : '')]
+    };
+    $('#connectLines').innerHTML = (lines[r.type] || lines.enquiry).map(function (l) { return '<li>' + l + '</li>'; }).join('');
+  }
+
+  function playSteps(done) {
+    var box = $('#steps'); box.innerHTML = ''; box.hidden = false;
+    var labels = ['READ', 'CLASSIFY', 'EXTRACT', 'RECORD READY'];
+    var els = labels.map(function (s) { var d = document.createElement('span'); d.className = 'step'; d.textContent = s; box.appendChild(d); return d; });
+    els.forEach(function (el, i) { setTimeout(function () { el.classList.add('show'); }, 160 + i * 380); });
+    setTimeout(done, 160 + els.length * 380 + 200);
+  }
+
+  function setStatus(k, label) { var s = $('#status'); s.className = 'status ' + k; s.textContent = label; }
+
+  function runParse() {
+    var text = $('#txt').value.trim();
+    lastText = text;
+    if (!text) { setStatus('idle', 'IDLE'); $('#out').innerHTML = '<div class="empty">Paste something first \u2014 or load a sample above.</div>'; return; }
+    setStatus('proc', 'PROCESSING\u2026');
+    var btn = $('#parseBtn'); btn.disabled = true; btn.textContent = 'Parsing\u2026';
+    $('#connect').hidden = true; $('#copyRow').hidden = true;
+    playSteps(function () {
+      var r = parseText(text);
+      lastResult = r;
+      renderResult(r);
+      var core = r.rows.filter(function (row) { return row[0] !== 'Type' && row[0] !== 'Next action' && row[0] !== 'Summary'; });
+      var emptyish = core.every(function (row) { return String(row[1]) === NF; }) || r.confidence[0] === 'LOW';
+      if (emptyish) {
+        $('#out').innerHTML = '<div class="empty">Couldn\u2019t pull clean fields from that \u2014 and it never invents them. Try a sample, or paste text with a name, number or date in it.</div>';
+        $('#copyRow').hidden = true; $('#connect').hidden = true;
+      }
+      setStatus('done', 'COMPLETE');
+      btn.disabled = false; btn.textContent = 'Parse again';
+      box_hidden_steps();
+    });
+  }
+  function box_hidden_steps() { var s = $('#steps'); setTimeout(function () { s.hidden = true; }, 900); }
+
+  /* ---------- wiring ---------- */
+  $$('#tabs .tab').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $$('#tabs .tab').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      docType = b.dataset.type;
+    });
+  });
+  var SAMPLE_TABS = ['enquiry', 'enquiry', 'invoice', 'contract', 'report', 'enquiry'];
+  $$('.chip').forEach(function (c) {
+    c.addEventListener('click', function () {
+      var i = +c.dataset.s;
+      $('#txt').value = SAMPLES[i];
+      var want = SAMPLE_TABS[i];
+      $$('#tabs .tab').forEach(function (x) { x.classList.toggle('on', x.dataset.type === want); });
+      docType = want;
+      runParse();
+    });
+  });
+  $('#parseBtn').addEventListener('click', runParse);
+  $('#resetBtn').addEventListener('click', function () {
+    $('#txt').value = SAMPLES[0];
+    $('#out').innerHTML = '<div class="empty">Parse something and the clean record lands here \u2014 fields it can\u2019t find stay empty, never invented.</div>';
+    $('#copyRow').hidden = true; $('#connect').hidden = true;
+    setStatus('idle', 'IDLE');
+    lastResult = null;
+  });
+  $('#modeToggle button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $$('#modeToggle button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+    });
+  });
+  function downloadToast(msg) {
+    var n = document.createElement('div'); n.className = 'demo-note'; n.style.color = 'var(--warn)';
+    n.textContent = msg;
+    $('.input-hint').after(n);
+    setTimeout(function () { n.remove(); }, 4000);
+  }
+  $('#uploadBtn').addEventListener('click', function () { $('#fileIn').click(); });
+  $('#fileIn').addEventListener('change', function () {
+    var f = $('#fileIn').files[0]; if (!f) return;
+    if (/\.pdf$/i.test(f.name)) { parsePdf(f); return; }
+    var reader = new FileReader();
+    reader.onload = function () {
+      $('#txt').value = String(reader.result).slice(0, 6000);
+      runParse();
+    };
+    reader.readAsText(f);
+  });
+  function parsePdf(file) {
+    if (!window.pdfjsLib) {
+      var s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      s.onload = function () {
+        try {
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+          extractPdf(file);
+        } catch (e) { pdfFail(); }
+      };
+      s.onerror = pdfFail;
+      document.head.appendChild(s);
+    } else { extractPdf(file); }
+  }
+  function extractPdf(file) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var buf = new Uint8Array(reader.result);
+      window.pdfjsLib.getDocument(buf).promise.then(function (pdf) {
+        var max = Math.min(pdf.numPages, 6), pages = [], p = 1;
+        function next() {
+          if (p > max) {
+            var text = pages.join('\n').replace(/\s+/g, ' ').trim().slice(0, 6000);
+            if (!text) { pdfFail(); return; }
+            $('#txt').value = text; runParse(); return;
+          }
+          pdf.getPage(p).then(function (page) {
+            return page.getTextContent();
+          }).then(function (tc) {
+            pages.push(tc.items.map(function (i) { return i.str; }).join(' '));
+            p++; next();
+          }).catch(pdfFail);
+        }
+        next();
+      }).catch(pdfFail);
+    };
+    reader.readAsArrayBuffer(file);
+  }
+  function pdfFail() {
+    downloadToast('Couldn\u2019t read that PDF here \u2014 paste the text instead, or try a .txt / .csv file.');
+  }
+
+  /* ---------- copy helpers ---------- */
+  function resultText() {
+    if (!lastResult) return '';
+    return lastResult.rows.map(function (r) { return r[0] + ': ' + String(r[1]).replace(/<[^>]*>/g, ''); }).join('\n');
+  }
+  function resultCsv() {
+    if (!lastResult) return '';
+    var esc = function (v) { return '"' + String(v).replace(/<[^>]*>/g, '').replace(/"/g, '""') + '"'; };
+    return lastResult.rows.map(function (r) { return esc(r[0]) + ',' + esc(r[1]); }).join('\n');
+  }
+  function resultJson() {
+    if (!lastResult) return '{}';
+    var o = { type: lastResult.type, confidence: lastResult.confidence[0], fields: {} };
+    lastResult.rows.forEach(function (r) { o.fields[r[0]] = String(r[1]).replace(/<[^>]*>/g, ''); });
+    return JSON.stringify(o, null, 2);
+  }
+  function doCopy(label, getText) {
+    var txt = getText();
+    var done = function () { var b = $(label); var o = b.textContent; b.textContent = 'Copied'; setTimeout(function () { b.textContent = o; }, 1100); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, done); else done();
+  }
+  $('#copyText').addEventListener('click', function () { doCopy('#copyText', resultText); });
+  $('#copyJson').addEventListener('click', function () { doCopy('#copyJson', resultJson); });
+  $('#copyCsv').addEventListener('click', function () { doCopy('#copyCsv', resultCsv); });
+})();
+</script>
+</body>
+</html>

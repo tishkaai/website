@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tishka demo — Morning Brief (sample inbox)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0e0e10; --bg-raise: #18181b; --bg-card: #1c1c1f;
+    --line: #2a2a2e; --line-soft: #232327;
+    --ink: #ffffff; --ink-dim: #a7a7ad; --ink-faint: #77777c;
+    --brass: #7c5cf6; --brass-bright: #a78bfa; --brass-deep: #673de6;
+    --good: #2ecc9a; --warn: #d9a441; --bad: #ff5c5c;
+    --sans: "DM Sans", -apple-system, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(1100px 560px at 80% -10%, rgba(124,92,246,0.07), transparent 60%),
+                radial-gradient(900px 500px at 0% 110%, rgba(124,92,246,0.04), transparent 55%); }
+  .shell { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 28px 40px 64px; }
+
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 30px; }
+  .backlink { font-family: var(--mono); font-size: 12px; color: var(--ink-dim); text-decoration: none; letter-spacing: .04em; }
+  .backlink:hover { color: var(--ink); }
+  .brandchip { display: flex; align-items: center; gap: 10px; }
+  .brandchip .mark { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--brass-bright), var(--brass-deep));
+    display: grid; place-items: center; font-weight: 600; color: #0e0e10; font-size: 15px; }
+  .brandchip .name { font-size: 15px; font-weight: 500; }
+  .demo-badge { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--warn);
+    border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; background: var(--bg-raise); }
+
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--brass); margin-bottom: 14px; }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 4px rgba(124,92,246,0.15); }
+  h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 500; letter-spacing: -0.015em; margin-bottom: 10px; }
+  .sub { font-size: 15px; color: var(--ink-dim); max-width: 60ch; margin-bottom: 26px; }
+
+  .controls { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 14px; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; padding: 3px; background: var(--bg-raise); }
+  .seg button { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--ink-dim); background: transparent;
+    border: 0; border-radius: 8px; padding: 8px 16px; cursor: pointer; }
+  .seg button.on { background: var(--brass); color: #0e0e10; font-weight: 600; }
+  .seg-label { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+  .run { font-family: var(--mono); font-size: 13px; font-weight: 600; color: #0e0e10; background: var(--brass);
+    border: 0; border-radius: 10px; padding: 12px 22px; cursor: pointer; }
+  .run:hover { background: var(--brass-bright); }
+  .run[disabled] { background: var(--line); color: var(--ink-faint); cursor: default; }
+  .micro { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 30px; }
+
+  .steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; min-height: 26px; }
+  .step { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; padding: 5px 12px; border-radius: 6px;
+    border: 1px solid var(--line); color: var(--ink-dim); opacity: 0; transform: translateY(4px); transition: all .3s ease; }
+  .step.show { opacity: 1; transform: none; }
+
+  .grid { display: grid; grid-template-columns: 1.7fr 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .card { border: 1px solid var(--line); border-radius: 14px; background: var(--bg-card); padding: 18px 20px; }
+  .card .head { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 12px; }
+
+  .exec { font-size: 14.5px; color: var(--ink); margin-bottom: 14px; }
+  .exec b { color: var(--ink); }
+  .exec .money { color: var(--brass-bright); font-family: var(--mono); }
+
+  .p-item { border-top: 1px solid var(--line-soft); padding: 12px 0; cursor: pointer; }
+  .p-item:first-of-type { border-top: none; }
+  .p-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .p-n { font-family: var(--mono); font-size: 12px; color: var(--brass); border: 1px solid var(--brass-deep); border-radius: 7px;
+    width: 24px; height: 24px; display: grid; place-items: center; flex-shrink: 0; }
+  .tier { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; padding: 3px 8px; border-radius: 5px; }
+  .tier.high { background: rgba(255,92,92,0.14); color: var(--bad); }
+  .tier.imp { background: rgba(217,164,65,0.14); color: var(--warn); }
+  .tier.fyi { background: var(--bg-raise); color: var(--ink-dim); }
+  .tier.queued { background: rgba(46,204,154,0.14); color: var(--good); }
+  .p-from { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .p-subj { font-size: 13px; color: var(--ink-dim); }
+  .p-money { font-family: var(--mono); font-size: 10.5px; color: var(--brass-bright); border: 1px solid var(--brass-deep);
+    border-radius: 5px; padding: 2px 8px; margin-left: auto; flex-shrink: 0; }
+  .p-why { font-size: 12.5px; color: var(--ink-dim); margin-top: 6px; }
+  .p-more { margin-top: 10px; }
+  .orig { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); border-left: 2px solid var(--line); padding: 2px 0 2px 10px; margin-bottom: 10px; }
+  .draftbox { border: 1px solid var(--line); border-left: 3px solid var(--brass); border-radius: 10px; background: var(--bg-raise); padding: 12px 14px; }
+  .draftbox-label { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--ink-faint); margin-bottom: 6px; }
+  .draftbox-text { font-size: 13.5px; color: var(--ink); line-height: 1.5; }
+  .draftbox-text[contenteditable="true"] { outline: 1px solid var(--brass-deep); border-radius: 6px; padding: 6px; }
+  .draftbox-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .db-approve { font-size: 12px; padding: 6px 14px; border-radius: 999px; border: 0; background: #fff; color: #0e0e10; font-weight: 500; cursor: pointer; }
+  .db-edit { font-size: 12px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink-dim); cursor: pointer; }
+  .db-queued { margin-top: 10px; font-size: 12.5px; color: var(--good); }
+
+  .stat-big { font-family: var(--mono); font-size: 26px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .stat-big .unit { font-size: 13px; color: var(--ink-dim); font-weight: 400; }
+  .cost-note { font-size: 12.5px; color: var(--ink-dim); }
+  .filed-row { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; color: var(--ink-dim);
+    padding: 7px 0; border-top: 1px solid var(--line-soft); }
+  .filed-row:first-of-type { border-top: none; padding-top: 0; }
+  .filed-row .k { color: var(--ink); }
+
+  .inbox-preview { margin-bottom: 26px; }
+  .inbox-row { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line-soft); }
+  .inbox-preview .inbox-row:first-of-type { border-top: none; }
+  .inbox-row .from { font-size: 13.5px; color: var(--ink); width: 190px; flex-shrink: 0; }
+  .inbox-row .subj { font-size: 13px; color: var(--ink-dim); flex: 1; }
+  .inbox-row .when { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); flex-shrink: 0; }
+  .copybtn { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; padding: 8px 16px;
+    border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--ink-dim); cursor: pointer; margin-bottom: 16px; }
+  .copybtn:hover { color: var(--ink); border-color: var(--brass-deep); }
+
+  .foot { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
+  .foot a { color: var(--ink-dim); text-decoration: none; }
+  .foot a:hover { color: var(--ink); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="topbar">
+    <div class="brandchip"><div class="mark">t</div><div class="name">Tishka · Morning Brief</div></div>
+    <span class="demo-badge">DEMO · SAMPLE INBOX · READ-ONLY · NOTHING STORED</span>
+  </div>
+
+  <div class="eyebrow"><span class="dot"></span> Daily brief</div>
+  <h1>Your morning brief.</h1>
+  <p class="sub">The inbox, turned into an action plan. Pick how far back to scan, run it on the demo inbox, and see the priorities, the drafts, and what the backlog is quietly costing.</p>
+
+  <div class="controls">
+    <span class="seg-label">Scan window</span>
+    <div class="seg" id="winSeg">
+      <button type="button" data-days="3">3 days</button>
+      <button type="button" class="on" data-days="5">5 days</button>
+      <button type="button" data-days="7">7 days</button>
+    </div>
+    <button class="run" id="runBtn">Run the brief &rarr;</button>
+  </div>
+  <p class="micro">Live, this reads your real inbox <b>read-only</b> — nothing is stored, nothing sends itself. Every item deep-links to the original email, and every reply waits for your approval.</p>
+
+  <!-- demo inbox, visible before running -->
+  <div class="card inbox-preview" id="inboxPreview">
+    <div class="head">Demo inbox — Meridian Electrical · today 06:00</div>
+    <div class="inbox-row"><div class="from">Hollins Builders</div><div class="subj">RE: Invoice INV-1042 — overdue</div><div class="when">Tue 21:14</div></div>
+    <div class="inbox-row"><div class="from">Beechwood Care Home</div><div class="subj">Re: Rewire quote — can you start in 3 weeks?</div><div class="when">Tue 19:02</div></div>
+    <div class="inbox-row"><div class="from">Steve Hartley · Hartley Build</div><div class="subj">Domestic rewire quote — Kirkham</div><div class="when">Tue 17:41</div></div>
+    <div class="inbox-row"><div class="from">Riverside Lofts</div><div class="subj">3-phase quote — still reviewing</div><div class="when">Mon 15:37</div></div>
+    <div class="inbox-row"><div class="from">NICEIC</div><div class="subj">Certification renewal due 30 Sep</div><div class="when">Mon 09:12</div></div>
+    <div class="inbox-row"><div class="from">Edmundson Electrical</div><div class="subj">Price list — 4% increase from 1 Oct</div><div class="when">Mon 08:55</div></div>
+    <div class="inbox-row"><div class="from">Kings Cross Estates</div><div class="subj">Communal LED refit — decision next week</div><div class="when">Sat 11:20</div></div>
+    <div class="inbox-row" style="border-bottom:none;"><div class="from" style="color:var(--ink-faint);">…and <span id="pvMore">41</span> more</div><div class="subj" style="color:var(--ink-faint);">newsletters, notifications, receipts — filed automatically</div><div class="when"></div></div>
+  </div>
+
+  <!-- run animation -->
+  <div class="steps" id="steps" hidden></div>
+
+  <!-- the brief -->
+  <div id="brief" hidden>
+    <button class="copybtn" id="copyBtn">Copy briefing</button>
+    <div class="grid">
+      <div class="card">
+        <div class="head">Priority order <span class="demo-badge" style="letter-spacing:.08em;">click an item</span></div>
+        <p class="exec" id="exec"></p>
+        <div id="items"></div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="head">What the backlog is costing you</div>
+          <div class="stat-big"><span id="costHours">2.4</span> <span class="unit">hrs to clear</span></div>
+          <div class="stat-big" style="margin-bottom:10px;"><span id="costGbp">£84</span> <span class="unit">of your time, at £35/hr</span></div>
+          <p class="cost-note">The backlog is where enquiries quietly go cold. The brief puts the two that involve money at the top, every morning.</p>
+        </div>
+        <div class="card">
+          <div class="head">Filed with no human needed</div>
+          <div class="filed-row"><span class="k" id="filedCount">41 of 47</span><span>filed automatically overnight</span></div>
+          <div class="filed-row"><span class="k">Newsletters &amp; notifications</span><span>labelled, unread kept</span></div>
+          <div class="filed-row"><span class="k">Receipts &amp; confirmations</span><span>matched to jobs</span></div>
+          <div class="filed-row"><span class="k">Junk &amp; phishing</span><span>binned — you never see it</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>Demo runs on a sample inbox. Live, it reads your real inbox read-only and drafts — <b style="color:var(--ink-dim);">you approve</b>. Nothing sends itself.</span>
+    <span><a href="index-v2.html">&larr; Back to the site</a></span>
+  </div>
+
+</div>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+  var WINDOWS = {
+    3: { scanned: 23, hours: 1.5, summary: '<b>23 emails</b> in 3 days. <b>4 need you</b>, 2 are money. Start with Hollins.' },
+    5: { scanned: 47, hours: 2.4, summary: '<b>47 emails</b> in 5 days. <b>4 need you</b>, 2 are money. Start with Hollins.' },
+    7: { scanned: 61, hours: 2.9, summary: '<b>61 emails</b> in 7 days. <b>4 need you</b>, 3 FYI. Start with Hollins.' }
+  };
+  var ITEMS = [
+    { days: 1, tier: 'high', label: 'HIGH', money: '£2,640 at risk', from: 'Hollins Builders', subj: 'RE: Invoice INV-1042 — overdue',
+      why: '13 days overdue and it\u2019s your biggest open amount. They paid late last time — a call beats another email.',
+      orig: 'From: accounts@hollinsbuilders.co.uk · Tue 21:14 — "Received your reminder. Passing to our QS for sign-off this week."',
+      draft: 'Hi Hollins — invoice INV-1042 (£2,640) is now 13 days past due. Could you confirm a payment date this week? Happy to collect on Thursday\u2019s site visit. — Meridian' },
+    { days: 1, tier: 'high', label: 'HIGH', money: '£18,400 to win', from: 'Beechwood Care Home', subj: 'Re: Rewire quote — can you start in 3 weeks?',
+      why: 'They\u2019re ready to book. Approve the confirmation and it queues — no retyping.',
+      orig: 'From: office@beechwoodcare.org.uk · Tue 19:02 — "The board liked the quote. Could you start w/c 15th for three weeks?"',
+      draft: 'Hi Beechwood — great news. We can start w/c 15 Sep as requested, three weeks on site. I\u2019ll send the confirmation and deposit invoice today once approved. — Meridian' },
+    { days: 2, tier: 'high', label: 'HIGH', money: null, from: 'Steve Hartley · Hartley Build', subj: 'Domestic rewire quote — Kirkham',
+      why: 'New lead, no reply yet. Fast replies win these — that\u2019s the point of the brief.',
+      orig: 'From: steve@hartleybuild.co.uk · Tue 17:41 — "Can you quote a full rewire, 3-bed terrace in Kirkham? Tenant in from October."',
+      draft: 'Hi Steve — happy to quote it. I can do a survey Tuesday or Wednesday morning, whichever suits. I\u2019ll bring the certificate checklist so you have everything for the tenant file. — Meridian' },
+    { days: 2, tier: 'important', label: 'IMPORTANT', money: '£12k job', from: 'Riverside Lofts', subj: '3-phase quote — still reviewing',
+      why: '7 days quiet on a £12k job. One friendly nudge keeps it alive without looking desperate.',
+      orig: 'From: projects@riversidelofts.co.uk · Mon 15:37 — "Still reviewing with our MD, hopefully this week." (7 days ago)',
+      draft: 'Hi Riverside — following up on the 3-phase quote from last week. Any questions I can answer to help you decide? Happy to walk the site with your electrician. — Meridian' },
+    { days: 1, tier: 'fyi', label: 'FYI', money: null, from: 'NICEIC', subj: 'Certification renewal due 30 Sep',
+      why: 'No reply needed — it\u2019s on the calendar and Tishka will remind you two weeks out.', orig: 'From: renewals@niceic.com · Mon 09:12 — "Your certification expires 30 September 2026."', draft: null },
+    { days: 3, tier: 'fyi', label: 'FYI', money: null, from: 'Edmundson Electrical', subj: 'Price list — 4% increase from 1 Oct',
+      why: 'Worth stocking cable before the rise. No reply needed.', orig: 'From: trade@edmundson.co.uk · Sat 08:55 — "4% price adjustment effective 1 October."', draft: null },
+    { days: 7, tier: 'fyi', label: 'FYI', money: null, from: 'Kings Cross Estates', subj: 'Communal LED refit — decision next week',
+      why: 'Quote sent, close date lands next week. The brief will flag it the day it happens.', orig: 'From: facilities@kingscrossestates.co.uk · 7 days ago — "Board reviews refit quotes next Thursday."', draft: null }
+  ];
+
+  var winDays = 5, played = false;
+  $$('#winSeg button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $$('#winSeg button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      winDays = +b.dataset.days;
+      var pv = document.querySelector('#pvMore');
+      if (pv) pv.textContent = (WINDOWS[winDays].scanned - ITEMS.filter(function (i) { return i.days <= winDays; }).length);
+    });
+  });
+
+  function playSteps(done) {
+    var box = $('#steps'); box.innerHTML = ''; box.hidden = false;
+    var labels = ['SCAN · ' + WINDOWS[winDays].scanned + ' emails', 'CLASSIFY · tiers', 'DRAFT · replies for approval', 'BRIEF READY'];
+    var els = labels.map(function (s) {
+      var d = document.createElement('span'); d.className = 'step'; d.textContent = s; box.appendChild(d); return d;
+    });
+    els.forEach(function (el, i) { setTimeout(function () { el.classList.add('show'); }, 200 + i * 420); });
+    setTimeout(done, 200 + els.length * 420 + 250);
+  }
+
+  function rowFor(item, n) {
+    var div = document.createElement('div'); div.className = 'p-item';
+    var money = item.money ? '<span class="p-money">' + item.money + '</span>' : '';
+    div.innerHTML =
+      '<div class="p-top"><span class="p-n">' + n + '</span>' +
+      '<span class="tier ' + item.tier + '">' + item.label + '</span>' +
+      '<span class="p-from">' + item.from + '</span>' +
+      '<span class="p-subj">' + item.subj + '</span>' + money + '</div>' +
+      '<div class="p-why">' + item.why + '</div>' +
+      '<div class="p-more" hidden>' +
+      '<div class="orig">' + item.orig + '</div>' +
+      (item.draft
+        ? '<div class="draftbox"><div class="draftbox-label">DRAFT — WAITING FOR YOUR APPROVAL</div>' +
+          '<div class="draftbox-text">' + item.draft + '</div>' +
+          '<div class="draftbox-actions"><button class="db-approve">Approve &amp; send</button><button class="db-edit">Edit</button></div>' +
+          '<div class="db-queued" hidden>✓ Queued — you approved this draft. In auto mode, routine categories send without asking.</div></div>'
+        : '<div class="draftbox" style="border-left-color:var(--line);"><div class="draftbox-label">NO REPLY NEEDED — FILED FOR YOU</div><div class="draftbox-text" style="color:var(--ink-dim);">' + item.orig.replace(/<[^>]*>/g, '') + '</div></div>') +
+      '</div>';
+    return div;
+  }
+
+  function render() {
+    var W = WINDOWS[winDays];
+    var list = ITEMS.filter(function (i) { return i.days <= winDays; });
+    $('#exec').innerHTML = 'EXECUTIVE SUMMARY — ' + W.summary;
+    var holder = $('#items'); holder.innerHTML = '';
+    list.forEach(function (item, i) { holder.appendChild(rowFor(item, i + 1)); });
+    $('#costHours').textContent = W.hours;
+    $('#costGbp').textContent = '£' + Math.round(W.hours * 35);
+    $('#filedCount').textContent = (W.scanned - list.length) + ' of ' + W.scanned;
+    $('#brief').hidden = false;
+    bindRows();
+  }
+
+  function bindRows() {
+    $$('#items .p-item').forEach(function (row) {
+      row.addEventListener('click', function (e) {
+        if (e.target.closest('.draftbox')) return;
+        var more = row.querySelector('.p-more');
+        if (more) more.hidden = !more.hidden;
+      });
+    });
+    $$('#items .db-approve').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var box = btn.closest('.draftbox');
+        box.querySelector('.draftbox-actions').hidden = true;
+        var tier = btn.closest('.p-item').querySelector('.tier');
+        if (tier) { tier.textContent = 'QUEUED'; tier.className = 'tier queued'; }
+        var q = box.querySelector('.db-queued'); if (q) q.hidden = false;
+      });
+    });
+    $$('#items .db-edit').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var txt = btn.closest('.draftbox').querySelector('.draftbox-text');
+        var on = txt.getAttribute('contenteditable') === 'true';
+        txt.setAttribute('contenteditable', on ? 'false' : 'true');
+        btn.textContent = on ? 'Edit' : 'Done editing';
+        if (!on) txt.focus();
+      });
+    });
+  }
+
+  $('#runBtn').addEventListener('click', function () {
+    if (played) { render(); return; }
+    played = true;
+    var btn = $('#runBtn'); btn.disabled = true; btn.textContent = 'Running…';
+    $('#inboxPreview').hidden = true;
+    playSteps(function () {
+      render();
+      $('#brief').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      btn.hidden = true;
+    });
+  });
+
+  $('#copyBtn').addEventListener('click', function () {
+    var W = WINDOWS[winDays];
+    var list = ITEMS.filter(function (i) { return i.days <= winDays; });
+    var lines = ['EXECUTIVE SUMMARY — ' + W.summary.replace(/<[^>]*>/g, ''), ''];
+    list.forEach(function (i, n) {
+      lines.push((i.tier === 'high' ? 'HIGH' : i.tier === 'important' ? 'IMPORTANT' : 'FYI') + ' · ' + i.from + ' — ' + i.subj + (i.money ? ' (' + i.money + ')' : ''));
+    });
+    var txt = lines.join('\n');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(function () { flashCopied(); }, function () { flashCopied(); });
+    } else { flashCopied(); }
+  });
+  function flashCopied() {
+    var b = $('#copyBtn'), old = 'Copy briefing';
+    b.textContent = 'Copied';
+    setTimeout(function () { b.textContent = old; }, 1200);
+  }
+})();
+</script>
+</body>
+</html>
