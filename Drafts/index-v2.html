@@ -241,7 +241,7 @@
               </div>
             </div>
             <div class="roi-sliderline">
-              <input type="range" id="roiRate" min="15" max="150" step="1" value="35" aria-label="Time worth per hour">
+              <input type="range" id="roiRate" min="15" max="150" step="5" value="35" aria-label="Time worth per hour">
               <span class="roi-rateval" id="roiRateVal">£35<span>/hour</span></span>
             </div>
           </div>
@@ -252,7 +252,7 @@
               <div class="roi-taskhelp">Classified and routed to the right person automatically instead of read one by one.</div></div>
             </div>
             <div class="roi-sliderline indent">
-              <input type="range" class="roi-cat" id="roiC1" data-pct="0.76" min="0" max="15" step="0.5" value="5" aria-label="Emails, hours per week">
+              <input type="range" class="roi-cat" id="roiC1" data-pct="0.76" min="0" max="10" step="0.5" value="5" aria-label="Emails, hours per week">
               <span class="roi-hrsval" id="roiH1">5 hrs/wk</span>
             </div>
           </div>
@@ -263,7 +263,7 @@
               <div class="roi-taskhelp">Matched against purchase orders automatically; you just approve the exceptions.</div></div>
             </div>
             <div class="roi-sliderline indent">
-              <input type="range" class="roi-cat" id="roiC2" data-pct="0.65" min="0" max="15" step="0.5" value="2" aria-label="Invoices, hours per week">
+              <input type="range" class="roi-cat" id="roiC2" data-pct="0.65" min="0" max="10" step="0.5" value="2" aria-label="Invoices, hours per week">
               <span class="roi-hrsval" id="roiH2">2 hrs/wk</span>
             </div>
           </div>
@@ -498,49 +498,52 @@
 
   <script>
   (function () {
-    /* ---------- Hero ROI calculator (Rora-style) ---------- */
+    /* ---------- Hero ROI calculator (Rora's exact math) ---------- */
     var $ = function (id) { return document.getElementById(id); };
-    var roiRate = $('roiRate'), rateMode = 'hr';
+    var roiRate = $('roiRate');
     var roiCats = [
-      { el: $('roiC1'), hrs: $('roiH1'), bk: $('roiB1'), pct: 0.76 },
-      { el: $('roiC2'), hrs: $('roiH2'), bk: $('roiB2'), pct: 0.65 },
-      { el: $('roiC3'), hrs: $('roiH3'), bk: $('roiB3'), pct: 0.90 }
+      { el: $('roiC1'), hrs: $('roiH1'), bk: $('roiB1'), share: 0.75 },
+      { el: $('roiC2'), hrs: $('roiH2'), bk: $('roiB2'), share: 0.65 },
+      { el: $('roiC3'), hrs: $('roiH3'), bk: $('roiB3'), share: 0.90 }
     ];
-    function fmtGbp(n) { return '£' + Math.round(n).toLocaleString('en-GB'); }
+    var roiModes = {
+      hour: { min: 15, max: 150, step: 5, label: '/hour', divisor: 1 },
+      day:  { min: 120, max: 1200, step: 20, label: '/day', divisor: 8 }
+    };
+    var roiMode = 'hour', roiShown = 35;
+    function rHrs(x) { var t = Math.round(10 * x) / 10; return t % 1 === 0 ? t.toFixed(0) : t.toFixed(1); }
+    function rGbp(x) { return '£' + Math.round(x).toLocaleString('en-GB'); }
     function roiCalc() {
-      var shown = +roiRate.value || 35;
-      var hr = rateMode === 'day' ? shown / 8 : shown;
-      $('roiRateVal').innerHTML = '£' + shown + (rateMode === 'day' ? '<span>/day</span>' : '<span>/hour</span>');
+      var M = roiModes[roiMode], hourly = roiShown / M.divisor;
+      $('roiRateVal').innerHTML = '£' + roiShown + '<span>' + M.label + '</span>';
       var total = 0;
       roiCats.forEach(function (c) {
-        var h = +c.el.value || 0, b = h * c.pct; total += b;
-        c.hrs.textContent = (h % 1 ? h.toFixed(1) : h) + ' hrs/wk';
-        c.bk.textContent = (Math.round(b * 10) / 10) + ' hrs/wk';
+        var h = +c.el.value || 0, s = h * c.share; total += s;
+        c.hrs.textContent = rHrs(h) + ' hrs/wk';
+        c.bk.textContent = rHrs(s) + ' hrs/wk';
       });
-      var wk = total * hr, mo = wk * 4.33;
-      $('roiTotal').innerHTML = (Math.round(total * 10) / 10) + ' <em>hrs/wk</em>';
-      $('roiWk').innerHTML = fmtGbp(wk) + '<span>/wk</span>';
-      $('roiMo').innerHTML = fmtGbp(mo) + '<span>/mo</span>';
+      var wk = total * hourly, mo = wk * 52 / 12;
+      $('roiTotal').innerHTML = rHrs(total) + ' <em>hrs/wk</em>';
+      $('roiWk').innerHTML = rGbp(wk) + '<span>/wk</span>';
+      $('roiMo').innerHTML = rGbp(mo) + '<span>/mo</span>';
     }
     document.querySelectorAll('#roiSeg button').forEach(function (b) {
       b.addEventListener('click', function () {
         document.querySelectorAll('#roiSeg button').forEach(function (x) { x.classList.remove('on'); });
         b.classList.add('on');
-        var newMode = b.dataset.mode;
-        if (newMode !== rateMode) {
-          rateMode = newMode;
-          if (rateMode === 'day') {
-            roiRate.min = '120'; roiRate.max = '1200';
-            roiRate.value = Math.min(1200, Math.max(120, Math.round((+roiRate.value || 35) * 8)));
-          } else {
-            roiRate.min = '15'; roiRate.max = '150';
-            roiRate.value = Math.max(15, Math.min(150, Math.round((+roiRate.value || 960) / 8)));
-          }
+        var m = b.dataset.mode;
+        if (m !== roiMode) {
+          var hourly = roiShown / roiModes[roiMode].divisor, M = roiModes[m];
+          roiShown = Math.min(Math.max(Math.round(hourly * M.divisor / M.step) * M.step, M.min), M.max);
+          roiMode = m;
+          roiRate.min = M.min; roiRate.max = M.max; roiRate.step = M.step;
+          roiRate.value = roiShown;
         }
         roiCalc();
       });
     });
-    [roiRate].concat(roiCats.map(function (c) { return c.el; })).forEach(function (el) { el.addEventListener('input', roiCalc); });
+    roiRate.addEventListener('input', function () { roiShown = +roiRate.value || roiShown; roiCalc(); });
+    roiCats.forEach(function (c) { c.el.addEventListener('input', roiCalc); });
     roiCalc();
 
     /* ---------- step animation helper ---------- */
