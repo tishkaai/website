@@ -315,8 +315,8 @@
           <div class="roi-brow"><span class="k">Copying data into…</span><span class="v" id="roiB3">5.4 hrs/wk</span></div>
           <div class="roi-totline">
             <div class="roi-totalrow"><span class="k">Total time freed up</span><span class="roi-totalbig" id="roiTotal">10.5 <em>hrs/wk</em></span></div>
-            <div class="roi-pline"><span class="k">Worth roughly</span><span class="v" id="roiWk">£368<span>/wk</span></span></div>
-            <div class="roi-pline"><span class="k">Per month</span><span class="v" id="roiMo">£1,593<span>/mo</span></span></div>
+            <div class="roi-pline"><span class="k">You get back</span><span class="v" id="roiWk">£366<span>/wk of your time</span></span></div>
+            <div class="roi-pline"><span class="k">Per month</span><span class="v" id="roiMo">£1,585<span>/mo</span></span></div>
           </div>
           <a class="btn btn-primary roi-cta" href="#packages">Get your real numbers &rarr;</a>
           <p class="roi-disc">Illustrative estimate based on typical results across Tishka's live automations. Your free diagnostic gives you numbers specific to your business.</p>
@@ -531,7 +531,7 @@
       });
       var wk = total * hourly, mo = wk * 52 / 12;
       $('roiTotal').innerHTML = rHrs(total) + ' <em>hrs/wk</em>';
-      $('roiWk').innerHTML = rGbp(wk) + '<span>/wk</span>';
+      $('roiWk').innerHTML = rGbp(wk) + '<span>/wk of your time</span>';
       $('roiMo').innerHTML = rGbp(mo) + '<span>/mo</span>';
     }
     document.querySelectorAll('#roiSeg button').forEach(function (b) {
