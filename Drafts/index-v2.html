@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — HOME PAGE v2 (LOCAL DRAFT — NOT LIVE, NOT DEPLOYED)
+  Built 2026-09-03 per Pete: ROI calculator replaces the dashboard
+  mockup in the hero; packages (£300 floor) + demos section added;
+  existing hero copy / Gap / 3 steps / FAQ / footer kept.
+  Preview: open this file directly in a browser, or
+  python3 -m http.server 8080  →  http://localhost:8000/Drafts/index-v2.html
+  (dashboard demo iframe expects ../dashboard-mockup.html — present in repo)
+  Parser demo runs on sample data client-side (Phase 1) — see
+  outputs/spec-parser-demo-and-home-v2-2026-09-03.md for the live-wire plan.
+============================================================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tishka AI — Stop losing time, money, and customers</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0a0a; --bg-card: #111111; --bg-elevated: #1a1a1a;
+    --border: #2a2a2a; --text: #f5f5f5; --text-muted: #a1a1a1;
+    --accent: #ffffff; --green: #22c55e; --blue: #3b82f6; --violet: #7c5cf6;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  header { position: sticky; top: 0; z-index: 50; background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo img { height: 28px; width: auto; display: block; }
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    padding: 10px 18px; border-radius: 9999px; font-size: 0.9rem; font-weight: 500;
+    transition: all 0.15s ease; cursor: pointer; border: none; }
+  .btn-primary { background: white; color: black; }
+  .btn-primary:hover { background: #e5e5e5; }
+  .btn-ghost { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text); }
+  .btn-ghost:hover { background: #222; }
+
+  .hero { padding: 72px 0 48px; text-align: center; }
+  h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 650; letter-spacing: -0.04em;
+    line-height: 1.15; margin-bottom: 20px; }
+  .hero-sub { font-size: 1.2rem; color: var(--text-muted); max-width: 640px; margin: 0 auto 16px; }
+  .hero-cta { margin-top: 26px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .trust-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+  .trust-pill { border: 1px solid var(--border); background: var(--bg-card); border-radius: 9999px;
+    padding: 7px 16px; font-size: 0.82rem; color: var(--text-muted); }
+  .trust-pill b { color: var(--text); font-weight: 600; }
+
+  /* Calculator */
+  .calc-wrap { max-width: 780px; margin: 40px auto 0; text-align: left; }
+  .calc { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 28px; }
+  .calc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+  .calc-title { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
+  .calc-note { color: var(--text-muted); font-size: 0.8rem; }
+  .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  @media (max-width: 700px) { .calc-grid { grid-template-columns: 1fr; } }
+  .calc-label { font-size: 0.85rem; color: var(--text-muted); display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .calc-label b { color: var(--text); font-weight: 600; }
+  input[type=range] { width: 100%; accent-color: var(--violet); }
+  .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 9999px; overflow: hidden; margin-bottom: 14px; }
+  .seg button { background: transparent; color: var(--text-muted); border: 0; padding: 6px 14px;
+    font-size: 0.8rem; cursor: pointer; }
+  .seg button.on { background: var(--bg-elevated); color: var(--text); }
+  .cat-row { padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .cat-row:last-of-type { border-bottom: 0; }
+  .cat-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  .cat-name { font-size: 0.92rem; }
+  .cat-back { font-family: ui-monospace,SFMono-Regular,monospace; font-size: 0.8rem; color: var(--green); }
+  .calc-out { margin-top: 18px; background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px 20px; }
+  .calc-big { font-size: clamp(1.6rem, 3.4vw, 2.2rem); font-weight: 650; letter-spacing: -0.03em; }
+  .calc-big span { color: var(--green); }
+  .calc-net { color: var(--text-muted); font-size: 0.9rem; margin-top: 6px; }
+  .calc-disc { color: var(--text-muted); font-size: 0.75rem; margin-top: 12px; }
+
+  section { padding: 70px 0; }
+  .section-title { font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 600; letter-spacing: -0.03em;
+    margin-bottom: 16px; text-align: center; }
+  .section-sub { text-align: center; color: var(--text-muted); max-width: 640px;
+    margin: 0 auto 48px; font-size: 1.05rem; }
+
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+  .card h3 { font-size: 1.2rem; margin-bottom: 10px; font-weight: 600; }
+  .card p { color: var(--text-muted); font-size: 0.95rem; }
+
+  /* Packages */
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
+  .price-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 32px; display: flex; flex-direction: column; }
+  .price-card.featured { border-color: #ffffff40; background: linear-gradient(180deg, #1a1a1a, #111); }
+  .price-name { font-size: 1.15rem; font-weight: 600; margin-bottom: 4px; }
+  .price-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+  .price-num { font-size: 2rem; font-weight: 650; letter-spacing: -0.03em; margin-bottom: 2px; }
+  .price-setup { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 22px; }
+  .price-features { list-style: none; margin-bottom: 26px; flex-grow: 1; }
+  .price-features li { padding: 6px 0; font-size: 0.93rem; color: var(--text-muted);
+    display: flex; align-items: flex-start; gap: 8px; }
+  .price-features li::before { content: "✓"; color: var(--green); font-weight: 600; }
+  .pricing-note { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 26px; }
+
+  /* Browser frame (dashboard demo) */
+  .browser-frame { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+    overflow: hidden; max-width: 1180px; margin: 0 auto 60px; }
+  .browser-bar { display: flex; align-items: center; gap: 16px; padding: 12px 16px;
+    border-bottom: 1px solid var(--border); background: var(--bg-elevated); }
+  .traffic { display: flex; gap: 7px; }
+  .traffic .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .traffic .dot.red { background: #ff5f57; } .traffic .dot.amber { background: #febc2e; } .traffic .dot.green { background: #28c840; }
+  .url-bar { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 5px 14px; font-size: 0.82rem; color: var(--text-muted); font-family: ui-monospace,SFMono-Regular,monospace; }
+  .browser-iframe { width: 100%; height: 560px; border: 0; display: block; background: #0e0e10; }
+  @media (max-width: 640px) { .browser-iframe { height: 420px; } }
+
+  /* Demo widgets */
+  .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-top: 8px; }
+  .demo-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+  .demo-tag { display: inline-block; font-family: ui-monospace,SFMono-Regular,monospace; font-size: 0.68rem;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 6px;
+    background: var(--bg-elevated); color: var(--text-muted); margin-bottom: 12px; }
+  .demo-tag.live { background: var(--violet); color: #0e0e10; font-weight: 600; }
+  .demo-h { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+  .demo-p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px; }
+  .steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; min-height: 26px; }
+  .step { font-family: ui-monospace,SFMono-Regular,monospace; font-size: 0.7rem; letter-spacing: 0.06em;
+    padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border); color: var(--text-muted);
+    opacity: 0; transform: translateY(4px); transition: all 0.3s ease; }
+  .step.show { opacity: 1; transform: none; }
+  textarea.parse-in { width: 100%; min-height: 96px; background: var(--bg); color: var(--text);
+    border: 1px solid var(--border); border-radius: 10px; padding: 12px; font-size: 0.9rem;
+    font-family: inherit; resize: vertical; }
+  .record { border: 1px solid var(--border); border-radius: 12px; padding: 16px; background: var(--bg-elevated); margin-top: 14px; }
+  .record h4 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+  .rec-row { display: flex; gap: 10px; font-size: 0.88rem; padding: 4px 0; }
+  .rec-k { color: var(--text-muted); width: 118px; flex-shrink: 0; }
+  .rec-v { color: var(--text); }
+  .rec-v.urgent { color: var(--green); font-weight: 600; }
+  .connect { border: 1px dashed #7c5cf680; border-radius: 12px; background: rgba(124,92,246,0.06);
+    padding: 16px; margin-top: 14px; opacity: 0; transform: translateY(8px); transition: all 0.5s ease; }
+  .connect.show { opacity: 1; transform: none; }
+  .connect h4 { font-size: 0.92rem; font-weight: 600; margin-bottom: 10px; }
+  .connect li { list-style: none; font-size: 0.88rem; padding: 3px 0; color: var(--text); }
+  .connect li::before { content: "✓ "; color: var(--green); font-weight: 600; }
+  .mode-toggle { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .mode-toggle button { font-size: 0.75rem; padding: 5px 12px; border-radius: 9999px;
+    border: 1px solid var(--border); background: transparent; color: var(--text-muted); cursor: pointer; }
+  .mode-toggle button.on { background: var(--violet); color: #0e0e10; border-color: var(--violet); font-weight: 600; }
+  .demo-note { font-size: 0.72rem; color: var(--text-muted); margin-top: 12px; }
+  .draft-box { border: 1px solid var(--border); border-left: 3px solid var(--violet); border-radius: 10px;
+    background: var(--bg-elevated); padding: 14px; font-size: 0.88rem; margin-top: 12px; display: none; }
+  .draft-box.show { display: block; }
+  .draft-actions { display: flex; gap: 10px; margin-top: 12px; }
+  .draft-actions button { font-size: 0.8rem; padding: 6px 14px; border-radius: 9999px; cursor: pointer;
+    border: 1px solid var(--border); background: white; color: black; font-weight: 500; }
+  .draft-actions button.alt { background: transparent; color: var(--text); }
+  .inbox-item { display: flex; justify-content: space-between; gap: 10px; align-items: center;
+    border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; margin-bottom: 8px;
+    cursor: pointer; background: var(--bg-elevated); }
+  .inbox-item:hover { border-color: #7c5cf6aa; }
+  .inbox-item .from { font-size: 0.85rem; }
+  .inbox-item .sub { font-size: 0.75rem; color: var(--text-muted); }
+  .inbox-item .tag { font-family: ui-monospace,SFMono-Regular,monospace; font-size: 0.65rem;
+    letter-spacing: 0.08em; padding: 3px 8px; border-radius: 6px; background: var(--violet); color: #0e0e10; font-weight: 600; }
+  .queued { font-size: 0.82rem; color: var(--green); margin-top: 10px; display: none; }
+  .queued.show { display: block; }
+
+  .timeline { max-width: 760px; margin: 16px auto 0; display: flex; flex-direction: column; gap: 14px; }
+  .tl-row { display: flex; gap: 18px; align-items: flex-start; }
+  .tl-ai, .tl-you { flex: 1; border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; }
+  .tl-ai { background: var(--bg-elevated); border-left: 3px solid var(--violet); }
+  .tl-you { background: var(--bg-card); border-left: 3px solid var(--text-muted); }
+  .tl-text { font-size: 0.92rem; }
+
+  .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-weight: 550; margin-bottom: 8px; }
+  .faq-a { color: var(--text-muted); font-size: 0.95rem; }
+
+  .download-section { text-align: center; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 48px 24px; margin: 40px 0; }
+
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; margin-top: 60px;
+    font-size: 0.9rem; color: var(--text-muted); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+    gap: 16px; padding-top: 24px; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+  .footer-links a:hover { color: var(--text); }
+  .footer-cta { color: var(--text); }
+  .social-icons { display: flex; gap: 14px; align-items: center; }
+
+  @media (max-width: 640px) { .hero { padding-top: 48px; } .calc { padding: 20px; } }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="../index.html" class="logo"><img src="../assets/Tishka_AI.svg" alt="Tishka AI" height="28"></a>
+      <a href="../contact.html" class="btn btn-primary">Book Diagnostic</a>
+    </div>
+  </header>
+
+  <!-- ============ HERO + ROI CALCULATOR (replaces dashboard mockup) ============ -->
+  <section class="hero">
+    <div class="container">
+      <h1>Stop losing time, money,<br>and customers.</h1>
+      <p class="hero-sub">Growing companies still leak all three because information lives in silos and no one has time to join it up. We connect the tools already in use, build one Company Brain that watches the business, and run it for you — from £300/month.</p>
+      <div class="hero-cta">
+        <a href="#packages" class="btn btn-primary">See packages &amp; pricing</a>
+        <a href="../contact.html" class="btn btn-ghost">Book a free diagnostic</a>
+      </div>
+      <div class="trust-row">
+        <span class="trust-pill"><b>Draft mode by default</b> — you approve what goes out</span>
+        <span class="trust-pill"><b>Answers only from your data</b></span>
+        <span class="trust-pill"><b>We build it and run it for you</b></span>
+      </div>
+
+      <!-- ROI CALCULATOR -->
+      <div class="calc-wrap">
+        <div class="calc">
+          <div class="calc-head">
+            <div class="calc-title">What's manual admin actually costing you?</div>
+            <div class="calc-note">No email required — the maths stays in your browser.</div>
+          </div>
+          <div class="calc-grid">
+            <div>
+              <div class="calc-label"><span>What's your time worth?</span></div>
+              <div class="seg" id="rateSeg">
+                <button class="on" data-mode="hr">Per hour</button>
+                <button data-mode="day">Per day</button>
+              </div>
+              <div class="calc-label"><span>Rate</span><b id="rateVal">£35 /hour</b></div>
+              <input type="range" id="rate" min="10" max="150" step="1" value="35">
+              <div class="calc-label" style="margin-top:18px;"><span>Hours/week on admin</span><b id="adminVal">12 hrs</b></div>
+              <input type="range" id="adminHrs" min="1" max="40" step="1" value="12">
+              <div class="calc-disc calc-note" style="margin-top:12px;">That's worth roughly <b id="adminWorth" style="color:var(--text)">£1,819/month</b> — at 4⅓ weeks/month.</div>
+            </div>
+            <div>
+              <div class="calc-label"><span>Break it down — where does it go?</span></div>
+              <div class="cat-row">
+                <div class="cat-head"><span class="cat-name">Scrolling through and actioning emails</span><span class="cat-back" id="b1">…</span></div>
+                <input type="range" class="cat" data-pct="0.70" id="c1" min="0" max="20" step="0.5" value="5">
+              </div>
+              <div class="cat-row">
+                <div class="cat-head"><span class="cat-name">Writing quotes &amp; invoices</span><span class="cat-back" id="b2">…</span></div>
+                <input type="range" class="cat" data-pct="0.65" id="c2" min="0" max="20" step="0.5" value="2">
+              </div>
+              <div class="cat-row">
+                <div class="cat-head"><span class="cat-name">Copying details into your CRM or job system</span><span class="cat-back" id="b3">…</span></div>
+                <input type="range" class="cat" data-pct="0.90" id="c3" min="0" max="20" step="0.5" value="6">
+              </div>
+            </div>
+          </div>
+          <div class="calc-big" id="calcBig">Your estimated time back: <span>0 hrs/wk</span></div>
+          <div class="calc-net" id="calcNet">Worth roughly £0/wk · £0/mo</div>
+          <div class="calc-net" id="calcVs" style="display:none; color: var(--text);"></div>
+          <div class="calc-disc calc-disc" style="margin-top:12px; font-size:0.75rem; color:var(--text-muted);">Illustrative estimate based on typical results. Your free diagnostic gives you numbers specific to your business.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DEMOS ============ -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">See it work before you buy.</h2>
+      <p class="section-sub">Three live demos. No signup, no call, no card. The third one is the real thing — paste your own text and watch it get filed.</p>
+
+      <!-- 1 · Dashboard -->
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="traffic"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span></div>
+          <div class="url-bar">app.tishka.ai/today</div>
+        </div>
+        <iframe src="../dashboard-mockup.html" class="browser-iframe" title="Your Tishka dashboard, live"></iframe>
+      </div>
+
+      <div class="demo-grid">
+        <!-- 2 · Inbox -->
+        <div class="demo-card card">
+          <span class="demo-tag live">DEMO · INBOX</span>
+          <div class="demo-h">An enquiry lands. The draft is waiting.</div>
+          <div class="demo-p">Click an enquiry and watch it get read, classified and drafted — approval stays with you.</div>
+          <div class="inbox-item" id="inb1">
+            <div><div class="from">Sarah M · Rightmove-style portal enquiry</div><div class="sub">23:41 Saturday — "Is 14 Oak Rd still available? Free evenings…"</div></div>
+            <span class="tag">HOT</span>
+          </div>
+          <div class="steps" id="inbSteps"></div>
+          <div class="draft-box" id="inbDraft">
+            <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:6px;">DRAFT — waiting for your approval</div>
+            <div class="tl-text">Hi Sarah — yes, 14 Oak Rd is still available (£1,650 pcm, from 1 July). Evenings suit you: Mon 5:30, Wed 6:00 or Sat 10:00 — reply with whichever works.<br><br>Best wishes,<br>The team</div>
+            <div class="draft-actions">
+              <button id="inbApprove">Approve &amp; send</button>
+              <button class="alt">Edit</button>
+            </div>
+            <div class="queued" id="inbQueued">✓ Queued — you approved this draft. In auto mode, routine categories send without asking.</div>
+          </div>
+        </div>
+
+        <!-- 3 · Parser -->
+        <div class="demo-card card">
+          <span class="demo-tag live">DEMO · TRY IT</span>
+          <div class="demo-h">Paste your mess. Watch it get filed.</div>
+          <div class="demo-p">Any enquiry, job note or invoice → one clean record → filed into your systems. Try ours, or paste your own text.</div>
+          <textarea class="parse-in" id="parseIn">Hi, the kitchen tap's been leaking since Tuesday and now the cupboard under it is soaked. Can someone come this week? I'm out Tuesday but any other morning works. — D. Hughes, 12 Marlow Rd</textarea>
+          <button class="btn btn-primary" id="parseBtn" style="margin-top:12px;">Parse it &rarr;</button>
+          <div class="steps" id="parseSteps"></div>
+          <div class="record" id="parseRecord" style="display:none;">
+            <h4>Record ready</h4>
+            <div class="rec-row"><span class="rec-k">Job type</span><span class="rec-v">Emergency plumbing repair (leak)</span></div>
+            <div class="rec-row"><span class="rec-k">Where</span><span class="rec-v">12 Marlow Rd</span></div>
+            <div class="rec-row"><span class="rec-k">Contact</span><span class="rec-v">D. Hughes</span></div>
+            <div class="rec-row"><span class="rec-k">Urgency</span><span class="rec-v urgent">URGENT — active leak, 3 days, secondary damage</span></div>
+            <div class="rec-row"><span class="rec-k">When</span><span class="rec-v">Any morning except Tuesday</span></div>
+            <div class="rec-row"><span class="rec-k">Next action</span><span class="rec-v">Dispatch plumber · call to confirm slot</span></div>
+          </div>
+          <div class="connect" id="parseConnect">
+            <h4>In your business, this record files itself:</h4>
+            <li>Lead created in your job system — 12 Marlow Rd, emergency leak</li>
+            <li>Contact matched — existing customer, 3 previous jobs</li>
+            <li>Team alerted — WhatsApp + inbox, URGENT tag</li>
+            <div class="mode-toggle" id="modeToggle">
+              <button class="on" data-mode="approve">Approval first — nothing files until you approve</button>
+              <button data-mode="auto">Auto for routine — you opt in, per category</button>
+            </div>
+          </div>
+          <div class="demo-note" style="margin-top:12px;">Demo runs on sample data. Live, it reads your real enquiries and files them into the systems you already use — built in your first two weeks.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PACKAGES ============ -->
+  <section id="packages" style="background:#0f0f0f;">
+    <div class="container">
+      <h2 class="section-title">Packages — a price on the website.</h2>
+      <p class="section-sub">No "request a quote" runaround. Setup is a one-off, split half on agreement and half on go-live. Monthly covers hosting, maintenance and support — not just access to what we built. No lock-ins. Cancel with 30 days' notice.</p>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-name">Front Desk</div>
+          <div class="price-desc">Stop losing enquiries and hours to the inbox.</div>
+          <div class="price-num">£300<small style="font-size:0.9rem; color:var(--text-muted)"> /mo</small></div>
+          <div class="price-setup">+ £1,500 one-off setup</div>
+          <ul class="price-features">
+            <li>Enquiry capture from inbox, forms &amp; web</li>
+            <li>AI classifies, drafts and files — you approve</li>
+            <li>Works with the tools you already use</li>
+            <li>Hosted, monitored and run by us</li>
+          </ul>
+          <a href="../contact.html" class="btn btn-primary">Start here</a>
+        </div>
+        <div class="price-card">
+          <div class="price-name">Ops Desk</div>
+          <div class="price-desc">The repetitive back office, handed over.</div>
+          <div class="price-num">£500<small style="font-size:0.9rem; color:var(--text-muted)"> /mo</small></div>
+          <div class="price-setup">+ £3,000 one-off setup</div>
+          <ul class="price-features">
+            <li>Everything in Front Desk</li>
+            <li>Quotes &amp; invoice drafting — backlog clearing</li>
+            <li>Daily briefings: what needs attention, before you ask</li>
+            <li>Voice-to-text job notes for field staff</li>
+          </ul>
+          <a href="../contact.html" class="btn btn-primary">Get a quote</a>
+        </div>
+        <div class="price-card featured">
+          <div class="price-name">AI Ops Partner</div>
+          <div class="price-desc">Your AI department — watched, improved, month by month.</div>
+          <div class="price-num">£800<small style="font-size:0.9rem; color:var(--text-muted)"> /mo</small></div>
+          <div class="price-setup">+ £5,000 one-off setup</div>
+          <ul class="price-features">
+            <li>Everything in Ops Desk</li>
+            <li>The Company Brain: watches the business, warns you before things slip</li>
+            <li>Monthly strategy review · quarterly audit</li>
+            <li>New builds and improvements included</li>
+          </ul>
+          <a href="../contact.html" class="btn btn-primary">Talk to us</a>
+        </div>
+      </div>
+      <p class="pricing-note">All prices ex-VAT · setup split 50/50 (agreement / go-live) · typical build 1–2 weeks · first diagnostic is free.</p>
+    </div>
+  </section>
+
+  <!-- ============ THE GAP (kept from current page) ============ -->
+  <section style="background:#0f0f0f;">
+    <div class="container">
+      <h2 class="section-title">Stop experimenting. Start seeing results.</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Most companies pay to experiment with AI.</h3>
+          <p>They buy a tool, try a few prompts, and give up. Or they know AI matters but can't see how it fits — so they do nothing.</p>
+        </div>
+        <div class="card">
+          <h3>Our clients pay for results.</h3>
+          <p>They don't touch the tech. They just notice that quotes go out, invoices get paid, follow-ups happen, and the repetitive work no longer slows the business down.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESS (kept) ============ -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Not an AI agency.<br>Your AI transformation partner.</h2>
+      <p class="section-sub">An agency builds something and walks away. A partner stays — builds the foundation, finds the opportunities, proves they work, and keeps them running. Three steps:</p>
+      <div class="timeline">
+        <div class="tl-row"><div class="tl-ai"><span class="tl-text"><strong>01 · Build the Company Brain.</strong> We connect the systems already in use and pull everything into one place — a single source of truth that watches the business and is kept accurate for you. Not a wiki someone has to update.</span></div></div>
+        <div class="tl-row"><div class="tl-you"><span class="tl-text"><strong>02 · Find the leaks &amp; prove the value.</strong> One clear improvement in your hands within 1–2 weeks — small proof first, bigger gains next. Never asked to bet on a promise.</span></div></div>
+        <div class="tl-row"><div class="tl-ai"><span class="tl-text"><strong>03 · Hand over the repetitive work.</strong> AI takes the repetitive jobs in the background and only surfaces what needs a human decision. Everything else is handled.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section style="background:#0f0f0f;">
+    <div class="container" style="max-width:720px;">
+      <h2 class="section-title">FAQs</h2>
+      <div class="faq-item"><div class="faq-q">What does it cost?</div>
+        <div class="faq-a">Packages start at £300/month plus a one-off setup (£1,500–£5,000 depending on the package). Setup is split half on agreement, half on go-live. No lock-ins, 30 days' notice to cancel.</div></div>
+      <div class="faq-item"><div class="faq-q">Does the AI send things without asking?</div>
+        <div class="faq-a">No. Everything starts in draft mode — replies queue for a human to approve. Once you're confident, you can switch routine categories to auto-send, per category, any time. Financial, compliance and legal always stay approval-only.</div></div>
+      <div class="faq-item"><div class="faq-q">Do we have to change our software?</div>
+        <div class="faq-a">No. We connect the tools already in use — inbox, job system, CRM, accounting — and file everything where it belongs. No new logins for your team or your customers.</div></div>
+      <div class="faq-item"><div class="faq-q">Does the team have to touch the tech?</div>
+        <div class="faq-a">No. That's the point. We build it, set it up, and run it. The team just gets the results.</div></div>
+      <div class="faq-item"><div class="faq-q">We already use Notion or AI tools. Why do we need this?</div>
+        <div class="faq-a">Notion is where you write down what you know. A Company Brain knows the business, watches it live, and warns you before things slip — and we keep it running. The tools are plumbing. We're the brain and the person who keeps it sharp.</div></div>
+      <div class="faq-item"><div class="faq-q">What if it doesn't work for our business?</div>
+        <div class="faq-a">Start with one automation and judge it in weeks, not months. Nothing here is sold as magic: AI drafts, humans approve, and the numbers come from your own systems, not our slides.</div></div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section>
+    <div class="container">
+      <div class="download-section">
+        <h2 class="section-title" style="margin-bottom:12px;">Book a free diagnostic.</h2>
+        <p class="section-sub" style="margin-bottom:28px;">We'll map where the business leaks time and money, show what one Company Brain would make possible, and give you the numbers before you spend a pound — no pitch, no pressure.</p>
+        <a href="../contact.html" class="btn btn-primary">Book a free diagnostic &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <div class="social-icons">
+          <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
+          <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+        <div>TISHKA AI &copy; 2026 · DRAFT — NOT LIVE</div>
+        <div class="footer-links">
+          <a href="../terms.html">Terms &amp; Conditions</a>
+          <a href="../privacy.html">Privacy Policy</a>
+          <a href="../refund.html">Refund Policy</a>
+          <a href="../pricing.html">Pricing</a>
+          <a class="footer-cta" href="../contact.html">Book a Diagnostic</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    /* ---------- Hero ROI calculator ---------- */
+    var rateMode = 'hr';
+    var $ = function (id) { return document.getElementById(id); };
+    var rate = $('rate'), admin = $('adminHrs');
+    var cats = [ { el: $('c1'), out: $('b1'), pct: 0.70, name: 'Email' },
+                 { el: $('c2'), out: $('b2'), pct: 0.65, name: 'Quotes' },
+                 { el: $('c3'), out: $('b3'), pct: 0.90, name: 'CRM' } ];
+    var gbp = function (n) { return '£' + Math.round(n).toLocaleString('en-GB'); };
+    function calc() {
+      var hr = rateMode === 'day' ? (+rate.value || 0) / 8 : (+rate.value || 0);
+      $('rateVal').textContent = '£' + (+rate.value || 0) + (rateMode === 'hr' ? ' /hour' : ' /day');
+      var a = +admin.value || 0; $('adminVal').textContent = a + ' hrs';
+      var worth = a * hr * 4.33; $('adminWorth').textContent = gbp(worth) + '/mo';
+      var back = 0;
+      cats.forEach(function (c) {
+        var h = +c.el.value || 0, b = h * c.pct; back += b;
+        c.out.textContent = h ? b.toFixed(1) + ' hrs/wk back' : '—';
+      });
+      var wk = back * hr;
+      var mo = wk * 4.33;
+      $('calcBig').innerHTML = 'Your estimated time back: <span>' + (Math.round(back * 10) / 10) + ' hrs/wk</span>';
+      var net = mo - 300;
+      $('calcNet').textContent = 'Worth roughly ' + gbp(wk) + '/wk · ' + gbp(mo) + '/mo';
+      var vs = $('calcVs');
+      if (net > 0) {
+        vs.style.display = 'block';
+        vs.textContent = 'Net of the £300/mo Front Desk tier: ' + gbp(net) + '/mo — pays for itself ' + (mo / 300).toFixed(1) + '×';
+      } else { vs.style.display = 'none'; }
+    }
+    document.querySelectorAll('#rateSeg button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('#rateSeg button').forEach(function (x) { x.classList.remove('on'); });
+        b.classList.add('on'); rateMode = b.dataset.mode; calc();
+      });
+    });
+    [rate, admin].concat(cats.map(function (c) { return c.el; })).forEach(function (el) { el.addEventListener('input', calc); });
+    calc();
+
+    /* ---------- step animation helper ---------- */
+    function playSteps(container, steps, done, stepMs) {
+      container.innerHTML = '';
+      var els = steps.map(function (s) {
+        var d = document.createElement('span'); d.className = 'step'; d.textContent = s; container.appendChild(d); return d;
+      });
+      els.forEach(function (el, i) { setTimeout(function () { el.classList.add('show'); }, 350 + i * (stepMs || 420)); });
+      if (done) setTimeout(done, 350 + els.length * (stepMs || 420) + 250);
+    }
+
+    /* ---------- Inbox demo ---------- */
+    var ibPlayed = false;
+    $('inb1').addEventListener('click', function () {
+      if (ibPlayed) return; ibPlayed = true;
+      $('inb1').style.borderColor = '#7c5cf6aa';
+      playSteps($('inbSteps'), ['READ', 'CLASSIFY · HOT', 'VERIFY AVAILABILITY', 'DRAFT'], function () {
+        $('inbDraft').classList.add('show');
+        $('inbDraft').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+    });
+    $('inbApprove').addEventListener('click', function () { $('inbQueued').classList.add('show'); });
+
+    /* ---------- Parser demo ---------- */
+    $('parseBtn').addEventListener('click', function () {
+      $('parseRecord').style.display = 'none';
+      $('parseConnect') && $('parseConnect').classList.remove('show');
+      $('parseConnect2') && $('parseConnect2').classList.remove('show');
+      var con = document.querySelector('.connect'); if (con) con.classList.remove('show');
+      $('parseBtn').textContent = 'Parsing…'; $('parseBtn').disabled = true;
+      playSteps($('parseSteps'), ['READ', 'CLASSIFY · REPAIR / URGENT', 'EXTRACT · who, where, when', 'RECORD READY'], function () {
+        $('parseRecord').style.display = 'block';
+        $('parseBtn').textContent = 'Parse it again'; $('parseBtn').disabled = false;
+        setTimeout(function () { con && con.classList.add('show'); }, 1200);
+      }, 480);
+    });
+    document.querySelectorAll('#modeToggle button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('#modeToggle button').forEach(function (x) { x.classList.remove('on'); });
+        b.classList.add('on');
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
