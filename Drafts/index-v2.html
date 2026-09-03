@@ -50,32 +50,49 @@
     padding: 7px 16px; font-size: 0.82rem; color: var(--text-muted); }
   .trust-pill b { color: var(--text); font-weight: 600; }
 
-  /* Calculator */
-  .calc-wrap { max-width: 780px; margin: 40px auto 0; text-align: left; }
-  .calc { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 28px; }
-  .calc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
-  .calc-title { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
-  .calc-note { color: var(--text-muted); font-size: 0.8rem; }
-  .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-  @media (max-width: 700px) { .calc-grid { grid-template-columns: 1fr; } }
-  .calc-label { font-size: 0.85rem; color: var(--text-muted); display: flex; justify-content: space-between; margin-bottom: 8px; }
-  .calc-label b { color: var(--text); font-weight: 600; }
+  /* ROI calculator (Rora-style layout) */
   input[type=range] { width: 100%; accent-color: var(--violet); }
-  .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 9999px; overflow: hidden; margin-bottom: 14px; }
-  .seg button { background: transparent; color: var(--text-muted); border: 0; padding: 6px 14px;
-    font-size: 0.8rem; cursor: pointer; }
-  .seg button.on { background: var(--bg-elevated); color: var(--text); }
-  .cat-row { padding: 12px 0; border-bottom: 1px solid var(--border); }
-  .cat-row:last-of-type { border-bottom: 0; }
-  .cat-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 6px; }
-  .cat-name { font-size: 0.92rem; }
-  .cat-back { font-family: ui-monospace,SFMono-Regular,monospace; font-size: 0.8rem; color: var(--green); }
-  .calc-out { margin-top: 18px; background: var(--bg-elevated); border: 1px solid var(--border);
-    border-radius: 14px; padding: 18px 20px; }
-  .calc-big { font-size: clamp(1.6rem, 3.4vw, 2.2rem); font-weight: 650; letter-spacing: -0.03em; }
-  .calc-big span { color: var(--green); }
-  .calc-net { color: var(--text-muted); font-size: 0.9rem; margin-top: 6px; }
-  .calc-disc { color: var(--text-muted); font-size: 0.75rem; margin-top: 12px; }
+  .roi-eyebrow { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 0.72rem;
+    font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--violet); margin: 44px 0 16px; }
+  .roi-eyebrow .roi-dash { width: 20px; height: 2px; background: var(--violet); }
+  .roi-h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 600; letter-spacing: -0.03em; margin-bottom: 10px; }
+  .roi-sub { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 36px; }
+  .roi-grid { display: grid; grid-template-columns: 1fr 380px; gap: 24px; align-items: start; text-align: left; max-width: 1100px; margin: 0 auto; }
+  @media (max-width: 900px) { .roi-grid { grid-template-columns: 1fr; } }
+  .roi-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 28px; }
+  .roi-rowlabel { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+  .roi-label { font-size: 0.92rem; font-weight: 600; }
+  .roi-seg { display: inline-flex; border: 1px solid var(--border); border-radius: 9999px; padding: 3px; }
+  .roi-seg button { background: transparent; color: var(--text-muted); border: 0; border-radius: 9999px;
+    padding: 6px 14px; font-size: 0.78rem; font-weight: 700; cursor: pointer; }
+  .roi-seg button.on { background: var(--violet); color: #0e0e10; }
+  .roi-sliderline { display: flex; align-items: center; gap: 16px; }
+  .roi-sliderline.indent { padding-left: 44px; }
+  .roi-rateval { width: 96px; flex-shrink: 0; text-align: right; font-size: 1.15rem; font-weight: 700; }
+  .roi-rateval span { color: var(--text-muted); font-weight: 400; font-size: 0.9rem; }
+  .roi-task { margin-top: 28px; }
+  .roi-taskhead { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+  .roi-ico { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    border-radius: 8px; background: rgba(124,92,246,0.12); color: var(--violet); }
+  .roi-tasklabel { font-size: 0.92rem; font-weight: 600; }
+  .roi-taskhelp { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+  .roi-hrsval { width: 78px; flex-shrink: 0; text-align: right; font-size: 0.92rem; font-weight: 700; }
+  .roi-outlabel { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 16px; }
+  .roi-brow { display: flex; align-items: center; justify-content: space-between; font-size: 0.92rem; margin-bottom: 12px; }
+  .roi-brow .k { color: var(--text-muted); }
+  .roi-brow .v { font-weight: 700; }
+  .roi-totline { border-top: 1px solid var(--border); margin-top: 18px; padding-top: 20px; }
+  .roi-totalrow { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
+  .roi-totalrow .k { font-size: 0.92rem; font-weight: 600; }
+  .roi-totalbig { font-size: 1.9rem; font-weight: 700; color: var(--violet); letter-spacing: -0.02em; }
+  .roi-totalbig em { font-style: normal; font-size: 0.85rem; font-weight: 400; color: var(--text-muted); }
+  .roi-pline { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 6px; }
+  .roi-pline .k { font-size: 0.88rem; color: var(--text-muted); }
+  .roi-pline .v { font-size: 1.05rem; font-weight: 700; }
+  .roi-pline .v span { color: var(--text-muted); font-weight: 400; font-size: 0.85rem; }
+  .roi-cta { width: 100%; margin-top: 22px; }
+  .roi-disc { font-size: 0.72rem; color: var(--text-muted); margin-top: 14px; line-height: 1.5; }
 
   section { padding: 70px 0; }
   .section-title { font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 600; letter-spacing: -0.03em;
@@ -210,46 +227,72 @@
       <h1>Stop losing time, money,<br>and customers.</h1>
       <p class="hero-sub">Growing companies still leak all three because information lives in silos and no one has time to join it up. We connect the tools already in use, build one Company Brain that watches the business, and run it for you — from £300/month.</p>
 
-      <!-- ROI CALCULATOR -->
-      <div class="calc-wrap">
-        <div class="calc">
-          <div class="calc-head">
-            <div class="calc-title">What's manual admin actually costing you?</div>
-            <div class="calc-note">No email required — the maths stays in your browser.</div>
-          </div>
-          <div class="calc-grid">
-            <div>
-              <div class="calc-label"><span>What's your time worth?</span></div>
-              <div class="seg" id="rateSeg">
-                <button class="on" data-mode="hr">Per hour</button>
-                <button data-mode="day">Per day</button>
-              </div>
-              <div class="calc-label"><span>Rate</span><b id="rateVal">£35 /hour</b></div>
-              <input type="range" id="rate" min="10" max="150" step="1" value="35">
-              <div class="calc-label" style="margin-top:18px;"><span>Hours/week on admin</span><b id="adminVal">12 hrs</b></div>
-              <input type="range" id="adminHrs" min="1" max="40" step="1" value="12">
-              <div class="calc-disc calc-note" style="margin-top:12px;">That's worth roughly <b id="adminWorth" style="color:var(--text)">£1,819/month</b> — at 4⅓ weeks/month.</div>
-            </div>
-            <div>
-              <div class="calc-label"><span>Break it down — where does it go?</span></div>
-              <div class="cat-row">
-                <div class="cat-head"><span class="cat-name">Scrolling through and actioning emails</span><span class="cat-back" id="b1">…</span></div>
-                <input type="range" class="cat" data-pct="0.70" id="c1" min="0" max="20" step="0.5" value="5">
-              </div>
-              <div class="cat-row">
-                <div class="cat-head"><span class="cat-name">Writing quotes &amp; invoices</span><span class="cat-back" id="b2">…</span></div>
-                <input type="range" class="cat" data-pct="0.65" id="c2" min="0" max="20" step="0.5" value="2">
-              </div>
-              <div class="cat-row">
-                <div class="cat-head"><span class="cat-name">Copying details into your CRM or job system</span><span class="cat-back" id="b3">…</span></div>
-                <input type="range" class="cat" data-pct="0.90" id="c3" min="0" max="20" step="0.5" value="6">
+      <!-- ROI CALCULATOR (Rora-style layout) -->
+      <div class="roi-eyebrow"><span class="roi-dash"></span>Try it yourself</div>
+      <h2 class="roi-h2">What is manual admin actually costing you?</h2>
+      <p class="roi-sub">Drag the sliders for your own numbers. No email required, this stays in your browser.</p>
+      <div class="roi-grid">
+        <div class="roi-card">
+          <div>
+            <div class="roi-rowlabel">
+              <label class="roi-label" for="roiRate">What's your time worth?</label>
+              <div class="roi-seg" id="roiSeg" role="group" aria-label="Rate unit">
+                <button type="button" class="on" data-mode="hr">Per hour</button>
+                <button type="button" data-mode="day">Per day</button>
               </div>
             </div>
+            <div class="roi-sliderline">
+              <input type="range" id="roiRate" min="15" max="150" step="1" value="35" aria-label="Time worth per hour">
+              <span class="roi-rateval" id="roiRateVal">£35<span>/hour</span></span>
+            </div>
           </div>
-          <div class="calc-big" id="calcBig">Your estimated time back: <span>0 hrs/wk</span></div>
-          <div class="calc-net" id="calcNet">Worth roughly £0/wk · £0/mo</div>
-          <div class="calc-net" id="calcVs" style="display:none; color: var(--text);"></div>
-          <div class="calc-disc calc-disc" style="margin-top:12px; font-size:0.75rem; color:var(--text-muted);">Illustrative estimate based on typical results. Your free diagnostic gives you numbers specific to your business.</div>
+          <div class="roi-task">
+            <div class="roi-taskhead">
+              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg></span>
+              <div><div class="roi-tasklabel">Scrolling through and actioning emails</div>
+              <div class="roi-taskhelp">Classified and routed to the right person automatically instead of read one by one.</div></div>
+            </div>
+            <div class="roi-sliderline indent">
+              <input type="range" class="roi-cat" id="roiC1" data-pct="0.76" min="0" max="15" step="0.5" value="5" aria-label="Emails, hours per week">
+              <span class="roi-hrsval" id="roiH1">5 hrs/wk</span>
+            </div>
+          </div>
+          <div class="roi-task">
+            <div class="roi-taskhead">
+              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 17.5v-11"></path></svg></span>
+              <div><div class="roi-tasklabel">Processing supplier invoices</div>
+              <div class="roi-taskhelp">Matched against purchase orders automatically; you just approve the exceptions.</div></div>
+            </div>
+            <div class="roi-sliderline indent">
+              <input type="range" class="roi-cat" id="roiC2" data-pct="0.65" min="0" max="15" step="0.5" value="2" aria-label="Invoices, hours per week">
+              <span class="roi-hrsval" id="roiH2">2 hrs/wk</span>
+            </div>
+          </div>
+          <div class="roi-task">
+            <div class="roi-taskhead">
+              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path><path d="M16 4h2a2 2 0 0 1 2 2v4"></path><path d="M21 14H11"></path><path d="m15 10-4 4 4 4"></path></svg></span>
+              <div><div class="roi-tasklabel">Copying data into your CRM or job system</div>
+              <div class="roi-taskhelp">Captured straight from the source email or form the moment it arrives, no retyping.</div></div>
+            </div>
+            <div class="roi-sliderline indent">
+              <input type="range" class="roi-cat" id="roiC3" data-pct="0.90" min="0" max="15" step="0.5" value="6" aria-label="CRM copying, hours per week">
+              <span class="roi-hrsval" id="roiH3">6 hrs/wk</span>
+            </div>
+          </div>
+        </div>
+        <div class="roi-card">
+          <p class="roi-outlabel">Your estimated time back</p>
+          <div class="roi-brow"><span class="k">Scrolling through and…</span><span class="v" id="roiB1">3.8 hrs/wk</span></div>
+          <div class="roi-brow"><span class="k">Processing supplier invoices…</span><span class="v" id="roiB2">1.3 hrs/wk</span></div>
+          <div class="roi-brow"><span class="k">Copying data into…</span><span class="v" id="roiB3">5.4 hrs/wk</span></div>
+          <div class="roi-totline">
+            <div class="roi-totalrow"><span class="k">Total time freed up</span><span class="roi-totalbig" id="roiTotal">10.5 <em>hrs/wk</em></span></div>
+            <div class="roi-pline"><span class="k">Worth roughly</span><span class="v" id="roiWk">£368<span>/wk</span></span></div>
+            <div class="roi-pline"><span class="k">Per month</span><span class="v" id="roiMo">£1,593<span>/mo</span></span></div>
+            <div class="roi-pline"><span class="k">Net of the £300/mo Front Desk tier</span><span class="v" id="roiNet">£1,293<span>/mo</span></span></div>
+          </div>
+          <a class="btn btn-primary roi-cta" href="#packages">Get your real numbers &rarr;</a>
+          <p class="roi-disc">Illustrative estimate based on typical results across Tishka's live automations. Your free diagnostic gives you numbers specific to your business.</p>
         </div>
       </div>
     </div>
@@ -457,43 +500,46 @@
 
   <script>
   (function () {
-    /* ---------- Hero ROI calculator ---------- */
-    var rateMode = 'hr';
+    /* ---------- Hero ROI calculator (Rora-style) ---------- */
     var $ = function (id) { return document.getElementById(id); };
-    var rate = $('rate'), admin = $('adminHrs');
-    var cats = [ { el: $('c1'), out: $('b1'), pct: 0.70, name: 'Email' },
-                 { el: $('c2'), out: $('b2'), pct: 0.65, name: 'Quotes' },
-                 { el: $('c3'), out: $('b3'), pct: 0.90, name: 'CRM' } ];
-    var gbp = function (n) { return '£' + Math.round(n).toLocaleString('en-GB'); };
-    function calc() {
-      var hr = rateMode === 'day' ? (+rate.value || 0) / 8 : (+rate.value || 0);
-      $('rateVal').textContent = '£' + (+rate.value || 0) + (rateMode === 'hr' ? ' /hour' : ' /day');
-      var a = +admin.value || 0; $('adminVal').textContent = a + ' hrs';
-      var worth = a * hr * 4.33; $('adminWorth').textContent = gbp(worth) + '/mo';
-      var back = 0;
-      cats.forEach(function (c) {
-        var h = +c.el.value || 0, b = h * c.pct; back += b;
-        c.out.textContent = h ? b.toFixed(1) + ' hrs/wk back' : '—';
+    var roiRate = $('roiRate'), rateMode = 'hr';
+    var roiCats = [
+      { el: $('roiC1'), hrs: $('roiH1'), bk: $('roiB1'), pct: 0.76 },
+      { el: $('roiC2'), hrs: $('roiH2'), bk: $('roiB2'), pct: 0.65 },
+      { el: $('roiC3'), hrs: $('roiH3'), bk: $('roiB3'), pct: 0.90 }
+    ];
+    function fmtGbp(n) { return '£' + Math.round(n).toLocaleString('en-GB'); }
+    function roiCalc() {
+      var shown = +roiRate.value || 35;
+      var hr = rateMode === 'day' ? shown / 8 : shown;
+      $('roiRateVal').innerHTML = '£' + shown + (rateMode === 'day' ? '<span>/day</span>' : '<span>/hour</span>');
+      var total = 0;
+      roiCats.forEach(function (c) {
+        var h = +c.el.value || 0, b = h * c.pct; total += b;
+        c.hrs.textContent = (h % 1 ? h.toFixed(1) : h) + ' hrs/wk';
+        c.bk.textContent = (Math.round(b * 10) / 10) + ' hrs/wk';
       });
-      var wk = back * hr;
-      var mo = wk * 4.33;
-      $('calcBig').innerHTML = 'Your estimated time back: <span>' + (Math.round(back * 10) / 10) + ' hrs/wk</span>';
-      var net = mo - 300;
-      $('calcNet').textContent = 'Worth roughly ' + gbp(wk) + '/wk · ' + gbp(mo) + '/mo';
-      var vs = $('calcVs');
-      if (net > 0) {
-        vs.style.display = 'block';
-        vs.textContent = 'Net of the £300/mo Front Desk tier: ' + gbp(net) + '/mo — pays for itself ' + (mo / 300).toFixed(1) + '×';
-      } else { vs.style.display = 'none'; }
+      var wk = total * hr, mo = wk * 4.33, net = mo - 300;
+      $('roiTotal').innerHTML = (Math.round(total * 10) / 10) + ' <em>hrs/wk</em>';
+      $('roiWk').innerHTML = fmtGbp(wk) + '<span>/wk</span>';
+      $('roiMo').innerHTML = fmtGbp(mo) + '<span>/mo</span>';
+      $('roiNet').innerHTML = fmtGbp(Math.max(0, net)) + '<span>/mo</span>';
     }
-    document.querySelectorAll('#rateSeg button').forEach(function (b) {
+    document.querySelectorAll('#roiSeg button').forEach(function (b) {
       b.addEventListener('click', function () {
-        document.querySelectorAll('#rateSeg button').forEach(function (x) { x.classList.remove('on'); });
-        b.classList.add('on'); rateMode = b.dataset.mode; calc();
+        document.querySelectorAll('#roiSeg button').forEach(function (x) { x.classList.remove('on'); });
+        b.classList.add('on');
+        var newMode = b.dataset.mode;
+        if (newMode !== rateMode) {
+          rateMode = newMode;
+          if (rateMode === 'day') roiRate.value = Math.min(150, Math.round((+roiRate.value || 35) * 8));
+          else roiRate.value = Math.max(15, Math.round((+roiRate.value || 280) / 8));
+        }
+        roiCalc();
       });
     });
-    [rate, admin].concat(cats.map(function (c) { return c.el; })).forEach(function (el) { el.addEventListener('input', calc); });
-    calc();
+    [roiRate].concat(roiCats.map(function (c) { return c.el; })).forEach(function (el) { el.addEventListener('input', roiCalc); });
+    roiCalc();
 
     /* ---------- step animation helper ---------- */
     function playSteps(container, steps, done, stepMs) {
