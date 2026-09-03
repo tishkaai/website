@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — AI OPPORTUNITY CHECK (assessment v2) — LOCAL DRAFT, NOT LIVE
+  Built 2026-09-03 implementing /Users/hermes/.claude/plans/yes-lets-proceed-with-sunny-quilt.md
+  as a standalone client-side page (drafts have no n8n backend; the live wiring
+  of Workflow A/B teaser+full modes is the later phase — flagged below).
+  Implements the plan exactly: tap-tree (no typing), industry chips at Q1,
+  recruitment deep flow from verified research, hours via chips, "Something
+  else" escape on EVERY chip row, teaser mirror-back card (£ = stated hours ×
+  visible £15/hr assumption, "up to X hrs back") BEFORE any email ask, honest
+  verdict ("none" = plain no, no pressure), email gate only at the end with the
+  report on screen regardless. Live audit.html is untouched.
+  Client-facing word: "check"/"diagnostic" — never "audit" (SOP rule).
+  [PETE-FLAG] Page name: replacing audit.html eventually — rename is Pete's
+  (structure doc decision 5). Copy says "AI Opportunity Check".
+  [PETE-FLAG] In the drafts the "email me the report" box is UI-only (no
+  backend). Live wiring = n8n Workflow B mode:"teaser"|"full" per the v2 plan.
+  [PETE-FLAG] Verdict bands (>=8 strong / 2-8 partial / <2 not yet) are starter
+  rules — Pete may want them tuned after recruiter QA (plan's verification step).
+============================================================= -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Free AI Opportunity Check — 3 minutes, no email needed | Tishka AI</title>
+<meta name="description" content="Tap through 10 quick questions about how your business runs. Get an honest verdict, your week mirrored back with the £ maths visible, and what we'd automate first — free, on screen, before any email ask.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tishka.ai/" },
+    { "@type": "ListItem", "position": 2, "name": "Free AI check" }
+  ]
+}
+</script>
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f7f7f8; --bg-card: #ffffff; --bg-elevated: #f1f1f4;
+    --border: #e4e4e9; --text: #121215; --text-muted: #5a5a63;
+    --green: #0b7f5a; --violet: #6d4cf0;
+    --header-bg: rgba(247,247,248,0.85); --band: #efeff3;
+    --btn-bg: #121215; --btn-fg: #ffffff; --btn-bg-hover: #2c2c31;
+    --ghost-hover: #e7e7ec; --warn: #a3701a; --bad: #d43f3f;
+    color-scheme: light;
+  }
+  html[data-theme="dark"] {
+    --bg: #0a0a0a; --bg-card: #111111; --bg-elevated: #1a1a1a;
+    --border: #2a2a2a; --text: #f5f5f5; --text-muted: #a1a1a1;
+    --green: #22c55e; --violet: #7c5cf6;
+    --header-bg: rgba(10,10,10,0.85); --band: #0f0f0f;
+    --btn-bg: #ffffff; --btn-fg: #000000; --btn-bg-hover: #e5e5e5;
+    --ghost-hover: #222222; --warn: #d9a441; --bad: #ff5c5c;
+    color-scheme: dark;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 10px; }
+  .logo img { height: 28px; width: auto; display: block; }
+  html:not([data-theme="dark"]) .logo img { filter: invert(1); }
+  .badge { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.62rem; letter-spacing: 0.12em;
+    text-transform: uppercase; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-muted);
+    border-radius: 6px; padding: 5px 10px; }
+  .theme-btn { font-family: ui-monospace, monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px;
+    background: var(--bg-card); cursor: pointer; }
+
+  .hero { padding: 44px 0 8px; text-align: center; }
+  .eyebrow { display: inline-block; font-family: ui-monospace, monospace; font-size: 0.68rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--violet); margin-bottom: 12px; }
+  h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 650; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 12px; }
+  .hero-sub { font-size: 1rem; color: var(--text-muted); max-width: 560px; margin: 0 auto; }
+
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 26px; margin-top: 24px; }
+  .qnum { font-family: ui-monospace, monospace; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 8px; }
+  .q { font-size: 1.15rem; font-weight: 600; margin-bottom: 4px; }
+  .qh { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-size: 0.88rem; color: var(--text); background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 999px; padding: 9px 17px; cursor: pointer; text-align: left; }
+  .chip:hover { border-color: var(--violet); }
+  .chip.on { background: var(--violet); color: #fff; border-color: var(--violet); font-weight: 600; }
+  .else { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
+  .else input[type=text] { flex: 1; background: var(--bg); color: var(--text); border: 1px dashed var(--border);
+    border-radius: 10px; padding: 9px 13px; font-size: 0.88rem; font-family: inherit; }
+  .else input:focus { outline: 1px solid var(--violet); border-style: solid; }
+  .else .lbl { font-size: 0.72rem; font-family: ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-muted); flex-shrink: 0; }
+  textarea { width: 100%; min-height: 64px; background: var(--bg); color: var(--text); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 13px; font-size: 0.9rem; font-family: inherit; resize: vertical; }
+  .navrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 22px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; padding: 11px 22px;
+    border-radius: 9999px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; transition: all .15s ease; }
+  .btn-primary { background: var(--violet); color: #fff; }
+  .btn-primary:hover { filter: brightness(1.08); }
+  .btn-primary[disabled] { opacity: 0.4; cursor: default; }
+  .btn-ghost { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+  .dots { display: flex; gap: 6px; justify-content: center; margin: 18px 0 0; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+  .dot.on { background: var(--violet); }
+  .rate-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 8px; }
+
+  /* teaser */
+  .teaser { border: 1px solid var(--violet); box-shadow: 0 0 0 1px var(--violet); border-radius: 16px;
+    background: var(--bg-card); padding: 26px; margin-top: 24px; }
+  .teaser h2 { font-size: 1.25rem; font-weight: 650; margin-bottom: 6px; }
+  .mirror { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px;
+    margin: 14px 0; font-size: 0.98rem; }
+  .mirror span { color: var(--violet); font-weight: 700; }
+  .mirror .breakdown { display: block; font-size: 0.8rem; color: var(--text-muted); font-weight: 400; margin-top: 8px; }
+  .verdict { display: inline-block; font-family: ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.12em;
+    text-transform: uppercase; border-radius: 8px; padding: 6px 12px; margin-bottom: 12px; }
+  .verdict.strong { background: rgba(11,127,90,0.12); color: var(--green); }
+  .verdict.partial { background: rgba(109,76,240,0.1); color: var(--violet); }
+  .verdict.none { background: var(--bg-elevated); color: var(--text-muted); }
+  .verdict-lines { margin: 10px 0 0; padding: 0; list-style: none; }
+  .verdict-lines li { font-size: 0.9rem; color: var(--text-muted); padding: 3px 0; }
+  .verdict-lines li::before { content: "· "; color: var(--violet); font-weight: 700; }
+  .assump { font-size: 0.76rem; color: var(--text-muted); margin-top: 10px; }
+  .gate { border-top: 1px dashed var(--border); margin-top: 20px; padding-top: 18px; }
+  .gate h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+  .gate p { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; }
+  .gate input { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 13px; font-size: 0.95rem; font-family: inherit; margin-bottom: 10px; }
+  .cta-two { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+
+  footer { border-top: 1px solid var(--border); padding: 36px 0 30px; margin-top: 50px; font-size: 0.9rem; color: var(--text-muted); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .footer-links a:hover { color: var(--text); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index-v2.html" class="logo"><img src="../assets/Tishka_AI.svg" alt="Tishka AI" height="28"></a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button id="themeToggle" class="theme-btn" type="button" aria-label="Switch colour theme">Dark</button>
+      <span class="badge">No email needed · report shows on screen</span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="hero">
+    <span class="eyebrow">AI Opportunity Check</span>
+    <h1>Three minutes.<br>Taps, not typing.</h1>
+    <p class="hero-sub">Tap through the questions — type only if you want to. At the end you get your week mirrored back with the £ maths visible and an honest verdict on whether AI is worth your time. Free, on screen, before any email is asked for.</p>
+  </div>
+
+  <!-- ============ QUIZ ============ -->
+  <div class="card" id="quizCard">
+    <div id="qStep"></div>
+    <div class="navrow">
+      <button class="btn btn-ghost" id="backBtn" type="button" hidden>&larr; Back</button>
+      <span style="flex:1;"></span>
+      <button class="btn btn-primary" id="nextBtn" type="button" disabled>Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ============ TEASER (before any email ask) ============ -->
+  <div class="teaser" id="teaserCard" hidden>
+    <span class="verdict" id="verdictChip"></span>
+    <h2 style="font-size:1.3rem;font-weight:650;">Your week, from your answers.</h2>
+    <div class="mirror" id="mirrorCard"></div>
+    <ul class="verdict-lines" id="verdictLines"></ul>
+    <p class="assump" id="assumpLine"></p>
+
+    <div id="noneClose" hidden>
+      <p style="font-size:0.9rem;color:var(--text-muted);margin-top:14px;">That's an honest no — nothing here needs automating right now. No email asked, nothing sent. If that changes — a new hire, a new contract — the door's open.</p>
+      <div class="cta-two" style="margin-top:14px;">
+        <a class="btn btn-ghost" href="tracker.html">Try the 5-day leak tracker instead &rarr;</a>
+      </div>
+    </div>
+
+    <div id="fitActions" hidden>
+      <div class="gate">
+        <h3>Want the full report?</h3>
+        <p>The report — your ranked leaks, what we'd automate first, what we'd never touch — is yours free. Leave an email and we'll send it; skip this and it's still on your screen. Either way is fine.</p>
+        <input type="email" id="emailIn" placeholder="Email (optional)" autocomplete="email">
+        <div class="cta-two">
+          <a class="btn btn-primary" id="bookBtn" href="../contact.html">Book the free diagnostic &rarr;</a>
+          <button class="btn btn-ghost" id="emailBtn" type="button">Email me the full report</button>
+        </div>
+        <p style="font-size:0.72rem;color:var(--text-muted);margin-top:10px;">Want the precise version instead of the estimate? <a href="tracker.html" style="color:var(--violet);">Run the 5-day leak tracker</a> — your numbers, not estimates.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <div>TISHKA AI © 2026 · DRAFT — NOT LIVE</div>
+      <div class="footer-links">
+        <a href="index-v2.html">Home draft</a>
+        <a href="method.html">The method</a>
+        <a href="tracker.html">Time Leak Tracker</a>
+      </div>
+    </div>
+    <p style="font-size:0.75rem;margin-top:12px;">Nothing you tap here is stored or sent anywhere — the check runs entirely in your browser. The email box is optional and, in this draft, goes nowhere.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* ============ theme ============ */
+  var themeBtn = document.getElementById('themeToggle');
+  function themeLabel() {
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    themeBtn.textContent = dark ? 'Light' : 'Dark';
+  }
+  themeBtn.addEventListener('click', function () {
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+    else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+    themeLabel();
+  });
+  themeLabel();
+
+  /* ============ state ============ */
+  var $ = function (s) { return document.querySelector(s); };
+  var ans = { industry: null, industryOther: '', team: null, sentence: '',
+    cvWhere: null, cvNext: null, cvCount: null, cvHours: 0,
+    chaseWho: null, chaseHow: null, chaseHours: 0,
+    ats: null,
+    adminHours: 0, tasks: [], sevenPm: null, speed: null, oneThing: '', tried: null,
+    who: null, rate: 15 };
+  var HOURS_CHIPS = [ { l: 'Under 2 hrs', v: 1 }, { l: '2–5 hrs', v: 3.5 }, { l: '5–10 hrs', v: 7.5 }, { l: '10+ hrs', v: 12 } ];
+  var HOURS_CHIPS_LOW = [ { l: 'Under 2 hrs', v: 1 }, { l: '2–4 hrs', v: 3 }, { l: '4–8 hrs', v: 6 }, { l: '8+ hrs', v: 10 } ];
+
+  /* ============ questions (tap-tree; every row has "Something else") ============ */
+  var QS = [
+    { /* Q1 — industry chips (routes everything) */
+      id: 'industry',
+      q: 'What kind of business?',
+      hint: 'Picks the questions you get — and the examples in your report.',
+      type: 'chips',
+      chips: [
+        { l: 'Recruitment agency', v: 'recruitment' },
+        { l: 'Trade / field business', v: 'trades' },
+        { l: 'Property / lettings', v: 'property' },
+        { l: 'Accountancy firm', v: 'accountants' },
+        { l: 'Professional services', v: 'professional' }
+      ],
+      elseLabel: 'Something else?'
+    },
+    { /* Q2 */
+      id: 'team',
+      q: 'How many people work in the business?',
+      type: 'chips',
+      chips: [
+        { l: 'Just me', v: 'Just me' },
+        { l: '2–5', v: '2–5' },
+        { l: '6–15', v: '6–15' },
+        { l: '16–50', v: '16–50' }
+      ],
+      elseLabel: 'Other size?'
+    },
+    { /* Q3 */
+      id: 'sentence',
+      q: 'In a sentence, what does the business do?',
+      hint: 'Optional — one line is plenty.',
+      type: 'text',
+      placeholder: 'e.g. electrical contractor, 6 engineers, domestic + landlords'
+    },
+    { /* Q4 — CV flow (recruitment) OR admin-hours (generic) */
+      id: 'cvWhere',
+      branch: 'recruitment',
+      q: 'Where do the CVs land?',
+      type: 'chips',
+      chips: [
+        { l: 'Email', v: 'Email' },
+        { l: 'The ATS', v: 'The ATS' },
+        { l: 'LinkedIn', v: 'LinkedIn' },
+        { l: 'WhatsApp', v: 'WhatsApp' }
+      ],
+      elseLabel: 'Somewhere else?'
+    },
+    { id: 'cvNext', branch: 'recruitment',
+      q: 'What happens to a CV before it reaches the client?',
+      type: 'chips',
+      chips: [
+        { l: 'Reformatted to our template', v: 'Reformatted' },
+        { l: 'Straight to client as-is', v: 'As-is' },
+        { l: 'Into the ATS, done', v: 'ATS only' },
+        { l: 'It sits in the inbox', v: 'Sits' }
+      ],
+      elseLabel: 'Something else?'
+    },
+    { id: 'cvCount', branch: 'recruitment',
+      q: 'How many CVs go out in a week?',
+      type: 'chips',
+      chips: [ { l: 'Under 5', v: 'Under 5' }, { l: '5–15', v: '5–15' }, { l: '15–30', v: '15–30' }, { l: '30+', v: '30+' } ],
+      elseLabel: 'Other volume?'
+    },
+    { id: 'cvHours', branch: 'recruitment',
+      q: 'Hours a week on CV formatting and submissions?',
+      type: 'chipsHours',
+      chips: HOURS_CHIPS,
+      elseLabel: 'Different amount?'
+    },
+    { id: 'chaseWho', branch: 'recruitment',
+      q: 'Who chases clients for feedback?',
+      type: 'chips',
+      chips: [ { l: 'Me', v: 'Me' }, { l: 'The consultants', v: 'The consultants' }, { l: 'Nobody, reliably', v: 'Nobody, reliably' } ],
+      elseLabel: 'Someone else?'
+    },
+    { id: 'chaseHow', branch: 'recruitment',
+      q: 'How does the chasing happen?',
+      type: 'chips',
+      chips: [ { l: 'Email', v: 'Email' }, { l: 'Phone', v: 'Phone' }, { l: 'Notes in the ATS', v: 'ATS notes' } ],
+      elseLabel: 'Another way?'
+    },
+    { id: 'chaseHours', branch: 'recruitment',
+      q: 'Hours a week chasing feedback and updates?',
+      type: 'chipsHours',
+      chips: HOURS_CHIPS,
+      elseLabel: 'Different amount?'
+    },
+    { id: 'ats', branch: 'recruitment',
+      q: 'What runs the agency today?',
+      type: 'chips',
+      chips: [
+        { l: 'Gmail/Outlook + Excel', v: 'Gmail/Outlook + Excel' },
+        { l: 'Firefish', v: 'Firefish' },
+        { l: 'Vincere', v: 'Vincere' },
+        { l: 'Bullhorn', v: 'Bullhorn' },
+        { l: 'Loxo', v: 'Loxo' }
+      ],
+      elseLabel: 'Another system?'
+    },
+    { /* generic path — admin hours + tasks */
+      id: 'adminHours', branch: 'generic',
+      q: 'Hours a week the admin takes — yours or the team\'s?',
+      type: 'chipsHours',
+      chips: HOURS_CHIPS_LOW,
+      elseLabel: 'Different amount?'
+    },
+    { id: 'tasks', branch: 'generic',
+      q: 'Which tasks eat the most time? (tap all that apply)',
+      type: 'chipsMulti',
+      chips: [
+        { l: 'Emails and enquiries', v: 'Emails and enquiries' },
+        { l: 'Quotes / proposals', v: 'Quotes / proposals' },
+        { l: 'Invoices and chasing', v: 'Invoices and chasing' },
+        { l: 'Typing into systems', v: 'Typing into systems' },
+        { l: 'Scheduling and bookings', v: 'Scheduling and bookings' },
+        { l: 'Customer updates', v: 'Customer updates' }
+      ],
+      elseLabel: 'Something else eats the week?'
+    },
+    { /* all paths */
+      id: 'sevenPm',
+      q: 'A customer emails at 7pm. What happens?',
+      type: 'chips',
+      chips: [
+        { l: 'Sits until morning', v: 'Sits until morning' },
+        { l: 'Voicemail / auto-reply', v: 'Voicemail / auto-reply' },
+        { l: 'Someone picks it up', v: 'Someone picks it up' },
+        { l: 'Not many come in', v: 'Not many come in' }
+      ],
+      elseLabel: 'Something else?'
+    },
+    { id: 'speed',
+      q: 'How fast do you get back to a new enquiry?',
+      type: 'chips',
+      chips: [ { l: 'Within an hour', v: 'Within an hour' }, { l: 'Same day', v: 'Same day' }, { l: 'Next day', v: 'Next day' }, { l: 'Varies, sometimes days', v: 'Varies, sometimes days' } ],
+      elseLabel: 'Other?'
+    },
+    { id: 'oneThing',
+      q: 'If AI could take ONE thing off your plate, what would it be?',
+      hint: 'One line — this is the most useful answer on the whole form.',
+      type: 'text',
+      placeholder: 'The one thing…'
+    },
+    { id: 'tried',
+      q: 'What have you already tried?',
+      type: 'chips',
+      chips: [
+        { l: 'Tried ChatGPT etc.', v: 'Tried ChatGPT etc.' },
+        { l: 'Bought a tool that didn\'t stick', v: 'Bought a tool that didn\'t stick' },
+        { l: 'Nothing yet', v: 'Nothing yet' }
+      ],
+      elseLabel: 'Something else?'
+    }
+  ];
+
+  var order = [];          /* question ids in play for this path */
+  var step = 0;
+  var multiSel = {};
+
+  function buildOrder() {
+    order = [];
+    QS.forEach(function (q) {
+      if (!q.branch) { order.push(q.id); return; }
+      if (q.branch === 'recruitment' && ans.industry === 'recruitment') order.push(q.id);
+      if (q.branch === 'generic' && ans.industry !== 'recruitment') order.push(q.id);
+    });
+  }
+  function getQ(id) { return QS.filter(function (q) { return q.id === id; })[0]; }
+
+  /* ============ rendering ============ */
+  function answered(qid) {
+    if (qid === 'industry') return !!ans.industry;
+    if (qid === 'team') return !!ans.team;
+    if (qid === 'tasks') return Object.keys(multiSel).length > 0;
+    var v = ans[qid];
+    if (qid === 'sentence' || qid === 'oneThing') return true; /* optional */
+    if (Array.isArray(HOURS_CHIPS.map(function(h){return h.l;})) && getQ(qid) && getQ(qid).type === 'chipsHours') return typeof ans[qid] === 'number' && ans[qid] > 0;
+    return !!v;
+  }
+  function paintDots() {
+    var box = document.querySelector('.dots');
+    if (!box) {
+      box = document.createElement('div'); box.className = 'dots';
+      document.getElementById('quizCard').appendChild(box);
+    }
+    box.innerHTML = order.map(function (id, i) {
+      return '<span class="dot' + (i <= step ? ' on' : '') + '"></span>';
+    }).join('');
+  }
+  function render() {
+    var q = getQ(order[step]);
+    var box = document.getElementById('qStep');
+    var html = '<div class="qnum">Question ' + (step + 1) + ' of ' + order.length + '</div>' +
+      '<div class="q">' + q.q + '</div>' +
+      (q.hint ? '<p class="rate-note" style="margin:0 0 16px;">' + q.hint + '</p>' : '');
+    if (q.type === 'chips' || q.type === 'chipsHours') {
+      html += '<div class="chips">' + q.chips.map(function (c) {
+        var on = ans[q.id] === c.v || ans[q.id] === c.l;
+        return '<button type="button" class="chip' + (on ? ' on' : '') + '" data-v="' + c.v + '" data-l="' + c.l + '">' + c.l + '</button>';
+      }).join('') + '</div>';
+      html += '<div class="else"><span class="lbl">' + (q.elseLabel || 'Something else?') + '</span>' +
+        '<input type="text" id="elseIn" value="' + (ans[q.id + 'Other'] || '') + '" placeholder="type it here"></div>';
+    } else if (q.type === 'chipsMulti') {
+      html += '<div class="chips">' + q.chips.map(function (c) {
+        var on = !!multiSel[c.v];
+        return '<button type="button" class="chip' + (on ? ' on' : '') + '" data-v="' + c.v + '">' + c.v + '</button>';
+      }).join('') + '</div>';
+      html += '<div class="else"><span class="lbl">' + (q.elseLabel || 'Something else?') + '</span>' +
+        '<input type="text" id="elseMulti" placeholder="add it to the list"></div>';
+    } else if (q.type === 'text') {
+      html += '<textarea id="txtIn" placeholder="' + (q.placeholder || '') + '">' + (ans[q.id] || '') + '</textarea>';
+    }
+    box.innerHTML = html;
+    document.getElementById('backBtn').hidden = step === 0;
+    var next = document.getElementById('nextBtn');
+    next.disabled = !answered(q.id);
+    next.textContent = step === order.length - 1 ? 'See my answer →' : 'Next →';
+    paintDots();
+
+    /* wire chips */
+    if (q.type === 'chips' || q.type === 'chipsHours' || q.type === 'chipsMulti') {
+      box.querySelectorAll('.chip').forEach(function (c) {
+        c.addEventListener('click', function () {
+          if (q.type === 'chipsMulti') {
+            multiSel[c.dataset.v] = !multiSel[c.dataset.v];
+            c.classList.toggle('on', !!multiSel[c.dataset.v]);
+          } else {
+            box.querySelectorAll('.chip').forEach(function (x) { x.classList.remove('on'); });
+            c.classList.add('on');
+            if (q.type === 'chipsHours') {
+              ans[q.id] = +c.dataset.v;
+              ans[q.id + 'Label'] = c.dataset.l;
+              var elseIn = document.getElementById('elseIn');
+              if (elseIn && elseIn.value) { elseIn.value = ''; }
+            } else {
+              ans[q.id] = c.dataset.l;
+            }
+          }
+          next.disabled = !answered(q.id);
+          if (q.id === 'industry' && ans.industry) { buildOrder(); }
+        });
+      });
+      var elseIn = document.getElementById('elseIn');
+      if (elseIn) elseIn.addEventListener('input', function () {
+        if (elseIn.value.trim()) {
+          box.querySelectorAll('.chip').forEach(function (x) { x.classList.remove('on'); });
+          ans[q.id] = elseIn.value.trim();
+          if (q.type === 'chipsHours') {
+            var m = elseIn.value.match(/(\d+(?:\.\d+)?)/);
+            ans[q.id] = m ? Math.min(40, +m[1]) : 0;
+            ans[q.id + 'Other'] = elseIn.value.trim();
+            ans[q.id + 'Label'] = 'stated amount';
+            next.disabled = false;
+          }
+          else { next.disabled = false; }
+          if (q.id === 'industry') { /* free-text industry keeps the generic path */ buildOrder(); }
+        } else if (q.type !== 'chipsHours') {
+          ans[q.id] = null; next.disabled = true;
+        }
+      });
+      var elseMulti = document.getElementById('elseMulti');
+      if (elseMulti) elseMulti.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && elseMulti.value.trim()) {
+          multiSel[elseMulti.value.trim()] = true;
+          render();
+        }
+      });
+    } else if (q.type === 'text') {
+      var t = document.getElementById('txtIn');
+      t.addEventListener('input', function () { ans[q.id] = t.value; });
+    }
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', function () {
+    if (step < order.length - 1) { step++; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    else { showTeaser(); }
+  });
+  document.getElementById('backBtn').addEventListener('click', function () {
+    if (step > 0) { step--; render(); }
+  });
+
+  /* ============ teaser: mirror-back BEFORE any email ask ============ */
+  function computeTotals() {
+    var hrs = 0, lines = [];
+    if (ans.industry === 'recruitment') {
+      hrs = (ans.cvHours || 0) + (ans.chaseHours || 0);
+      if (ans.cvHours) lines.push((ans.cvHoursLabel || '') + ' on CV formatting & submissions');
+      if (ans.chaseHours) lines.push((ans.chaseHoursLabel || '') + ' chasing feedback & updates');
+      if (ans.industry && !ans.cvHours && !ans.chaseHours) lines.push('no CV or chase hours stated');
+    } else {
+      hrs = ans.adminHours || 0;
+      if (ans.adminHours) lines.push((ans.adminHoursLabel || '') + ' of admin a week');
+      if (ans.tasks) {
+        var t = Object.keys(multiSel);
+        if (t.length) lines.push('heaviest: ' + t.slice(0, 3).join(', '));
+      }
+    }
+    if (ans.sevenPm) lines.push('evening emails: ' + ans.sevenPm.toLowerCase());
+    if (ans.speed) lines.push('response time: ' + ans.speed.toLowerCase());
+    return { hrs: hrs, lines: lines };
+  }
+  function verdictFor() {
+    var h = totalHours();
+    if (h <= 0) return 'none';
+    if (h >= 8) return 'strong';
+    if (h >= 2) return 'partial';
+    return 'none';
+  }
+  function totalHours() {
+    var h = ans.industry === 'recruitment' ? (ans.cvHours || 0) + (ans.chaseHours || 0) : (ans.adminHours || 0);
+    return h;
+  }
+  function showTeaser() {
+    document.getElementById('quizCard').hidden = true;
+    var card = document.getElementById('teaserCard');
+    card.hidden = false;
+    var h = totalHours();
+    var RATE = 15; /* visible assumption, per the v2 plan */
+    var perYear = Math.round(h * 52 * RATE);
+    var v = verdictFor(h, ans.who);
+    var chip = document.getElementById('verdictChip');
+    if (v === 'strong') { chip.className = 'verdict strong'; chip.textContent = 'Honest verdict: strong fit'; }
+    else if (v === 'partial') { chip.className = 'verdict partial'; chip.textContent = 'Honest verdict: partial fit'; }
+    else { chip.className = 'verdict none'; chip.textContent = 'Honest verdict: not worth it yet'; }
+
+    var mirror = document.getElementById('mirrorCard');
+    if (v === 'none') {
+      mirror.innerHTML = 'From your answers, there isn\'t enough repetitive admin for this to pay for itself yet' +
+        (ans.industry ? ' — that\'s a fine place to be.' : '.') + '<span class="breakdown">We\'d rather tell you now than invoice you later.</span>';
+      document.getElementById('noneClose').hidden = false;
+      document.getElementById('assumpLine').textContent = '';
+      return;
+    }
+    var fmt = function (x) { var t = Math.round(10 * x) / 10; return t % 1 === 0 ? t.toFixed(0) : t.toFixed(1); };
+    mirror.innerHTML = '<span>' + fmt(h) + ' hrs a week</span> in the areas you named — worth about <span>£' +
+      Math.round(h * 52 * RATE).toLocaleString('en-GB') + ' a year</span> of time, and up to <span>' + fmt(h) + ' hrs a week</span> back if the chase-and-format share goes to the system.' +
+      '<span class="breakdown">' + (computeTotals().lines.join(' · ') || 'stated from your answers') + '</span>';
+    document.getElementById('assumpLine').textContent =
+      'Maths, visible: ' + fmt(h) + ' hrs/wk × 52 weeks × £' + RATE + '/hr (a stated admin-wage assumption, not your figure — adjust it with us on the call). "Up to" because the automatable share varies by task.';
+    var lines = document.getElementById('verdictLines');
+    var li = [];
+    if (v === 'strong') {
+      li.push('What we\'d automate first: ' + (ans.industry === 'recruitment' ? 'CV formatting to your template, then the feedback chase' : 'the top chase on your list — records in, reminders out'));
+      li.push('What we\'d never touch: pricing, judgment calls, anything that needs your read on a person');
+      li.push('First build typically live in 1–2 weeks; measured from week one');
+    } else {
+      li.push('What we\'d automate first: one workflow — the top item only, measured before anything else');
+      li.push('What we\'d never touch: pricing, judgment calls, sensitive client messages');
+      li.push('The tracker gives the precise version of these numbers in 5 days');
+    }
+    lines.innerHTML = li.map(function (x) { return '<li>' + x + '</li>'; }).join('');
+    document.getElementById('fitActions').hidden = false;
+  }
+  document.getElementById('emailBtn').addEventListener('click', function () {
+    var b = document.getElementById('emailBtn');
+    var o = b.textContent; b.textContent = 'Noted — nothing sent in this draft';
+    setTimeout(function () { b.textContent = o; }, 2200);
+  });
+
+  /* ============ boot ============ */
+  buildOrder();
+  render();
+})();
+</script>
+</body>
+</html>
