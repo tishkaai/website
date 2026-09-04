@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tishka — explainer illustration tests (Xiaohei method)</title>
+<style>
+  :root { --ink:#1a1a1a; --muted:#6b6b6b; --brand:#6d4cf0; --line:#e7e5ee; --bg:#ffffff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--ink); font:16px/1.55 -apple-system, "Segoe UI", Roboto, sans-serif; padding:48px 24px 80px; }
+  .wrap { max-width:1080px; margin:0 auto; }
+  header h1 { font-size:28px; letter-spacing:-0.5px; }
+  header p { color:var(--muted); max-width:70ch; margin-top:10px; }
+  .meta { margin-top:14px; font-size:14px; color:var(--muted); }
+  .meta b { color:var(--ink); }
+  .card { margin-top:56px; border-top:2px solid var(--ink); padding-top:18px; }
+  .card .no { color:var(--brand); font-weight:700; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; }
+  .card h2 { font-size:22px; margin-top:6px; }
+  .card p.idea { color:var(--muted); max-width:70ch; margin-top:6px; }
+  .labels { margin-top:10px; font-size:13px; color:var(--muted); }
+  .labels span { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:2px 10px; margin:3px 6px 3px 0; }
+  figure { margin-top:18px; }
+  figure img { width:100%; display:block; border:1px solid var(--line); background:#fff; }
+  figcaption { font-size:13px; color:var(--muted); margin-top:8px; }
+  footer { margin-top:64px; border-top:1px solid var(--line); padding-top:18px; color:var(--muted); font-size:14px; max-width:75ch; }
+  footer b { color:var(--ink); }
+  .flag { color:var(--brand); font-weight:600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Explainer illustration tests — 5 images</h1>
+    <p>Test images drawn in the "Xiaohei" method (from github.com/helloianneo/ian-xiaohei-illustrations): pure white, thin hand-drawn black lines, one idea per image, a couple of handwritten labels, and a small black blob character doing the actual work in the picture. Labels are <b>English</b> (the original skill is Chinese-tuned — that part is our adaptation). Every image carries a fixed seed so we can regenerate the exact same picture with tweaks.</p>
+    <p class="meta">Generated 3 Sep 2026 · Flux via pollinations.ai (free test route) · 1024×576 (free tier size cap — a proper image API gives full size before anything goes live) · <span class="flag">AI-drawn test images — not final art, nothing live</span></p>
+  </header>
+
+  <section class="card">
+    <div class="no">Test 1</div>
+    <h2>The company brain</h2>
+    <p class="idea">Core idea: scattered info (email, invoices, jobs) flows into one brain that remembers everything and flags what matters. The character is feeding it, not decorating it.</p>
+    <div class="labels"><span>email</span><span>invoices</span><span>jobs</span><span>one brain</span><span>it remembers</span></div>
+    <figure><img src="01-company-brain.jpg" alt="Hand-drawn illustration: pipes labelled email, invoices, jobs feed a brain in a filing cabinet; the black character carries a folder along a pipe"><figcaption>01-company-brain.jpg</figcaption></figure>
+  </section>
+
+  <section class="card">
+    <div class="no">Test 2</div>
+    <h2>You approve, nothing sends alone</h2>
+    <p class="idea">Core idea: the approval-first promise — AI drafts, a human stamps it through the gate, and one thing gets held back. This is the positioning picture.</p>
+    <div class="labels"><span>drafts</span><span>you approve</span><span>WAIT</span><span>nothing sends alone</span></div>
+    <figure><img src="02-approval-gate.jpg" alt="Hand-drawn illustration: envelopes on a conveyor belt reach a gate where the black character stamps them; one envelope held with a WAIT tag"><figcaption>02-approval-gate.jpg</figcaption></figure>
+  </section>
+
+  <section class="card">
+    <div class="no">Test 3</div>
+    <h2>Where the hours leak</h2>
+    <p class="idea">Core idea: the Time Leak Tracker in one picture — the week is a bucket, admin tasks are the drips, and the character is measuring them. Feeds the tracker + diagnostic story.</p>
+    <div class="labels"><span>your week</span><span>inbox</span><span>chasing</span><span>copy-paste</span><span>biggest leak</span><span>measure it</span></div>
+    <figure><img src="03-time-leak.jpg" alt="Hand-drawn illustration: a bucket labelled your week leaks drips labelled inbox, chasing, copy-paste; the black character catches them in a measuring jug"><figcaption>03-time-leak.jpg</figcaption></figure>
+  </section>
+
+  <section class="card">
+    <div class="no">Test 4</div>
+    <h2>It watches while you sleep</h2>
+    <p class="idea">Core idea: the watching/alert layer — a lighthouse sweeping across the tools while the character naps, pinging you only when needed.</p>
+    <div class="labels"><span>always on</span><span>email</span><span>CRM</span><span>calendar</span><span>pings you</span><span>while you sleep</span></div>
+    <figure><img src="04-night-watch.jpg" alt="Hand-drawn illustration: a lighthouse on a stack of files sweeps a beam across email, CRM and calendar houses; the black character naps in a deckchair"><figcaption>04-night-watch.jpg</figcaption></figure>
+  </section>
+
+  <section class="card">
+    <div class="no">Test 5</div>
+    <h2>Plugs into what you already use</h2>
+    <p class="idea">Core idea: no rip-and-replace — gmail, excel, CRM already plugged in, the character pushing in the last plug, one cord running to the brain box.</p>
+    <div class="labels"><span>gmail</span><span>excel</span><span>CRM</span><span>plugs in</span><span>nothing to replace</span></div>
+    <figure><img src="05-plug-in.jpg" alt="Hand-drawn illustration: a power strip with gmail, excel and CRM plugs; the black character pushes in the last plug while a cord runs to a brain box on a shelf"><figcaption>05-plug-in.jpg</figcaption></figure>
+  </section>
+
+  <footer>
+    <p><b>How to judge these:</b> style first (does this feel like Tishka?), then idea clarity (do you "get it" in 5 seconds?), then label spelling (AI image models garble letters — anything misspelled we regenerate, it's one command per image).</p>
+    <p style="margin-top:10px;"><b>If we keep this style:</b> two honest notes — ① the little black character is Ian's ("Xiaohei"); reusing it on the live site means a credit line, or we give Tishka its own character (same shape language, our colour); ② the free test route here is fine for judging style, but a proper image API gives steadier quality + exact labels before anything goes on a page.</p>
+    <p style="margin-top:10px;"><b>Your call, Pete:</b> which images work, which don't, and any metaphor you'd swap — I'll regenerate with the same seeds and re-show.</p>
+  </footer>
+</div>
+</body>
+</html>
