@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — BLOG POST: How much is admin really costing you?
+  Built 2026-09-04 in the home page v2 style (Schibsted Grotesk +
+  Archivo, site.css tokens, paper/ink identity). Copy source:
+  Blog/2026-09/05-how-much-is-admin-really-costing-you.md (verbatim,
+  CTA ladder repointed: check retired from the site, tracker + £499
+  diagnostic are the live rungs).
+============================================================= -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<title>How much is admin really costing you? Run the 20-minute count | Tishka AI</title>
+<meta name="description" content="A 20-minute exercise that puts a £ figure on the admin eating your week, and three checks that decide what to hand over first.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How much is admin really costing you? Run the 20-minute count">
+<meta property="og:description" content="A 20-minute exercise that puts a £ figure on the admin eating your week, and three checks that decide what to hand over first.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="resource/site.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { color-scheme: light; }
+  html[data-theme="dark"] { color-scheme: dark; }
+  body { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { font-family: "Schibsted Grotesk", "Archivo", sans-serif; }
+
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo img { height: 26px; width: auto; display: block; }
+  html:not([data-theme="dark"]) .logo img { filter: invert(1); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    padding: 11px 20px; border-radius: 6px; font-size: 1rem; font-weight: 600;
+    font-family: inherit; white-space: nowrap; transition: background 0.15s ease; cursor: pointer; border: none; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
+  .btn-ghost { background: var(--ghost-bg); border: 1px solid var(--border); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+  .theme-btn { padding: 0; width: 40px; height: 40px; background: transparent; border: none;
+    color: var(--muted); }
+  .theme-btn:hover { color: var(--ink); background: transparent; }
+  .theme-btn .ico-sun, .theme-btn .ico-moon { display: block; }
+  .theme-btn .ico-sun { display: none; }
+  html[data-theme="dark"] .theme-btn .ico-sun { display: block; }
+  html[data-theme="dark"] .theme-btn .ico-moon { display: none; }
+
+  /* article: one narrow reading column */
+  .post { max-width: 720px; margin: 0 auto; padding: 64px 0 24px; }
+  .post-eyebrow { font-size: 1rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .post h1 { font-size: clamp(2.1rem, 4.6vw, 3.1rem); font-weight: 800;
+    letter-spacing: -0.045em; line-height: 1.08; margin-bottom: 20px; }
+  .standfirst { font-size: 1.25rem; color: var(--muted); line-height: 1.55; margin-bottom: 16px; }
+  .post-meta { font-size: 1rem; color: var(--muted); margin-bottom: 40px;
+    padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+
+  .post-body { font-size: 1.125rem; line-height: 1.75; }
+  .post-body p { margin-bottom: 22px; }
+  .post-body h2 { font-size: 1.65rem; font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.2; margin: 44px 0 18px; }
+  .post-body ul, .post-body ol { margin: 0 0 22px 0; padding-left: 26px; }
+  .post-body li { margin-bottom: 10px; }
+  .post-body li::marker { color: var(--muted); }
+  .post-body b, .post-body strong { font-weight: 700; }
+  .post-body .fig { font-weight: 700; }
+  .post-body a { text-decoration: underline; text-underline-offset: 3px; }
+  .post-body a:hover { color: var(--muted); }
+
+  .faq { margin-bottom: 22px; }
+  .faq b { display: block; margin-bottom: 6px; }
+
+  /* do-this-next card — same card treatment as the calculator */
+  .next-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
+    padding: 28px 28px 24px; margin: 44px 0 10px; }
+  .next-card h2 { margin-top: 0; }
+  .next-card ol { margin-bottom: 18px; }
+  .next-card .btn { margin-top: 4px; }
+
+  .related { font-size: 1rem; color: var(--muted); margin-bottom: 56px; }
+  .related a { text-decoration: underline; text-underline-offset: 3px; }
+
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: 1rem; color: var(--muted); }
+  .footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+    padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
+  .footer-col h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; }
+  .footer-col a { color: var(--muted); }
+  .footer-col a:hover { color: var(--ink); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .social-icons { display: flex; gap: 14px; align-items: center; }
+  .social-icons a { display: flex; align-items: center; color: var(--ink); }
+
+  @media (max-width: 640px) {
+    .post { padding-top: 44px; }
+    .nav { height: 56px; }
+    .nav .btn { padding: 7px 10px; font-size: 1rem; }
+    .logo img { height: 22px; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo"><img src="assets/Tishka_AI.svg" alt="Tishka AI" height="26"></a>
+      <div class="nav-actions">
+        <button id="themeToggle" class="btn btn-ghost theme-btn" type="button" aria-label="Switch colour theme">
+          <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary">Book Diagnostic</a>
+      </div>
+    </div>
+  </header>
+
+  <article>
+    <div class="post">
+      <p class="post-eyebrow">The How to series · Post 1</p>
+      <h1>How much is admin really costing you? Run the 20-minute count</h1>
+      <p class="standfirst">For any UK business owner with a small team: a 20-minute exercise that puts an actual £ figure on the admin eating your week, plus a simple way to decide what to hand over first.</p>
+      <p class="post-meta">Last updated 4 September 2026</p>
+
+      <div class="post-body">
+        <p>Ask an owner where their week goes and you'll get the honest answer: they don't know. They're not hiding anything. The work that eats the week just doesn't look like work. It looks like Tuesday.</p>
+        <p>It's 4pm on a Tuesday. Three invoices haven't gone out. A client is waiting on an answer that's been sitting in the inbox since 9am. The same job details get typed into a second system because the first one doesn't talk to the second. Nobody planned any of this. No meeting was held about it. It just happens, every day, to everyone.</p>
+        <p>That's the loop this post is about: invisible admin. The chasing, retyping, formatting and copying between tools that never appears on a to-do list but takes the afternoon anyway.</p>
+
+        <h2>The maths (a sketch, not a client figure)</h2>
+        <p>Put editable assumptions on it and the number gets loud fast:</p>
+        <ul>
+          <li><b>30 minutes a day</b> of retyping, chasing and copying between tools (a conservative guess for most teams of 2 to 10. Some days it's zero, some days it's two hours)</li>
+          <li>× 5 days = <b>2.5 hours a week</b></li>
+          <li>× £30 an hour (what an owner's or office manager's hour is actually worth) = <b>£75 a week</b></li>
+          <li>× 46 working weeks = <span class="fig">£3,450 a year. Per person.</span></li>
+        </ul>
+        <p>A team of five doing the same shuffle? Roughly <b>£17,000 a year</b>. A salary's worth of work, spent moving information from where it landed to where it's needed.</p>
+        <p>Swap in your own minutes and your own rate. The shape of the number doesn't change.</p>
+
+        <h2>Score it: the three checks</h2>
+        <p>Before handing anything over, score the task on the same three checks we use everywhere:</p>
+        <ul>
+          <li><b>Hours.</b> How much of the week it eats (0 to 5)</li>
+          <li><b>Repeat.</b> Could a new starter follow it from one page? (0 to 5)</li>
+          <li><b>Risk-if-wrong.</b> If it slips once, how bad? (0 to 5. High means it's safe to hand over, because the rules are obvious)</li>
+        </ul>
+        <p>Take "retyping job details between tools" as the example. It eats about 2 hours a week (3). A new starter could follow it from a single page (4). A slip is annoying but recoverable (3). <b>Verdict: worth handing over.</b> The inbox triage that decides which client gets a refund, by contrast: low hours (1), not writable on one page (1). Human-only, leave it alone.</p>
+        <p>Three checks at 4 or more, hand it over. Two, start narrow, one step. One or less, leave it with a person.</p>
+
+        <h2>Try one thing this week (free)</h2>
+        <p>Run the <b>20-minute count</b>. Today or Monday:</p>
+        <ol>
+          <li>Set a timer for 20 minutes.</li>
+          <li>From memory, list what repeated last week: chasing, retyping, formatting, copying between tools, hunting for a file or a reply.</li>
+          <li>Put rough minutes on each. Add it up. × your hourly rate × 46 weeks.</li>
+        </ol>
+        <p>Judge the number on Friday. If it's smaller than you feared, you've bought certainty cheaply. If it's bigger, you now know exactly which loop to look at first, and it's usually the one you wrote down first.</p>
+
+        <h2>Where a person stays</h2>
+        <p>Software should prepare. A person should decide. An automation can assemble the invoice, draft the chase email, move the details between systems. But the send button, the judgement call, the awkward conversation: those stay human. Anything that hands over the deciding along with the typing is a leak wearing a fix.</p>
+
+        <h2>FAQ</h2>
+        <div class="faq"><b>Isn't this just what a part-time admin hire is for?</b>
+          <p>Partly. The maths of a hire vs automations is its own post. The short version: a hire is ~£12,000+ a year for ~20 hours a week, and they inherit the same shuffle. Automations take the repeating 80% so the human handles the judgement.</p></div>
+        <div class="faq"><b>We're too small for this. It's only me and one other person.</b>
+          <p>The maths is per person, not per company. Two people at 30 minutes a day is still ~£7,000 a year at the sketch rate.</p></div>
+        <div class="faq"><b>What counts as "admin" for the count?</b>
+          <p>Anything you did more than once last week that moved information rather than made it: chasing replies, retyping details, formatting documents, copying data between tools, reminder messages.</p></div>
+        <div class="faq"><b>Should we just buy software for this?</b>
+          <p>Sometimes, and we'll say so. The three checks come first. If a task scores low on Hours, no tool pays for itself. The count tells you which tasks are even worth a look.</p></div>
+        <div class="faq"><b>Does AI get this wrong?</b>
+          <p>It can, which is why approval-first matters. Prepared by software, decided by a person. That's the standard we hold ourselves to.</p></div>
+
+        <div class="next-card">
+          <h2>Do this next</h2>
+          <ol>
+            <li><b>Log a measured week.</b> The time leak tracker turns the 20-minute count into a measured week: <a href="tracker.html">tishka.ai/tracker</a></li>
+            <li>If the number warrants a wider map: the <b>£499 diagnostic</b>. A one-hour call, a written report, and a 30-minute follow-up where we recommend what to build first. <b>5 hours found or full refund, and the £499 is credited in full against any build.</b></li>
+          </ol>
+          <a class="btn btn-primary" href="contact.html">Book the Diagnostic</a>
+        </div>
+      </div>
+
+      <p class="related">The method behind the three checks lives on the <a href="method.html">method page</a>. New posts in the series land through September.</p>
+    </div>
+  </article>
+
+  <footer>
+    <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>Read</h3>
+          <ul>
+            <li><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="terms.html">Terms &amp; Conditions</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="refund.html">Refund Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="social-icons">
+          <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
+          <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+        <div>TISHKA AI &copy; 2026</div>
+        <a class="btn btn-primary" href="contact.html">Book a Diagnostic</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+      else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+    });
+  })();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How much is admin really costing you? Run the 20-minute count",
+    "description": "A 20-minute exercise that puts a £ figure on the admin eating your week, and three checks that decide what to hand over first.",
+    "datePublished": "2026-09-04",
+    "dateModified": "2026-09-04",
+    "author": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
+    "publisher": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
+    "mainEntityOfPage": "https://tishka.ai/how-much-is-admin-really-costing-you"
+  }
+  </script>
+
+  <!-- Chat widget (Tishka AI assistant) -->
+  <script src="chat-widget.js"></script>
+</body>
+</html>

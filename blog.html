@@ -1,315 +1,177 @@
 <!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — BLOG (the "How to" series)
+  Rebuilt 2026-09-04 in the home page v2 style (Schibsted Grotesk +
+  Archivo, site.css tokens). Replaces the old Playdate-identity page.
+  Series + queue governed by Business/SOP/05-marketing-content/
+  00-CONTENT-PLAN.md.
+============================================================= -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog — Tishka AI</title>
-<meta name="description" content="Resources and guides for small business owners. No jargon — written for business owners, not tech people.">
+<meta name="color-scheme" content="light dark">
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<title>Blog | Tishka AI</title>
+<meta name="description" content="Plain-English guides for small business owners. One repeating piece of admin per post: what it costs you, and how to hand it over.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="resource/site.css">
 <style>
-  :root {
-    /* Playdate design tokens */
-    --color-sunbeam-yellow: #ffc500;
-    --color-electric-violet: #7700ff;
-    --color-carbon: #312f27;
-    --color-paper-white: #ffffff;
-    --color-slate-gray: #788086;
-    --color-fog: #efefef;
-    --color-sand: #e9e4d9;
-    --color-ash: #b1afa7;
-
-    --font-roobert: 'Manrope', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-
-    --text-caption: 16px;
-    --text-body: 18px;
-    --text-subheading: 24px;
-    --text-heading: 34px;
-    --text-heading-lg: 40px;
-    --text-display: 51px;
-    --text-hero: 68px;
-
-    --spacing-12: 12px;
-    --spacing-20: 20px;
-    --spacing-24: 24px;
-    --spacing-28: 28px;
-    --spacing-40: 40px;
-    --spacing-60: 60px;
-    --spacing-100: 100px;
-    --spacing-120: 120px;
-
-    --radius-cards: 2.85px;
-    --radius-buttons: 28.5px;
-    --radius-navbuttons: 22px;
-
-    --page-max-width: 1200px;
-  }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { color-scheme: light; }
+  html[data-theme="dark"] { color-scheme: dark; }
+  body { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { font-family: "Schibsted Grotesk", "Archivo", sans-serif; }
 
-  html { scroll-behavior: smooth; }
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo img { height: 26px; width: auto; display: block; }
+  html:not([data-theme="dark"]) .logo img { filter: invert(1); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    padding: 11px 20px; border-radius: 6px; font-size: 1rem; font-weight: 600;
+    font-family: inherit; white-space: nowrap; transition: background 0.15s ease; cursor: pointer; border: none; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
+  .btn-ghost { background: var(--ghost-bg); border: 1px solid var(--border); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+  .theme-btn { padding: 0; width: 40px; height: 40px; background: transparent; border: none;
+    color: var(--muted); }
+  .theme-btn:hover { color: var(--ink); background: transparent; }
+  .theme-btn .ico-sun, .theme-btn .ico-moon { display: block; }
+  .theme-btn .ico-sun { display: none; }
+  html[data-theme="dark"] .theme-btn .ico-sun { display: block; }
+  html[data-theme="dark"] .theme-btn .ico-moon { display: none; }
 
-  body {
-    font-family: var(--font-roobert);
-    color: var(--color-carbon);
-    background: var(--color-paper-white);
-    line-height: 1.3;
-    letter-spacing: -0.007em;
-    -webkit-font-smoothing: antialiased;
-  }
+  /* page intro */
+  .intro { max-width: 720px; margin: 0 auto; padding: 72px 0 48px; }
+  .eyebrow { font-size: 1rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .intro h1 { font-size: clamp(2.4rem, 5vw, 3.4rem); font-weight: 800;
+    letter-spacing: -0.045em; line-height: 1.08; margin-bottom: 16px; }
+  .intro p { color: var(--muted); font-size: 1.125rem; max-width: 52ch; }
 
-  img { max-width: 100%; display: block; }
+  /* post card — same card treatment as the calculator */
+  .post-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
+    padding: 36px 32px; max-width: 720px; margin: 0 auto 56px; }
+  .post-card .meta { font-size: 1rem; color: var(--muted); margin-bottom: 12px; }
+  .post-card h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 12px; }
+  .post-card h2 a:hover { color: var(--muted); }
+  .post-card p { color: var(--muted); font-size: 1.125rem; margin-bottom: 20px; }
 
-  .container {
-    max-width: var(--page-max-width);
-    margin: 0 auto;
-    padding: 0 var(--spacing-24);
-  }
+  /* next in the series */
+  .series { max-width: 720px; margin: 0 auto; padding-bottom: 72px; }
+  .series h2 { font-size: 1.65rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 18px; }
+  .series ul { list-style: none; }
+  .series li { padding: 14px 0; border-bottom: 1px solid var(--border);
+    color: var(--muted); font-size: 1.125rem; }
+  .series li:first-child { border-top: 1px solid var(--border); }
+  .series .note { font-size: 1rem; color: var(--muted); margin-top: 16px; }
 
-  /* ---------- Navigation ---------- */
-  .nav {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    z-index: 10;
-  }
-  .nav-inner {
-    max-width: var(--page-max-width);
-    margin: 0 auto;
-    padding: var(--spacing-24);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .nav-left { display: flex; align-items: center; gap: var(--spacing-28); }
-  .nav-brand {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-  }
-  .nav-brand img { height: 28px; width: auto; display: block; }
-  .nav-links { display: flex; gap: var(--spacing-24); }
-  .nav-links a {
-    font-weight: 700;
-    font-size: var(--text-caption);
-    color: var(--color-carbon);
-    text-decoration: none;
-  }
-  .nav-links a:hover { text-decoration: underline; }
-  .nav-cta {
-    background: var(--color-electric-violet);
-    color: var(--color-paper-white);
-    font-weight: 700;
-    font-size: 19px;
-    padding: 8px 16px;
-    border-radius: var(--radius-navbuttons);
-    text-decoration: none;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-  }
-  .nav-cta:hover { background: #5c00cc; }
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: 1rem; color: var(--muted); }
+  .footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+    padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
+  .footer-col h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; }
+  .footer-col a { color: var(--muted); }
+  .footer-col a:hover { color: var(--ink); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .social-icons { display: flex; gap: 14px; align-items: center; }
+  .social-icons a { display: flex; align-items: center; color: var(--ink); }
 
-  /* ---------- Hero ---------- */
-  .hero {
-    background: var(--color-sunbeam-yellow);
-    padding: var(--spacing-120) 0 var(--spacing-100);
-    text-align: center;
-  }
-  .hero h1 {
-    font-size: var(--text-hero);
-    font-weight: 800;
-    line-height: 1.0;
-    color: var(--color-carbon);
-    letter-spacing: -0.48px;
-    margin-bottom: var(--spacing-40);
-  }
-  .hero-tagline {
-    font-size: var(--text-heading-lg);
-    font-weight: 700;
-    color: var(--color-carbon);
-    margin-bottom: var(--spacing-20);
-  }
-  .hero-sub {
-    font-size: var(--text-body);
-    color: var(--color-carbon);
-    max-width: 640px;
-    margin: 0 auto var(--spacing-40);
-  }
-  .btn {
-    display: inline-block;
-    background: var(--color-electric-violet);
-    color: var(--color-paper-white);
-    font-weight: 700;
-    font-size: 21px;
-    padding: 14px 28px;
-    border-radius: var(--radius-buttons);
-    text-decoration: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
-  .btn:hover { background: #5c00cc; }
-
-  /* ---------- Sections ---------- */
-  .section { padding: var(--spacing-100) 0; }
-  .section--white { background: var(--color-paper-white); }
-  .section--yellow { background: var(--color-sunbeam-yellow); }
-  .section--fog { background: var(--color-fog); }
-
-  .section-inner { max-width: 640px; margin: 0 auto; }
-
-  .eyebrow {
-    font-size: var(--text-caption);
-    font-weight: 700;
-    color: var(--color-electric-violet);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    margin-bottom: var(--spacing-12);
-  }
-  .section h2 {
-    font-size: var(--text-heading-lg);
-    font-weight: 800;
-    line-height: 1.1;
-    color: var(--color-carbon);
-    margin-bottom: var(--spacing-24);
-  }
-  .section p {
-    font-size: var(--text-body);
-    color: var(--color-carbon);
-    margin-bottom: var(--spacing-20);
-  }
-  .section ul {
-    list-style: none;
-    margin: var(--spacing-24) 0;
-  }
-  .section li {
-    font-size: var(--text-body);
-    color: var(--color-carbon);
-    padding: var(--spacing-12) 0;
-    border-bottom: 1px solid var(--color-ash);
-  }
-  .section li:last-child { border-bottom: none; }
-  .section li strong { font-weight: 800; }
-
-  /* ---------- CTA ---------- */
-  .cta { text-align: center; }
-  .cta h2 { margin-bottom: var(--spacing-20); }
-  .cta p { max-width: 640px; margin: 0 auto var(--spacing-40); }
-
-  /* ---------- Footer ---------- */
-  .footer {
-    background: var(--color-carbon);
-    color: var(--color-paper-white);
-    padding: var(--spacing-60) 0;
-  }
-  .footer-inner {
-    max-width: var(--page-max-width);
-    margin: 0 auto;
-    padding: 0 var(--spacing-24);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-24);
-    align-items: center;
-    justify-content: space-between;
-  }
-  .footer p { font-size: var(--text-caption); color: var(--color-paper-white); }
-  .footer a {
-    color: var(--color-paper-white);
-    font-size: var(--text-caption);
-    font-weight: 700;
-    text-decoration: none;
-    margin-left: var(--spacing-24);
-  }
-  .footer a:hover { text-decoration: underline; }
-
-  /* ---------- Responsive ---------- */
-  @media (max-width: 768px) {
-    .hero h1 { font-size: 44px; }
-    .hero-tagline { font-size: 28px; }
-    .section h2 { font-size: 30px; }
-    .section { padding: var(--spacing-60) 0; }
-    .hero { padding: var(--spacing-100) 0 var(--spacing-60); }
-    .nav-links { display: none; }
+  @media (max-width: 640px) {
+    .intro { padding-top: 48px; }
+    .nav { height: 56px; }
+    .nav .btn { padding: 7px 10px; font-size: 1rem; }
+    .logo img { height: 22px; }
   }
 </style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-inner">
-      <div class="nav-left">
-        <a class="nav-brand" href="index.html"><img src="assets/Tishka_AI-dark.svg" alt="Tishka AI" height="28"></a>
-        <div class="nav-links">
-          <a href="how-it-works.html">How it works</a>
-          <a href="pricing.html">Pricing</a>
-          <a href="about.html">About</a>
-          <a href="blog.html">Blog</a>
-          <a href="audit.html">Free audit</a>
-        </div>
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo"><img src="assets/Tishka_AI.svg" alt="Tishka AI" height="26"></a>
+      <div class="nav-actions">
+        <button id="themeToggle" class="btn btn-ghost theme-btn" type="button" aria-label="Switch colour theme">
+          <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary">Book Diagnostic</a>
       </div>
-      <a class="nav-cta" href="contact.html">Book a call</a>
-    </div>
-  </nav>
-
-  <!-- Hero -->
-  <header class="hero" id="top">
-    <div class="container">
-      <h1>Blog</h1>
-      <p class="hero-tagline">Resources and guides.</p>
-      <p class="hero-sub">Written for business owners, not tech people. No jargon.</p>
     </div>
   </header>
 
-  <!-- Lead magnet -->
-  <section class="section section--white">
+  <section class="intro">
+    <p class="eyebrow">The How to series</p>
+    <h1>Blog</h1>
+    <p>Plain-English guides for business owners. One repeating piece of admin per post: what it costs you, and how to hand it over. No jargon.</p>
+  </section>
+
+  <section class="post-card">
+    <p class="meta">4 September 2026 · The How to series, post 1</p>
+    <h2><a href="how-much-is-admin-really-costing-you.html">How much is admin really costing you? Run the 20-minute count</a></h2>
+    <p>A 20-minute exercise that puts an actual £ figure on the admin eating your week, plus a simple way to decide what to hand over first.</p>
+    <a class="btn btn-ghost" href="how-much-is-admin-really-costing-you.html">Read the post</a>
+  </section>
+
+  <section class="series">
+    <h2>Next in the series</h2>
+    <ul>
+      <li>Which work can AI take off your desk, and which it shouldn't touch</li>
+      <li>How to stop reformatting CVs by hand</li>
+      <li>How to hand a job to AI without losing control of it</li>
+    </ul>
+    <p class="note">New posts land through September.</p>
+  </section>
+
+  <footer>
     <div class="container">
-      <div class="section-inner">
-        <p class="eyebrow">Coming soon</p>
-        <h2>The Small Business Guide to AI Automation (2026)</h2>
-        <p>What AI can actually do for your business right now. What it costs. What to automate first. And how to avoid spending £12,000 on a platform you'll use 20% of.</p>
-        <p><em>Coming soon. Join the mailing list to get it first.</em></p>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>Read</h3>
+          <ul>
+            <li><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="terms.html">Terms &amp; Conditions</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="refund.html">Refund Policy</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <!-- More articles -->
-  <section class="section section--yellow">
-    <div class="container">
-      <div class="section-inner">
-        <p class="eyebrow">More articles planned</p>
-        <h2>What's coming.</h2>
-        <ul>
-          <li>How much is admin really costing you? (A 5-minute calculator)</li>
-          <li>Why most AI tools don't stick — and what to do about it</li>
-          <li>The 30/60/90 day automation roadmap</li>
-          <li>Voice AI for trades: answering calls while you're on site</li>
-          <li>How one consultancy saved 24 hours a week (case study)</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Mailing list -->
-  <section class="section section--fog cta">
-    <div class="container">
-      <h2>Want these when they're published?</h2>
-      <p>Drop us your email and we'll send each article the moment it's ready.</p>
-      <!-- PLACEHOLDER: replace with your real email address when ready -->
-      <a class="btn" href="mailto:hello@caniagentit.com">Get the articles first →</a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div>
-        <a href="terms.html">Terms &amp; Conditions</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="refund.html">Refund Policy</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="contact.html">Book a call</a>
+      <div class="footer-bottom">
+        <div class="social-icons">
+          <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
+          <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+        <div>TISHKA AI &copy; 2026</div>
+        <a class="btn btn-primary" href="contact.html">Book a Diagnostic</a>
       </div>
     </div>
   </footer>
 
+  <script>
+  (function () {
+    var themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+      else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+    });
+  })();
+  </script>
 
   <!-- Chat widget (Tishka AI assistant) -->
   <script src="chat-widget.js"></script>
