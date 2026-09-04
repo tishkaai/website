@@ -12,4 +12,7 @@ hostinger.html
 # Internal vault docs — NOT part of the live site. Keep out of the repo.
 *.md
 chat-test.html
-resource/
+# resource/ holds design reference — EXCEPT site.css, the shared token
+# stylesheet every live page links. It must ship with the site.
+resource/*
+!resource/site.css
