@@ -1,126 +1,127 @@
 <!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — BOOK THE DIAGNOSTIC
+  Rebuilt 2026-09-04 in the home page v2 style (Schibsted Grotesk +
+  Archivo, site.css tokens, paper/ink identity). Form plumbing is
+  UNCHANGED: same n8n webhook, same Cal.com redirect, same field names.
+  Copy aligned to the £499 diagnostic per Pete's 2026-09-04 decisions
+  (diagnostic front door · 5 hrs found or full refund · every pound
+  credited). Budget options switched $ -> £. SOP name rule: customer-
+  facing = "diagnostic", never "assessment/audit".
+============================================================= -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tishka AI — Book a Diagnostic</title>
-<meta name="description" content="Book a free diagnostic. Tell us about your business and we'll find where AI can transform it — no pitch, no pressure.">
+<meta name="color-scheme" content="light dark">
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<title>Tishka AI — Book the Diagnostic</title>
+<meta name="description" content="Book the Tishka diagnostic. One hour on how your week actually runs, a ranked report in plain English, and a follow-up call to walk it through. 5 hours found or the fee comes back.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="resource/site.css">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  :root {
-    --bg: #0a0a0a;
-    --bg-card: #111111;
-    --bg-elevated: #1a1a1a;
-    --border: #2a2a2a;
-    --text: #f5f5f5;
-    --text-muted: #a1a1a1;
-    --accent: #ffffff;
-    --green: #22c55e;
-    --blue: #3b82f6;
-  }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
+  :root { color-scheme: light; }
+  html[data-theme="dark"] { color-scheme: dark; }
+  body { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { font-family: "Schibsted Grotesk", "Archivo", sans-serif; }
 
-  /* Header */
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(10, 10, 10, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .logo { display: inline-flex; align-items: center; }
-  .logo img { height: 28px; width: auto; display: block; }
-  .nav-links { display: flex; gap: 28px; font-size: 0.9rem; color: var(--text-muted); }
-  .nav-links a:hover { color: var(--text); }
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center;
-    padding: 10px 18px; border-radius: 9999px; font-size: 0.9rem;
-    font-weight: 500; transition: all 0.15s ease; cursor: pointer; border: none;
-  }
-  .btn-primary { background: white; color: black; }
-  .btn-primary:hover { background: #e5e5e5; }
-  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
-  .btn-outline:hover { background: var(--bg-elevated); }
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo img { height: 26px; width: auto; display: block; }
+  html:not([data-theme="dark"]) .logo img { filter: invert(1); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    padding: 11px 20px; border-radius: 6px; font-size: 1rem; font-weight: 600;
+    font-family: inherit; white-space: nowrap; transition: background 0.15s ease; cursor: pointer; border: none; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
+  .btn-ghost { background: var(--ghost-bg); border: 1px solid var(--border); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+  .theme-btn { padding: 0; width: 40px; height: 40px; background: transparent; border: none;
+    color: var(--muted); }
+  .theme-btn:hover { color: var(--ink); background: transparent; }
+  .theme-btn .ico-sun, .theme-btn .ico-moon { display: block; }
+  .theme-btn .ico-sun { display: none; }
+  html[data-theme="dark"] .theme-btn .ico-sun { display: block; }
+  html[data-theme="dark"] .theme-btn .ico-moon { display: none; }
 
-  /* Intro + Form split */
-  .split { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; padding: 80px 0 40px; }
-  .intro-text { position: sticky; top: 96px; }
-  .intro-eyebrow {
-    font-size: 0.95rem; font-weight: 600; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;
-  }
-  .intro-text h1 {
-    font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 650;
-    letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 24px;
-  }
-  .intro-text p { font-size: 1.25rem; color: var(--text-muted); max-width: 560px; line-height: 1.55; }
-  .intro-text p + p { margin-top: 20px; }
+  /* intro (left) + form (right) — same asymmetric split as the home page */
+  .split { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; align-items: start;
+    padding: 80px 0 76px; }
+  .split-aside { position: sticky; top: 96px; }
+  .eyebrow { font-size: 1rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .split-aside h1 { font-size: clamp(2.2rem, 4.4vw, 3.2rem); font-weight: 800;
+    letter-spacing: -0.045em; line-height: 1.1; margin-bottom: 18px; }
+  .split-aside p { color: var(--muted); font-size: 1.125rem; margin-bottom: 18px; max-width: 44ch; }
+  .guarantee { border-left: 3px solid var(--stamp); padding: 2px 0 2px 14px; margin-top: 8px;
+    font-size: 1.125rem; color: var(--muted); max-width: 44ch; }
+  .guarantee b { color: var(--stamp); }
+  .fee-note { font-size: 1rem; color: var(--muted); margin-top: 14px; }
 
-  /* Form */
-  .form-card {
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 40px 32px;
-  }
+  /* form card — same card treatment as the calculator on the home page */
+  .form-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
+    padding: 36px 32px; }
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .form-group { display: flex; flex-direction: column; gap: 8px; }
   .form-group.full { grid-column: 1 / -1; }
-  label { font-size: 0.9rem; font-weight: 550; color: var(--text); }
+  label { font-size: 1rem; font-weight: 600; color: var(--ink); }
   input, select, textarea {
     width: 100%;
-    background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
-    color: var(--text); font-size: 0.95rem; padding: 12px 14px;
+    background: var(--paper); border: 1px solid var(--border); border-radius: 8px;
+    color: var(--ink); font-size: 1.125rem; padding: 12px 14px;
     font-family: inherit; transition: border-color 0.15s ease;
   }
-  input::placeholder, textarea::placeholder { color: var(--text-muted); }
-  input:focus, select:focus, textarea:focus {
-    outline: none; border-color: var(--accent);
-  }
+  input::placeholder, textarea::placeholder { color: var(--muted); }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--ink); }
   select { appearance: none; -webkit-appearance: none; cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a1a1a1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235b5b64' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat; background-position: right 14px center;
     padding-right: 40px;
   }
-  select option { background: var(--bg-card); color: var(--text); }
+  select option { background: var(--raise); color: var(--ink); }
   textarea { min-height: 140px; resize: vertical; }
   .form-submit { grid-column: 1 / -1; margin-top: 8px; }
+  .form-submit .btn { width: 100%; padding: 14px 18px; }
 
-  /* Footer */
-  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; margin-top: 60px; font-size: 0.9rem; color: var(--text-muted); }
-  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: 24px; }
-  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
-  .footer-links a:hover { color: var(--text); }
-  .footer-cta { color: var(--text); }
-  .social-icons { display: flex; gap: 14px; align-items: center; }
-  .social-icons a { display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: color 0.15s ease; }
-  .social-icons a:hover { color: var(--text); }
-
-  /* Form feedback states */
-  .form-message {
-    border-radius: 12px; padding: 20px 22px; font-size: 1rem; line-height: 1.5;
-    display: none;
-  }
-  .form-message.success { background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.3); color: var(--text); }
-  .form-message.error { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3); color: var(--text); }
-  .form-message a { color: var(--text); text-decoration: underline; }
-  .form-submit .btn { transition: opacity 0.15s ease; }
+  /* form feedback states */
+  .form-message { border-radius: 8px; padding: 18px 20px; font-size: 1rem; line-height: 1.5;
+    color: var(--ink); display: none; }
+  .form-message.success { background: var(--band); border: 1px solid var(--border); }
+  .form-message.error { background: var(--band); border: 1px solid var(--bad);
+    border-left: 3px solid var(--bad); }
+  .form-message a { text-decoration: underline; }
   .form-submit .btn.is-sending { opacity: 0.6; pointer-events: none; }
 
-  @media (max-width: 640px) {
-    .nav-links { display: none; }
-    .split { grid-template-columns: 1fr; gap: 40px; padding-top: 48px; }
-    .intro-text { position: static; }
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: 1rem; color: var(--muted); }
+  .footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+    padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
+  .footer-col h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; }
+  .footer-col a { color: var(--muted); }
+  .footer-col a:hover { color: var(--ink); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .social-icons { display: flex; gap: 14px; align-items: center; }
+  .social-icons a { display: flex; align-items: center; color: var(--ink); }
+
+  @media (max-width: 840px) {
+    .split { grid-template-columns: 1fr; gap: 32px; padding-top: 48px; }
+    .split-aside { position: static; }
+    .form-card { padding: 24px 20px; }
     .form-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nav { height: 56px; }
+    .nav .btn { padding: 7px 10px; font-size: 1rem; }
+    .logo img { height: 22px; }
   }
 </style>
 </head>
@@ -128,25 +129,33 @@
 
   <header>
     <div class="container nav">
-      <a href="index.html" class="logo"><img src="assets/Tishka_AI.svg" alt="Tishka AI" height="28"></a>
-      <a href="#book" class="btn btn-primary">Book Diagnostic</a>
+      <a href="index.html" class="logo"><img src="assets/Tishka_AI.svg" alt="Tishka AI" height="26"></a>
+      <div class="nav-actions">
+        <button id="themeToggle" class="btn btn-ghost theme-btn" type="button" aria-label="Switch colour theme">
+          <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+        <a href="#book" class="btn btn-primary">Book Diagnostic</a>
+      </div>
     </div>
   </header>
 
   <!-- Intro (left) + Form (right) -->
   <section id="book">
     <div class="container split">
-      <div class="intro-text">
-        <p class="intro-eyebrow">Work With Us</p>
-        <h1>Ready to transform your business with AI?</h1>
-        <p>We help companies unlock real operational efficiency by identifying where AI and software can drive measurable impact and then building and implementing those solutions end-to-end. If you're looking for a partner who can cut through the noise and deliver AI that actually moves the needle, let's talk.</p>
+      <div class="split-aside">
+        <p class="eyebrow">The Diagnostic</p>
+        <h1>Book the diagnostic.</h1>
+        <p>One hour on how your week actually runs: who does what, when, and where the bottlenecks build up in the working day. No pitch, no tech talk.</p>
+        <div class="guarantee"><b>£499, one fixed fee.</b> We find five hours a week or the fee comes back in full. Go ahead with any build and every pound is credited against it.</div>
+        <p class="fee-note">Send the form and you're taken straight to the booking page to pick your time.</p>
       </div>
       <div class="form-card">
         <!-- Lead capture via n8n (PikaPods). POSTs to the "Lead Capture" workflow,
              which writes the lead to Supabase + pings Pete on Telegram, then the
              visitor is redirected to Cal.com to book the diagnostic. -->
         <div id="form-success" class="form-message success" role="status" aria-live="polite">
-          Thanks — you'll be taken to the booking page to pick a time for your free diagnostic.
+          Thanks, you're being taken to the booking page to pick your time for the discovery call.
         </div>
         <div id="form-error" class="form-message error" role="alert" aria-live="polite">
           Something went wrong sending your details. Please try again, or email Pete directly at <a href="mailto:pete@tishka.ai">pete@tishka.ai</a>.
@@ -189,28 +198,28 @@
               <label for="size">Company Size</label>
               <select id="size" name="size">
                 <option value="" disabled selected>Number of employees</option>
-                <option>1 - 50</option>
-                <option>50 - 100</option>
-                <option>100 - 500</option>
-                <option>500+</option>
+                <option>1 - 10</option>
+                <option>11 - 25</option>
+                <option>26 - 50</option>
+                <option>50+</option>
               </select>
             </div>
             <div class="form-group">
               <label for="budget">Budget Range</label>
               <select id="budget" name="budget">
                 <option value="" disabled selected>Select a range</option>
-                <option>$15K - $50K</option>
-                <option>$50K - $150K</option>
-                <option>$150K - $500K</option>
+                <option>Under £5K</option>
+                <option>£5K - £10K</option>
+                <option>£10K - £15K</option>
                 <option>Not Sure Yet</option>
               </select>
             </div>
             <div class="form-group full">
-              <label for="project">Tell Us About Your Project</label>
-              <textarea id="project" name="project" placeholder="What challenges are you facing? What does success look like for your business?"></textarea>
+              <label for="project">Anything we should know before the call?</label>
+              <textarea id="project" name="project" placeholder="What does a typical week look like? Where do you think the time goes?"></textarea>
             </div>
             <div class="form-group full form-submit">
-              <button type="submit" class="btn btn-primary" style="width:100%; padding:14px 18px; font-size:1rem;">Book a free diagnostic &rarr;</button>
+              <button type="submit" class="btn btn-primary">Book the diagnostic</button>
             </div>
           </div>
         </form>
@@ -221,28 +230,38 @@
   <!-- Footer -->
   <footer>
     <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="terms.html">Terms &amp; Conditions</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="refund.html">Refund Policy</a></li>
+          </ul>
+        </div>
+      </div>
       <div class="footer-bottom">
         <div class="social-icons">
-          <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg>
-          </a>
-          <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
+          <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
+          <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
         </div>
         <div>TISHKA AI &copy; 2026</div>
-        <div class="footer-links">
-          <a href="terms.html">Terms &amp; Conditions</a>
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="refund.html">Refund Policy</a>
-          <a href="pricing.html">Pricing</a>
-          <a class="footer-cta" href="contact.html">Book a Diagnostic</a>
-        </div>
+        <a class="btn btn-primary" href="#book">Book a Diagnostic</a>
       </div>
     </div>
   </footer>
 
   <script>
+  /* theme toggle (light default, dark opt-in) — same as the home page */
+  (function () {
+    var themeBtn = document.getElementById('themeToggle');
+    if (themeBtn) themeBtn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+      else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+    });
+  })();
+
   // Lead capture via n8n (PikaPods). POST form-encoded data to the "Lead Capture"
   // workflow (form-encoded is a "simple" CORS request, so no preflight — n8n's
   // webhook 500s on preflight). On success, redirect to Cal.com to book.
@@ -283,5 +302,8 @@
   })();
   </script>
 
+
+  <!-- Chat widget (Tishka AI assistant) -->
+  <script src="chat-widget.js"></script>
 </body>
 </html>

@@ -41,11 +41,11 @@
   .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
   .logo { display: inline-flex; align-items: center; }
   .logo img { height: 28px; width: auto; display: block; }
-  .nav-links { display: flex; gap: 28px; font-size: 0.9rem; color: var(--text-muted); }
+  .nav-links { display: flex; gap: 28px; font-size: 1rem; color: var(--text-muted); }
   .nav-links a:hover { color: var(--text); }
   .btn {
     display: inline-flex; align-items: center; justify-content: center;
-    padding: 10px 18px; border-radius: 9999px; font-size: 0.9rem;
+    padding: 10px 18px; border-radius: 9999px; font-size: 1rem;
     font-weight: 500; transition: all 0.15s ease; cursor: pointer; border: none;
   }
   .btn-primary { background: white; color: black; }
@@ -57,17 +57,17 @@
     font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 650;
     letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 12px;
   }
-  .legal .updated { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 40px; }
+  .legal .updated { color: var(--text-muted); font-size: 1rem; margin-bottom: 40px; }
   .legal h2 {
     font-size: 1.25rem; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em;
   }
-  .legal p { color: var(--text-muted); font-size: 1rem; margin-bottom: 16px; }
+  .legal p { color: var(--text-muted); font-size: 1.125rem; margin-bottom: 16px; }
   .legal a { color: var(--text); text-decoration: underline; }
   .legal ul { margin: 0 0 16px 20px; }
-  .legal li { color: var(--text-muted); margin-bottom: 8px; }
+  .legal li { color: var(--text-muted); font-size: 1.125rem; margin-bottom: 8px; }
 
   /* Footer */
-  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; margin-top: 60px; font-size: 0.9rem; color: var(--text-muted); }
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; margin-top: 60px; font-size: 1rem; color: var(--text-muted); }
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: 24px; }
   .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
   .footer-links a:hover { color: var(--text); }
@@ -127,5 +127,8 @@
     </div>
   </footer>
 
+
+  <!-- Chat widget (Tishka AI assistant) -->
+  <script src="chat-widget.js"></script>
 </body>
 </html>

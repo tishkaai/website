@@ -1,162 +1,215 @@
 <!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — DEMO: LEAD & DOCUMENT PARSER (LOCAL DRAFT — NOT LIVE, NOT DEPLOYED)
+  2026-09-04: restyled to operations-instrument identity (source: index-v2.html).
+  Copy + demo JS unchanged.
+  2026-09-04: top nav + footer switched to the index-v2 template (logo header,
+  icon theme toggle, Book Diagnostic; footer columns). Demo badge + disclaimer
+  copy kept, relocated below the header.
+============================================================= -->
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="color-scheme" content="light dark" />
 <script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
-<title>Tishka demo — Parser (runs in your browser)</title>
+<title>Tishka demo: Parser (runs in your browser)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../resource/site.css">
 <style>
+  /* index-v2 tokens — operations-instrument identity (source: index-v2.html) */
   :root {
-    --bg: #f6f6f8; --bg-raise: #ffffff; --bg-card: #ffffff;
-    --line: #e3e3e8; --line-soft: #ececf1;
-    --ink: #131316; --ink-dim: #55555e; --ink-faint: #808089;
-    --brass: #6d4cf0; --brass-bright: #5a38e8; --brass-deep: #b39afb;
-    --good: #0b7f5a; --warn: #a3701a; --bad: #d43f3f;
-    --on-brass: #ffffff;
-    --btn-solid-bg: #131316; --btn-solid-fg: #ffffff;
-    --sans: "DM Sans", -apple-system, sans-serif;
-    --mono: "JetBrains Mono", ui-monospace, monospace;
+      
+      
+     
+    
+      
+     
+    /* legacy aliases → index-v2 values (markup/JS class names unchanged) */
+    --bg: var(--paper); --bg-raise: var(--raise); --bg-card: var(--raise);
+    --line: var(--border); --line-soft: var(--band);
+    --ink-dim: var(--muted); --ink-faint: var(--muted);
+    --brass: var(--btn-bg); --brass-bright: var(--btn-bg-hover); --brass-deep: var(--ink);
+    --on-brass: var(--btn-fg);
+    --good: var(--ledger);
+    --btn-solid-bg: var(--btn-bg); --btn-solid-fg: var(--btn-fg);
+      /* functional status colours only */
+    --sans: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --display: "Schibsted Grotesk", "Archivo", sans-serif;
+    --mono: var(--sans);
     color-scheme: light;
   }
   html[data-theme="dark"] {
-    --bg: #0e0e10; --bg-raise: #18181b; --bg-card: #1c1c1f;
-    --line: #2a2a2e; --line-soft: #232327;
-    --ink: #ffffff; --ink-dim: #a7a7ad; --ink-faint: #77777c;
-    --brass: #7c5cf6; --brass-bright: #a78bfa; --brass-deep: #673de6;
-    --good: #2ecc9a; --warn: #d9a441; --bad: #ff5c5c;
-    --on-brass: #0e0e10;
-    --btn-solid-bg: #ffffff; --btn-solid-fg: #0e0e10;
+      
+      
+     
+    
+      
+     
+     
     color-scheme: dark;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; }
-  body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    background: radial-gradient(1100px 560px at 80% -10%, rgba(124,92,246,0.07), transparent 60%),
-                radial-gradient(900px 500px at 0% 110%, rgba(124,92,246,0.04), transparent 55%); }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, .display { font-family: var(--display); }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
   .shell { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 28px 40px 64px; }
 
-  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 30px; }
-  .backlink { font-family: var(--mono); font-size: 12px; color: var(--ink-dim); text-decoration: none; letter-spacing: .04em; }
-  .backlink:hover { color: var(--ink); }
-  .brandchip { display: flex; align-items: center; gap: 10px; }
-  .brandchip .mark { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--brass-bright), var(--brass-deep));
-    display: grid; place-items: center; font-weight: 600; color: var(--btn-solid-fg); font-size: 15px; }
-  .brandchip .name { font-size: 15px; font-weight: 500; }
-  .demo-badge { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--warn);
-    border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; background: var(--bg-raise); }
-  .theme-btn { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-dim);
-    border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; background: var(--bg-raise); cursor: pointer; }
-  .theme-btn:hover { color: var(--ink); border-color: var(--brass-deep); }
+  /* site header — same template as index-v2 */
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo img { height: 26px; width: auto; display: block; }
+  html:not([data-theme="dark"]) .logo img { filter: invert(1); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    padding: 11px 20px; border-radius: 6px; font-size: 1rem; font-weight: 600;
+    font-family: inherit; white-space: nowrap; transition: background 0.15s ease; cursor: pointer; border: none; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
+  .btn-ghost { background: var(--ghost-bg); border: 1px solid var(--border); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+  .theme-btn { padding: 0; width: 40px; height: 40px; background: transparent; border: none;
+    color: var(--muted); }
+  .theme-btn:hover { color: var(--ink); background: transparent; }
+  .theme-btn .ico-sun, .theme-btn .ico-moon { display: block; }
+  .theme-btn .ico-sun { display: none; }
+  html[data-theme="dark"] .theme-btn .ico-sun { display: block; }
+  html[data-theme="dark"] .theme-btn .ico-moon { display: none; }
+  .demo-badge { font-size: 13.7px; font-weight: 600; letter-spacing: .02em; color: var(--warn);
+    border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; background: var(--raise); }
+  .demo-topbadge { margin-bottom: 26px; }
 
-  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px;
-    letter-spacing: .14em; text-transform: uppercase; color: var(--brass); margin-bottom: 14px; }
-  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 4px rgba(124,92,246,0.15); }
-  h1 { font-size: clamp(28px, 4vw, 40px); font-weight: 500; letter-spacing: -0.015em; margin-bottom: 10px; }
-  .sub { font-size: 15px; color: var(--ink-dim); max-width: 62ch; margin-bottom: 26px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 15.6px;
+    font-weight: 600; color: var(--muted); margin-bottom: 14px; }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink); }
+  h1 { font-family: var(--display); font-size: clamp(28px, 4vw, 40px); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 10px; }
+  .sub { font-size: 19.5px; color: var(--muted); max-width: 62ch; margin-bottom: 26px; }
 
   .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-  .tab { font-family: var(--mono); font-size: 12px; color: var(--ink-dim); background: var(--bg-raise);
-    border: 1px solid var(--line); border-radius: 10px; padding: 9px 16px; cursor: pointer; }
-  .tab .auto { font-size: 9px; letter-spacing: .1em; color: var(--brass); margin-left: 6px; text-transform: uppercase; }
-  .tab.on { background: var(--brass); border-color: var(--brass); color: var(--on-brass); font-weight: 600; }
-  .tab .auto.on2 { color: var(--on-brass); }
+  .tab { font-family: inherit; font-size: 15.6px; font-weight: 600; color: var(--muted); background: var(--raise);
+    border: 1px solid var(--border); border-radius: 6px; padding: 9px 16px; cursor: pointer; }
+  .tab .auto { font-size: 13.0px; font-weight: 600; color: var(--muted); margin-left: 6px; }
+  .tab.on { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-fg); font-weight: 600; }
+  .tab .auto.on2 { color: var(--btn-fg); }
 
   .samples { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 22px; }
-  .samples .lbl { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
-  .chip { font-size: 12.5px; color: var(--ink-dim); background: transparent; border: 1px solid var(--line);
-    border-radius: 999px; padding: 6px 14px; cursor: pointer; }
-  .chip:hover { color: var(--ink); border-color: var(--brass-deep); }
+  .samples .lbl { font-size: 15.6px; font-weight: 600; color: var(--muted); }
+  .chip { font-family: inherit; font-size: 16.2px; color: var(--muted); background: transparent; border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 14px; cursor: pointer; }
+  .chip:hover { color: var(--ink); border-color: var(--ink); }
 
   .grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 16px; align-items: start; }
   @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-  .card { border: 1px solid var(--line); border-radius: 14px; background: var(--bg-card); padding: 18px 20px; }
-  .card .head { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px;
-    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 12px; }
-  .status { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; border-radius: 5px; padding: 3px 8px; margin-left: auto; }
-  .status.idle { background: var(--bg-raise); color: var(--ink-faint); }
-  .status.proc { background: rgba(217,164,65,0.14); color: var(--warn); }
-  .status.done { background: rgba(46,204,154,0.14); color: var(--good); }
+  .card { border: 1px solid var(--border); border-radius: 12px; background: var(--raise); padding: 18px 20px; }
+  .card .head { display: flex; align-items: center; gap: 8px; font-size: 15.6px;
+    font-weight: 600; color: var(--muted); margin-bottom: 12px; }
+  .status { font-size: 13.7px; font-weight: 600; border-radius: 5px; padding: 3px 8px; margin-left: auto; }
+  .status.idle { background: var(--band); color: var(--muted); }
+  .status.proc { background: rgba(163,112,26,0.12); color: var(--warn); }
+  .status.done { background: var(--band); color: var(--ink); }
 
-  textarea { width: 100%; min-height: 220px; background: var(--bg-raise); color: var(--ink); border: 1px solid var(--line);
-    border-radius: 10px; padding: 14px; font-size: 13.5px; line-height: 1.55; font-family: var(--sans); resize: vertical; }
-  textarea:focus { outline: 1px solid var(--brass-deep); }
+  textarea { width: 100%; min-height: 220px; background: var(--raise); color: var(--ink); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px; font-size: 17.6px; line-height: 1.55; font-family: var(--sans); resize: vertical; }
+  textarea:focus { outline: 1px solid var(--ink); }
 
   .input-actions { display: flex; align-items: center; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
-  .parse { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--on-brass); background: var(--brass);
-    border: 0; border-radius: 10px; padding: 11px 22px; cursor: pointer; }
-  .parse:hover { background: var(--brass-bright); }
-  .parse[disabled] { background: var(--line); color: var(--ink-faint); cursor: default; }
-  .upload { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; padding: 10px 16px;
-    border-radius: 10px; border: 1px solid var(--line); background: transparent; color: var(--ink-dim); cursor: pointer; }
-  .upload:hover { color: var(--ink); border-color: var(--brass-deep); }
-  .input-hint { font-size: 11.5px; color: var(--ink-faint); margin-top: 10px; }
+  .parse { font-family: inherit; font-size: 16.9px; font-weight: 600; color: var(--btn-fg); background: var(--btn-bg);
+    border: 0; border-radius: 6px; padding: 11px 22px; cursor: pointer; }
+  .parse:hover { background: var(--btn-bg-hover); }
+  .parse[disabled] { background: var(--band); color: var(--muted); cursor: default; }
+  .upload { font-family: inherit; font-size: 15.0px; font-weight: 600; padding: 10px 16px;
+    border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; }
+  .upload:hover { color: var(--ink); border-color: var(--ink); }
+  .input-hint { font-size: 15.0px; color: var(--muted); margin-top: 10px; }
 
   .steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; min-height: 26px; }
-  .step { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; padding: 4px 10px; border-radius: 6px;
-    border: 1px solid var(--line); color: var(--ink-dim); opacity: 0; transform: translateY(4px); transition: all .3s ease; }
+  .step { font-size: 14.3px; font-weight: 600; padding: 4px 10px; border-radius: 6px;
+    border: 1px solid var(--border); color: var(--muted); opacity: 0; transform: translateY(4px); transition: all .3s ease; }
   .step.show { opacity: 1; transform: none; }
 
-  .rec-row { display: flex; gap: 12px; padding: 7px 0; border-top: 1px solid var(--line-soft); font-size: 13.5px; }
+  .rec-row { display: flex; gap: 12px; padding: 7px 0; border-top: 1px solid var(--band); font-size: 17.6px; }
   .rec-row:first-of-type { border-top: none; }
-  .rec-k { color: var(--ink-faint); width: 128px; flex-shrink: 0; font-size: 12.5px; padding-top: 1px; }
+  .rec-k { color: var(--muted); width: 128px; flex-shrink: 0; font-size: 16.2px; padding-top: 1px; }
   .rec-v { color: var(--ink); }
-  .rec-v.nf { color: var(--ink-faint); }
-  .rec-v.money { color: var(--brass-bright); font-family: var(--mono); }
-  .badge { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; padding: 3px 8px; border-radius: 5px; }
-  .badge.high { background: rgba(46,204,154,0.14); color: var(--good); }
-  .badge.med { background: rgba(217,164,65,0.14); color: var(--warn); }
-  .badge.low { background: rgba(255,92,92,0.14); color: var(--bad); }
-  .badge.urgent { background: rgba(255,92,92,0.14); color: var(--bad); }
-  .badge.duesoon { background: rgba(217,164,65,0.14); color: var(--warn); }
-  .badge.flex { background: var(--bg-raise); color: var(--ink-dim); }
-  .badge.pos { background: rgba(46,204,154,0.14); color: var(--good); }
-  .badge.neg { background: rgba(255,92,92,0.14); color: var(--bad); }
+  .rec-v.nf { color: var(--muted); }
+  .rec-v.money { color: var(--ink); font-weight: 600; }
+  .badge { font-size: 13.0px; font-weight: 600; letter-spacing: .02em; padding: 3px 8px; border-radius: 5px; }
+  .badge.high { background: var(--band); color: var(--ink); }
+  .badge.med { background: rgba(163,112,26,0.12); color: var(--warn); }
+  .badge.low { background: rgba(212,63,63,0.12); color: var(--bad); }
+  .badge.urgent { background: rgba(212,63,63,0.12); color: var(--bad); }
+  .badge.duesoon { background: rgba(163,112,26,0.12); color: var(--warn); }
+  .badge.flex { background: var(--band); color: var(--muted); }
+  .badge.pos { background: var(--band); color: var(--ink); }
+  .badge.neg { background: rgba(212,63,63,0.12); color: var(--bad); }
 
   .copy-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
-  .copy-row button { font-family: var(--mono); font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase;
-    padding: 7px 14px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--ink-dim); cursor: pointer; }
-  .copy-row button:hover { color: var(--ink); border-color: var(--brass-deep); }
+  .copy-row button { font-family: inherit; font-size: 14.3px; font-weight: 600;
+    padding: 7px 14px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; }
+  .copy-row button:hover { color: var(--ink); border-color: var(--ink); }
 
-  .empty { font-size: 13px; color: var(--ink-faint); padding: 20px 0; }
+  .empty { font-size: 16.9px; color: var(--muted); padding: 20px 0; }
 
-  .connect { border: 1px dashed rgba(124,92,246,0.5); border-radius: 12px; background: rgba(124,92,246,0.06);
+  .connect { border: 1px dashed var(--border); border-radius: 8px; background: var(--band);
     padding: 16px; margin-top: 16px; }
-  .connect h4 { font-size: 13.5px; font-weight: 500; margin-bottom: 10px; }
-  .connect li { list-style: none; font-size: 13px; padding: 3px 0; color: var(--ink); }
-  .connect li::before { content: "✓ "; color: var(--good); font-weight: 600; }
+  .connect h4 { font-size: 17.6px; font-weight: 600; margin-bottom: 10px; }
+  .connect li { list-style: none; font-size: 16.9px; padding: 3px 0; color: var(--ink); }
+  .connect li::before { content: "✓ "; color: var(--ink); font-weight: 600; }
   .mode-toggle { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-  .mode-toggle button { font-size: 11.5px; font-family: var(--mono); padding: 6px 14px; border-radius: 999px;
-    border: 1px solid var(--line); background: transparent; color: var(--ink-dim); cursor: pointer; }
-  .mode-toggle button.on { background: var(--brass); color: var(--on-brass); border-color: var(--brass); font-weight: 600; }
+  .mode-toggle button { font-size: 15.0px; font-family: inherit; font-weight: 600; padding: 6px 14px; border-radius: 6px;
+    border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; }
+  .mode-toggle button.on { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); font-weight: 600; }
 
-  .demo-note { font-size: 11.5px; color: var(--ink-faint); margin-top: 16px; }
-  .foot { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line);
-    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
-  .foot a { color: var(--ink-dim); text-decoration: none; }
-  .foot a:hover { color: var(--ink); }
+  .demo-note { font-size: 15.0px; color: var(--muted); margin-top: 16px; }
+  /* site footer — same template as index-v2 */
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: 1rem; color: var(--muted); }
+  .footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+    padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
+  .footer-col h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; }
+  .footer-col a { color: var(--muted); }
+  .footer-col a:hover { color: var(--ink); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+  .footer-links a:hover { color: var(--ink); }
+  .footer-cta { color: var(--ink); font-weight: 600; }
+  .social-icons { display: flex; gap: 14px; align-items: center; }
+  @media (max-width: 640px) {
+    .nav { height: 56px; }
+    .nav .btn { padding: 7px 10px; font-size: 1rem; }
+    .logo img { height: 22px; }
+    .footer-cols { grid-template-columns: 1fr; gap: 24px; }
+  }
   [hidden] { display: none !important; }
 </style>
 </head>
 <body>
+<!-- site header — same template as index-v2 -->
+<header>
+  <div class="container nav">
+    <a href="index-v2.html" class="logo"><img src="../assets/Tishka_AI.svg" alt="Tishka AI" height="26"></a>
+    <div class="nav-actions">
+      <button id="themeToggle" class="btn btn-ghost theme-btn" type="button" aria-label="Switch colour theme">
+        <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <a href="../contact.html" class="btn btn-primary">Book Diagnostic</a>
+    </div>
+  </div>
+</header>
 <div class="shell">
-<!-- draft-nav-bar: local navigation between draft pages -->
-<div style="border-bottom:1px solid var(--line,var(--border,#e3e3e8));background:var(--bg-raise,var(--bg-card,#ffffff));"><div style="padding:9px 0;font-size:0.95rem;line-height:1.8;"><a href="index-v2.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Home</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="tracker.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Tracker</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-recruitment.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Recruitment</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-property.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Property</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-accountants.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Accountants</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-trades.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Trades</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="method.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Method</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="check.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Free check</a></div></div>
-
-  <div class="topbar">
-    <div class="brandchip"><div class="mark">t</div><div class="name">Tishka · Parser</div></div>
-    <span style="display:flex;align-items:center;gap:10px;">
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch colour theme">Dark</button>
-      <span class="demo-badge">DEMO · RUNS ENTIRELY IN YOUR BROWSER · NOTHING SENT OR STORED</span>
-    </span>
+  <div class="demo-topbadge">
+    <span class="demo-badge">DEMO · RUNS ENTIRELY IN YOUR BROWSER · NOTHING SENT OR STORED</span>
   </div>
 
   <div class="eyebrow"><span class="dot"></span> Lead &amp; document parser</div>
   <h1>Paste your mess. Watch it get filed.</h1>
-  <p class="sub">Paste an enquiry, quote, invoice or contract — or load a sample, or upload a file. It parses for real, right here in your browser. Nothing is sent anywhere, nothing is stored, and no email is taken.</p>
+  <p class="sub">Paste an enquiry, quote, invoice or contract, load a sample, or upload a file. It parses for real, right here in your browser. Nothing is sent anywhere, nothing is stored, and no email is taken.</p>
 
   <div class="tabs" id="tabs">
     <button class="tab on" data-type="enquiry">Lead / Enquiry<span class="auto">Auto-detect</span></button>
@@ -179,19 +232,21 @@
   <div class="grid">
     <div class="card">
       <div class="head">Your text</div>
-      <textarea id="txt" spellcheck="false">Hi, the kitchen tap's been leaking since Tuesday and now the cupboard under it is soaked. Can someone come this week? I'm out Tuesday but any other morning works. — D. Hughes, 12 Marlow Rd</textarea>
+      <textarea id="txt" spellcheck="false">Hi, the kitchen tap's been leaking since Tuesday and now the cupboard under it is soaked. Can someone come this week? I'm out Tuesday but any other morning works.
+Thanks,
+D. Hughes, 12 Marlow Rd</textarea>
       <div class="input-actions">
-        <button class="parse" id="parseBtn">Parse &rarr;</button>
+        <button class="parse" id="parseBtn">Parse</button>
         <button class="upload" id="uploadBtn">Upload a file</button>
         <input type="file" id="fileIn" accept=".txt,.csv,.md,.pdf" hidden />
       </div>
-      <p class="input-hint">Uploads: .txt / .csv / .md parse here and now. PDFs are read in-browser too — if the reader can't load, paste the text instead.</p>
+      <p class="input-hint">Uploads: .txt / .csv / .md parse here and now. PDFs are read in-browser too. If the reader can't load, paste the text instead.</p>
     </div>
 
     <div class="card">
       <div class="head">Extracted data <span class="status idle" id="status">IDLE</span></div>
       <div class="steps" id="steps" hidden></div>
-      <div id="out"><div class="empty">Parse something and the clean record lands here — fields it can't find stay empty, never invented.</div></div>
+      <div id="out"><div class="empty">Parse something and the clean record lands here. Fields it can't find stay empty, never invented.</div></div>
       <div class="copy-row" id="copyRow" hidden>
         <button id="copyText">Copy as text</button>
         <button id="copyJson">Copy as JSON</button>
@@ -202,33 +257,52 @@
         <h4>In your business, this record files itself:</h4>
         <ul id="connectLines"></ul>
         <div class="mode-toggle" id="modeToggle">
-          <button class="on" data-mode="approve">Approval first — nothing files until you approve</button>
-          <button data-mode="auto">Auto for routine — you opt in, per category</button>
+          <button class="on" data-mode="approve">Approval first: nothing files until you approve</button>
+          <button data-mode="auto">Auto for routine: you opt in, per category</button>
         </div>
       </div>
-      <p class="demo-note">This demo is a real parser running in your browser — sample text or yours, treated the same. Live, it reads your real enquiries and files them into the systems you already use, with your approval. Built in your first two weeks.</p>
+      <p class="demo-note">This demo is a real parser running in your browser: sample text or yours, treated the same. Live, it reads your real enquiries and files them into the systems you already use, with your approval. Built in your first two weeks.</p>
     </div>
   </div>
 
-  <div class="foot">
-    <span>Nothing you paste or upload leaves this page — there is no backend on this demo.</span>
-    <span><a href="index-v2.html">&larr; Back to the site</a></span>
-  </div>
+  <p class="demo-note">Nothing you paste or upload leaves this page. There is no backend on this demo.</p>
 
 </div>
+<footer>
+  <div class="container">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="../terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="../privacy.html">Privacy Policy</a></li>
+          <li><a href="../refund.html">Refund Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="social-icons">
+        <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
+        <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      </div>
+      <div>TISHKA AI &copy; 2026</div>
+      <a class="btn btn-primary" href="../contact.html">Book a Diagnostic</a>
+    </div>
+  </div>
+</footer>
 <script>
 (function () {
   var $ = function (s) { return document.querySelector(s); };
   var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
-  var NF = '\u2014 not found';
+  var NF = 'not found';
 
   var SAMPLES = [
-    "Hi, the kitchen tap's been leaking since Tuesday and now the cupboard under it is soaked. Can someone come this week? I'm out Tuesday but any other morning works. \u2014 D. Hughes, 12 Marlow Rd",
+    "Hi, the kitchen tap's been leaking since Tuesday and now the cupboard under it is soaked. Can someone come this week? I'm out Tuesday but any other morning works.\nThanks,\nD. Hughes, 12 Marlow Rd",
     "Hi there,\nWe're looking for a quote for a full rewire on a 3-bed terrace in Preston before our tenant moves in this October. Ideally someone certified. Can you email a rough price? Best number is 07700 900432.\nThanks,\nMaria Kell\nKell Properties Ltd",
-    "Edmundson Electrical \u2014 Invoice INV-2291\nDate: 28/08/2026 \u00b7 Due: 28/09/2026\n6242Y cable 100m x 4 @ \u00a3182.40\nFCU switched x 12 @ \u00a39.60\nTotal: \u00a31,049.60 inc VAT\nPay by BACS, reference MER-2291. Payment terms 30 days.",
-    "Clause 14 \u2014 Termination. Either party may terminate on 30 days' written notice after the initial 12-month term. The term auto-renews for 12 months unless cancelled in writing. Payment terms: 30 days from invoice. This agreement is governed by the laws of England & Wales. Effective 01/09/2026. Expires 31/08/2027. Parties: Meridian Electrical Ltd and Beechwood Care Home.",
-    "August report \u2014 Meridian Electrical. Revenue \u00a39,400, up 12% on July. 14 jobs completed. Outstanding invoices \u00a38,400, of which \u00a32,640 overdue by 13 days. 5 new leads. Recommend chasing the Hollins invoice and confirming the Beechwood start date.",
-    "EICR request \u2014 Kings Cross Estates, portfolio of 12 units. Landlord certificates due 30/09/2026; three units were C1 observed last cycle. Access weekdays 9am\u20133pm. Contact: Jo Ellams, 01772 900 331."
+    "Edmundson Electrical - Invoice INV-2291\nDate: 28/08/2026 \u00b7 Due: 28/09/2026\n6242Y cable 100m x 4 @ \u00a3182.40\nFCU switched x 12 @ \u00a39.60\nTotal: \u00a31,049.60 inc VAT\nPay by BACS, reference MER-2291. Payment terms 30 days.",
+    "Clause 14: Termination. Either party may terminate on 30 days' written notice after the initial 12-month term. The term auto-renews for 12 months unless cancelled in writing. Payment terms: 30 days from invoice. This agreement is governed by the laws of England & Wales. Effective 01/09/2026. Expires 31/08/2027. Parties: Meridian Electrical Ltd and Beechwood Care Home.",
+    "August report: Meridian Electrical. Revenue \u00a39,400, up 12% on July. 14 jobs completed. Outstanding invoices \u00a38,400, of which \u00a32,640 overdue by 13 days. 5 new leads. Recommend chasing the Hollins invoice and confirming the Beechwood start date.",
+    "EICR request: Kings Cross Estates, portfolio of 12 units. Landlord certificates due 30/09/2026; three units were C1 observed last cycle. Access weekdays 9am\u20133pm. Contact: Jo Ellams, 01772 900 331."
   ];
 
   var docType = 'enquiry', lastResult = null, lastText = '';
@@ -347,7 +421,7 @@
       add('Payment ref', ref || NF);
       add('Payment terms', terms || NF);
       add('Contact', (name || emails[0] || phones[0]) ? (name || emails[0] || phones[0]) : NF);
-      meta.next = 'Match against purchase orders \u00b7 queue for your approval \u2014 nothing pays without you.';
+      meta.next = 'Match against purchase orders \u00b7 queue for your approval. Nothing pays without you.';
     } else if (type === 'contract') {
       var parties = clean(first(find(t, RX.party, 1)));
       var p1, p2;
@@ -375,7 +449,7 @@
       add('New leads', clean(first(find(t, RX.leads, 1))) || NF);
       var rec = /recommend[^.\n]*[.\n]?/i.exec(t);
       add('Flags / actions', rec ? clean(rec[0]) : NF);
-      meta.next = 'Numbers land on your dashboard \u00b7 actions drafted \u2014 you approve before anything sends.';
+      meta.next = 'Numbers land on your dashboard \u00b7 actions drafted. You approve before anything sends.';
     } else if (type === 'general') {
       add('Type', 'General');
       add('Summary', t.replace(/\s+/g, ' ').slice(0, 140) + (t.length > 140 ? '\u2026' : ''));
@@ -431,11 +505,11 @@
     $('#copyRow').hidden = false;
     $('#connect').hidden = false;
     var lines = {
-      invoice: ['Filed to your accounting \u2014 matched against the purchase order', 'Queued for your approval \u2014 nothing pays without you', 'Payment reminder drafted automatically if it slips'],
-      contract: ['Key terms extracted \u2014 expiry + notice dates go in the diary', 'Auto-renewal caught and flagged before it bites', 'Filed to your document store, searchable'],
-      report: ['Numbers land on your dashboard \u2014 no spreadsheet copying', 'Actions drafted \u2014 you approve before anything sends', 'Filed with this month\u2019s pack, searchable'],
-      general: ['Filed to the right place in your systems', 'Any reply drafted \u2014 waiting for your approval', 'Team alerted if it needs a human today'],
-      enquiry: ['Lead created in your job system \u2014 no retyping', 'Contact matched against your customer list', 'Team alerted \u2014 inbox + WhatsApp' + (URGENT_WORDS.test(lastText) ? ', URGENT tag' : '')]
+      invoice: ['Filed to your accounting, matched against the purchase order', 'Queued for your approval, and nothing pays without you', 'Payment reminder drafted automatically if it slips'],
+      contract: ['Key terms extracted: expiry + notice dates go in the diary', 'Auto-renewal caught and flagged before it bites', 'Filed to your document store, searchable'],
+      report: ['Numbers land on your dashboard, no spreadsheet copying', 'Actions drafted, and you approve before anything sends', 'Filed with this month\u2019s pack, searchable'],
+      general: ['Filed to the right place in your systems', 'Any reply drafted, waiting for your approval', 'Team alerted if it needs a human today'],
+      enquiry: ['Lead created in your job system, no retyping', 'Contact matched against your customer list', 'Team alerted: inbox + WhatsApp' + (URGENT_WORDS.test(lastText) ? ', URGENT tag' : '')]
     };
     $('#connectLines').innerHTML = (lines[r.type] || lines.enquiry).map(function (l) { return '<li>' + l + '</li>'; }).join('');
   }
@@ -453,7 +527,7 @@
   function runParse() {
     var text = $('#txt').value.trim();
     lastText = text;
-    if (!text) { setStatus('idle', 'IDLE'); $('#out').innerHTML = '<div class="empty">Paste something first \u2014 or load a sample above.</div>'; return; }
+    if (!text) { setStatus('idle', 'IDLE'); $('#out').innerHTML = '<div class="empty">Paste something first, or load a sample above.</div>'; return; }
     setStatus('proc', 'PROCESSING\u2026');
     var btn = $('#parseBtn'); btn.disabled = true; btn.textContent = 'Parsing\u2026';
     $('#connect').hidden = true; $('#copyRow').hidden = true;
@@ -464,7 +538,7 @@
       var core = r.rows.filter(function (row) { return row[0] !== 'Type' && row[0] !== 'Next action' && row[0] !== 'Summary'; });
       var emptyish = core.every(function (row) { return String(row[1]) === NF; }) || r.confidence[0] === 'LOW';
       if (emptyish) {
-        $('#out').innerHTML = '<div class="empty">Couldn\u2019t pull clean fields from that \u2014 and it never invents them. Try a sample, or paste text with a name, number or date in it.</div>';
+        $('#out').innerHTML = '<div class="empty">Couldn\u2019t pull clean fields from that, and it never invents them. Try a sample, or paste text with a name, number or date in it.</div>';
         $('#copyRow').hidden = true; $('#connect').hidden = true;
       }
       setStatus('done', 'COMPLETE');
@@ -496,12 +570,12 @@
   $('#parseBtn').addEventListener('click', runParse);
   $('#resetBtn').addEventListener('click', function () {
     $('#txt').value = SAMPLES[0];
-    $('#out').innerHTML = '<div class="empty">Parse something and the clean record lands here \u2014 fields it can\u2019t find stay empty, never invented.</div>';
+    $('#out').innerHTML = '<div class="empty">Parse something and the clean record lands here. Fields it can\u2019t find stay empty, never invented.</div>';
     $('#copyRow').hidden = true; $('#connect').hidden = true;
     setStatus('idle', 'IDLE');
     lastResult = null;
   });
-  $('#modeToggle button').forEach(function (b) {
+  $$('#modeToggle button').forEach(function (b) {
     b.addEventListener('click', function () {
       $$('#modeToggle button').forEach(function (x) { x.classList.remove('on'); });
       b.classList.add('on');
@@ -563,7 +637,7 @@
     reader.readAsArrayBuffer(file);
   }
   function pdfFail() {
-    downloadToast('Couldn\u2019t read that PDF here \u2014 paste the text instead, or try a .txt / .csv file.');
+    downloadToast('Couldn\u2019t read that PDF here. Paste the text instead, or try a .txt / .csv file.');
   }
 
   /* ---------- copy helpers ---------- */
@@ -595,19 +669,16 @@
 <script>
   // Theme toggle — light default, dark opt-in; choice remembered across pages.
   (function () {
-    var btn = document.getElementById('themeBtn');
-    function paint() {
-      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-      btn.textContent = dark ? 'Light' : 'Dark';
-    }
-    btn.addEventListener('click', function () {
+    var themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', function () {
       var dark = document.documentElement.getAttribute('data-theme') === 'dark';
       if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
       else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
-      paint();
     });
-    paint();
   })();
 </script>
+
+  <!-- Chat widget (Tishka AI assistant) -->
+  <script src="../chat-widget.js"></script>
 </body>
 </html>

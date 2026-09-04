@@ -10,14 +10,15 @@
   numbers yet) — upgrade when client #1 lands.
   Interlinks: ai-for-property / ai-for-accountants / ai-for-trades / method /
   tracker / check / index-v2 / demo-parser.
+2026-09-04: restyled to operations-instrument identity (source: index-v2.html). Copy unchanged except 7 button/CTA arrows removed (AI-tell rule; body-copy arrows kept); demo JS unchanged.
 ============================================================= -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
-<title>AI for UK recruitment agencies — get the admin week back | Tishka AI</title>
-<meta name="description" content="UK recruiters average 17.7 hours of admin per vacancy. We build the chase-and-format layer — CV submissions, feedback chasing, records — run for you on your existing tools, from £300/month.">
+<title>AI for UK recruitment agencies: get the admin week back | Tishka AI</title>
+<meta name="description" content="UK recruiters average 17.7 hours of admin per vacancy. We build the chase-and-format layer (CV submissions, feedback chasing, records) and run it for you on your existing tools, from £300/month.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -25,7 +26,7 @@
   "name": "Done-for-you AI operations for boutique UK recruitment agencies",
   "provider": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
   "areaServed": "GB",
-  "description": "We build and run the admin layer around a recruitment agency's existing tools — CV formatting to client template, feedback chasing, ATS updates, timesheet and compliance chases — with a human approving anything that leaves the business. Packages from £300/month, first build typically live in 1–2 weeks.",
+  "description": "We build and run the admin layer around a recruitment agency's existing tools (CV formatting to client template, feedback chasing, ATS updates, timesheet and compliance chases) with a human approving anything that leaves the business. Packages from £300/month, first build typically live in 1–2 weeks.",
   "serviceType": "AI operations retainer"
 }
 </script>
@@ -40,28 +41,39 @@
 }
 </script>
 <script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../resource/site.css">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
-    --bg: #f7f7f8; --bg-card: #ffffff; --bg-elevated: #f1f1f4;
-    --border: #e4e4e9; --text: #121215; --text-muted: #5a5a63;
-    --accent: #121215; --green: #0b7f5a; --blue: #2563eb; --violet: #6d4cf0;
-    --header-bg: rgba(247,247,248,0.85); --band: #efeff3;
-    --btn-bg: #121215; --btn-fg: #ffffff; --btn-bg-hover: #2c2c31;
-    --ghost-hover: #e7e7ec; --warn: #a3701a; --bad: #d43f3f; --on-brass: #ffffff;
+      
+    --bg: var(--paper); --bg-card: var(--raise); --bg-elevated: var(--band);
+      
+    --text: var(--ink); --text-muted: var(--muted);
+      
+    
+      
+      
     color-scheme: light;
   }
   html[data-theme="dark"] {
-    --bg: #0a0a0a; --bg-card: #111111; --bg-elevated: #1a1a1a;
-    --border: #2a2a2a; --text: #f5f5f5; --text-muted: #a1a1a1;
-    --accent: #ffffff; --green: #22c55e; --blue: #3b82f6; --violet: #7c5cf6;
-    --header-bg: rgba(10,10,10,0.85); --band: #0f0f0f;
-    --btn-bg: #ffffff; --btn-fg: #000000; --btn-bg-hover: #e5e5e5;
-    --ghost-hover: #222222; --warn: #d9a441; --bad: #ff5c5c; --on-brass: #0e0e10;
+      
+    --bg: var(--paper); --bg-card: var(--raise); --bg-elevated: var(--band);
+      
+    --text: var(--ink); --text-muted: var(--muted);
+      
+    
+      
+      
     color-scheme: dark;
   }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  body { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, .display { font-family: "Schibsted Grotesk", "Archivo", sans-serif; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  button, input, select, textarea { font-family: inherit; }
   a { color: inherit; text-decoration: none; }
   .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
@@ -70,139 +82,139 @@
   .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 10px; }
   .logo img { height: 28px; width: auto; display: block; }
   html:not([data-theme="dark"]) .logo img { filter: invert(1); }
-  .badge { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.62rem; letter-spacing: 0.12em;
-    text-transform: uppercase; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-muted);
+  .badge { font-size: 1rem; font-weight: 600; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-muted);
     border-radius: 6px; padding: 5px 10px; }
-  .theme-btn { font-family: ui-monospace, monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+  .theme-btn { font-size: 1rem; font-weight: 600;
     color: var(--text-muted); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px;
     background: var(--bg-card); cursor: pointer; }
   .btn { display: inline-flex; align-items: center; justify-content: center; padding: 11px 20px;
-    border-radius: 9999px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; transition: all .15s ease; }
+    border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; border: none; transition: all .15s ease; }
   .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
   .btn-primary:hover { background: var(--btn-bg-hover); }
   .btn-ghost { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text); }
   .btn-ghost:hover { background: var(--ghost-hover); }
 
   .hero { padding: 64px 0 40px; }
-  .eyebrow { display: inline-block; font-family: ui-monospace, monospace; font-size: 0.68rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--violet); margin-bottom: 14px; }
-  h1 { font-size: clamp(2rem, 4.5vw, 2.9rem); font-weight: 650; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 16px; }
+  .eyebrow { display: inline-block; font-size: 0.875rem; font-weight: 600; color: var(--muted); margin-bottom: 14px; }
+  h1 { font-size: clamp(2rem, 4.5vw, 2.9rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 16px; }
   .hero-sub { font-size: 1.1rem; color: var(--text-muted); max-width: 620px; margin-bottom: 24px; }
   .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
   .hero-fig { display: inline-flex; flex-direction: column; border: 1px solid var(--border); background: var(--bg-card);
     border-radius: 14px; padding: 14px 22px; margin-top: 28px; }
-  .hero-fig b { font-size: 1.7rem; font-weight: 700; color: var(--violet); letter-spacing: -0.02em; }
-  .hero-fig span { font-size: 0.78rem; color: var(--text-muted); }
+  .hero-fig b { font-size: 1.7rem; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .hero-fig span { font-size: 1rem; color: var(--text-muted); }
   .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items: start; }
   @media (max-width: 800px) { .hero-grid { grid-template-columns: 1fr; } }
 
   section { padding: 60px 0; }
   section.band { background: var(--band); }
-  .section-title { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 650; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .section-title { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
   .section-sub { color: var(--text-muted); max-width: 640px; margin-bottom: 36px; }
-  .src { font-size: 0.72rem; color: var(--text-muted); }
+  .src { font-size: 1rem; color: var(--text-muted); }
 
   .pain { border: 1px solid var(--border); background: var(--bg-card); border-radius: 14px; padding: 20px 22px; margin-bottom: 14px; }
   .pain h3 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
-  .pain p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 6px; }
+  .pain p { color: var(--text-muted); font-size: 1.125rem; margin-bottom: 6px; }
   .pain p b { color: var(--text); }
-  .pain .fig { font-size: 1.15rem; font-weight: 700; color: var(--violet); }
+  .pain .fig { font-size: 1.15rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
 
   /* demo */
   .demo-wrap { border: 1px solid var(--border); border-radius: 16px; background: var(--bg-card); padding: 22px; }
   .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
   @media (max-width: 820px) { .demo-grid { grid-template-columns: 1fr; } }
-  .demo-head { display: flex; align-items: center; gap: 8px; font-family: ui-monospace, monospace; font-size: 0.68rem;
-    letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
-  .status { font-family: ui-monospace, monospace; font-size: 0.62rem; letter-spacing: 0.12em; border-radius: 5px;
+  .demo-head { display: flex; align-items: center; gap: 8px; font-size: 1rem; font-weight: 600;
+    color: var(--text-muted); margin-bottom: 12px; }
+  .status { font-size: 0.875rem; font-weight: 600; border-radius: 5px;
     padding: 3px 8px; margin-left: auto; background: var(--bg-elevated); color: var(--text-muted); }
   .status.proc { background: rgba(217,164,65,0.14); color: var(--warn); }
-  .status.done { background: rgba(46,204,154,0.14); color: var(--green); }
+  .status.done { background: var(--ledger-soft); color: var(--ledger); }
   textarea { width: 100%; min-height: 170px; background: var(--bg); color: var(--text); border: 1px solid var(--border);
-    border-radius: 10px; padding: 12px; font-size: 0.9rem; line-height: 1.55; font-family: inherit; resize: vertical; }
+    border-radius: 10px; padding: 12px; font-size: 1rem; line-height: 1.55; font-family: inherit; resize: vertical; }
   .samples { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
-  .samples .lbl { font-family: ui-monospace, monospace; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
-  .chip { font-size: 0.78rem; color: var(--text); background: transparent; border: 1px solid var(--border);
-    border-radius: 999px; padding: 6px 13px; cursor: pointer; }
-  .chip:hover { border-color: var(--violet); }
-  .parse { font-family: ui-monospace, monospace; font-size: 0.82rem; font-weight: 600; color: var(--on-brass);
-    background: var(--violet); border: 0; border-radius: 10px; padding: 10px 20px; cursor: pointer; margin-top: 12px; }
-  .parse:hover { filter: brightness(1.08); }
+  .samples .lbl { font-size: 0.875rem; font-weight: 600; color: var(--text-muted); }
+  .chip { font-size: 0.875rem; color: var(--text); background: transparent; border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 13px; cursor: pointer; }
+  .chip:hover { border-color: var(--ink); }
+  .parse { font-family: inherit; font-size: 1rem; font-weight: 600; color: var(--btn-fg);
+    background: var(--btn-bg); border: 0; border-radius: 6px; padding: 10px 20px; cursor: pointer; margin-top: 12px; }
+  .parse:hover { background: var(--btn-bg-hover); }
   .steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; min-height: 24px; }
-  .step { font-family: ui-monospace, monospace; font-size: 0.62rem; letter-spacing: 0.08em; padding: 4px 10px;
+  .step { font-size: 0.875rem; font-weight: 600; padding: 4px 10px;
     border-radius: 6px; border: 1px solid var(--border); color: var(--text-muted); opacity: 0;
     transform: translateY(4px); transition: all .3s ease; }
   .step.show { opacity: 1; transform: none; }
-  .rec-row { display: flex; gap: 12px; padding: 6px 0; border-top: 1px solid var(--border); font-size: 0.87rem; }
+  .rec-row { display: flex; gap: 12px; padding: 6px 0; border-top: 1px solid var(--border); font-size: 1rem; }
   .rec-row:first-of-type { border-top: none; }
-  .rec-k { color: var(--text-muted); width: 122px; flex-shrink: 0; font-size: 0.78rem; padding-top: 2px; }
+  .rec-k { color: var(--text-muted); width: 122px; flex-shrink: 0; font-size: 0.875rem; padding-top: 2px; }
   .rec-v { color: var(--text); }
   .rec-v.nf { color: var(--text-muted); }
-  .badge2 { font-family: ui-monospace, monospace; font-size: 0.6rem; letter-spacing: 0.1em; padding: 3px 8px; border-radius: 5px; }
-  .badge2.high { background: rgba(46,204,154,0.14); color: var(--green); }
+  .badge2 { font-size: 0.875rem; font-weight: 600; padding: 3px 8px; border-radius: 5px;
+    font-variant-numeric: tabular-nums; }
+  .badge2.high { background: var(--ledger-soft); color: var(--ledger); }
   .badge2.med { background: rgba(217,164,65,0.14); color: var(--warn); }
   .badge2.low { background: rgba(255,92,92,0.14); color: var(--bad); }
   .badge2.urgent { background: rgba(255,92,92,0.14); color: var(--bad); }
   .badge2.duesoon { background: rgba(217,164,65,0.14); color: var(--warn); }
   .badge2.flex { background: var(--bg-elevated); color: var(--text-muted); }
-  .connect { border: 1px dashed var(--violet); border-radius: 12px; background: rgba(124,92,246,0.06);
+  .connect { border: 1px dashed var(--ink); border-radius: 12px; background: var(--band);
     padding: 14px 16px; margin-top: 14px; }
-  .connect h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
-  .connect li { list-style: none; font-size: 0.84rem; padding: 2px 0; }
-  .connect li::before { content: "✓ "; color: var(--green); font-weight: 600; }
-  .demo-note { font-size: 0.72rem; color: var(--text-muted); margin-top: 12px; }
-  .empty { font-size: 0.85rem; color: var(--text-muted); padding: 14px 0; }
+  .connect h4 { font-size: 1.125rem; font-weight: 600; margin-bottom: 8px; }
+  .connect li { list-style: none; font-size: 1.125rem; padding: 2px 0; }
+  .connect li::before { content: "✓ "; color: var(--ink); font-weight: 600; }
+  .demo-note { font-size: 1rem; color: var(--text-muted); margin-top: 12px; }
+  .empty { font-size: 1rem; color: var(--text-muted); padding: 14px 0; }
 
   /* automations -> packages */
   .auto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
   .price-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; }
-  .price-card.featured { border-color: var(--violet); }
+  .price-card.featured { border-color: var(--ink); }
   .price-name { font-size: 1.05rem; font-weight: 600; }
-  .price-desc { color: var(--text-muted); font-size: 0.84rem; margin-bottom: 14px; }
-  .price-num { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 2px; }
-  .price-setup { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 16px; }
+  .price-desc { color: var(--text-muted); font-size: 1rem; margin-bottom: 14px; }
+  .price-num { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 2px; font-variant-numeric: tabular-nums; }
+  .price-setup { color: var(--text-muted); font-size: 1rem; margin-bottom: 16px; }
   .price-features { list-style: none; margin-bottom: 18px; flex-grow: 1; }
-  .price-features li { padding: 5px 0; font-size: 0.89rem; color: var(--text-muted); display: flex; gap: 8px; }
-  .price-features li::before { content: "✓"; color: var(--green); font-weight: 600; }
-  .appr { font-family: ui-monospace, monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--green); background: rgba(11,127,90,0.08); border-radius: 6px; padding: 3px 8px; display: inline-block; margin-bottom: 10px; }
+  .price-features li { padding: 5px 0; font-size: 1.125rem; color: var(--text-muted); display: flex; gap: 8px; }
+  .price-features li::before { content: "✓"; color: var(--ink); font-weight: 600; }
+  .appr { font-size: 0.875rem; font-weight: 600;
+    color: var(--ink); background: var(--band); border-radius: 6px; padding: 3px 8px; display: inline-block; margin-bottom: 10px; }
 
   /* worked example */
   .ex-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 800px) { .ex-grid { grid-template-columns: 1fr; } }
   .ex-card { border: 1px solid var(--border); border-radius: 14px; padding: 22px; background: var(--bg-card); }
   .ex-card.before { border-left: 3px solid var(--bad); }
-  .ex-card.after { border-left: 3px solid var(--green); }
-  .ex-card h3 { font-size: 0.78rem; font-family: ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase;
+  .ex-card.after { border-left: 3px solid var(--ink); }
+  .ex-card h3 { font-size: 1rem; font-weight: 600;
     color: var(--text-muted); margin-bottom: 12px; }
-  .ex-card li { list-style: none; font-size: 0.9rem; padding: 4px 0; color: var(--text-muted); }
+  .ex-card li { list-style: none; font-size: 1rem; padding: 4px 0; color: var(--text-muted); }
   .ex-card li b { color: var(--text); }
-  .ex-card li::before { content: "· "; color: var(--violet); font-weight: 700; }
+  .ex-card li::before { content: "· "; color: var(--ink); font-weight: 700; }
 
   .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
   .faq-item:last-child { border-bottom: none; }
-  .faq-q { font-weight: 600; margin-bottom: 8px; }
-  .faq-a { color: var(--text-muted); font-size: 0.95rem; }
+  .faq-q { font-weight: 600; font-size: 1.125rem; margin-bottom: 8px; }
+  .faq-a { color: var(--text-muted); font-size: 1.125rem; }
 
   .proof { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
   .proof-card { border: 1px solid var(--border); border-radius: 14px; padding: 20px; background: var(--bg-card); }
-  .proof-card b { display: block; font-size: 1.3rem; font-weight: 700; color: var(--violet); }
-  .proof-card span { font-size: 0.85rem; color: var(--text-muted); }
+  .proof-card b { display: block; font-size: 1.3rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .proof-card span { font-size: 1rem; color: var(--text-muted); }
 
   .cta-card { text-align: center; background: var(--bg-card); border: 1px solid var(--border);
     border-radius: 20px; padding: 44px 24px; }
-  .cta-card h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 650; margin-bottom: 10px; }
+  .cta-card h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 10px; }
   .cta-card p { color: var(--text-muted); max-width: 520px; margin: 0 auto 24px; }
   .cta-two { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .notfor { border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; background: var(--bg-card); }
-  .notfor li { list-style: none; font-size: 0.92rem; color: var(--text-muted); padding: 3px 0; }
-  .notfor li::before { content: "— "; color: var(--bad); font-weight: 700; }
+  .notfor li { list-style: none; font-size: 1.125rem; color: var(--text-muted); padding: 3px 0; }
+  .notfor li::before { content: "- "; color: var(--bad); font-weight: 700; }
   .nextlinks { display: flex; gap: 12px; flex-wrap: wrap; }
 
-  footer { border-top: 1px solid var(--border); padding: 40px 0 30px; margin-top: 50px; font-size: 0.9rem; color: var(--text-muted); }
+  footer { border-top: 1px solid var(--border); padding: 40px 0 30px; margin-top: 50px; font-size: 1rem; color: var(--text-muted); }
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
   .footer-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
   .footer-links a:hover { color: var(--text); }
+  small { font-size: 1rem; }
 </style>
 </head>
 <body>
@@ -212,12 +224,12 @@
     <a href="index-v2.html" class="logo"><img src="../assets/Tishka_AI.svg" alt="Tishka AI" height="28"></a>
     <div style="display:flex;align-items:center;gap:10px;">
       <button id="themeToggle" class="theme-btn" type="button" aria-label="Switch colour theme">Dark</button>
-      <a href="../contact.html" class="btn btn-primary" style="padding:9px 16px;font-size:0.82rem;">Book Diagnostic</a>
+      <a href="../contact.html" class="btn btn-primary" style="padding:9px 16px;font-size:1rem;">Book Diagnostic</a>
     </div>
   </div>
 </header>
 <!-- draft-nav-bar: local navigation between draft pages -->
-<div style="border-bottom:1px solid var(--border,var(--line,#e3e3e8));background:var(--bg-card,var(--bg-raise,#ffffff));position:relative;z-index:49;"><div style="max-width:1080px;margin:0 auto;padding:9px 24px;font-size:0.95rem;line-height:1.8;"><a href="index-v2.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Home</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="tracker.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Tracker</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-recruitment.html" style="color:var(--ink,#121215);font-weight:700;">Recruitment</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-property.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Property</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-accountants.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Accountants</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-trades.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Trades</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="method.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Method</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="check.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Free check</a></div></div>
+<div style="border-bottom:1px solid var(--border,var(--line,#e3e3e8));background:var(--bg-card,var(--bg-raise,#ffffff));position:relative;z-index:49;"><div style="max-width:1080px;margin:0 auto;padding:9px 24px;font-size:1rem;line-height:1.8;"><a href="index-v2.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Home</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-recruitment.html" style="color:var(--ink,#121215);font-weight:700;">Recruitment</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-property.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Property</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-accountants.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Accountants</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-trades.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Trades</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="check.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Free check</a></div></div>
 
 <div class="container">
 
@@ -227,15 +239,15 @@
       <div>
         <span class="eyebrow">For UK recruitment agencies</span>
         <h1>The two days per hire that<br>aren't actually recruiting.</h1>
-        <p class="hero-sub">UK recruiters average <b>17.7 hours of admin per vacancy</b> — most of it reformatting CVs and chasing replies. We build the layer that does both in the background, on the tools you already use, with a human approving anything that leaves the agency. From £300/month.</p>
+        <p class="hero-sub">UK recruiters average <b>17.7 hours of admin per vacancy</b>, most of it reformatting CVs and chasing replies. We build the layer that does both in the background, on the tools you already use, with a human approving anything that leaves the agency. From £300/month.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#demo">See it work on a recruiter's inbox &rarr;</a>
+          <a class="btn btn-primary" href="#demo">See it work on a recruiter's inbox</a>
           <a class="btn btn-ghost" href="check.html">Get your free AI check</a>
         </div>
       </div>
       <div>
         <div class="hero-fig" style="display:block;">
-          <b>17.7 hrs</b><br><span>admin per vacancy — Totaljobs survey of 748 UK HR leaders, Aug 2025. At ~4 vacancies a month: ~£17,000 per recruiter per year.</span>
+          <b>17.7 hrs</b><br><span>admin per vacancy (Totaljobs survey of 748 UK HR leaders, Aug 2025). At ~4 vacancies a month: ~£17,000 per recruiter per year.</span>
         </div>
       </div>
     </div>
@@ -245,7 +257,7 @@
   <section id="demo" class="band">
     <div class="container">
       <h2 class="section-title">Try it on a recruiter's inbox, right here.</h2>
-      <p class="section-sub">The real extraction engine, running in your browser — the same logic that live turns a client email into a formatted submission, a chased feedback thread and an updated ATS record. Paste your own email instead of the sample; nothing is sent or stored.</p>
+      <p class="section-sub">The real extraction engine, running in your browser: the same logic that live turns a client email into a formatted submission, a chased feedback thread and an updated ATS record. Paste your own email instead of the sample; nothing is sent or stored.</p>
       <div class="demo-wrap">
         <div class="demo-grid">
           <div>
@@ -255,20 +267,20 @@
               <button type="button" class="chip" data-s="0">Client request</button>
               <button type="button" class="chip" data-s="1">Candidate doc chase</button>
             </div>
-            <textarea id="dTxt" spellcheck="false">Hi Sarah — can you send over three more candidates for the Bradford maintenance engineer role this week? Also, we interviewed James Okafor last Tuesday and still owe you feedback; he's chasing us daily. Shortlist to hiring@millbrookengineering.co.uk or call 0113 496 0200. Thanks — Rachel Simmons, Millbrook Engineering Ltd</textarea>
-            <button class="parse" id="dParse">Parse &rarr;</button>
+            <textarea id="dTxt" spellcheck="false">Hi Sarah, can you send over three more candidates for the Bradford maintenance engineer role this week? Also, we interviewed James Okafor last Tuesday and still owe you feedback; he's chasing us daily. Shortlist to hiring@millbrookengineering.co.uk or call 0113 496 0200. Thanks, Rachel Simmons, Millbrook Engineering Ltd</textarea>
+            <button class="parse" id="dParse">Parse</button>
           </div>
           <div>
             <div class="demo-head">Extracted <span class="status" id="dStatus2" hidden></span></div>
             <div class="steps" id="dSteps" hidden></div>
-            <div id="dOut"><div class="empty">Press Parse — clean fields land here. Anything it can't find stays blank, never invented.</div></div>
+            <div id="dOut"><div class="empty">Press Parse: clean fields land here. Anything it can't find stays blank, never invented.</div></div>
             <div class="connect" id="dConnect" hidden>
               <h4>In your agency, this email becomes:</h4>
               <ul id="dConnectLines"></ul>
             </div>
           </div>
         </div>
-        <p class="demo-note">Runs entirely in your browser — no backend on this page. Live, it reads your inbox, formats CVs to your template, chases quiet threads and files into your ATS — you approve what sends.</p>
+        <p class="demo-note">Runs entirely in your browser: no backend on this page. Live, it reads your inbox, formats CVs to your template, chases quiet threads and files into your ATS. You approve what sends.</p>
       </div>
     </div>
   </section>
@@ -277,21 +289,21 @@
   <section>
     <div class="container">
       <h2 class="section-title">Where the week actually goes.</h2>
-      <p class="section-sub">Four places the hours leak — each with its number, sourced and dated.</p>
+      <p class="section-sub">Four places the hours leak, each with its number, sourced and dated.</p>
       <div class="pain">
         <div class="fig">17.7 hrs of admin per vacancy</div>
         <h3>The admin is bigger than the job</h3>
-        <p>17.7 hours of admin per vacancy — "more than two working days per hire" — roughly <b>£17,000 per recruiter per year</b> in lost hours: 3.6 hrs reviewing applications, 2.5 hrs scheduling interviews, 3 hrs processing post-interview notes. <span class="src">Totaljobs survey of 748 UK HR leaders, Aug 2025.</span></p>
+        <p>17.7 hours of admin per vacancy ("more than two working days per hire"), roughly <b>£17,000 per recruiter per year</b> in lost hours: 3.6 hrs reviewing applications, 2.5 hrs scheduling interviews, 3 hrs processing post-interview notes. <span class="src">Totaljobs survey of 748 UK HR leaders, Aug 2025.</span></p>
       </div>
       <div class="pain">
-        <div class="fig">71% — waiting for feedback</div>
+        <div class="fig">71%: waiting for feedback</div>
         <h3>The chase that nobody wants to do</h3>
-        <p>"Waiting for stakeholder feedback" is the survey's #2 named inefficiency. A recruitment consultant put it plainly: <i>"we don't get a thrill out of sending another 'just following up…' email"</i> — and <b>48 hours of silence can lose a good candidate.</b> <span class="src">Totaljobs, Aug 2025; a consultant's own words, 2026.</span></p>
+        <p>"Waiting for stakeholder feedback" is the survey's #2 named inefficiency. A recruitment consultant put it plainly: <i>"we don't get a thrill out of sending another 'just following up…' email"</i>. And <b>48 hours of silence can lose a good candidate.</b> <span class="src">Totaljobs, Aug 2025; a consultant's own words, 2026.</span></p>
       </div>
       <div class="pain">
         <div class="fig">15–30 min per CV, every send</div>
         <h3>Formatting that never ends</h3>
-        <p>Reformatting each CV to your template runs <b>15–30 minutes</b> — worse for scanned PDFs — before the summary email even starts. Some vendor surveys say up to 45 for the messy ones; we quote the defensible range. <span class="src">Onrec/Allsorter/HR Future surveys, 2026 — vendor-affiliated, flagged.</span></p>
+        <p>Reformatting each CV to your template runs <b>15–30 minutes</b> (worse for scanned PDFs) before the summary email even starts. Some vendor surveys say up to 45 for the messy ones; we quote the defensible range. <span class="src">Onrec/Allsorter/HR Future surveys, 2026. Vendor-affiliated, flagged.</span></p>
       </div>
       <div class="pain">
         <div class="fig">57% say "too many tools that don't integrate"</div>
@@ -305,49 +317,49 @@
   <section class="band">
     <div class="container">
       <h2 class="section-title">What we run for you.</h2>
-      <p class="section-sub">Each rung adds the next layer of the week. Everything that sends starts in draft — you approve. Nothing replaces your ATS or inbox; it works across them.</p>
+      <p class="section-sub">Each rung adds the next layer of the week. Everything that sends starts in draft: you approve. Nothing replaces your ATS or inbox; it works across them.</p>
       <div class="auto-grid">
         <div class="price-card">
           <span class="appr">Approval-first on every send</span>
           <div class="price-name">Front Desk</div>
           <div class="price-desc">The inbox, handled. Nothing slips before 9am.</div>
-          <div class="price-num">£300<small style="font-size:0.85rem;color:var(--text-muted)"> /mo</small></div>
+          <div class="price-num">£300<small style="font-size:1rem;color:var(--text-muted)"> /mo</small></div>
           <div class="price-setup">+ £1,500 one-off setup</div>
           <ul class="price-features">
-            <li>Candidate &amp; client emails classified, drafted and filed — you approve the replies</li>
+            <li>Candidate &amp; client emails classified, drafted and filed: you approve the replies</li>
             <li>Feedback chases sent on your schedule, 48-hour nudges included</li>
             <li>Interview scheduling ping-pong taken off consultants' plates</li>
             <li>Compliance / right-to-work doc chases, logged</li>
           </ul>
-          <a href="../contact.html" class="btn btn-ghost">Start here &rarr;</a>
+          <a href="../contact.html" class="btn btn-ghost">Start here</a>
         </div>
         <div class="price-card featured">
           <span class="appr">Approval-first on every send</span>
           <div class="price-name">Ops Desk</div>
           <div class="price-desc">Everything in Front Desk, plus the paperwork week.</div>
-          <div class="price-num">£500<small style="font-size:0.85rem;color:var(--text-muted)"> /mo</small></div>
+          <div class="price-num">£500<small style="font-size:1rem;color:var(--text-muted)"> /mo</small></div>
           <div class="price-setup">+ £3,000 one-off setup</div>
           <ul class="price-features">
             <li>CVs formatted to your template + summary drafted (2-minute approve)</li>
-            <li>ATS updated by hand → updated by the system, no retyping</li>
+            <li>ATS updated by the system instead of retyped by hand</li>
             <li>Timesheet chase + invoice-ready hours, weekly</li>
             <li>Morning brief: placements at risk, chases due, inbox triaged</li>
           </ul>
-          <a href="../contact.html" class="btn btn-primary">Get a quote &rarr;</a>
+          <a href="../contact.html" class="btn btn-primary">Get a quote</a>
         </div>
         <div class="price-card">
           <span class="appr">Approval-first on every send</span>
           <div class="price-name">AI Ops Partner</div>
-          <div class="price-desc">A watched operation — plus new builds, monthly.</div>
-          <div class="price-num">£800<small style="font-size:0.85rem;color:var(--text-muted)"> /mo</small></div>
+          <div class="price-desc">A watched operation. Plus new builds, monthly.</div>
+          <div class="price-num">£800<small style="font-size:1rem;color:var(--text-muted)"> /mo</small></div>
           <div class="price-setup">+ £5,000 one-off setup</div>
           <ul class="price-features">
             <li>Everything in Ops Desk</li>
-            <li>Company Brain: watches placements, certs and chases — warns before they slip</li>
+            <li>Company Brain: watches placements, certs and chases, and warns before they slip</li>
             <li>Monthly review with your own measured numbers</li>
             <li>New workflows built and added as your agency changes</li>
           </ul>
-          <a href="../contact.html" class="btn btn-ghost">Talk to us &rarr;</a>
+          <a href="../contact.html" class="btn btn-ghost">Talk to us</a>
         </div>
       </div>
     </div>
@@ -357,26 +369,26 @@
   <section>
     <div class="container">
       <h2 class="section-title">One submission, before and after.</h2>
-      <p class="section-sub">A composite from the documented pain points — labelled as such because there are no client numbers here yet. The diagnostic measures your real ones.</p>
+      <p class="section-sub">A composite from the documented pain points, labelled as such because there are no client numbers here yet. The diagnostic measures your real ones.</p>
       <div class="ex-grid">
         <div class="ex-card before">
-          <h3>Before — by hand</h3>
+          <h3>Before: by hand</h3>
           <ul>
             <li><b>25 min</b> reformatting the CV to your template</li>
             <li><b>10 min</b> writing the summary email</li>
             <li><b>5 min</b> retyping into the ATS</li>
-            <li><b>3 days later</b> — no client feedback; consultant sends "just checking in…"</li>
-            <li><b>48 hrs of silence</b> — the candidate takes another offer</li>
+            <li><b>3 days later</b>: no client feedback; consultant sends "just checking in…"</li>
+            <li><b>48 hrs of silence</b>: the candidate takes another offer</li>
           </ul>
         </div>
         <div class="ex-card after">
-          <h3>After — the built layer</h3>
+          <h3>After: the built layer</h3>
           <ul>
-            <li>CV lands in the inbox → formatted to your template automatically</li>
-            <li>Summary + client email <b>drafted</b> — consultant reads, approves, sends: <b>~2 min</b></li>
+            <li>CV lands in the inbox: formatted to your template automatically</li>
+            <li>Summary + client email <b>drafted</b> (consultant reads, approves, sends): <b>~2 min</b></li>
             <li>ATS record updated without retyping</li>
-            <li>No feedback after 48 hrs → polite nudge sent, consultant alerted to phone</li>
-            <li>Everything logged — submissions measurable week to week</li>
+            <li>No feedback after 48 hrs: polite nudge sent, consultant alerted to phone</li>
+            <li>Everything logged: submissions measurable week to week</li>
           </ul>
         </div>
       </div>
@@ -387,22 +399,22 @@
   <section class="band">
     <div class="container">
       <h2 class="section-title">What it costs and how it starts.</h2>
-      <div class="pain" style="border-left:3px solid var(--violet);">
+      <div class="pain" style="border-left:3px solid var(--ink);">
         <h3>Days to first build, not months</h3>
-        <p>The first automation is typically live in <b>1–2 weeks</b>. Setup is split <b>50/50</b>: half on agreement, half on go-live. The monthly covers hosting, fixes and the person who keeps it working — <b>no lock-in, 30 days' notice</b>.</p>
+        <p>The first automation is typically live in <b>1–2 weeks</b>. Setup is split <b>50/50</b>: half on agreement, half on go-live. The monthly covers hosting, fixes and the person who keeps it working. <b>No lock-in, 30 days' notice</b>.</p>
       </div>
       <div class="pain">
         <h3>What you own</h3>
-        <p>The system runs on your accounts and your data. Everything built for you is exportable and documented — leave any time and take it. We read what the workflows need (inbox, ATS, spreadsheet); nothing else.</p>
+        <p>The system runs on your accounts and your data. Everything built for you is exportable and documented. Leave any time and take it. We read what the workflows need (inbox, ATS, spreadsheet); nothing else.</p>
       </div>
       <div class="notfor" style="margin-top:14px;">
         <h3 style="font-size:1rem;font-weight:600;margin-bottom:10px;">Who this is not for</h3>
         <ul>
-          <li>Solo recruiters, no team, no office admin — the maths doesn't work yet.</li>
-          <li>Agencies that haven't billed consistently through 2024–25 — a £300/month line needs fee income behind it.</li>
-          <li>Anyone who wants another login to learn — this is done-for-you, run by us.</li>
+          <li>Solo recruiters, no team, no office admin. The maths doesn't work yet.</li>
+          <li>Agencies that haven't billed consistently through 2024–25. A £300/month line needs fee income behind it.</li>
+          <li>Anyone who wants another login to learn. This is done-for-you, run by us.</li>
         </ul>
-        <p class="src">Only 26% of sub-£1M UK agencies are profitable (The Accounts UK, 2026) — we'd rather tell you than take the money.</p>
+        <p class="src">Only 26% of sub-£1M UK agencies are profitable (The Accounts UK, 2026). We'd rather tell you than take the money.</p>
       </div>
     </div>
   </section>
@@ -411,14 +423,14 @@
   <section>
     <div class="container">
       <h2 class="section-title">Why you can believe any of this.</h2>
-      <p class="section-sub">We run our own business on the machinery we sell — built by us, for us, before we sold it to anyone.</p>
+      <p class="section-sub">We run our own business on the machinery we sell: built by us, for us, before we sold it to anyone.</p>
       <div class="proof">
-        <div class="proof-card"><b>8am</b><span>a written briefing lands every weekday in our own AI system — priorities, risks, numbers</span></div>
+        <div class="proof-card"><b>8am</b><span>a written briefing lands every weekday in our own AI system: priorities, risks, numbers</span></div>
         <div class="proof-card"><b>Daily</b><span>a run sheet of what to do next, generated by the system, not by memory</span></div>
-        <div class="proof-card"><b>Logged</b><span>every piece of work recorded with hours-saved figures — the same measurement we'd run for you</span></div>
-        <div class="proof-card"><b>Pre-launch</b><span>honest label: no client numbers here yet — every figure above is published research, dated and sourced</span></div>
+        <div class="proof-card"><b>Logged</b><span>every piece of work recorded with hours-saved figures, the same measurement we'd run for you</span></div>
+        <div class="proof-card"><b>Pre-launch</b><span>honest label: no client numbers here yet. Every figure above is published research, dated and sourced</span></div>
       </div>
-      <p style="margin-top:18px;"><span class="src">See it working: <a href="demo-dashboard.html" style="color:var(--violet);">the dashboard demo</a> · <a href="demo-brief.html" style="color:var(--violet);">the morning-brief demo</a> · <a href="demo-parser.html" style="color:var(--violet);">the parser, with your own text</a></span></p>
+      <p style="margin-top:18px;"><span class="src">See it working: <a href="demo-dashboard.html" style="color:var(--ink);text-decoration:underline;">the dashboard demo</a> · <a href="demo-brief.html" style="color:var(--ink);text-decoration:underline;">the morning-brief demo</a> · <a href="demo-parser.html" style="color:var(--ink);text-decoration:underline;">the parser, with your own text</a></span></p>
     </div>
   </section>
 
@@ -427,15 +439,15 @@
     <div class="container" style="max-width:760px;">
       <h2 class="section-title">Questions recruitment owners actually ask.</h2>
       <div class="faq-item"><div class="faq-q">What does it cost, honestly?</div>
-        <div class="faq-a">Packages start at £300/month plus a one-off setup — £1,500 for Front Desk, £3,000 for Ops Desk, £5,000 for AI Ops Partner. Setup is split 50/50 (half on agreement, half on go-live). No lock-in: 30 days' notice cancels the monthly. The first diagnostic is free.</div></div>
-      <div class="faq-item"><div class="faq-q">We already pay for an ATS — why would we need this too?</div>
-        <div class="faq-a">Because the ATS stops at its own walls. The formatting, the feedback chasing, the timesheets, the inbox triage — the 2024 Loxo and Firefish reviews show branded submissions and formatting are exactly where users still work around their system. We build the glue across whatever you run, and we'll tell you when your existing tool already covers something.</div></div>
+        <div class="faq-a">Packages start at £300/month plus a one-off setup: £1,500 for Front Desk, £3,000 for Ops Desk, £5,000 for AI Ops Partner. Setup is split 50/50 (half on agreement, half on go-live). No lock-in: 30 days' notice cancels the monthly. The first diagnostic is free.</div></div>
+      <div class="faq-item"><div class="faq-q">We already pay for an ATS: why would we need this too?</div>
+        <div class="faq-a">Because the ATS stops at its own walls. The formatting, the feedback chasing, the timesheets, the inbox triage: the 2024 Loxo and Firefish reviews show branded submissions and formatting are exactly where users still work around their system. We build the glue across whatever you run, and we'll tell you when your existing tool already covers something.</div></div>
       <div class="faq-item"><div class="faq-q">Will it email clients and candidates without a human checking?</div>
-        <div class="faq-a">No. Everything starts in draft and waits for approval. Once you trust a routine category — a standard chase, a scheduling nudge — you can switch it to auto, per category, your choice. Financial, compliance and anything client-facing sensitive stays approval-only permanently.</div></div>
+        <div class="faq-a">No. Everything starts in draft and waits for approval. Once you trust a routine category (a standard chase, a scheduling nudge), you can switch it to auto, per category, your choice. Financial, compliance and anything client-facing sensitive stays approval-only permanently.</div></div>
       <div class="faq-item"><div class="faq-q">What happens when it gets a CV or a name wrong?</div>
-        <div class="faq-a">It drafts; you approve — so a wrong field is a two-second fix, not a sent email. Missing fields stay blank rather than being invented. We never claim 100% accuracy; we claim AI drafts in ~2 minutes what took 30 by hand, with a human still reading it.</div></div>
+        <div class="faq-a">It drafts; you approve, so a wrong field is a two-second fix, not a sent email. Missing fields stay blank rather than being invented. We never claim 100% accuracy; we claim AI drafts in ~2 minutes what took 30 by hand, with a human still reading it.</div></div>
       <div class="faq-item"><div class="faq-q">What do you need from us to build it?</div>
-        <div class="faq-a">Read access to the inbox (or a forwarding rule), your CV template, and a look at whatever tracks candidates today — even if that's a spreadsheet. No new logins for your consultants, nothing for candidates or clients to install, and your data stays yours: exports and documentation come with the build.</div></div>
+        <div class="faq-a">Read access to the inbox (or a forwarding rule), your CV template, and a look at whatever tracks candidates today, even if that's a spreadsheet. No new logins for your consultants, nothing for candidates or clients to install, and your data stays yours: exports and documentation come with the build.</div></div>
     </div>
   </section>
 
@@ -443,14 +455,13 @@
   <section>
     <div class="container">
       <div class="cta-card">
-        <h2>Two ways to start — pick your speed.</h2>
-        <p>A real answer in 3 minutes, or the measured one first. Both free — no account, no email held hostage.</p>
+        <h2>Start with the free check.</h2>
+        <p>A real answer in 3 minutes. No account, no email held hostage.</p>
         <div class="cta-two">
-          <a class="btn btn-primary" href="check.html">Take the 3-minute AI check &rarr;</a>
-          <a class="btn btn-ghost" href="tracker.html">Run the 5-day leak tracker &rarr;</a>
+          <a class="btn btn-primary" href="check.html">Take the 3-minute AI check</a>
         </div>
         <p style="margin-top:22px;" class="nextlinks">
-          <span class="src">Other trades we build for: <a href="ai-for-property.html" style="color:var(--violet);">Property &amp; lettings</a> · <a href="ai-for-accountants.html" style="color:var(--violet);">Accountants</a> · <a href="ai-for-trades.html" style="color:var(--violet);">Trades</a> · <a href="method.html" style="color:var(--violet);">How the method works</a></span>
+          <span class="src">Other trades we build for: <a href="ai-for-property.html" style="color:var(--ink);text-decoration:underline;">Property &amp; lettings</a> · <a href="ai-for-accountants.html" style="color:var(--ink);text-decoration:underline;">Accountants</a> · <a href="ai-for-trades.html" style="color:var(--ink);text-decoration:underline;">Trades</a></span>
         </p>
       </div>
     </div>
@@ -461,11 +472,9 @@
 <footer>
   <div class="container">
     <div class="footer-bottom">
-      <div>TISHKA AI © 2026 · DRAFT — NOT LIVE</div>
+      <div>TISHKA AI © 2026 · DRAFT (NOT LIVE)</div>
       <div class="footer-links">
         <a href="index-v2.html">Home draft</a>
-        <a href="method.html">The method</a>
-        <a href="tracker.html">Time Leak Tracker</a>
         <a href="check.html">Free AI check</a>
       </div>
     </div>
@@ -490,10 +499,11 @@
 
   /* ============ vertical parser demo (engine reused from demo-parser.html) ============ */
   var $ = function (s) { return document.querySelector(s); };
-  var NF = '\u2014 not found';
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  var NF = 'not found';
   var SAMPLES = [
-    "Hi Sarah \u2014 can you send over three more candidates for the Bradford maintenance engineer role this week? Also, we interviewed James Okafor last Tuesday and still owe you feedback; he's chasing us daily. Shortlist to hiring@millbrookengineering.co.uk or call 0113 496 0200. Thanks \u2014 Rachel Simmons, Millbrook Engineering Ltd",
-    "Morning Sarah, right-to-work docs still outstanding for two of Monday's starts (Aisha Begum, Tom Reilly). Chased Thursday and again yesterday. They start 06/10/2026. Can you chase again from the agency side? \u2014 Dev Patel, Brookfield Manufacturing Ltd, 07700 900812"
+    "Hi Sarah, can you send over three more candidates for the Bradford maintenance engineer role this week? Also, we interviewed James Okafor last Tuesday and still owe you feedback; he's chasing us daily. Shortlist to hiring@millbrookengineering.co.uk or call 0113 496 0200. Thanks, Rachel Simmons, Millbrook Engineering Ltd",
+    "Morning Sarah, right-to-work docs still outstanding for two of Monday's starts (Aisha Begum, Tom Reilly). Chased Thursday and again yesterday. They start 06/10/2026. Can you chase again from the agency side? Thanks, Dev Patel (Brookfield Manufacturing Ltd), 07700 900812"
   ];
   var RX = {
     phone: /\b(?:\+44[\s-]?|0)(?:\d[\s-]?){9,10}\b/g,
@@ -534,7 +544,7 @@
     if (timesTest) add('Asked for', timesTest ? timesTest[0] : null);
     var whenBits = uniq([rels[0], days[0], dates[0]].filter(Boolean));
     add('When', whenBits.length ? whenBits.join(' \u00b7 ') : null);
-    rows.push(['Chase detected', chasing ? '<span class="badge2 urgent">YES \u2014 feedback owed</span>' : '<span class="badge2 flex">NO</span>']);
+    rows.push(['Chase detected', chasing ? '<span class="badge2 urgent">YES, feedback owed</span>' : '<span class="badge2 flex">NO</span>']);
     return rows;
   }
   var timesTest = null;
@@ -552,7 +562,7 @@
   var lastRows = null;
   function runParse() {
     var text = $('#dTxt').value.trim();
-    if (!text) { setStatus('idle', 'IDLE'); $('#dOut').innerHTML = '<div class="empty">Paste an email first \u2014 or load a sample above.</div>'; $('#dConnect').hidden = true; return; }
+    if (!text) { setStatus('idle', 'IDLE'); $('#dOut').innerHTML = '<div class="empty">Paste an email first, or load a sample above.</div>'; $('#dConnect').hidden = true; return; }
     setStatus('proc', 'PARSING\u2026');
     var btn = $('#dParse'); btn.disabled = true; btn.textContent = 'Parsing\u2026';
     $('#dConnect').hidden = true;
@@ -567,7 +577,7 @@
       var emptyish = rows.filter(function (r) { return r[0] !== 'Type' && r[0] !== 'Chase detected' && r[0] !== 'Chase detected'; })
         .every(function (r) { return String(r[1]) === NF; });
       if (emptyish) {
-        $('#dOut').innerHTML = '<div class="empty">Couldn\u2019t pull clean fields from that \u2014 and it never invents them. Try a sample, or paste text with a name, number or date in it.</div>';
+        $('#dOut').innerHTML = '<div class="empty">Couldn\u2019t pull clean fields from that, and it never invents them. Try a sample, or paste text with a name, number or date in it.</div>';
         $('#dConnect').hidden = true;
       } else {
         renderRows(rows);
@@ -593,30 +603,33 @@
     {
       "@type": "Question",
       "name": "What does it cost, honestly?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Packages start at £300/month plus a one-off setup — £1,500 for Front Desk, £3,000 for Ops Desk, £5,000 for AI Ops Partner. Setup is split 50/50 (half on agreement, half on go-live). No lock-in: 30 days' notice cancels the monthly. The first diagnostic is free." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Packages start at £300/month plus a one-off setup: £1,500 for Front Desk, £3,000 for Ops Desk, £5,000 for AI Ops Partner. Setup is split 50/50 (half on agreement, half on go-live). No lock-in: 30 days' notice cancels the monthly. The first diagnostic is free." }
     },
     {
       "@type": "Question",
-      "name": "We already pay for an ATS — why would we need this too?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Because the ATS stops at its own walls. The formatting, the feedback chasing, the timesheets, the inbox triage — 2024 Loxo and Firefish reviews show branded submissions and formatting are exactly where users still work around their system. We build the glue across whatever you run, and we'll tell you when your existing tool already covers something." }
+      "name": "We already pay for an ATS: why would we need this too?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Because the ATS stops at its own walls. The formatting, the feedback chasing, the timesheets, the inbox triage: 2024 Loxo and Firefish reviews show branded submissions and formatting are exactly where users still work around their system. We build the glue across whatever you run, and we'll tell you when your existing tool already covers something." }
     },
     {
       "@type": "Question",
       "name": "Will it email clients and candidates without a human checking?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No. Everything starts in draft and waits for approval. Once you trust a routine category — a standard chase, a scheduling nudge — you can switch it to auto, per category, your choice. Financial, compliance and sensitive client-facing messages stay approval-only permanently." }
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Everything starts in draft and waits for approval. Once you trust a routine category (a standard chase, a scheduling nudge), you can switch it to auto, per category, your choice. Financial, compliance and sensitive client-facing messages stay approval-only permanently." }
     },
     {
       "@type": "Question",
       "name": "What happens when it gets a CV or a name wrong?",
-      "acceptedAnswer": { "@type": "Answer", "text": "It drafts; you approve — so a wrong field is a two-second fix, not a sent email. Missing fields stay blank rather than being invented. We never claim 100% accuracy; the claim is that AI drafts in about 2 minutes what took 30 by hand, with a human still reading it." }
+      "acceptedAnswer": { "@type": "Answer", "text": "It drafts; you approve, so a wrong field is a two-second fix, not a sent email. Missing fields stay blank rather than being invented. We never claim 100% accuracy; the claim is that AI drafts in about 2 minutes what took 30 by hand, with a human still reading it." }
     },
     {
       "@type": "Question",
       "name": "What do you need from us to build it?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Read access to the inbox (or a forwarding rule), your CV template, and a look at whatever tracks candidates today — even a spreadsheet. No new logins for consultants, nothing for candidates or clients to install, and your data stays yours: exports and documentation come with the build." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Read access to the inbox (or a forwarding rule), your CV template, and a look at whatever tracks candidates today, even a spreadsheet. No new logins for consultants, nothing for candidates or clients to install, and your data stays yours: exports and documentation come with the build." }
     }
   ]
 }
 </script>
+
+  <!-- Chat widget (Tishka AI assistant) -->
+  <script src="../chat-widget.js"></script>
 </body>
 </html>

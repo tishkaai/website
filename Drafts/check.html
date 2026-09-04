@@ -17,14 +17,15 @@
   backend). Live wiring = n8n Workflow B mode:"teaser"|"full" per the v2 plan.
   [PETE-FLAG] Verdict bands (>=8 strong / 2-8 partial / <2 not yet) are starter
   rules — Pete may want them tuned after recruiter QA (plan's verification step).
+2026-09-04: restyled to operations-instrument identity (source: index-v2.html). Copy unchanged except button-label arrows removed (3 in HTML + 2 JS-set labels); form flow JS otherwise unchanged.
 ============================================================= -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
-<title>Free AI Opportunity Check — 3 minutes, no email needed | Tishka AI</title>
-<meta name="description" content="Tap through 10 quick questions about how your business runs. Get an honest verdict, your week mirrored back with the £ maths visible, and what we'd automate first — free, on screen, before any email ask.">
+<title>Free AI Opportunity Check: 3 minutes, no email needed | Tishka AI</title>
+<meta name="description" content="Tap through 10 quick questions about how your business runs. Get an honest verdict, your week mirrored back with the £ maths visible, and what we'd automate first. Free, on screen, before any email ask.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -36,28 +37,39 @@
 }
 </script>
 <script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../resource/site.css">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
-    --bg: #f7f7f8; --bg-card: #ffffff; --bg-elevated: #f1f1f4;
-    --border: #e4e4e9; --text: #121215; --text-muted: #5a5a63;
-    --green: #0b7f5a; --violet: #6d4cf0;
-    --header-bg: rgba(247,247,248,0.85); --band: #efeff3;
-    --btn-bg: #121215; --btn-fg: #ffffff; --btn-bg-hover: #2c2c31;
-    --ghost-hover: #e7e7ec; --warn: #a3701a; --bad: #d43f3f;
+      
+    --bg: var(--paper); --bg-card: var(--raise); --bg-elevated: var(--band);
+      
+    --text: var(--ink); --text-muted: var(--muted);
+      
+    
+      
+      
     color-scheme: light;
   }
   html[data-theme="dark"] {
-    --bg: #0a0a0a; --bg-card: #111111; --bg-elevated: #1a1a1a;
-    --border: #2a2a2a; --text: #f5f5f5; --text-muted: #a1a1a1;
-    --green: #22c55e; --violet: #7c5cf6;
-    --header-bg: rgba(10,10,10,0.85); --band: #0f0f0f;
-    --btn-bg: #ffffff; --btn-fg: #000000; --btn-bg-hover: #e5e5e5;
-    --ghost-hover: #222222; --warn: #d9a441; --bad: #ff5c5c;
+      
+    --bg: var(--paper); --bg-card: var(--raise); --bg-elevated: var(--band);
+      
+    --text: var(--ink); --text-muted: var(--muted);
+      
+    
+      
+      
     color-scheme: dark;
   }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  body { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, .display { font-family: "Schibsted Grotesk", "Archivo", sans-serif; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  button, input, select, textarea { font-family: inherit; }
   a { color: inherit; text-decoration: none; }
   .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
 
@@ -66,75 +78,73 @@
   .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 10px; }
   .logo img { height: 28px; width: auto; display: block; }
   html:not([data-theme="dark"]) .logo img { filter: invert(1); }
-  .badge { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.62rem; letter-spacing: 0.12em;
-    text-transform: uppercase; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-muted);
+  .badge { font-size: 1rem; font-weight: 600; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-muted);
     border-radius: 6px; padding: 5px 10px; }
-  .theme-btn { font-family: ui-monospace, monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+  .theme-btn { font-size: 1rem; font-weight: 600;
     color: var(--text-muted); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px;
     background: var(--bg-card); cursor: pointer; }
 
   .hero { padding: 44px 0 8px; text-align: center; }
-  .eyebrow { display: inline-block; font-family: ui-monospace, monospace; font-size: 0.68rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--violet); margin-bottom: 12px; }
-  h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 650; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 12px; }
-  .hero-sub { font-size: 1rem; color: var(--text-muted); max-width: 560px; margin: 0 auto; }
+  .eyebrow { display: inline-block; font-size: 0.875rem; font-weight: 600; color: var(--muted); margin-bottom: 12px; }
+  h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 12px; }
+  .hero-sub { font-size: 1.125rem; color: var(--text-muted); max-width: 560px; margin: 0 auto; }
 
   .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 26px; margin-top: 24px; }
-  .qnum { font-family: ui-monospace, monospace; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+  .qnum { font-size: 0.875rem; font-weight: 600;
     color: var(--text-muted); margin-bottom: 8px; }
   .q { font-size: 1.15rem; font-weight: 600; margin-bottom: 4px; }
-  .qh { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; }
+  .qh { font-size: 1.125rem; color: var(--text-muted); margin-bottom: 16px; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip { font-size: 0.88rem; color: var(--text); background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 999px; padding: 9px 17px; cursor: pointer; text-align: left; }
-  .chip:hover { border-color: var(--violet); }
-  .chip.on { background: var(--violet); color: #fff; border-color: var(--violet); font-weight: 600; }
+  .chip { font-size: 1rem; color: var(--text); background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 9px 17px; cursor: pointer; text-align: left; }
+  .chip:hover { border-color: var(--ink); }
+  .chip.on { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); font-weight: 600; }
   .else { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
   .else input[type=text] { flex: 1; background: var(--bg); color: var(--text); border: 1px dashed var(--border);
-    border-radius: 10px; padding: 9px 13px; font-size: 0.88rem; font-family: inherit; }
-  .else input:focus { outline: 1px solid var(--violet); border-style: solid; }
-  .else .lbl { font-size: 0.72rem; font-family: ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.08em;
+    border-radius: 10px; padding: 9px 13px; font-size: 1rem; font-family: inherit; }
+  .else input:focus { outline: 1px solid var(--ink); border-style: solid; }
+  .else .lbl { font-size: 1rem; font-weight: 600;
     color: var(--text-muted); flex-shrink: 0; }
   textarea { width: 100%; min-height: 64px; background: var(--bg); color: var(--text); border: 1px solid var(--border);
-    border-radius: 10px; padding: 10px 13px; font-size: 0.9rem; font-family: inherit; resize: vertical; }
+    border-radius: 10px; padding: 10px 13px; font-size: 1rem; font-family: inherit; resize: vertical; }
   .navrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 22px; }
   .btn { display: inline-flex; align-items: center; justify-content: center; padding: 11px 22px;
-    border-radius: 9999px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; transition: all .15s ease; }
-  .btn-primary { background: var(--violet); color: #fff; }
-  .btn-primary:hover { filter: brightness(1.08); }
+    border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; border: none; transition: all .15s ease; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
   .btn-primary[disabled] { opacity: 0.4; cursor: default; }
   .btn-ghost { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text); }
   .btn-ghost:hover { background: var(--ghost-hover); }
   .dots { display: flex; gap: 6px; justify-content: center; margin: 18px 0 0; }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
-  .dot.on { background: var(--violet); }
-  .rate-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 8px; }
+  .dot.on { background: var(--ink); }
+  .rate-note { font-size: 1rem; color: var(--text-muted); margin-top: 8px; }
 
   /* teaser */
-  .teaser { border: 1px solid var(--violet); box-shadow: 0 0 0 1px var(--violet); border-radius: 16px;
+  .teaser { border: 1px solid var(--ink); box-shadow: 0 0 0 1px var(--ink); border-radius: 16px;
     background: var(--bg-card); padding: 26px; margin-top: 24px; }
-  .teaser h2 { font-size: 1.25rem; font-weight: 650; margin-bottom: 6px; }
+  .teaser h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 6px; }
   .mirror { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px;
-    margin: 14px 0; font-size: 0.98rem; }
-  .mirror span { color: var(--violet); font-weight: 700; }
-  .mirror .breakdown { display: block; font-size: 0.8rem; color: var(--text-muted); font-weight: 400; margin-top: 8px; }
-  .verdict { display: inline-block; font-family: ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.12em;
-    text-transform: uppercase; border-radius: 8px; padding: 6px 12px; margin-bottom: 12px; }
-  .verdict.strong { background: rgba(11,127,90,0.12); color: var(--green); }
-  .verdict.partial { background: rgba(109,76,240,0.1); color: var(--violet); }
+    margin: 14px 0; font-size: 1.125rem; font-variant-numeric: tabular-nums; }
+  .mirror span { color: var(--ledger); font-weight: 700; }
+  .mirror .breakdown { display: block; font-size: 1.125rem; color: var(--text-muted); font-weight: 400; margin-top: 8px; }
+  .verdict { display: inline-block; font-size: 1.25rem; font-weight: 600;
+    border-radius: 8px; padding: 6px 12px; margin-bottom: 12px; }
+  .verdict.strong { background: var(--band); color: var(--ink); }
+  .verdict.partial { background: var(--band); color: var(--muted); }
   .verdict.none { background: var(--bg-elevated); color: var(--text-muted); }
   .verdict-lines { margin: 10px 0 0; padding: 0; list-style: none; }
-  .verdict-lines li { font-size: 0.9rem; color: var(--text-muted); padding: 3px 0; }
-  .verdict-lines li::before { content: "· "; color: var(--violet); font-weight: 700; }
-  .assump { font-size: 0.76rem; color: var(--text-muted); margin-top: 10px; }
+  .verdict-lines li { font-size: 1rem; color: var(--text-muted); padding: 3px 0; }
+  .verdict-lines li::before { content: "· "; color: var(--ink); font-weight: 700; }
+  .assump { font-size: 1rem; color: var(--text-muted); margin-top: 10px; }
   .gate { border-top: 1px dashed var(--border); margin-top: 20px; padding-top: 18px; }
-  .gate h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
-  .gate p { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; }
+  .gate h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 4px; }
+  .gate p { font-size: 1rem; color: var(--text-muted); margin-bottom: 12px; }
   .gate input { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border);
-    border-radius: 10px; padding: 10px 13px; font-size: 0.95rem; font-family: inherit; margin-bottom: 10px; }
+    border-radius: 10px; padding: 10px 13px; font-size: 1rem; font-family: inherit; margin-bottom: 10px; }
   .cta-two { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
 
-  footer { border-top: 1px solid var(--border); padding: 36px 0 30px; margin-top: 50px; font-size: 0.9rem; color: var(--text-muted); }
+  footer { border-top: 1px solid var(--border); padding: 36px 0 30px; margin-top: 50px; font-size: 1rem; color: var(--text-muted); }
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
   .footer-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
   .footer-links a:hover { color: var(--text); }
@@ -164,14 +174,14 @@
   </div>
 </header>
 <!-- draft-nav-bar: local navigation between draft pages -->
-<div style="border-bottom:1px solid var(--border,var(--line,#e3e3e8));background:var(--bg-card,var(--bg-raise,#ffffff));position:relative;z-index:49;"><div style="max-width:1080px;margin:0 auto;padding:9px 24px;font-size:0.95rem;line-height:1.8;"><a href="index-v2.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Home</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="tracker.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Tracker</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-recruitment.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Recruitment</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-property.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Property</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-accountants.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Accountants</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-trades.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Trades</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="method.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Method</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="check.html" style="color:var(--ink,#121215);font-weight:700;">Free check</a></div></div>
+<div style="border-bottom:1px solid var(--border,var(--line,#e3e3e8));background:var(--bg-card,var(--bg-raise,#ffffff));position:relative;z-index:49;"><div style="max-width:1080px;margin:0 auto;padding:9px 24px;font-size:1rem;line-height:1.8;"><a href="index-v2.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Home</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-recruitment.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Recruitment</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-property.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Property</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-accountants.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Accountants</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="ai-for-trades.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Trades</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="check.html" style="color:var(--ink,#121215);font-weight:700;">Free check</a></div></div>
 
 <div class="container">
 
   <div class="hero">
     <span class="eyebrow">AI Opportunity Check</span>
     <h1>Three minutes.<br>Taps, not typing.</h1>
-    <p class="hero-sub">Tap through the questions — type only if you want to. At the end you get your week mirrored back with the £ maths visible and an honest verdict on whether AI is worth your time. Free, on screen, before any email is asked for.</p>
+    <p class="hero-sub">Tap through the questions (type only if you want to). At the end you get your week mirrored back with the £ maths visible and an honest verdict on whether AI is worth your time. Free, on screen, before any email is asked for.</p>
   </div>
 
   <!-- ============ QUIZ ============ -->
@@ -180,35 +190,33 @@
     <div class="navrow">
       <button class="btn btn-ghost" id="backBtn" type="button" hidden>&larr; Back</button>
       <span style="flex:1;"></span>
-      <button class="btn btn-primary" id="nextBtn" type="button" disabled>Next &rarr;</button>
+      <button class="btn btn-primary" id="nextBtn" type="button" disabled>Next</button>
     </div>
   </div>
 
   <!-- ============ TEASER (before any email ask) ============ -->
   <div class="teaser" id="teaserCard" hidden>
     <span class="verdict" id="verdictChip"></span>
-    <h2 style="font-size:1.3rem;font-weight:650;">Your week, from your answers.</h2>
+    <h2 style="font-size:1.3rem;font-weight:700;">Your week, from your answers.</h2>
     <div class="mirror" id="mirrorCard"></div>
     <ul class="verdict-lines" id="verdictLines"></ul>
     <p class="assump" id="assumpLine"></p>
 
     <div id="noneClose" hidden>
-      <p style="font-size:0.9rem;color:var(--text-muted);margin-top:14px;">That's an honest no — nothing here needs automating right now. No email asked, nothing sent. If that changes — a new hire, a new contract — the door's open.</p>
+      <p style="font-size:1rem;color:var(--text-muted);margin-top:14px;">That's an honest no: nothing here needs automating right now. No email asked, nothing sent. If that changes (a new hire, a new contract), the door's open.</p>
       <div class="cta-two" style="margin-top:14px;">
-        <a class="btn btn-ghost" href="tracker.html">Try the 5-day leak tracker instead &rarr;</a>
       </div>
     </div>
 
     <div id="fitActions" hidden>
       <div class="gate">
         <h3>Want the full report?</h3>
-        <p>The report — your ranked leaks, what we'd automate first, what we'd never touch — is yours free. Leave an email and we'll send it; skip this and it's still on your screen. Either way is fine.</p>
+        <p>The report (your ranked leaks, what we'd automate first, what we'd never touch) is yours free. Leave an email and we'll send it; skip this and it's still on your screen. Either way is fine.</p>
         <input type="email" id="emailIn" placeholder="Email (optional)" autocomplete="email">
         <div class="cta-two">
-          <a class="btn btn-primary" id="bookBtn" href="../contact.html">Book the free diagnostic &rarr;</a>
+          <a class="btn btn-primary" id="bookBtn" href="../contact.html">Book the free diagnostic</a>
           <button class="btn btn-ghost" id="emailBtn" type="button">Email me the full report</button>
         </div>
-        <p style="font-size:0.72rem;color:var(--text-muted);margin-top:10px;">Want the precise version instead of the estimate? <a href="tracker.html" style="color:var(--violet);">Run the 5-day leak tracker</a> — your numbers, not estimates.</p>
       </div>
     </div>
   </div>
@@ -218,14 +226,12 @@
 <footer>
   <div class="container">
     <div class="footer-bottom">
-      <div>TISHKA AI © 2026 · DRAFT — NOT LIVE</div>
+      <div>TISHKA AI © 2026 · DRAFT (NOT LIVE)</div>
       <div class="footer-links">
         <a href="index-v2.html">Home draft</a>
-        <a href="method.html">The method</a>
-        <a href="tracker.html">Time Leak Tracker</a>
       </div>
     </div>
-    <p style="font-size:0.75rem;margin-top:12px;">Nothing you tap here is stored or sent anywhere — the check runs entirely in your browser. The email box is optional and, in this draft, goes nowhere.</p>
+    <p style="font-size:1rem;margin-top:12px;">Nothing you tap here is stored or sent anywhere: the check runs entirely in your browser. The email box is optional and, in this draft, goes nowhere.</p>
   </div>
 </footer>
 
@@ -261,7 +267,7 @@
     { /* Q1 — industry chips (routes everything) */
       id: 'industry',
       q: 'What kind of business?',
-      hint: 'Picks the questions you get — and the examples in your report.',
+      hint: 'Picks the questions you get, and the examples in your report.',
       type: 'chips',
       chips: [
         { l: 'Recruitment agency', v: 'recruitment' },
@@ -287,7 +293,7 @@
     { /* Q3 */
       id: 'sentence',
       q: 'In a sentence, what does the business do?',
-      hint: 'Optional — one line is plenty.',
+      hint: 'Optional: one line is plenty.',
       type: 'text',
       placeholder: 'e.g. electrical contractor, 6 engineers, domestic + landlords'
     },
@@ -359,7 +365,7 @@
     },
     { /* generic path — admin hours + tasks */
       id: 'adminHours', branch: 'generic',
-      q: 'Hours a week the admin takes — yours or the team\'s?',
+      q: 'Hours a week the admin takes (yours or the team\'s)?',
       type: 'chipsHours',
       chips: HOURS_CHIPS_LOW,
       elseLabel: 'Different amount?'
@@ -397,7 +403,7 @@
     },
     { id: 'oneThing',
       q: 'If AI could take ONE thing off your plate, what would it be?',
-      hint: 'One line — this is the most useful answer on the whole form.',
+      hint: 'One line: this is the most useful answer on the whole form.',
       type: 'text',
       placeholder: 'The one thing…'
     },
@@ -474,7 +480,7 @@
     document.getElementById('backBtn').hidden = step === 0;
     var next = document.getElementById('nextBtn');
     next.disabled = !answered(q.id);
-    next.textContent = step === order.length - 1 ? 'See my answer →' : 'Next →';
+    next.textContent = step === order.length - 1 ? 'See my answer' : 'Next';
     paintDots();
 
     /* wire chips */
@@ -586,25 +592,25 @@
     var mirror = document.getElementById('mirrorCard');
     if (v === 'none') {
       mirror.innerHTML = 'From your answers, there isn\'t enough repetitive admin for this to pay for itself yet' +
-        (ans.industry ? ' — that\'s a fine place to be.' : '.') + '<span class="breakdown">We\'d rather tell you now than invoice you later.</span>';
+        (ans.industry ? '. That\'s a fine place to be.' : '.') + '<span class="breakdown">We\'d rather tell you now than invoice you later.</span>';
       document.getElementById('noneClose').hidden = false;
       document.getElementById('assumpLine').textContent = '';
       return;
     }
     var fmt = function (x) { var t = Math.round(10 * x) / 10; return t % 1 === 0 ? t.toFixed(0) : t.toFixed(1); };
-    mirror.innerHTML = '<span>' + fmt(h) + ' hrs a week</span> in the areas you named — worth about <span>£' +
+    mirror.innerHTML = '<span>' + fmt(h) + ' hrs a week</span> in the areas you named, worth about <span>£' +
       Math.round(h * 52 * RATE).toLocaleString('en-GB') + ' a year</span> of time, and up to <span>' + fmt(h) + ' hrs a week</span> back if the chase-and-format share goes to the system.' +
       '<span class="breakdown">' + (computeTotals().lines.join(' · ') || 'stated from your answers') + '</span>';
     document.getElementById('assumpLine').textContent =
-      'Maths, visible: ' + fmt(h) + ' hrs/wk × 52 weeks × £' + RATE + '/hr (a stated admin-wage assumption, not your figure — adjust it with us on the call). "Up to" because the automatable share varies by task.';
+      'Maths, visible: ' + fmt(h) + ' hrs/wk × 52 weeks × £' + RATE + '/hr (a stated admin-wage assumption, not your figure. Adjust it with us on the call). "Up to" because the automatable share varies by task.';
     var lines = document.getElementById('verdictLines');
     var li = [];
     if (v === 'strong') {
-      li.push('What we\'d automate first: ' + (ans.industry === 'recruitment' ? 'CV formatting to your template, then the feedback chase' : 'the top chase on your list — records in, reminders out'));
+      li.push('What we\'d automate first: ' + (ans.industry === 'recruitment' ? 'CV formatting to your template, then the feedback chase' : 'the top chase on your list: records in, reminders out'));
       li.push('What we\'d never touch: pricing, judgment calls, anything that needs your read on a person');
       li.push('First build typically live in 1–2 weeks; measured from week one');
     } else {
-      li.push('What we\'d automate first: one workflow — the top item only, measured before anything else');
+      li.push('What we\'d automate first: one workflow. The top item only, measured before anything else');
       li.push('What we\'d never touch: pricing, judgment calls, sensitive client messages');
       li.push('The tracker gives the precise version of these numbers in 5 days');
     }
@@ -613,7 +619,7 @@
   }
   document.getElementById('emailBtn').addEventListener('click', function () {
     var b = document.getElementById('emailBtn');
-    var o = b.textContent; b.textContent = 'Noted — nothing sent in this draft';
+    var o = b.textContent; b.textContent = 'Noted. Nothing sent in this draft';
     setTimeout(function () { b.textContent = o; }, 2200);
   });
 
@@ -622,5 +628,8 @@
   render();
 })();
 </script>
+
+  <!-- Chat widget (Tishka AI assistant) -->
+  <script src="../chat-widget.js"></script>
 </body>
 </html>

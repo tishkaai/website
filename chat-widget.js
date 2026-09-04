@@ -3,8 +3,11 @@
  * Self-contained: CSS + HTML + JS in one file. No dependencies, no build step.
  * Drop a <script src="chat-widget.js"></script> before </body> and it self-initialises.
  *
- * Design: DM Sans, charcoal canvas #1A1A1A, indigo user bubbles, plain-text AI replies.
- * Spec: Claude/Business/Website/chat-widget-spec.md
+ * Design: site tokens (resource/site.css, reference page Drafts/index-v2.html) —
+ * Schibsted Grotesk display + Archivo body, paper/ink surfaces, 6px radii,
+ * full light/dark mirror. Consumes the page's CSS custom properties with
+ * same-name legacy fallbacks, so it follows whatever page it sits on.
+ * Spec: Claude/Business/Website/chat-widget-spec.md + style-guide.md
  *
  * Talks to the n8n chatbot workflow:
  *   POST <webhookUrl>  →  { message, conversationId, history }
@@ -57,6 +60,10 @@
     quick:   'tishka-chat-quick',
   };
 
+  // Page-push: while the panel is open the page shifts left instead of
+  // being covered (Pete, 2026-09-04). Class goes on <html> + <body>.
+  const PUSH_CLASS = 'tishka-chat-open';
+
   function nowTs() {
     const d = new Date();
     return d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0');
@@ -98,100 +105,115 @@
   }
 
   // ─────────────────────────────────────────────────────────────
-  // Design tokens + CSS (spec: charcoal / indigo / DM Sans)
+  // Design tokens + CSS (site identity: paper/ink, Archivo + Schibsted Grotesk)
   // ─────────────────────────────────────────────────────────────
   const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap');
 
 #${IDs.root} {
   position: fixed;
   bottom: 24px;
   right: 24px;
   z-index: 9999;
-  font-family: "DM Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-body, "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
 
-  /* ── Surfaces ─────────────────────────────── */
-  --cw-bg:             #1A1A1A;
-  --cw-surface-input:  #262626;
-  --cw-bubble-user:    #37335A;
-  --cw-chip:           #322E4D;
+  /* ── Site tokens (resource/site.css) ─────────────────────
+     Resolved from the host page, then from legacy same-name
+     vars on older pages, then the light identity as fallback. */
+  --cw-canvas:     var(--paper, var(--bg, #f6f6f3));
+  --cw-raise:      var(--raise, var(--bg-card, #ffffff));
+  --cw-border:     var(--border, #e3e3dc);
+  --cw-ink:        var(--ink, var(--text, #17171b));
+  --cw-muted:      var(--muted, var(--text-muted, #5b5b64));
+  --cw-btn-bg:     var(--btn-bg, var(--accent, var(--text, #17171b)));
+  --cw-btn-fg:     var(--btn-fg, var(--bg, #ffffff));
+  --cw-btn-hover:  var(--btn-bg-hover, color-mix(in srgb, var(--cw-btn-bg) 88%, var(--cw-canvas) 12%));
+  --cw-ghost:      var(--ghost-bg, var(--cw-raise));
+  --cw-ghost-hover: var(--ghost-hover, color-mix(in srgb, var(--cw-ghost) 92%, var(--cw-ink) 8%));
+  /* Input well: a recessed surface inside the raised panel —
+     kept light (Pete: the band grey read too dark), half band / half card */
+  --cw-well:       color-mix(in srgb, var(--cw-raise) 55%, var(--band, var(--cw-canvas)) 45%);
+  --cw-font-display: var(--font-display, "Schibsted Grotesk", "Archivo", sans-serif);
 
-  /* ── Text ────────────────────────────────── */
-  --cw-text:           #F2F2F2;
-  --cw-text-user:      #A79FF7;
-  --cw-text-muted:     #8C8C8C;
-  --cw-text-on-chip:   #F0EEFF;
+  /* ── Type (site rule: 18px reading text, 16px floor) ────── */
+  --cw-fs-msg: 1.125rem;   /* 18px — messages + typed input */
+  --cw-fs-ui:  1rem;       /* 16px — title, labels, times, disclaimer */
 
-  /* ── Lines / accents ──────────────────────── */
-  --cw-border:         #4D4D4D;
-  --cw-divider:        #2E2E2E;
-  --cw-accent:         #673DE6;
-  --cw-accent-2:       #4F8CFF;
+  /* ── Shape (site rule: 6px buttons, 12px cards) ─────────── */
+  --cw-r-btn:  6px;
+  --cw-r-card: 12px;
 
-  /* ── Radius ───────────────────────────────── */
-  --cw-r-bubble:       18px;
-  --cw-r-bubble-user:  18px 6px 18px 18px;
-  --cw-r-chip:         14px;
-  --cw-r-composer:     24px;
-
-  /* ── Type ─────────────────────────────────── */
-  --cw-fs-msg:   16px;
-  --cw-lh-msg:   1.65;
-  --cw-fs-title: 17px;
-  --cw-fs-chip:  15px;
-  --cw-fs-small: 13px;
-
-  /* ── Spacing ──────────────────────────────── */
-  --cw-pad-x:    24px;
-  --cw-gap-msg:  24px;
+  /* ── Spacing ─────────────────────────────────────────────── */
+  --cw-pad-x:   20px;
+  --cw-gap-msg: 22px;
 }
 #${IDs.root} * { box-sizing: border-box; }
 
-/* Bubble (launcher) */
+/* Focus — same rule as every site element.
+   Exception (Pete, 2026-09-04): text fields drop the outline ring —
+   the caret + the composer card border are the focus indication. */
+#${IDs.root} :focus-visible { outline: 2px solid var(--cw-ink); outline-offset: 2px; }
+#${IDs.root} input:focus-visible,
+#${IDs.root} textarea:focus-visible { outline: none; }
+
+/* Bubble (launcher): the site's primary button as a floating action */
 #${IDs.bubble} {
   width: 60px; height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--cw-accent), var(--cw-accent-2));
+  border-radius: var(--cw-r-btn);
+  background: var(--cw-btn-bg);
   border: none;
   cursor: pointer;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.22);
   display: flex; align-items: center; justify-content: center;
-  transition: transform 0.2s;
   padding: 0;
 }
-#${IDs.bubble}:hover, #${IDs.bubble}:focus-visible { transform: scale(1.05); outline: none; }
-#${IDs.bubble} svg { width: 28px; height: 28px; fill: #ffffff; display: block; }
+#${IDs.bubble}:hover { background: var(--cw-btn-hover); }
+#${IDs.bubble}:active { transform: scale(0.97); }
+#${IDs.bubble} svg { width: 26px; height: 26px; fill: var(--cw-btn-fg); display: block; }
 
-/* Window: full-height canvas, flush bottom-right */
+/* Window: a raised site card, flush bottom-right.
+   Raised surface (not the page colour) so the panel reads as its own
+   thing (Pete, 2026-09-04); 1px border is the edge, no drop shadow.
+   Height is set by JS at open time: panel stops at the header's bottom
+   edge (Pete: up to the top nav bar, never over it). */
 #${IDs.window} {
   position: absolute;
   bottom: 0;
   right: 0;
   width: 400px;
   height: calc(100vh - 48px);
-  background: var(--cw-bg);
-  border: 1px solid var(--cw-divider);
-  border-radius: 18px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  background: var(--cw-raise);
+  border: 1px solid var(--cw-border);
+  border-radius: var(--cw-r-card);
+  box-shadow: none;
   display: none;            /* JS toggles 'flex' on open, 'none' on close */
   flex-direction: column;
   overflow: hidden;
-  color: var(--cw-text);
+  color: var(--cw-ink);
 }
 
-/* Header: icon + purple logo + title left, white icons right */
+/* Header: chat glyph + name left, close right */
 #${IDs.header} {
-  display: flex; align-items: center; gap: 12px;
-  padding: 16px var(--cw-pad-x);
-  border-bottom: 1px solid var(--cw-divider);
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px var(--cw-pad-x);
+  border-bottom: 1px solid var(--cw-border);
   flex-shrink: 0;
 }
-#${IDs.header} .title { font-size: var(--cw-fs-title); font-weight: 700; color: #FFF; }
-#${IDs.header} svg { width: 20px; height: 20px; color: #FFF; }
-#${IDs.header} .logo { color: var(--cw-accent); }
-#${IDs.header} .header-actions { margin-left: auto; display: flex; align-items: center; gap: 14px; }
-#${IDs.header} button { background: none; border: none; cursor: pointer; padding: 0; display: flex; }
-#${IDs.header} button:hover { opacity: 0.8; }
+#${IDs.header} .title {
+  font-family: var(--cw-font-display);
+  font-size: var(--cw-fs-ui);
+  font-weight: 700;
+  color: var(--cw-ink);
+}
+#${IDs.header} .logo { color: var(--cw-ink); display: flex; }
+#${IDs.header} .logo svg { width: 20px; height: 20px; }
+#${IDs.header} .header-actions { margin-left: auto; display: flex; align-items: center; }
+#${IDs.header} button {
+  background: none; border: none; cursor: pointer; padding: 2px;
+  display: flex; color: var(--cw-muted);
+}
+#${IDs.header} button:hover { color: var(--cw-ink); }
+#${IDs.header} button svg { width: 20px; height: 20px; }
 
 /* Scroll area */
 #${IDs.messages} {
@@ -203,50 +225,50 @@
   gap: var(--cw-gap-msg);
 }
 #${IDs.messages}::-webkit-scrollbar { width: 4px; }
-#${IDs.messages}::-webkit-scrollbar-thumb { background: #3F3F3F; border-radius: 999px; }
+#${IDs.messages}::-webkit-scrollbar-thumb { background: var(--cw-border); border-radius: 999px; }
 
-/* USER bubble: right-aligned indigo pill, periwinkle text */
+/* USER message: the site's primary button colour, right-aligned */
 .msg.user { display: flex; justify-content: flex-end; padding: 0 var(--cw-pad-x); }
 .msg.user .bubble {
-  background: var(--cw-bubble-user);
-  color: var(--cw-text-user);
+  background: var(--cw-btn-bg);
+  color: var(--cw-btn-fg);
   font-size: var(--cw-fs-msg); line-height: 1.5;
-  padding: 14px 20px;
-  border-radius: var(--cw-r-bubble-user);
+  padding: 12px 16px;
+  border-radius: var(--cw-r-btn);
   max-width: 80%;
   white-space: pre-wrap; word-wrap: break-word;
 }
 
-/* AI reply: NO bubble — plain off-white text on the canvas */
+/* AI reply: plain text on the canvas — no bubble, no decoration */
 #${IDs.messages} .msg.ai {
   padding: 0 var(--cw-pad-x);
   background: transparent;
-  font-size: var(--cw-fs-msg); line-height: var(--cw-lh-msg);
-  color: var(--cw-text);
+  font-size: var(--cw-fs-msg); line-height: 1.55;
+  color: var(--cw-ink);
   white-space: pre-wrap; word-wrap: break-word;
 }
 .msg.ai ul { margin: 12px 0; padding-left: 24px; }
 .msg.ai li { margin: 10px 0; }
-.msg.ai li::marker { color: var(--cw-text); }
+.msg.ai li::marker { color: var(--cw-muted); }
 
-/* Icon row under AI reply (copy / speak / 👍 / 👎 + time) */
-.msg-actions { display: flex; align-items: center; gap: 16px; margin-top: 12px; color: var(--cw-text-muted); }
+/* Icon row under AI reply (copy + time) */
+.msg-actions { display: flex; align-items: center; gap: 16px; margin-top: 10px; color: var(--cw-muted); }
 .msg-actions button { background: none; border: none; cursor: pointer; padding: 0; display: flex; color: inherit; }
-.msg-actions button:hover { color: #FFF; }
+.msg-actions button:hover { color: var(--cw-ink); }
 .msg-actions svg { width: 18px; height: 18px; }
-.msg-actions .time { font-size: var(--cw-fs-small); }
+.msg-actions .time { font-size: var(--cw-fs-ui); }
 
 /* Thinking dots */
 .tishka-thinking {
   align-self: flex-start;
-  padding: 12px 16px;
+  padding: 4px var(--cw-pad-x);
   background: transparent;
   display: flex;
   gap: 4px;
 }
 .tishka-thinking span {
   width: 8px; height: 8px;
-  background: var(--cw-text-muted);
+  background: var(--cw-muted);
   border-radius: 50%;
   animation: tishka-bounce 1.4s infinite ease-in-out both;
 }
@@ -257,53 +279,60 @@
   40% { transform: scale(1); }
 }
 
-/* Quick actions: grey bold label + thin rule, stacked chips */
+/* Quick actions: muted label + hairline, stacked ghost buttons */
 .quick-label {
   display: flex; align-items: center; gap: 16px;
   padding: 4px var(--cw-pad-x);
-  color: var(--cw-text-muted); font-weight: 700; font-size: 15px;
+  color: var(--cw-muted); font-weight: 600; font-size: var(--cw-fs-ui);
 }
-.quick-label::after { content: ""; flex: 1; height: 1px; background: var(--cw-divider); }
-.quick-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 12px var(--cw-pad-x); }
+.quick-label::after { content: ""; flex: 1; height: 1px; background: var(--cw-border); }
+.quick-actions { display: flex; flex-direction: column; align-items: stretch; gap: 10px; padding: 12px var(--cw-pad-x); }
 .chip {
-  display: flex; align-items: center; gap: 12px;
-  background: var(--cw-chip); color: var(--cw-text-on-chip);
-  padding: 14px 18px; border-radius: var(--cw-r-chip);
-  font-size: var(--cw-fs-chip); font-weight: 500;
-  border: none; cursor: pointer; font-family: inherit; text-align: left;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--cw-ghost); color: var(--cw-ink);
+  border: 1px solid var(--cw-border);
+  padding: 12px 16px; border-radius: var(--cw-r-btn);
+  font-size: var(--cw-fs-ui); font-weight: 600;
+  font-family: inherit; text-align: left; cursor: pointer;
 }
-.chip:hover { background: #3d3861; }
-.chip .chev { color: #B9B3D8; margin-left: 4px; }
+.chip:hover { background: var(--cw-ghost-hover); }
 
-/* Composer: raised grey card, 1px border, big radius */
+/* Composer: recessed input well, 1px border, button radius */
 .composer {
   margin: 12px var(--cw-pad-x) 8px;
-  padding: 16px;
-  background: var(--cw-surface-input);
+  padding: 14px 16px;
+  background: var(--cw-well);
   border: 1px solid var(--cw-border);
-  border-radius: var(--cw-r-composer);
+  border-radius: var(--cw-r-btn);
   flex-shrink: 0;
 }
 .composer textarea, .composer input {
   width: 100%; background: transparent; border: 0; outline: 0;
-  color: var(--cw-text); font: inherit; font-size: var(--cw-fs-msg);
+  color: var(--cw-ink); font: inherit; font-size: var(--cw-fs-msg);
   resize: none;
 }
-.composer ::placeholder { color: var(--cw-text-muted); }
-.composer-bar { display: flex; align-items: center; gap: 16px; margin-top: 12px; }
+.composer ::placeholder { color: var(--cw-muted); }
+.composer-bar { display: flex; align-items: center; gap: 16px; margin-top: 10px; }
 
-/* Mic/send button: white circle, dark icon, purple→blue gradient ring */
-.mic {
-  width: 56px; height: 56px; border-radius: 50%; margin-left: auto;
-  border: 2px solid transparent;
-  background: linear-gradient(#FFF,#FFF) padding-box,
-              linear-gradient(135deg, var(--cw-accent), var(--cw-accent-2)) border-box;
+/* Send button: up-pointing arrow (Pete, 2026-09-04) on the band token —
+   a clearly darker shade of the input well (the well is white+band; the
+   button is the band end of that blend). Hover darkens slightly. */
+.send-btn {
+  width: 44px; height: 44px; border-radius: var(--cw-r-btn); margin-left: auto;
+  border: none;
+  background: var(--band, var(--cw-canvas));
   display: grid; place-items: center;
   cursor: pointer; padding: 0;
 }
-.mic svg { color: #1A1A1A; width: 22px; height: 22px; }
-.mic:hover { transform: scale(1.04); }
-.mic:disabled { opacity: 0.6; cursor: default; }
+.send-btn svg { color: var(--cw-ink); width: 20px; height: 20px; }
+.send-btn:hover { filter: brightness(0.94); }
+.send-btn:disabled { opacity: 0.5; cursor: default; }
+
+/* Dark theme only (Pete, 2026-09-04): the button sits a little lighter
+   than the input well (well + a touch of ink-light). */
+html[data-theme="dark"] .send-btn {
+  background: color-mix(in srgb, var(--cw-well) 88%, var(--cw-ink) 12%);
+}
 
 /* Email capture bar (follow-up) */
 #${IDs.emailBar} {
@@ -312,32 +341,33 @@
   flex-shrink: 0;
 }
 #${IDs.emailBar} label {
-  font-size: 14px; color: var(--cw-text);
+  font-size: var(--cw-fs-ui); color: var(--cw-ink);
   margin: 0 0 6px 0; font-weight: 600; display: block;
 }
 #${IDs.emailBar} .email-row {
   display: flex; gap: 8px; align-items: center;
-  background: var(--cw-surface-input);
+  background: var(--cw-well);
   border: 1px solid var(--cw-border);
-  border-radius: var(--cw-r-composer);
-  padding: 12px 16px;
+  border-radius: var(--cw-r-btn);
+  padding: 10px 14px;
 }
 #${IDs.emailBar} input {
   flex: 1; background: transparent; border: 0; outline: 0;
-  color: var(--cw-text); font: inherit; font-size: 15px;
+  color: var(--cw-ink); font: inherit; font-size: var(--cw-fs-ui);
 }
-#${IDs.emailBar} input::placeholder { color: var(--cw-text-muted); }
+#${IDs.emailBar} input::placeholder { color: var(--cw-muted); }
 #${IDs.emailSend} {
   background: none; border: none; cursor: pointer; padding: 0;
-  display: flex; align-items: center; color: var(--cw-text-muted);
+  display: flex; align-items: center; color: var(--cw-muted);
 }
-#${IDs.emailSend}:hover { color: #FFF; }
+#${IDs.emailSend}:hover { color: var(--cw-ink); }
 #${IDs.emailSend} svg { width: 20px; height: 20px; }
 
-/* Footer disclaimer */
+/* Footer disclaimer — 14px per Pete, 2026-09-04 (the one text below the
+   16px floor on the site; flagged in style-guide.md) */
 .disclaimer {
-  text-align: center; font-size: var(--cw-fs-small);
-  color: var(--cw-text-muted); padding: 6px 16px 12px; flex-shrink: 0;
+  text-align: center; font-size: var(--text-chip, 0.875rem);
+  color: var(--cw-muted); padding: 6px 16px 12px; flex-shrink: 0;
 }
 
 @media (max-width: 480px) {
@@ -349,6 +379,16 @@
   }
   #${IDs.bubble} { width: 52px; height: 52px; }
 }
+
+/* Push, not overlay (Pete, 2026-09-04): the page content moves left to
+   make room while the panel is open. Panel is 400px + 24px right offset;
+   448px keeps a 24px gutter. Below 768px the panel overlays as before
+   (it goes full-screen under 480px). Sticky headers shift with the body. */
+body { transition: margin-right 0.25s ease; }
+@media (min-width: 768px) {
+  html.${PUSH_CLASS} { background: var(--paper, var(--bg, #f6f6f3)); }
+  html.${PUSH_CLASS} body { margin-right: 448px; }
+}
 `;
 
   // ─────────────────────────────────────────────────────────────
@@ -358,15 +398,13 @@
     bubble: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2 1 3.8 2.7 5.1-.1 1.3-.5 3-1.4 4.2-.2.3 0 .7.4.6 2.2-.6 3.7-1.5 4.6-2.2C9.5 19.5 10.7 20 12 20c5.5 0 10-3.6 10-8.5S17.5 3 12 3z"/></svg>',
     logo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2 1 3.8 2.7 5.1-.1 1.3-.5 3-1.4 4.2-.2.3 0 .7.4.9 2.2-.6 3.7-1.5 4.6-2.2C9.5 19.5 10.7 20 12 20c5.5 0 10-3.6 10-8.5S17.5 3 12 3z"/></svg>',
     dots: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>',
-    chevron: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>',
     close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>',
-    send: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 21 3l-8.5 18-2.2-7.3L3 11.5z"/></svg>',
+    send: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>',
     mic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3"/></svg>',
     copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
     speaker: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg>',
     thumbsUp: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12M15 5.9 13.9 10H20a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-5l1.1 5.2a2 2 0 0 1-2 2.3L7 21H3V10h4z"/></svg>',
     thumbsDown: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V2M9 18.1 10.1 15H4a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h5L8 4.8a2 2 0 0 1 2-2.3L17 14l-1.1 5.2a2 2 0 0 1-2 2.3L7 21v-3z" transform="rotate(180 12 12)"/></svg>',
-    chevronRight: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>',
   };
 
   // ─────────────────────────────────────────────────────────────
@@ -405,7 +443,7 @@
         <div id="${IDs.composer}" class="composer">
           <input type="text" id="${IDs.input}" placeholder="Type your message..." aria-label="Type your message">
           <div class="composer-bar">
-            <button id="${IDs.send}" class="mic" aria-label="Send message">${ICONS.send}</button>
+            <button id="${IDs.send}" class="send-btn" aria-label="Send message">${ICONS.send}</button>
           </div>
         </div>
         <div class="disclaimer">AI assistant — always check important details</div>
@@ -440,10 +478,10 @@
     const wrap = document.createElement('div');
     wrap.id = IDs.quick;
     wrap.innerHTML = `
-      <div class="quick-label">QUICK ACTIONS</div>
+      <div class="quick-label">Quick actions</div>
       <div class="quick-actions">
         ${QUICK_ACTIONS.map((q, i) =>
-          `<button class="chip" data-q="${i}">${q}<span class="chev">${ICONS.chevronRight}</span></button>`
+          `<button class="chip" data-q="${i}">${q}</button>`
         ).join('')}
       </div>
     `;
@@ -485,7 +523,7 @@
       actions.querySelector('.act-copy').addEventListener('click', function () {
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(content).then(() => {
-            this.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+            this.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
           });
         }
       });
@@ -522,11 +560,32 @@
   // ─────────────────────────────────────────────────────────────
   // Open / close
   // ─────────────────────────────────────────────────────────────
+  // Panel height: from the header's bottom edge down to the 24px
+  // bottom gap. Falls back to the CSS height when no header exists.
+  function updatePanelHeight() {
+    if (!state.isOpen) return;
+    if (window.matchMedia('(max-width: 480px)').matches) {
+      el.window.style.height = ''; // full-screen media query wins
+      return;
+    }
+    let top = 24; // no header → keep the CSS default top gap
+    const headerEl = document.querySelector('header');
+    if (headerEl) {
+      const rect = headerEl.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.bottom < window.innerHeight) top = rect.bottom;
+    }
+    const height = Math.max(320, window.innerHeight - top - 24);
+    el.window.style.height = height + 'px';
+  }
+
   function openChat() {
     state.isOpen = true;
     el.window.style.display = 'flex';
     el.bubble.style.display = 'none';
     el.bubble.setAttribute('aria-expanded', 'true');
+    updatePanelHeight();
+    document.documentElement.classList.add(PUSH_CLASS);
+    document.body.classList.add(PUSH_CLASS);
     // First open with a fresh conversation → greet + quick actions.
     if (state.messages.length === 0) {
       state.messages.push({ role: 'assistant', content: CONFIG.greeting, ts: nowTs() });
@@ -542,6 +601,8 @@
     el.window.style.display = 'none';
     el.bubble.style.display = 'flex';
     el.bubble.setAttribute('aria-expanded', 'false');
+    document.documentElement.classList.remove(PUSH_CLASS);
+    document.body.classList.remove(PUSH_CLASS);
     saveToSessionStorage();
   }
 
@@ -687,6 +748,13 @@
   // ─────────────────────────────────────────────────────────────
   // Focus trap (Tab cycles within the open chat)
   // ─────────────────────────────────────────────────────────────
+  // Click-away (Pete, 2026-09-04): any click outside the widget closes it.
+  function handleOutsideClick(e) {
+    if (!state.isOpen) return;
+    if (el.root && el.root.contains(e.target)) return; // bubble + panel + controls
+    closeChat();
+  }
+
   function handleKeydown(e) {
     if (e.key === 'Escape' && state.isOpen) {
       closeChat();
@@ -736,6 +804,8 @@
     });
 
     document.addEventListener('keydown', handleKeydown);
+    document.addEventListener('click', handleOutsideClick);
+    window.addEventListener('resize', updatePanelHeight);
   }
 
   // ─────────────────────────────────────────────────────────────
