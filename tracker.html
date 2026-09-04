@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — TIME LEAK TRACKER (LOCAL DRAFT — NOT LIVE, NOT DEPLOYED)
+  Built 2026-09-03 per plans/website-verticals-tracker-method-build-plan.md §1
+  + plans/time-leak-tracker.md + structure doc §5.
+  v0: no account, no email — everything lives in this browser (localStorage
+  key tishka-tracker-v1). Report unlocks at 3 logged days (3-day view),
+  full view at 5. Verdicts = starter rule mapping (chips carry verdicts,
+  free text falls back to a regex), refined after research.
+  [PETE-FLAG] Page name "Time Leak Tracker" — plans/time-leak-tracker.md
+  decision point 4; rename here if Pete picks another.
+  [PETE-FLAG] CTA target ../contact.html assumes the live contact page
+  stays the booking door.
+  Preview: python3 -m http.server 8123 from Business/Website/
+           → http://localhost:8123/Drafts/tracker.html
+2026-09-04: restyled to operations-instrument identity (source: index.html). Copy unchanged except 3 CTA arrows removed (AI-tell rule); demo JS unchanged.
+============================================================= -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Time Leak Tracker: what your week of admin really costs | Tishka AI</title>
+<meta name="description" content="Log the admin that interrupts your real work for 5 working days: 10 seconds an entry. Get your leaks ranked by what they cost, with an honest verdict on what AI should touch. No account, no email, data stays in your browser.">
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="resource/site.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+      
+    --bg: var(--paper); --bg-card: var(--raise); --bg-elevated: var(--band);
+      
+    --text: var(--ink); --text-muted: var(--muted);
+      
+    
+    --band: #efeff3;
+      
+    
+     
+    color-scheme: light;
+  }
+  html[data-theme="dark"] {
+      
+    --bg: var(--paper); --bg-card: var(--raise); --bg-elevated: var(--band);
+      
+    --text: var(--ink); --text-muted: var(--muted);
+      
+    
+    --band: #0f0f0f;
+      
+    
+     
+    color-scheme: dark;
+  }
+  body { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, .display { font-family: "Schibsted Grotesk", "Archivo", sans-serif; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  button, input, select, textarea { font-family: inherit; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 10px; }
+  .logo img { height: 28px; width: auto; display: block; }
+  html:not([data-theme="dark"]) .logo img { filter: invert(1); }
+  .badge { font-size: 1rem; font-weight: 600; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-muted);
+    border-radius: 6px; padding: 5px 10px; white-space: nowrap; }
+  .theme-btn { font-size: 1rem; font-weight: 600;
+    color: var(--text-muted); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px;
+    background: var(--bg-card); cursor: pointer; }
+  .theme-btn:hover { color: var(--text); }
+
+  .hero { padding: 52px 0 10px; text-align: center; }
+  .eyebrow { display: inline-block; font-size: 0.875rem; font-weight: 600; color: var(--muted); margin-bottom: 14px; }
+  h1 { font-size: clamp(1.9rem, 4.5vw, 2.7rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 14px; }
+  .hero-sub { font-size: 1.125rem; color: var(--text-muted); max-width: 560px; margin: 0 auto; }
+
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 26px; margin-top: 26px; }
+  .card h2 { font-size: 1.2rem; font-weight: 600; margin-bottom: 6px; }
+  .hint { color: var(--text-muted); font-size: 1rem; margin-bottom: 18px; }
+  .label { display: block; font-size: 1rem; font-weight: 600; margin: 18px 0 8px; }
+  .label:first-of-type { margin-top: 0; }
+  .label small { color: var(--text-muted); font-weight: 400; }
+  input[type=number], input[type=text] { width: 100%; background: var(--bg); color: var(--text);
+    border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px; font-size: 1rem; font-family: inherit; }
+  input:focus { outline: 1px solid var(--ink); }
+  .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; padding: 3px; background: var(--bg); }
+  .seg button { background: transparent; color: var(--text-muted); border: 0; border-radius: 6px;
+    padding: 7px 16px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+  .seg button.on { background: var(--btn-bg); color: var(--btn-fg); }
+
+  .vert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .vert { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card); padding: 14px 12px;
+    cursor: pointer; text-align: left; }
+  .vert:hover { border-color: var(--ink); }
+  .vert.on { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); background: var(--bg-elevated); }
+  .vert b { display: block; font-size: 1rem; font-weight: 600; }
+  .vert span { font-size: 1rem; color: var(--text-muted); }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    padding: 11px 20px; border-radius: 6px; font-size: 1rem; font-weight: 600;
+    transition: all 0.15s ease; cursor: pointer; border: none; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
+  .btn-violet { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-violet:hover { background: var(--btn-bg-hover); }
+  .btn-ghost { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+  .btn[disabled] { opacity: 0.45; cursor: default; }
+
+  .progress { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 4px 0 2px; }
+  .daydot { font-size: 0.875rem; font-weight: 600;
+    border: 1px solid var(--border); color: var(--text-muted); border-radius: 8px; padding: 5px 10px; background: var(--bg-card); }
+  .daydot.done { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); font-weight: 700; }
+  .progress .meta { font-size: 1rem; color: var(--text-muted); margin-left: 4px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-size: 0.875rem; color: var(--text); background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 8px 15px; cursor: pointer; text-align: left; }
+  .chip:hover { border-color: var(--ink); }
+  .chip.on { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); font-weight: 600; }
+
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .row { grid-template-columns: 1fr; } .card { padding: 20px 16px; } header .badge { display: none; } input[type=number], input[type=text] { font-size: 16px; } .chip { padding: 8px 13px; } }
+  .optgrid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt { font-size: 1rem; color: var(--text); background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 13px; cursor: pointer; }
+  .opt:hover { border-color: var(--ink); }
+  .opt.on { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); font-weight: 600; }
+
+  .entry-list { margin-top: 14px; }
+  .entry { display: flex; align-items: flex-start; gap: 10px; border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; background: var(--bg-card); font-size: 1rem; }
+  .entry .t { font-weight: 600; }
+  .entry .d { color: var(--text-muted); display: block; font-size: 1rem; }
+  .entry .x { margin-left: auto; border: 1px solid var(--border); background: transparent; color: var(--text-muted);
+    border-radius: 8px; padding: 4px 9px; cursor: pointer; font-size: 0.875rem; flex-shrink: 0; }
+  .entry .x:hover { color: var(--bad); border-color: var(--bad); }
+  .estflag { font-size: 0.875rem; font-weight: 600;
+    color: var(--warn); border: 1px solid var(--warn); border-radius: 5px; padding: 1px 6px; margin-left: 6px; vertical-align: 1px; }
+
+  .catchup { display: none; border-top: 1px dashed var(--border); margin-top: 18px; padding-top: 16px; }
+  .catchup.show { display: block; }
+  select { background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 10px;
+    padding: 9px 12px; font-size: 1rem; font-family: inherit; }
+
+  .report { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+  .viewband { display: inline-block; font-size: 0.875rem; font-weight: 600; background: var(--bg-elevated); color: var(--text-muted); border-radius: 6px;
+    padding: 4px 10px; margin-bottom: 12px; }
+  .viewband.partial { background: rgba(163,112,26,0.12); color: var(--warn); }
+  .oneline { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px 20px; font-size: 1.02rem; font-weight: 600; margin-bottom: 20px; font-variant-numeric: tabular-nums; }
+  .oneline span { color: var(--ledger); }
+  .leak { border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin-bottom: 12px; background: var(--bg-card); }
+  .leak-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .leak-head .n { color: var(--text-muted); font-size: 1rem; }
+  .leak-head .name { font-weight: 700; font-size: 1rem; }
+  .leak-head .p { margin-left: auto; color: var(--ledger); font-weight: 700; font-size: 1.05rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .leak-meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; }
+  .tag { font-size: 0.875rem; font-weight: 600;
+    border: 1px solid var(--border); background: var(--bg-elevated); color: var(--text-muted);
+    border-radius: 6px; padding: 3px 8px; }
+  .tag.auto { background: var(--band); color: var(--ink); border-color: transparent; }
+  .tag.ok { background: var(--band); color: var(--muted); border-color: transparent; }
+  .tag.alone { background: var(--bg-elevated); color: var(--text-muted); }
+  .tag.hated { background: rgba(212,63,63,0.1); color: var(--bad); border-color: transparent; }
+  .verdict-note { font-size: 1rem; color: var(--text-muted); margin: 8px 0 0; }
+  .report-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+  .honest { font-size: 1rem; color: var(--text-muted); margin-top: 16px; line-height: 1.55; }
+  .empty-report { color: var(--text-muted); font-size: 1rem; padding: 8px 0; }
+
+  section.final { margin: 46px 0 8px; }
+  .cta-card { text-align: center; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 44px 24px; }
+  .cta-card h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .cta-card p { color: var(--text-muted); max-width: 520px; margin: 0 auto 24px; }
+  .cta-two { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  footer { border-top: 1px solid var(--border); padding: 40px 0 30px; margin-top: 60px;
+    font-size: 1rem; color: var(--text-muted); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .footer-links a:hover { color: var(--text); }
+
+  @media print {
+    header, footer, .no-print { display: none !important; }
+    body { background: #fff; color: #000; }
+    .card, .leak, .oneline { border-color: #ccc; box-shadow: none; background: #fff; }
+  }
+  small { font-size: 1rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo"><img src="assets/Tishka_AI.svg" alt="Tishka AI" height="28"></a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button id="themeToggle" class="theme-btn" type="button" aria-label="Switch colour theme">Dark</button>
+      <span class="badge">No account · no email · data stays in your browser</span>
+    </div>
+  </div>
+</header>
+<!-- draft-nav-bar: local navigation between draft pages -->
+<div style="border-bottom:1px solid var(--border,var(--line,#e3e3e8));background:var(--bg-card,var(--bg-raise,#ffffff));position:relative;z-index:49;"><div style="max-width:1080px;margin:0 auto;padding:9px 24px;font-size:1rem;line-height:1.8;"><a href="index.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Home</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="tracker.html" style="color:var(--ink,#121215);font-weight:700;">Tracker</a> <span style="color:var(--text-muted,var(--ink-dim,#808089));">·</span> <a href="method.html" style="color:var(--text-muted,var(--ink-dim,#55555e));">Method</a></div></div>
+
+<div class="container">
+
+  <div class="hero">
+    <span class="eyebrow">Time Leak Tracker</span>
+    <h1>Find out what a week of admin<br>really costs your business.</h1>
+    <p class="hero-sub">Log the interruptions for 5 working days: about 10 seconds each, or a 90-second catch-up in the evening. On day 3 you get your first report; on day 5, the full picture. Your numbers, not our guesses.</p>
+  </div>
+
+  <!-- ============ DAY 0: SETUP ============ -->
+  <div class="card" id="setupCard">
+    <h2>First, three quick answers <span style="color:var(--text-muted);font-weight:400;">(30 seconds, once)</span></h2>
+    <p class="hint">Nothing here leaves this page. Not sure on the rate? Use what an hour of admin time costs you: £15/hour is a common starting point.</p>
+
+    <label class="label" for="rateIn">What's an hour of your time worth? <small>(£ per hour, drives every £ in your report)</small></label>
+    <input type="number" id="rateIn" min="0" step="1" value="15" inputmode="numeric">
+
+    <label class="label">Who's logging this week?</label>
+    <div class="seg" id="whoSeg" role="group" aria-label="Who is logging">
+      <button type="button" class="on" data-who="me">Just me</button>
+      <button type="button" data-who="team">Me + team</button>
+    </div>
+
+    <label class="label">What kind of business? <small>(loads your list of common leaks)</small></label>
+    <div class="vert-grid" id="vertGrid">
+      <button type="button" class="vert" data-v="recruitment"><b>Recruitment agency</b><span>CVs, feedback chasing, ATS admin</span></button>
+      <button type="button" class="vert" data-v="property"><b>Property / lettings</b><span>Tenants, contractors, compliance certs</span></button>
+      <button type="button" class="vert" data-v="accountants"><b>Accountancy firm</b><span>Client records, MTD deadlines, queries</span></button>
+      <button type="button" class="vert" data-v="trades"><b>Trade / field business</b><span>Quotes, invoices, jobs, suppliers</span></button>
+    </div>
+
+    <div style="margin-top:22px;">
+      <button class="btn btn-violet" id="startBtn" disabled>Start logging</button>
+    </div>
+  </div>
+
+  <!-- ============ LOGGING ============ -->
+  <div id="logArea" hidden>
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <h2 style="font-size:1.15rem;">Entry <span style="color:var(--text-muted);font-weight:400;">(10 seconds, six taps)</span></h2>
+        <div class="progress" id="dayBadges"></div>
+      </div>
+
+      <label class="label">What was it? <small>(tap one, or type it below)</small></label>
+      <div class="chips" id="chipGrid"></div>
+      <input type="text" id="freeIn" placeholder="Something else? Type it here" style="margin-top:10px;">
+
+      <div class="row" style="margin-top:16px;">
+        <div>
+          <label class="label" for="timesIn">How many times today?</label>
+          <input type="number" id="timesIn" min="1" max="99" step="1" value="1" inputmode="numeric">
+        </div>
+        <div>
+          <label class="label">Who did it?</label>
+          <div class="optgrid" id="whoGrid"></div>
+        </div>
+      </div>
+
+      <label class="label">How long each time?</label>
+      <div class="optgrid" id="rangeGrid"></div>
+
+      <label class="label">Which system did it involve?</label>
+      <div class="optgrid" id="sysGrid"></div>
+
+      <label class="label">How did it feel?</label>
+      <div class="optgrid" id="drainGrid"></div>
+
+      <div style="margin-top:20px;">
+        <button class="btn btn-violet" id="addBtn">Log it</button>
+        <button class="btn btn-ghost" id="catchupBtn" type="button">Catching up on another day?</button>
+      </div>
+
+      <div class="catchup" id="catchup">
+        <label class="label" for="datePick">Log for which day?</label>
+        <select id="datePick"></select>
+        <p class="hint" style="margin:10px 0 0;">Honest catch-up is fine: real life isn't logging in the moment. Entries added here carry their date and count as that day.</p>
+      </div>
+
+      <div class="entry-list" id="entryList"></div>
+    </div>
+
+    <!-- ============ REPORT (unlocks at 3 logged days) ============ -->
+    <div class="card report no-print" id="reportCard" hidden>
+      <div id="reportInner"></div>
+    </div>
+
+    <div class="card" id="lockedCard">
+      <h2 style="font-size:1.15rem;">Your report unlocks at the end of day 3.</h2>
+      <p class="hint" style="margin-bottom:0;">Top leaks are stable by then: that's why the first report lands at day 3 and the day-5 report refines it. Miss a day? No problem: the maths allows for it.</p>
+    </div>
+
+    <p style="text-align:center;margin:18px 0 0;">
+      <button class="btn btn-ghost" id="resetBtn" type="button">Start over (clears this browser's data)</button>
+    </p>
+  </div>
+
+  <!-- ============ TWO-DOOR CLOSE ============ -->
+  <section class="final no-print">
+    <div class="container">
+      <div class="cta-card">
+        <h2>Measured week done. What next?</h2>
+        <p>You've seen where the week leaks. The next step is a fix, not another tool: book the diagnostic and bring your numbers.</p>
+        <div class="cta-two">
+          <a class="btn btn-primary" href="contact.html">Book the diagnostic</a>
+          <a class="btn btn-ghost" href="index.html">Back to the site</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <div>TISHKA AI © 2026 · DRAFT (NOT LIVE)</div>
+      <div class="footer-links">
+        <a href="index.html">Home draft</a>
+        <a href="method.html">The method</a>
+      </div>
+    </div>
+    <p style="font-size:1rem;margin-top:14px;">Everything you log stays in this browser on this device: there is no account, no email box and no backend on this page. Clearing your browser data clears the tracker. Nothing is sent anywhere unless you send it.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* ================= data ================= */
+  var STORE = 'tishka-tracker-v1';
+  var RANGES = [
+    { id: 'lt5',   label: 'Under 5 min', mid: 3 },
+    { id: '5-15',  label: '5\u201315 min', mid: 10 },
+    { id: '15-30', label: '15\u201330 min', mid: 22 },
+    { id: '30-60', label: '30\u201360 min', mid: 45 },
+    { id: '60+',   label: 'An hour+', mid: 75 }
+  ];
+  var PACKS = {
+    recruitment: [
+      { t: 'Chasing candidates for docs / right-to-work', v: 'auto' },
+      { t: 'Formatting CVs for client send', v: 'auto' },
+      { t: 'Chasing client feedback on CVs', v: 'auto' },
+      { t: 'Updating the ATS by hand', v: 'auto' },
+      { t: 'Timesheet chase', v: 'auto' },
+      { t: 'Interview scheduling ping-pong', v: 'auto' },
+      { t: 'Writing job ads', v: 'ok' },
+      { t: 'Compliance / limit checks', v: 'auto' }
+    ],
+    property: [
+      { t: 'Tenant query emails', v: 'ok' },
+      { t: 'Chasing contractors for quotes / updates', v: 'auto' },
+      { t: 'Compliance cert chase (gas / EICR / EPC)', v: 'auto' },
+      { t: 'Arrears chase', v: 'auto' },
+      { t: 'Inspection scheduling', v: 'auto' },
+      { t: 'Renewal / notice date checks', v: 'auto' },
+      { t: 'Landlord updates', v: 'ok' }
+    ],
+    accountants: [
+      { t: 'Chasing clients for records / receipts', v: 'auto' },
+      { t: 'Deadline reminders + chase (MTD)', v: 'auto' },
+      { t: 'Client onboarding doc chase', v: 'auto' },
+      { t: 'Client queries by email', v: 'ok' },
+      { t: 'Reconciliation nags', v: 'auto' },
+      { t: 'Engagement-letter chase', v: 'auto' }
+    ],
+    trades: [
+      { t: 'Quote follow-ups', v: 'auto' },
+      { t: 'Invoice chasing', v: 'auto' },
+      { t: 'Job write-ups', v: 'ok' },
+      { t: 'Material orders', v: 'ok' },
+      { t: 'Supplier invoice matching', v: 'auto' },
+      { t: '"Where\u2019s my job up to" calls', v: 'auto' },
+      { t: 'Cert / record admin', v: 'auto' },
+      { t: 'Voicemail triage', v: 'auto' }
+    ]
+  };
+  var VERDICTS = {
+    auto: { label: 'Automatable', tag: 'auto',
+      note: 'Rule-based chasing, copying, formatting, scheduling or checking: this is the work AI handles first. You approve anything it sends.' },
+    ok: { label: 'Automatable, needs your OK', tag: 'ok',
+      note: 'Someone has to judge the words before they leave the business. It gets drafted; a human reads and approves. That approval-first step is the build.' },
+    alone: { label: 'Leave it alone', tag: 'alone',
+      note: 'Judgment call: pricing, choosing who gets what. Automating this would cost you money. We would leave it well alone.' }
+  };
+
+  function dayKey(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function niceDate(k) {
+    var p = k.split('-'); var d = new Date(+p[0], +p[1] - 1, +p[2]);
+    return d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+  }
+  function escapeHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function fmtHours(h) { var t = Math.round(10 * h) / 10; return (t % 1 === 0 ? t.toFixed(0) : t.toFixed(1)); }
+  function fmtGbp(x) { return '\u00a3' + Math.round(x).toLocaleString('en-GB'); }
+
+  /* ================= state ================= */
+  var state = { rate: 15, who: 'me', vertical: null, entries: [], started: false };
+  function load() {
+    try { var raw = localStorage.getItem(STORE); if (raw) { var s = JSON.parse(raw); if (s && s.entries) { state = s; state.entries = s.entries || []; } } } catch (e) {}
+  }
+  function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {} }
+  load();
+
+  /* ================= verdict engine (exported for node tests) ================= */
+  function verdictFor(label) {
+    var l = String(label).toLowerCase();
+    var exact = null;
+    Object.keys(PACKS).forEach(function (k) {
+      PACKS[k].forEach(function (c) { if (c.t.toLowerCase() === l) exact = c.v; });
+    });
+    if (exact) return exact;
+    if (/\b(price|pricing|discount|negoti|which (job|client|candidate)|who (to|should)|judg|decide)\b/.test(l)) return 'alone';
+    if (/\b(chase|chasing|follow.?up|remind|schedul|book|diaris|copy|re-?typ|format|match|triage|check|file|log|digest|track)\b/.test(l)) return 'auto';
+    return 'ok';
+  }
+
+  /* ================= aggregation engine (testable) ================= */
+  /* entries: [{date, label, times, range, who, system, drain, est}]
+     Regular entries: minutes = times x range-midpoint, projected: (sum/distinctDays)*5.
+     Estimate entries: given as weekly totals already (times x mid = minutes/wk). */
+  function aggregate(entries, rate) {
+    var out = { distinctDays: 0, weeklyMinutes: 0, regularMinutes: 0, estimateMinutes: 0,
+      weeklyHours: 0, weeklyCost: 0, monthlyCost: 0, top: [], totalHated: 0,
+      meMinutes: 0, staffMinutes: 0, projected: false, chasingPct: 0, leaks: [], rate: rate };
+    var byDate = {}, chips = {};
+    entries.forEach(function (e) {
+      var mid = 0; RANGES.forEach(function (r) { if (r.id === e.range) mid = r.mid; });
+      var mins = (e.times || 0) * mid;
+      if (e.est) { out.estimateMinutes += mins; } else { byDate[e.date] = 1; out.regularMinutes += mins; }
+      if (e.who === 'Staff') out.staffMinutes += mins; else out.meMinutes += mins;
+      var c = chips[e.label] || (chips[e.label] = { label: e.label, minutes: 0, times: 0, who: {}, systems: {}, drain: { fine: 0, annoying: 0, hated: 0 }, est: false });
+      c.minutes += mins; c.times += (e.times || 0);
+      c.who[e.who] = 1; c.systems[e.system] = 1;
+      if (e.drain === 'Hated it') c.drain.hated += e.times;
+      else if (e.drain === 'Annoying') c.drain.annoying += e.times;
+      else c.drain.fine += e.times;
+      if (e.est) c.est = true;
+    });
+    var dates = Object.keys(byDate).sort();
+    out.distinctDays = dates.length;
+    out.days = dates;
+    out.projectedMinutes = out.distinctDays > 0 ? out.regularMinutes / out.distinctDays * 5 : 0;
+    if (out.distinctDays > 0 && out.distinctDays < 5) out.projected = true;
+    out.weeklyMinutes = out.projectedMinutes + out.estimateMinutes;
+    out.weeklyHours = out.weeklyMinutes / 60;
+    out.weeklyCost = out.weeklyHours * rate;
+    out.monthlyCost = out.weeklyCost * 52 / 12;
+    var leaks = [];
+    Object.keys(chips).forEach(function (k) {
+      var c = chips[k];
+      c.weeklyMinutes = c.est ? c.minutes : (out.distinctDays > 0 ? c.minutes / out.distinctDays * 5 : 0);
+      c.weeklyCost = c.weeklyMinutes / 60 * rate;
+      c.verdict = verdictFor(k);
+      c.systemList = Object.keys(c.systems);
+      c.whoList = Object.keys(c.who);
+      c.drainLabel = c.drain.hated ? 'hated it' : (c.drain.annoying ? 'annoying' : 'fine');
+      out.totalHated += c.drain.hated;
+      leaks.push(c);
+    });
+    out.leaks = leaks.sort(function (a, b) { return b.weeklyMinutes - a.weeklyMinutes; });
+    out.chasingMinutes = out.leaks.filter(function (c) { return /\b(chase|chasing|follow-?up|remind)\b/i.test(c.label); })
+      .reduce(function (s, c) { return s + c.weeklyMinutes; }, 0);
+    out.chasingPct = out.weeklyMinutes > 0 ? Math.round(out.chasingMinutes / out.weeklyMinutes * 100) : 0;
+    return out;
+  }
+
+  function buildReportText(agg, rate, d, est) {
+    var lines = [];
+    lines.push('TIME LEAK REPORT: ' + (d >= 5 ? 'FULL 5-DAY VIEW' : d + '-DAY VIEW (PROJECTED TO A 5-DAY WEEK)'));
+    lines.push('Rate used: ' + (rate > 0 ? fmtGbp(rate) + '/hour (your figure)' : 'rate not set'));
+    lines.push('');
+    lines.push('YOUR WEEK IN ONE LINE: ' + fmtHours(agg.weeklyHours) + ' hrs of admin' +
+      (rate > 0 ? ', worth ' + fmtGbp(agg.weeklyCost) + '/wk (~' + fmtGbp(agg.monthlyCost) + '/mo)' : '') +
+      (agg.chasingPct ? ', ' + agg.chasingPct + '% of it chasing things.' : '.'));
+    lines.push('');
+    lines.push('TOP LEAKS');
+    agg.leaks.slice(0, 5).forEach(function (c, i) {
+      var v = { auto: 'Automatable', ok: 'Automatable, needs your OK', alone: 'Leave it alone' }[c.verdict];
+      lines.push((i + 1) + '. ' + c.label + ': ' + (rate > 0 ? fmtGbp(c.weeklyCost) + '/wk' : fmtHours(c.weeklyMinutes / 60) + ' hrs/wk') +
+        ' \u00b7 ' + Math.round(c.times / Math.max(d, 1) * 5) + 'x/wk \u00b7 ' + Math.round(c.weeklyMinutes) + ' min/wk \u00b7 who: ' + c.whoList.join('/') +
+        ' \u00b7 system: ' + c.systemList.join('/') + ' \u00b7 felt: ' + c.drainLabel + (c.est ? ' \u00b7 ESTIMATE' : '') +
+        ' \u00b7 verdict: ' + v);
+    });
+    lines.push('');
+    lines.push('Self-reported estimates, not a stopwatch: good enough to know where to look.');
+    lines.push('Bring this to a free 30-minute diagnostic: tishka.ai');
+    return lines.join('\n');
+  }
+
+  function reportHtml(agg, rate, d, est) {
+    if (agg.weeklyMinutes <= 0) return '<p class="hint" style="margin:0;">Nothing logged yet. Add an entry above and the report builds itself.</p>';
+    var band = d >= 5 ? '<span class="viewband">FULL 5-DAY VIEW</span>' : '<span class="viewband partial">' + d + '-DAY VIEW: TOP LEAKS ARE STABLE BY NOW</span>';
+    var projNote = agg.projected ? '<p class="honest">Projected from ' + d + ' logged ' + (d === 1 ? 'day' : 'days') + ' to a 5-day week: the more days you log, the truer it gets.</p>' : '';
+    var estNote = est > 0 ? '<p class="honest">Includes ' + est + ' estimated ' + (est > 1 ? 'entries' : 'entry') + ', labelled where they appear. Logged days still anchor the totals.</p>' : '';
+    var rateLine = rate > 0
+      ? 'worth <span>' + fmtGbp(agg.weeklyCost) + '/wk</span>, about <span>' + fmtGbp(agg.monthlyCost) + '/mo</span> at the rate you gave'
+      : ', add your hourly rate on the setup card to see the \u00a3';
+    var chasing = agg.chasingPct > 0 ? ', ' + agg.chasingPct + '% of it chasing things' : '';
+    var oneline = 'Your week in one line: <span>' + fmtHours(agg.weeklyHours) + ' hrs of admin' +
+      (rate > 0 ? ', worth ' + fmtGbp(agg.weeklyCost) : '') + chasing + '.</span>';
+    var rows = agg.leaks.slice(0, 5).map(function (c, i) {
+      var v = { auto: { label: 'Automatable', tag: 'auto' }, ok: { label: 'Automatable, needs your OK', tag: 'ok' }, alone: { label: 'Leave it alone', tag: 'alone' } }[c.verdict];
+      var notes = { auto: 'Rule-based chasing, copying, formatting, scheduling or checking: this is the work AI handles first. You approve anything it sends.',
+        ok: 'Someone has to judge the words before they leave the business. It gets drafted; a human reads and approves. That approval-first step is the build.',
+        alone: 'Judgment call: pricing, choosing who gets what. Automating this would cost you money. We would leave it well alone.' };
+      var tags = '<span class="tag ' + v.tag + '">' + v.label + '</span>' +
+        '<span class="tag">' + (c.weeklyMinutes / 60 >= 1 ? fmtHours(c.weeklyMinutes / 60) + ' hrs/wk' : Math.round(c.weeklyMinutes) + ' min/wk') + '</span>' +
+        '<span class="tag">' + Math.round(c.times / Math.max(d, 1) * 5) + '\u00d7 a week</span>' +
+        '<span class="tag">' + c.whoList.join(' / ') + '</span>' +
+        '<span class="tag">' + c.systemList.join(' \u00b7 ') + '</span>';
+      if (c.drain.hated > 0) tags += '<span class="tag hated">hated it \u00d7' + c.drain.hated + '</span>';
+      if (c.est) tags += '<span class="tag">estimate</span>';
+      return '<div class="leak"><div class="leak-head"><span class="n">' + (i + 1) + '.</span>' +
+        '<span class="name">' + escapeHtml(c.label) + '</span>' +
+        '<span class="p">' + (rate > 0 ? fmtGbp(c.weeklyCost) + '/wk' : fmtHours(c.weeklyMinutes / 60) + ' hrs/wk') + '</span></div>' +
+        '<div class="leak-meta">' + tags + '</div>' +
+        '<p class="verdict-note">' + notes[c.verdict] + '</p></div>';
+    }).join('');
+    var hatedLine = agg.totalHated > 0 ? '<p class="honest">You logged \u201chated it\u201d ' + agg.totalHated + ' time' + (agg.totalHated > 1 ? 's' : '') + ' this week. Those are the first ones we\u2019d look at.</p>' : '';
+    return band +
+      '<h2 style="font-size:1.3rem;font-weight:650;margin-bottom:4px;">Your time leak report.</h2>' +
+      '<p class="hint" style="margin-bottom:16px;">Top leaks first: minutes/wk from your log, \u00a3 from your rate' + (agg.projected ? ', projected to a 5-day week' : '') + '.</p>' +
+      '<div class="oneline">' + oneline + '</div>' + rows + hatedLine +
+      '<div class="report-actions">' +
+      '<a class="btn btn-primary" href="contact.html">Book a free diagnostic (bring this report)</a>' +
+      '<button class="btn btn-ghost" id="copyReport" type="button">Copy report as text</button>' +
+      '<button class="btn btn-ghost" id="printReport" type="button">Print / save as PDF</button>' +
+      '</div>' + projNote + estNote +
+      '<p class="honest">Honest footer: these are self-reported estimates, not a stopwatch: good enough to know where to look. The free diagnostic scopes the exact figures, then any proposal is built from your numbers. Nothing here is sent anywhere unless you send it. Your data stays in this browser.</p>';
+  }
+
+  /* ================= wiring ================= */
+  var $ = function (s) { return document.querySelector(s); };
+  var sel = { chip: null, range: '5-15', sys: 'Email', drain: 'Fine', who: 'Me' };
+  var vertChosen = null;
+
+  /* restore persisted values into setup */
+  $('#rateIn').value = (state.entries.length || state.started) ? state.rate : 15;
+  var whoSegVal = state.who || 'me';
+  var whoBtns = document.querySelectorAll('#whoSeg button');
+  whoBtns.forEach(function (b) {
+    b.classList.toggle('on', b.dataset.who === whoSegVal);
+    b.addEventListener('click', function () {
+      whoBtns.forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      whoSegVal = b.dataset.who;
+    });
+  });
+
+  function paintVertOn(v) {
+    document.querySelectorAll('#vertGrid .vert').forEach(function (x) { x.classList.toggle('on', x === v); });
+  }
+  document.querySelectorAll('#vertGrid .vert').forEach(function (v) {
+    if (state.started && v.dataset.v === state.vertical) { vertChosen = v; paintVertOn(v); }
+    v.addEventListener('click', function () { vertChosen = v; paintVertOn(v); refreshStart(); });
+  });
+  function refreshStart() { $('#startBtn').disabled = !(vertChosen && $('#rateIn').value !== ''); }
+  $('#rateIn').addEventListener('input', refreshStart);
+  if (state.started) { vertChosen = document.querySelector('#vertGrid .vert[data-v="' + state.vertical + '"]'); }
+  refreshStart();
+
+  function startLogging() {
+    state.rate = Math.max(0, parseFloat($('#rateIn').value) || 0);
+    state.who = whoSegVal;
+    state.started = true;
+    if (!state.vertical) state.vertical = 'trades';
+    save();
+    $('#setupCard').hidden = true;
+    $('#logArea').hidden = false;
+    renderChips();
+    renderBadges();
+    renderEntries();
+    maybeReport();
+  }
+  $('#startBtn').addEventListener('click', function () { if (vertChosen) startLogging(); });
+
+  $('#resetBtn').addEventListener('click', function () {
+    if (!window.confirm('Clear everything you\u2019ve logged? This can\u2019t be undone.')) return;
+    try { localStorage.removeItem(STORE); } catch (e) {}
+    location.reload();
+  });
+
+  /* --- chips --- */
+  function renderChips() {
+    var grid = $('#chipGrid');
+    grid.innerHTML = '';
+    (PACKS[state.vertical] || PACKS.trades).forEach(function (c) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'chip'; b.textContent = c.t;
+      b.addEventListener('click', function () {
+        document.querySelectorAll('#chipGrid .chip').forEach(function (x) { x.classList.remove('on'); });
+        b.classList.add('on');
+        sel.chip = c.t;
+        $('#freeIn').value = '';
+      });
+      grid.appendChild(b);
+    });
+  }
+  $('#freeIn').addEventListener('input', function () {
+    if ($('#freeIn').value.trim()) {
+      document.querySelectorAll('#chipGrid .chip').forEach(function (x) { x.classList.remove('on'); });
+      sel.chip = null;
+    }
+  });
+
+  /* option grids (range / who / system / drain) */
+  function buildOpts(gridSel, items, initial, onPick) {
+    var g = $(gridSel);
+    items.forEach(function (label, i) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'opt' + (label === initial ? ' on' : ''); b.textContent = label;
+      b.addEventListener('click', function () {
+        g.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('on'); });
+        b.classList.add('on');
+        onPick(label);
+      });
+      g.appendChild(b);
+    });
+  }
+  buildOpts('#rangeGrid', RANGES.map(function (r) { return r.label; }), RANGES[1].label, function (l) {
+    RANGES.forEach(function (r) { if (r.label === l) sel.range = r.id; });
+  });
+  buildOpts('#whoGrid', ['Me', 'Staff'], 'Me', function (l) { sel.who = l; });
+  buildOpts('#sysGrid', ['Email', 'Job system', 'Spreadsheet', 'Phone', 'WhatsApp', 'Accounts', 'Paper', 'Other'], 'Email', function (l) { sel.sys = l; });
+  buildOpts('#drainGrid', ['Fine', 'Annoying', 'Hated it'], 'Fine', function (l) { sel.drain = l; });
+
+  /* catch-up date options: last 7 days */
+  (function () {
+    var s = $('#datePick');
+    for (var i = 0; i < 7; i++) {
+      var d = new Date(); d.setDate(d.getDate() - i);
+      var k = dayKey(d);
+      var o = document.createElement('option');
+      o.value = k; o.textContent = i === 0 ? 'Today' : niceDate(k);
+      s.appendChild(o);
+    }
+  })();
+
+  function pickKey() {
+    if ($('#catchup').classList.contains('show')) return $('#datePick').value;
+    return dayKey(new Date());
+  }
+
+  $('#catchupBtn').addEventListener('click', function () {
+    var box = $('#catchup');
+    var show = !box.classList.contains('show');
+    box.classList.toggle('show', show);
+    $('#catchupBtn').textContent = show ? 'Back to logging today' : 'Catching up on another day?';
+    renderEntries();
+  });
+  $('#datePick').addEventListener('change', renderEntries);
+
+  function loggedDates() {
+    var set = {}; state.entries.forEach(function (e) { if (!e.est) set[e.date] = 1; });
+    return Object.keys(set).sort();
+  }
+  function renderBadges() {
+    var box = $('#dayBadges'); if (!box) return;
+    box.innerHTML = '';
+    var ds = loggedDates();
+    for (var i = 1; i <= 5; i++) {
+      var s = document.createElement('span');
+      s.className = 'daydot' + (i <= ds.length ? ' done' : '');
+      s.textContent = 'D' + i;
+      box.appendChild(s);
+    }
+    var meta = document.createElement('span');
+    meta.className = 'meta';
+    meta.textContent = ds.length < 5 ? (ds.length + ' of 5 days logged' + (ds.length >= 3 ? ', report unlocked' : ', report at day 3')) : '5 days logged, full report';
+    box.appendChild(meta);
+  }
+
+  function renderEntries() {
+    var box = $('#entryList'); box.innerHTML = '';
+    var key = pickKey();
+    var shown = state.entries.filter(function (e) { return e.date === key && !e.est; });
+    if (!shown.length) {
+      box.innerHTML = '<p class="hint" style="margin:0;">No entries yet for ' + (key === dayKey(new Date()) ? 'today' : niceDate(key)) + '.</p>';
+      return;
+    }
+    shown.slice().reverse().forEach(function (e) {
+      var d = document.createElement('div'); d.className = 'entry';
+      var rl = ''; RANGES.forEach(function (r) { if (r.id === e.range) rl = r.label.toLowerCase(); });
+      d.innerHTML = '<div><span class="t">' + escapeHtml(e.label) + '</span>' +
+        '<span class="d">' + e.times + '\u00d7 \u00b7 ' + rl + ' each \u00b7 ' + e.who + ' \u00b7 ' + e.system + ' \u00b7 ' + e.drain + '</span></div>';
+      var x = document.createElement('button'); x.className = 'x'; x.textContent = 'Delete'; x.type = 'button';
+      x.addEventListener('click', function () {
+        state.entries = state.entries.filter(function (z) { return z.id !== e.id; });
+        save(); renderEntries(); renderBadges(); maybeReport();
+      });
+      d.appendChild(x);
+      box.appendChild(d);
+    });
+  }
+
+  var entrySeq = 0;
+  $('#addBtn').addEventListener('click', function () {
+    var label = sel.chip || ($('#freeIn').value || '').trim();
+    var times = parseInt($('#timesIn').value, 10);
+    if (!label) { window.alert('Tap a task chip, or type what it was.'); return; }
+    if (!times || times < 1) { $('#timesIn').focus(); return; }
+    state.entries.push({
+      id: Date.now() + '-' + (entrySeq++),
+      date: pickKey(),
+      label: label,
+      times: times,
+      range: sel.range,
+      who: sel.who,
+      system: sel.sys,
+      drain: sel.drain,
+      est: false
+    });
+    save();
+    $('#timesIn').value = 1;
+    $('#freeIn').value = '';
+    document.querySelectorAll('#chipGrid .chip').forEach(function (x) { x.classList.remove('on'); });
+    sel.chip = null;
+    renderEntries(); renderBadges(); maybeReport();
+  });
+
+  /* ================= report ================= */
+  function daysLogged() { return loggedDates().length; }
+  function estCount() { return state.entries.filter(function (e) { return e.est; }).length; }
+  function maybeReport() {
+    var d = daysLogged();
+    if (d >= 3) {
+      $('#reportCard').hidden = false;
+      $('#lockedCard').hidden = true;
+      renderReport();
+    } else {
+      $('#reportCard').hidden = true;
+      $('#lockedCard').hidden = false;
+    }
+    renderBadges();
+  }
+  function renderReport() {
+    var agg = aggregate(state.entries, state.rate);
+    var d = daysLogged();
+    $('#reportInner').innerHTML = reportHtml(agg, state.rate, d, estCount());
+    var btn = document.getElementById('copyReport');
+    if (btn) btn.addEventListener('click', function () {
+      var txt = buildReportText(aggregate(state.entries, state.rate), state.rate, d, estCount());
+      var done = function () { var o = btn.textContent; btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy report as text'; }, 1200); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, done); else done();
+    });
+    var pb = document.getElementById('printReport');
+    if (pb) pb.addEventListener('click', function () { window.print(); });
+  }
+
+  /* resume a started week straight into logging */
+  if (state.started) {
+    $('#setupCard').hidden = true;
+    $('#logArea').hidden = false;
+    renderChips();
+    renderBadges();
+    renderEntries();
+    maybeReport();
+  }
+})();
+</script>
+
+  <!-- Chat widget (Tishka AI assistant) -->
+  <script src="chat-widget.js"></script>
+</body>
+</html>

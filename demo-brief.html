@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — DEMO: MORNING BRIEF (LOCAL DRAFT — NOT LIVE, NOT DEPLOYED)
+  2026-09-04: restyled to operations-instrument identity (source: index.html).
+  Copy + demo JS unchanged.
+  2026-09-04: top nav + footer switched to the index-v2 template (logo header,
+  icon theme toggle, Book Diagnostic; footer columns). Demo badge + disclaimer
+  copy kept, relocated below the header.
+============================================================= -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light dark" />
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<title>Tishka demo: Morning Brief (sample inbox)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="resource/site.css">
+<style>
+  /* index-v2 tokens — operations-instrument identity (source: index.html) */
+  :root {
+      
+      
+     
+    
+      
+     
+    /* legacy aliases → index-v2 values (markup/JS class names unchanged) */
+    --bg: var(--paper); --bg-raise: var(--raise); --bg-card: var(--raise);
+    --line: var(--border); --line-soft: var(--band);
+    --ink-dim: var(--muted); --ink-faint: var(--muted);
+    --brass: var(--btn-bg); --brass-bright: var(--btn-bg-hover); --brass-deep: var(--ink);
+    --on-brass: var(--btn-fg);
+    --good: var(--ledger);
+    --btn-solid-bg: var(--btn-bg); --btn-solid-fg: var(--btn-fg);
+      /* functional status colours only */
+    --sans: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --display: "Schibsted Grotesk", "Archivo", sans-serif;
+    --mono: var(--sans);
+    color-scheme: light;
+  }
+  html[data-theme="dark"] {
+      
+      
+     
+    
+      
+     
+     
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, .display { font-family: var(--display); }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .shell { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 28px 40px 64px; }
+
+  /* site header — same template as index-v2 */
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo img { height: 26px; width: auto; display: block; }
+  html:not([data-theme="dark"]) .logo img { filter: invert(1); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    padding: 11px 20px; border-radius: 6px; font-size: 1rem; font-weight: 600;
+    font-family: inherit; white-space: nowrap; transition: background 0.15s ease; cursor: pointer; border: none; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
+  .btn-ghost { background: var(--ghost-bg); border: 1px solid var(--border); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+  .theme-btn { padding: 0; width: 40px; height: 40px; background: transparent; border: none;
+    color: var(--muted); }
+  .theme-btn:hover { color: var(--ink); background: transparent; }
+  .theme-btn .ico-sun, .theme-btn .ico-moon { display: block; }
+  .theme-btn .ico-sun { display: none; }
+  html[data-theme="dark"] .theme-btn .ico-sun { display: block; }
+  html[data-theme="dark"] .theme-btn .ico-moon { display: none; }
+  .demo-badge { font-size: 13.7px; font-weight: 600; letter-spacing: .02em; color: var(--warn);
+    border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; background: var(--raise); }
+  .demo-topbadge { margin-bottom: 26px; }
+
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 15.6px;
+    font-weight: 600; color: var(--muted); margin-bottom: 14px; }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink); }
+  h1 { font-family: var(--display); font-size: clamp(28px, 4vw, 40px); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 10px; }
+  .sub { font-size: 19.5px; color: var(--muted); max-width: 60ch; margin-bottom: 26px; }
+
+  .controls { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 14px; }
+  .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; padding: 3px; background: var(--raise); }
+  .seg button { font-family: inherit; font-size: 15.6px; font-weight: 600; color: var(--muted); background: transparent;
+    border: 0; border-radius: 4px; padding: 8px 16px; cursor: pointer; }
+  .seg button.on { background: var(--btn-bg); color: var(--btn-fg); font-weight: 600; }
+  .seg-label { font-size: 15.6px; font-weight: 600; color: var(--muted); }
+  .run { font-family: inherit; font-size: 16.9px; font-weight: 600; color: var(--btn-fg); background: var(--btn-bg);
+    border: 0; border-radius: 6px; padding: 12px 22px; cursor: pointer; }
+  .run:hover { background: var(--btn-bg-hover); }
+  .run[disabled] { background: var(--band); color: var(--muted); cursor: default; }
+  .micro { font-size: 16.2px; color: var(--muted); margin-bottom: 30px; }
+
+  .steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; min-height: 26px; }
+  .step { font-size: 14.3px; font-weight: 600; padding: 5px 12px; border-radius: 6px;
+    border: 1px solid var(--border); color: var(--muted); opacity: 0; transform: translateY(4px); transition: all .3s ease; }
+  .step.show { opacity: 1; transform: none; }
+
+  .grid { display: grid; grid-template-columns: 1.7fr 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .card { border: 1px solid var(--border); border-radius: 12px; background: var(--raise); padding: 18px 20px; }
+  .card .head { display: flex; align-items: center; gap: 8px; font-size: 15.6px;
+    font-weight: 600; color: var(--muted); margin-bottom: 12px; }
+
+  .exec { font-size: 18.9px; color: var(--ink); margin-bottom: 14px; }
+  .exec b { color: var(--ink); }
+  .exec .money { color: var(--ledger); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .p-item { border-top: 1px solid var(--band); padding: 12px 0; cursor: pointer; }
+  .p-item:first-of-type { border-top: none; }
+  .p-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .p-n { font-size: 15.6px; font-weight: 600; color: var(--ink); border: 1px solid var(--ink); border-radius: 6px;
+    width: 24px; height: 24px; display: grid; place-items: center; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+  .tier { font-size: 13.0px; font-weight: 600; letter-spacing: .02em; padding: 3px 8px; border-radius: 5px; }
+  .tier.high { background: rgba(212,63,63,0.12); color: var(--bad); }
+  .tier.imp { background: rgba(163,112,26,0.12); color: var(--warn); }
+  .tier.fyi { background: var(--band); color: var(--muted); }
+  .tier.queued { background: var(--band); color: var(--ink); }
+  .p-from { font-size: 18.2px; font-weight: 600; color: var(--ink); }
+  .p-subj { font-size: 16.9px; color: var(--muted); }
+  .p-money { font-size: 14.3px; font-weight: 600; color: var(--ledger); background: var(--ledger-soft);
+    border-radius: 5px; padding: 2px 8px; margin-left: auto; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+  .p-why { font-size: 16.2px; color: var(--muted); margin-top: 6px; }
+  .p-more { margin-top: 10px; }
+  .orig { font-size: 15.0px; color: var(--muted); border-left: 2px solid var(--border); padding: 2px 0 2px 10px; margin-bottom: 10px; }
+  .draftbox { border: 1px solid var(--border); border-left: 3px solid var(--ink); border-radius: 8px; background: var(--raise); padding: 12px 14px; }
+  .draftbox-label { font-size: 13.0px; font-weight: 600; letter-spacing: .04em; color: var(--muted); margin-bottom: 6px; }
+  .draftbox-text { font-size: 17.6px; color: var(--ink); line-height: 1.5; }
+  .draftbox-text[contenteditable="true"] { outline: 1px solid var(--ink); border-radius: 6px; padding: 6px; }
+  .draftbox-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .db-approve { font-size: 15.6px; padding: 6px 14px; border-radius: 6px; border: 0; background: var(--btn-solid-bg); color: var(--btn-solid-fg); font-weight: 600; cursor: pointer; font-family: inherit; }
+  .db-edit { font-size: 15.6px; padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; font-family: inherit; font-weight: 600; }
+  .db-queued { margin-top: 10px; font-size: 16.2px; color: var(--ink); font-weight: 600; }
+
+  .stat-big { font-family: var(--display); font-size: 33.8px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; color: var(--ledger); font-variant-numeric: tabular-nums; }
+  .stat-big .unit { font-size: 16.9px; color: var(--muted); font-weight: 400; }
+  .cost-note { font-size: 16.2px; color: var(--muted); }
+  .filed-row { display: flex; justify-content: space-between; gap: 10px; font-size: 16.2px; color: var(--muted);
+    padding: 7px 0; border-top: 1px solid var(--band); }
+  .filed-row:first-of-type { border-top: none; padding-top: 0; }
+  .filed-row .k { color: var(--ink); }
+
+  .inbox-preview { margin-bottom: 26px; }
+  .inbox-row { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-top: 1px solid var(--band); }
+  .inbox-preview .inbox-row:first-of-type { border-top: none; }
+  .inbox-row .from { font-size: 17.6px; color: var(--ink); width: 190px; flex-shrink: 0; }
+  .inbox-row .subj { font-size: 16.9px; color: var(--muted); flex: 1; }
+  .inbox-row .when { font-size: 14.3px; color: var(--muted); flex-shrink: 0; font-variant-numeric: tabular-nums; }
+  .copybtn { font-size: 15.0px; font-weight: 600; padding: 8px 16px;
+    border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; margin-bottom: 16px; font-family: inherit; }
+  .copybtn:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* site footer — same template as index-v2 */
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: 1rem; color: var(--muted); }
+  .footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+    padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
+  .footer-col h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; }
+  .footer-col a { color: var(--muted); }
+  .footer-col a:hover { color: var(--ink); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+  .footer-links a:hover { color: var(--ink); }
+  .footer-cta { color: var(--ink); font-weight: 600; }
+  .social-icons { display: flex; gap: 14px; align-items: center; }
+  .social-icons a { display: flex; align-items: center; color: var(--ink); }
+  @media (max-width: 640px) {
+    .nav { height: 56px; }
+    .nav .btn { padding: 7px 10px; font-size: 1rem; }
+    .logo img { height: 22px; }
+    .footer-cols { grid-template-columns: 1fr; gap: 24px; }
+  }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<!-- site header — same template as index-v2 -->
+<header>
+  <div class="container nav">
+    <a href="index.html" class="logo"><img src="assets/Tishka_AI.svg" alt="Tishka AI" height="26"></a>
+    <div class="nav-actions">
+      <button id="themeToggle" class="btn btn-ghost theme-btn" type="button" aria-label="Switch colour theme">
+        <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+      <a href="contact.html" class="btn btn-primary">Book Diagnostic</a>
+    </div>
+  </div>
+</header>
+<div class="shell">
+  <div class="demo-topbadge">
+    <span class="demo-badge">DEMO · SAMPLE INBOX · READ-ONLY · NOTHING STORED</span>
+  </div>
+
+  <div class="eyebrow"><span class="dot"></span> Daily brief</div>
+  <h1>Your morning brief.</h1>
+  <p class="sub">The inbox, turned into an action plan. Pick how far back to scan, run it on the demo inbox, and see the priorities, the drafts, and what the backlog is quietly costing.</p>
+
+  <div class="controls">
+    <span class="seg-label">Scan window</span>
+    <div class="seg" id="winSeg">
+      <button type="button" data-days="3">3 days</button>
+      <button type="button" class="on" data-days="5">5 days</button>
+      <button type="button" data-days="7">7 days</button>
+    </div>
+    <button class="run" id="runBtn">Run the brief</button>
+  </div>
+  <p class="micro">Live, this reads your real inbox <b>read-only</b>: nothing is stored, nothing sends itself. Every item deep-links to the original email, and every reply waits for your approval.</p>
+
+  <!-- demo inbox, visible before running -->
+  <div class="card inbox-preview" id="inboxPreview">
+    <div class="head">Demo inbox: Meridian Electrical · today 06:00</div>
+    <div class="inbox-row"><div class="from">Hollins Builders</div><div class="subj">RE: Invoice INV-1042, overdue</div><div class="when">Tue 21:14</div></div>
+    <div class="inbox-row"><div class="from">Beechwood Care Home</div><div class="subj">Re: Rewire quote, can you start in 3 weeks?</div><div class="when">Tue 19:02</div></div>
+    <div class="inbox-row"><div class="from">Steve Hartley · Hartley Build</div><div class="subj">Domestic rewire quote, Kirkham</div><div class="when">Tue 17:41</div></div>
+    <div class="inbox-row"><div class="from">Riverside Lofts</div><div class="subj">3-phase quote, still reviewing</div><div class="when">Mon 15:37</div></div>
+    <div class="inbox-row"><div class="from">NICEIC</div><div class="subj">Certification renewal due 30 Sep</div><div class="when">Mon 09:12</div></div>
+    <div class="inbox-row"><div class="from">Edmundson Electrical</div><div class="subj">Price list, 4% increase from 1 Oct</div><div class="when">Mon 08:55</div></div>
+    <div class="inbox-row"><div class="from">Kings Cross Estates</div><div class="subj">Communal LED refit, decision next week</div><div class="when">Sat 11:20</div></div>
+    <div class="inbox-row" style="border-bottom:none;"><div class="from" style="color:var(--ink-faint);">…and <span id="pvMore">41</span> more</div><div class="subj" style="color:var(--ink-faint);">newsletters, notifications, receipts: filed automatically</div><div class="when"></div></div>
+  </div>
+
+  <!-- run animation -->
+  <div class="steps" id="steps" hidden></div>
+
+  <!-- the brief -->
+  <div id="brief" hidden>
+    <button class="copybtn" id="copyBtn">Copy briefing</button>
+    <div class="grid">
+      <div class="card">
+        <div class="head">Priority order <span class="demo-badge" style="letter-spacing:.08em;">click an item</span></div>
+        <p class="exec" id="exec"></p>
+        <div id="items"></div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="head">What the backlog is costing you</div>
+          <div class="stat-big"><span id="costHours">2.4</span> <span class="unit">hrs to clear</span></div>
+          <div class="stat-big" style="margin-bottom:10px;"><span id="costGbp">£84</span> <span class="unit">of your time, at £35/hr</span></div>
+          <p class="cost-note">The backlog is where enquiries quietly go cold. The brief puts the two that involve money at the top, every morning.</p>
+        </div>
+        <div class="card">
+          <div class="head">Filed with no human needed</div>
+          <div class="filed-row"><span class="k" id="filedCount">41 of 47</span><span>filed automatically overnight</span></div>
+          <div class="filed-row"><span class="k">Newsletters &amp; notifications</span><span>labelled, unread kept</span></div>
+          <div class="filed-row"><span class="k">Receipts &amp; confirmations</span><span>matched to jobs</span></div>
+          <div class="filed-row"><span class="k">Junk &amp; phishing</span><span>binned, so you never see it</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="demo-note">Demo runs on a sample inbox. Live, it reads your real inbox read-only and drafts. <b style="color:var(--ink-dim);">You approve</b>. Nothing sends itself.</p>
+
+</div>
+<footer>
+  <div class="container">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="refund.html">Refund Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="social-icons">
+        <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
+        <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      </div>
+      <div>TISHKA AI &copy; 2026</div>
+      <a class="btn btn-primary" href="contact.html">Book a Diagnostic</a>
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+  var WINDOWS = {
+    3: { scanned: 23, hours: 1.5, summary: '<b>23 emails</b> in 3 days. <b>4 need you</b>, 2 are money. Start with Hollins.' },
+    5: { scanned: 47, hours: 2.4, summary: '<b>47 emails</b> in 5 days. <b>4 need you</b>, 2 are money. Start with Hollins.' },
+    7: { scanned: 61, hours: 2.9, summary: '<b>61 emails</b> in 7 days. <b>4 need you</b>, 3 FYI. Start with Hollins.' }
+  };
+  var ITEMS = [
+    { days: 1, tier: 'high', label: 'HIGH', money: '£2,640 at risk', from: 'Hollins Builders', subj: 'RE: Invoice INV-1042, overdue',
+      why: '13 days overdue and it\u2019s your biggest open amount. They paid late last time. A call beats another email.',
+      orig: 'From: accounts@hollinsbuilders.co.uk · Tue 21:14, "Received your reminder. Passing to our QS for sign-off this week."',
+      draft: 'Hi Hollins, invoice INV-1042 (£2,640) is now 13 days past due. Could you confirm a payment date this week? Happy to collect on Thursday\u2019s site visit. Thanks, Meridian' },
+    { days: 1, tier: 'high', label: 'HIGH', money: '£18,400 to win', from: 'Beechwood Care Home', subj: 'Re: Rewire quote, can you start in 3 weeks?',
+      why: 'They\u2019re ready to book. Approve the confirmation and it queues. No retyping.',
+      orig: 'From: office@beechwoodcare.org.uk · Tue 19:02, "The board liked the quote. Could you start w/c 15th for three weeks?"',
+      draft: 'Hi Beechwood, great news. We can start w/c 15 Sep as requested, three weeks on site. I\u2019ll send the confirmation and deposit invoice today once approved. Kind regards, Meridian' },
+    { days: 2, tier: 'high', label: 'HIGH', money: null, from: 'Steve Hartley · Hartley Build', subj: 'Domestic rewire quote, Kirkham',
+      why: 'New lead, no reply yet. Fast replies win these.',
+      orig: 'From: steve@hartleybuild.co.uk · Tue 17:41, "Can you quote a full rewire, 3-bed terrace in Kirkham? Tenant in from October."',
+      draft: 'Hi Steve, happy to quote it. I can do a survey Tuesday or Wednesday morning, whichever suits. I\u2019ll bring the certificate checklist so you have everything for the tenant file. Thanks, Meridian' },
+    { days: 2, tier: 'important', label: 'IMPORTANT', money: '£12k job', from: 'Riverside Lofts', subj: '3-phase quote, still reviewing',
+      why: '7 days quiet on a £12k job. One friendly nudge keeps it alive without looking desperate.',
+      orig: 'From: projects@riversidelofts.co.uk · Mon 15:37, "Still reviewing with our MD, hopefully this week." (7 days ago)',
+      draft: 'Hi Riverside, following up on the 3-phase quote from last week. Any questions I can answer to help you decide? Happy to walk the site with your electrician. Thanks, Meridian' },
+    { days: 1, tier: 'fyi', label: 'FYI', money: null, from: 'NICEIC', subj: 'Certification renewal due 30 Sep',
+      why: 'No reply needed. It\u2019s on the calendar and Tishka will remind you two weeks out.', orig: 'From: renewals@niceic.com · Mon 09:12, "Your certification expires 30 September 2026."', draft: null },
+    { days: 3, tier: 'fyi', label: 'FYI', money: null, from: 'Edmundson Electrical', subj: 'Price list, 4% increase from 1 Oct',
+      why: 'Worth stocking cable before the rise. No reply needed.', orig: 'From: trade@edmundson.co.uk · Sat 08:55, "4% price adjustment effective 1 October."', draft: null },
+    { days: 7, tier: 'fyi', label: 'FYI', money: null, from: 'Kings Cross Estates', subj: 'Communal LED refit, decision next week',
+      why: 'Quote sent, close date lands next week. The brief will flag it the day it happens.', orig: 'From: facilities@kingscrossestates.co.uk · 7 days ago, "Board reviews refit quotes next Thursday."', draft: null }
+  ];
+
+  var winDays = 5, played = false;
+  $$('#winSeg button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $$('#winSeg button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      winDays = +b.dataset.days;
+      var pv = document.querySelector('#pvMore');
+      if (pv) pv.textContent = (WINDOWS[winDays].scanned - ITEMS.filter(function (i) { return i.days <= winDays; }).length);
+      if (played) render();
+    });
+  });
+
+  function playSteps(done) {
+    var box = $('#steps'); box.innerHTML = ''; box.hidden = false;
+    var labels = ['SCAN · ' + WINDOWS[winDays].scanned + ' emails', 'CLASSIFY · tiers', 'DRAFT · replies for approval', 'BRIEF READY'];
+    var els = labels.map(function (s) {
+      var d = document.createElement('span'); d.className = 'step'; d.textContent = s; box.appendChild(d); return d;
+    });
+    els.forEach(function (el, i) { setTimeout(function () { el.classList.add('show'); }, 200 + i * 420); });
+    setTimeout(done, 200 + els.length * 420 + 250);
+  }
+
+  function rowFor(item, n) {
+    var div = document.createElement('div'); div.className = 'p-item';
+    var money = item.money ? '<span class="p-money">' + item.money + '</span>' : '';
+    div.innerHTML =
+      '<div class="p-top"><span class="p-n">' + n + '</span>' +
+      '<span class="tier ' + item.tier + '">' + item.label + '</span>' +
+      '<span class="p-from">' + item.from + '</span>' +
+      '<span class="p-subj">' + item.subj + '</span>' + money + '</div>' +
+      '<div class="p-why">' + item.why + '</div>' +
+      '<div class="p-more" hidden>' +
+      '<div class="orig">' + item.orig + '</div>' +
+      (item.draft
+        ? '<div class="draftbox"><div class="draftbox-label">DRAFT · WAITING FOR YOUR APPROVAL</div>' +
+          '<div class="draftbox-text">' + item.draft + '</div>' +
+          '<div class="draftbox-actions"><button class="db-approve">Approve &amp; send</button><button class="db-edit">Edit</button></div>' +
+          '<div class="db-queued" hidden>✓ Queued. You approved this draft. In auto mode, routine categories send without asking.</div></div>'
+        : '<div class="draftbox" style="border-left-color:var(--line);"><div class="draftbox-label">NO REPLY NEEDED · FILED FOR YOU</div><div class="draftbox-text" style="color:var(--ink-dim);">' + item.orig.replace(/<[^>]*>/g, '') + '</div></div>') +
+      '</div>';
+    return div;
+  }
+
+  function render() {
+    var W = WINDOWS[winDays];
+    var list = ITEMS.filter(function (i) { return i.days <= winDays; });
+    $('#exec').innerHTML = 'EXECUTIVE SUMMARY: ' + W.summary;
+    var holder = $('#items'); holder.innerHTML = '';
+    list.forEach(function (item, i) { holder.appendChild(rowFor(item, i + 1)); });
+    $('#costHours').textContent = W.hours;
+    $('#costGbp').textContent = '£' + Math.round(W.hours * 35);
+    $('#filedCount').textContent = (W.scanned - list.length) + ' of ' + W.scanned;
+    $('#brief').hidden = false;
+    bindRows();
+  }
+
+  function bindRows() {
+    $$('#items .p-item').forEach(function (row) {
+      row.addEventListener('click', function (e) {
+        if (e.target.closest('.draftbox')) return;
+        var more = row.querySelector('.p-more');
+        if (more) more.hidden = !more.hidden;
+      });
+    });
+    $$('#items .db-approve').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var box = btn.closest('.draftbox');
+        box.querySelector('.draftbox-actions').hidden = true;
+        var tier = btn.closest('.p-item').querySelector('.tier');
+        if (tier) { tier.textContent = 'QUEUED'; tier.className = 'tier queued'; }
+        var q = box.querySelector('.db-queued'); if (q) q.hidden = false;
+      });
+    });
+    $$('#items .db-edit').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var txt = btn.closest('.draftbox').querySelector('.draftbox-text');
+        var on = txt.getAttribute('contenteditable') === 'true';
+        txt.setAttribute('contenteditable', on ? 'false' : 'true');
+        btn.textContent = on ? 'Edit' : 'Done editing';
+        if (!on) txt.focus();
+      });
+    });
+  }
+
+  $('#runBtn').addEventListener('click', function () {
+    if (played) { render(); return; }
+    played = true;
+    var btn = $('#runBtn'); btn.disabled = true; btn.textContent = 'Running…';
+    $('#inboxPreview').hidden = true;
+    playSteps(function () {
+      render();
+      $('#brief').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      btn.hidden = true;
+    });
+  });
+
+  $('#copyBtn').addEventListener('click', function () {
+    var W = WINDOWS[winDays];
+    var list = ITEMS.filter(function (i) { return i.days <= winDays; });
+    var lines = ['EXECUTIVE SUMMARY: ' + W.summary.replace(/<[^>]*>/g, ''), ''];
+    list.forEach(function (i, n) {
+      lines.push((i.tier === 'high' ? 'HIGH' : i.tier === 'important' ? 'IMPORTANT' : 'FYI') + ' · ' + i.from + ': ' + i.subj + (i.money ? ' (' + i.money + ')' : ''));
+    });
+    var txt = lines.join('\n');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(function () { flashCopied(); }, function () { flashCopied(); });
+    } else { flashCopied(); }
+  });
+  function flashCopied() {
+    var b = $('#copyBtn'), old = 'Copy briefing';
+    b.textContent = 'Copied';
+    setTimeout(function () { b.textContent = old; }, 1200);
+  }
+})();
+</script>
+<script>
+  // Theme toggle — light default, dark opt-in; choice remembered across pages.
+  (function () {
+    var themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+      else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+    });
+  })();
+</script>
+
+  <!-- Chat widget (Tishka AI assistant) -->
+  <script src="chat-widget.js"></script>
+</body>
+</html>

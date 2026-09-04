@@ -1,262 +1,469 @@
 <!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — HOME PAGE v2 (LOCAL DRAFT — NOT LIVE, NOT DEPLOYED)
+  Built 2026-09-03 per Pete: ROI calculator replaces the dashboard
+  mockup in the hero; demos section added.
+  2026-09-04 rev per Pete (naitive.work pass): PACKAGES SECTION REMOVED —
+  diagnostic-only funnel. Added: "This wasn't possible 18 months ago"
+  (short, plain text, no cards), "Is your work the right shape?" (5
+  yes/no self-qual, 3+ yeses = candidate), and the Diagnostic section
+  (£499 · 1-hour discovery call → transcript → AI-built report via our
+  own Workflow C (TRANSCRIPT-TO-REPORT-SPEC) → 30-min follow-up call to
+  decide · 5 hrs found or full refund · 100% credited against any build).
+  Typical-results strip REMOVED per Pete. Gap section REMOVED per Pete.
+  "Not an AI agency / 3-step spine" MERGED into the diagnostic section per
+  Pete — Company Brain kept as the foundation, full original copy restored.
+  Diagnostic step 03 rewritten: we recommend what to build first (the pros),
+  client just decides to go ahead. FAQ: added "Will this replace my team?".
+  2026-09-04 rev per Pete (calculator coverage): 4th catch-all slider added —
+  "Other repetitive admin" (starts 0 · share .60 · cap 15) — so visitors whose
+  week isn't the named three still get a number. Default output unchanged:
+  10.5 hrs/wk · £366/wk · £1,585/mo.
+  2026-09-04 rev (design overhaul, per Pete / frontend-design pass):
+  visual identity reworked — Schibsted Grotesk display + Archivo body,
+  ledger-green reserved for money/time found, asymmetric split layout,
+  diagnostic steps as a real sequence, parser demo promoted, standalone
+  CTA section removed (diagnostic CTA is the closer). COPY UNCHANGED.
+  Calculator math = Rora's exact engine — do not change without Pete.
+  SOP name rule: customer-facing = "diagnostic", never "assessment/audit".
+  2026-09-04 rev per Pete (page focus): top draft-nav strip REMOVED — header is
+  logo + icon theme toggle + Book Diagnostic. Theme toggle now icon-only
+  (sun/moon). "Not an AI agency" three steps now use the numbered 01/02/03
+  timeline (same as diagnostic steps). Footer rebuilt with nav columns:
+  Industries (the 4 industry pages), Try it (Free check), Legal (terms/
+  privacy/refund), Book a Diagnostic as a button in the bottom bar.
+  2026-09-04 rev per Pete (hiding pages): tracker.html and method.html are
+  CLIENTS-ONLY FOR NOW — all inbound links removed from every draft page
+  (nav strips, footers, in-page CTAs). Verticals' "Two ways to start"
+  section rewritten to single free-check path. "DRAFT · NOT LIVE" removed
+  from footer. Pages still exist on disk, just unlinked.
+  Preview: http://localhost:8123/Drafts/index.html
+  (python3 -m http.server 8123 from Business/Website/)
+  Demos = launcher cards opening three standalone interactive pages
+  in this folder: demo-dashboard.html · demo-brief.html · demo-parser.html.
+============================================================= -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tishka AI — Stop losing time, money, and customers</title>
+<meta name="color-scheme" content="light dark">
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<title>Tishka AI: Stop losing time, money, and customers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="resource/site.css">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  :root {
-    --bg: #0a0a0a;
-    --bg-card: #111111;
-    --bg-elevated: #1a1a1a;
-    --border: #2a2a2a;
-    --text: #f5f5f5;
-    --text-muted: #a1a1a1;
-    --accent: #ffffff;
-    --green: #22c55e;
-    --blue: #3b82f6;
-  }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
+  :root { color-scheme: light; }
+  html[data-theme="dark"] { color-scheme: dark; }
+  body { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3, .display { font-family: "Schibsted Grotesk", "Archivo", sans-serif; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
-  /* Header */
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(10, 10, 10, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .logo { display: inline-flex; align-items: center; }
-  .logo img { height: 28px; width: auto; display: block; }
-  .nav-links { display: flex; gap: 28px; font-size: 1rem; color: var(--text-muted); }
-  .nav-links a:hover { color: var(--text); }
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center;
-    padding: 10px 18px; border-radius: 9999px; font-size: 1rem;
-    font-weight: 500; transition: all 0.15s ease; cursor: pointer; border: none;
-  }
-  .btn-primary { background: white; color: black; }
-  .btn-primary:hover { background: #e5e5e5; }
-  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
-  .btn-outline:hover { background: var(--bg-elevated); }
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo img { height: 26px; width: auto; display: block; }
+  html:not([data-theme="dark"]) .logo img { filter: invert(1); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    padding: 11px 20px; border-radius: 6px; font-size: 1rem; font-weight: 600;
+    font-family: inherit; white-space: nowrap; transition: background 0.15s ease; cursor: pointer; border: none; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
+  .btn-ghost { background: var(--ghost-bg); border: 1px solid var(--border); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+  .theme-btn { padding: 0; width: 40px; height: 40px; background: transparent; border: none;
+    color: var(--muted); }
+  .theme-btn:hover { color: var(--ink); background: transparent; }
+  .theme-btn .ico-sun, .theme-btn .ico-moon { display: block; }
+  .theme-btn .ico-sun { display: none; }
+  html[data-theme="dark"] .theme-btn .ico-sun { display: block; }
+  html[data-theme="dark"] .theme-btn .ico-moon { display: none; }
 
-  /* Hero */
-  .hero { padding: 80px 0 60px; text-align: center; }
-  h1 {
-    font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 650;
-    letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 20px;
-  }
-  .hero-sub { font-size: 1.25rem; color: var(--text-muted); max-width: 620px; margin: 0 auto 40px; }
+  /* hero */
+  .hero { padding: 84px 0 56px; text-align: center; }
+  h1 { font-size: clamp(2.5rem, 5.4vw, 3.9rem); font-weight: 800; letter-spacing: -0.045em;
+    line-height: 1.08; margin-bottom: 22px; }
+  .hero-sub { font-size: 1.18rem; color: var(--muted); max-width: 600px; margin: 0 auto 20px; }
 
-  /* Browser frame (live dashboard mockup) */
-  .browser-frame { background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 16px; overflow: hidden; max-width: 1180px; margin: 0 auto 80px; }
-  .browser-bar { display:flex; align-items:center; gap:16px; padding:12px 16px;
-    border-bottom:1px solid var(--border); background: var(--bg-elevated); }
-  .traffic { display:flex; gap:7px; }
-  .traffic .dot { width:12px; height:12px; border-radius:50%; }
-  .traffic .dot.red { background:#ff5f57; }
-  .traffic .dot.amber { background:#febc2e; }
-  .traffic .dot.green { background:#28c840; }
-  .url-bar { flex:1; background:var(--bg); border:1px solid var(--border); border-radius:8px;
-    padding:5px 14px; font-size: 0.875rem; color:var(--text-muted);
-    font-family:ui-monospace,SFMono-Regular,monospace; }
-  .browser-iframe { width:100%; height:620px; border:0; display:block; background:#0e0e10; }
-  @media (max-width: 640px) { .browser-iframe { height:460px; } }
+  /* calculator input card */
+  .calc-h { font-size: clamp(1.05rem, 4.4vw, 2.3rem); font-weight: 700; letter-spacing: -0.035em;
+    margin: 56px auto 10px; max-width: 720px; white-space: nowrap; }
+  .calc-sub { color: var(--muted); font-size: 1.125rem; margin-bottom: 36px; }
+  .roi-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 20px; align-items: stretch;
+    text-align: left; max-width: 1080px; margin: 0 auto; }
+  @media (max-width: 900px) { .roi-grid { grid-template-columns: 1fr; } }
+  .roi-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+  input[type=range] { width: 100%; accent-color: var(--ledger); }
+  .roi-rowlabel { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    margin-bottom: 14px; flex-wrap: wrap; }
+  .roi-label { font-size: 1rem; font-weight: 600; }
+  .roi-seg { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; padding: 3px; }
+  .roi-seg button { background: transparent; color: var(--muted); border: 0; border-radius: 4px;
+    padding: 5px 13px; font-size: 1rem; font-weight: 600; font-family: inherit; cursor: pointer; }
+  .roi-seg button.on { background: var(--btn-bg); color: var(--btn-fg); }
+  .roi-sliderline { display: flex; align-items: center; gap: 16px; }
+  .roi-sliderline.indent { padding-left: 44px; }
+  .roi-rateval { width: 96px; flex-shrink: 0; text-align: right; font-size: 1.2rem; font-weight: 700;
+    font-variant-numeric: tabular-nums; }
+  .roi-rateval span { color: var(--muted); font-weight: 400; font-size: 1rem; }
+  .roi-task { margin-top: 28px; }
+  .roi-taskhead { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+  .roi-ico { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    border-radius: 8px; background: var(--ledger-soft); color: var(--ledger); }
+  .roi-tasklabel { font-size: 1rem; font-weight: 600; }
+  .roi-taskhelp { font-size: 1rem; color: var(--muted); margin-top: 2px; }
+  .roi-hrsval { width: 78px; flex-shrink: 0; text-align: right; font-size: 1rem; font-weight: 700;
+    font-variant-numeric: tabular-nums; }
 
-  /* Sections */
-  section { padding: 70px 0; }
-  .section-title { font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 600; letter-spacing: -0.03em; margin-bottom: 16px; text-align: center; }
-  .section-sub { text-align: center; color: var(--text-muted); max-width: 640px; margin: 0 auto 48px; font-size: 1.125rem; }
+  /* calculator output card — the instrument */
+  .roi-outlabel { font-size: 1rem; font-weight: 600; color: var(--muted); margin-bottom: 16px; }
+  .roi-brow { display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    font-size: 1rem; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
+  .roi-brow .k { color: var(--muted); }
+  .roi-brow .v { font-weight: 600; }
+  .roi-totline { border-top: 1px solid var(--border); margin-top: 20px; padding-top: 20px; }
+  .roi-totalrow { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
+  .roi-totalrow .k { font-size: 1rem; font-weight: 600; }
+  .roi-totalbig { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums; }
+  .roi-totalbig em { font-style: normal; font-size: 1rem; font-weight: 400; color: var(--muted); }
+  .roi-gblabel { font-size: 1rem; color: var(--muted); margin: 14px 0 2px; }
+  .roi-pline { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 2px; }
+  .roi-pline .v { font-size: 1.1rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .roi-pline .v span { color: var(--muted); font-weight: 400; font-size: 1rem; }
+  .roi-pline.big .v { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 2.9rem;
+    font-weight: 800; letter-spacing: -0.035em; color: var(--ledger); line-height: 1.15; }
+  .roi-pline.big .v span { font-size: 1.1rem; color: var(--muted); font-weight: 400; }
+  .roi-cta { width: 100%; margin-top: 24px; }
+  .roi-disc { font-size: 1rem; color: var(--muted); margin-top: 14px; line-height: 1.5; }
 
-  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
-  .card h3 { font-size: 1.2rem; margin-bottom: 10px; font-weight: 600; }
-  .card p { color: var(--text-muted); font-size: 1.125rem; }
+  section { padding: 76px 0; }
+  section.band { background: var(--band); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 
-  .feature-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 40px; }
-  .feature-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; font-size: 1.125rem; }
-  .feature-item strong { display: block; margin-bottom: 6px; font-weight: 600; }
+  /* asymmetric split: heading left, prose right */
+  .split { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; align-items: start; }
+  .split-aside { position: sticky; top: 96px; }
+  @media (max-width: 840px) { .split { grid-template-columns: 1fr; gap: 24px; } .split-aside { position: static; } }
+  .split-title { font-size: clamp(1.9rem, 3.4vw, 2.5rem); font-weight: 700; letter-spacing: -0.035em;
+    line-height: 1.15; margin-bottom: 14px; }
+  .split-sub { color: var(--muted); font-size: 1.125rem; }
+  .split-body { max-width: 62ch; }
+  .split-body p { margin-bottom: 18px; font-size: 1.125rem; }
+  .split-body p:last-child { margin-bottom: 0; }
 
-  .jobs { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 32px; }
-  .job-tag { background: var(--bg-elevated); border: 1px solid var(--border); padding: 8px 16px; border-radius: 9999px; font-size: 1rem; }
+  /* demos */
+  .demo-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 20px; margin-top: 12px; }
+  @media (max-width: 840px) { .demo-grid { grid-template-columns: 1fr; } }
+  .demo-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px; padding: 28px;
+    display: flex; flex-direction: column; align-items: flex-start; }
+  .demo-stack { display: grid; gap: 20px; }
+  .demo-flag { font-size: 1rem; font-weight: 600; color: var(--muted); margin-bottom: 12px; }
+  .demo-h { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .demo-p { color: var(--muted); font-size: 1.125rem; margin-bottom: 20px; }
+  .demo-shot { width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; object-position: top;
+    border: 1px solid var(--border); border-radius: 8px; margin: 4px 0 18px; display: block; }
+  .demo-card .btn { margin-top: auto; }
 
-  /* Day-in-the-life timeline (Run section) */
-  .timeline { max-width: 760px; margin: 16px auto 0; display: flex; flex-direction: column; gap: 14px; }
-  .tl-row { display: flex; gap: 18px; align-items: flex-start; }
-  .tl-time { font-family: ui-monospace,SFMono-Regular,monospace; font-size: 1rem; color: var(--text-muted); width: 52px; flex-shrink: 0; padding-top: 13px; text-align: right; }
-  .tl-ai, .tl-you { flex: 1; border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; }
-  .tl-ai { background: var(--bg-elevated); border-left: 3px solid #7c5cf6; }
-  .tl-you { background: var(--bg-card); border-left: 3px solid var(--text-muted); }
-  .tl-tag { display: inline-block; font-family: ui-monospace,SFMono-Regular,monospace; font-size: 0.875rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 6px; margin-bottom: 6px; background: #7c5cf6; color: #0e0e10; font-weight: 600; }
-  .tl-tag.you { background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-weight: 500; }
-  .tl-text { font-size: 1.125rem; color: var(--text); line-height: 1.5; }
+  /* diagnostic timeline — the one true sequence */
+  .fee { font-size: 1.15rem; font-weight: 700; margin-bottom: 22px; }
+  .steps-list { position: relative; }
+  .steps-list::before { content: ""; position: absolute; left: 15px; top: 10px; bottom: 10px;
+    width: 2px; background: var(--border); }
+  .step-item { position: relative; padding-left: 48px; padding-bottom: 30px; }
+  .step-item:last-child { padding-bottom: 0; }
+  .step-node { position: absolute; left: 0; top: 0; width: 32px; height: 32px; border-radius: 50%;
+    background: var(--raise); border: 2px solid var(--ink); display: flex; align-items: center; justify-content: center;
+    font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 0.875rem; font-weight: 700; }
+  .step-item:last-child .step-node { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .step-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .step-item p { color: var(--muted); font-size: 1.125rem; }
+  .guarantee { border-left: 3px solid var(--stamp); padding: 2px 0 2px 14px; margin-top: 18px;
+    font-size: 1.125rem; color: var(--muted); max-width: 44ch; }
+  .guarantee b { color: var(--stamp); }
+  .fee-cta { margin-top: 28px; }
+  .fee-note { font-size: 1rem; color: var(--muted); margin-top: 14px; }
+  .prose-lead b { color: var(--ink); }
 
-  /* Pricing / Offer */
-  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
-  .price-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; }
-  .price-card.featured { border-color: #ffffff40; background: linear-gradient(180deg, #1a1a1a, #111); }
-  .price-name { font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; }
-  .price-desc { color: var(--text-muted); font-size: 1rem; margin-bottom: 24px; }
-  .price-features { list-style: none; margin-bottom: 28px; flex-grow: 1; }
-  .price-features li { padding: 6px 0; font-size: 1.125rem; color: var(--text-muted); display: flex; align-items: flex-start; gap: 8px; }
-  .price-features li::before { content: "✓"; color: var(--green); font-weight: 600; }
-
-  /* Download / CTA */
-  .download-section { text-align: center; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 48px 24px; margin: 40px 0; }
+  /* manifesto */
+  .manifesto { padding: 96px 0; }
+  .manifesto-title { font-size: clamp(2.1rem, 4.6vw, 3.2rem); font-weight: 800; letter-spacing: -0.04em;
+    line-height: 1.1; max-width: 16ch; margin-bottom: 32px; }
+  .manifesto p { font-size: 1.2rem; line-height: 1.55; color: var(--muted); max-width: 34em; margin-bottom: 22px; }
+  .manifesto b { color: var(--ink); }
 
   /* FAQ */
   .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
+  .faq-item:first-child { padding-top: 4px; }
   .faq-item:last-child { border-bottom: none; }
   .faq-q { font-weight: 600; font-size: 1.125rem; margin-bottom: 8px; }
-  .faq-a { color: var(--text-muted); font-size: 1.125rem; }
+  .faq-a { color: var(--muted); font-size: 1.125rem; max-width: 62ch; }
 
-  /* Footer */
-  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; margin-top: 60px; font-size: 1rem; color: var(--text-muted); }
-  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: 24px; }
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: 1rem; color: var(--muted); }
+  .footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+    padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
+  .footer-col h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; }
+  .footer-col a { color: var(--muted); }
+  .footer-col a:hover { color: var(--ink); }
+  @media (max-width: 640px) { .footer-cols { grid-template-columns: 1fr; gap: 24px; } }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
   .footer-links { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
-  .footer-links a:hover { color: var(--text); }
-  .footer-cta { color: var(--text); }
+  .footer-links a:hover { color: var(--ink); }
+  .footer-cta { color: var(--ink); font-weight: 600; }
   .social-icons { display: flex; gap: 14px; align-items: center; }
-  .social-icons a { display: flex; align-items: center; justify-content: center; color: var(--text); transition: color 0.15s ease; }
-  .social-icons a:hover { color: var(--text); }
+  .social-icons a { display: flex; align-items: center; color: var(--ink); }
 
+  /* mobile */
   @media (max-width: 640px) {
-    .nav-links { display: none; }
-    .hero { padding-top: 48px; }
+    .hero { padding: 56px 0 40px; }
+    .nav { height: 56px; }
+    .nav .btn { padding: 7px 10px; font-size: 1rem; }
+    .logo img { height: 22px; }
+    h1 br { display: none; }
+    .roi-card { padding: 20px; }
+    .roi-sliderline { flex-direction: column; align-items: stretch; gap: 6px; }
+    .roi-sliderline.indent { padding-left: 0; }
+    .roi-rateval, .roi-hrsval { width: auto; text-align: left; }
+    .roi-hrsval { font-size: 1rem; }
+    .manifesto { padding: 72px 0; }
   }
 </style>
 </head>
 <body>
-
   <header>
     <div class="container nav">
-      <a href="index.html" class="logo"><img src="assets/Tishka_AI.svg" alt="Tishka AI" height="28"></a>
-      <a href="contact.html" class="btn btn-primary">Book Diagnostic</a>
+      <a href="index.html" class="logo"><img src="assets/Tishka_AI.svg" alt="Tishka AI" height="26"></a>
+      <div class="nav-actions">
+        <button id="themeToggle" class="btn btn-ghost theme-btn" type="button" aria-label="Switch colour theme">
+          <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary">Book Diagnostic</a>
+      </div>
     </div>
+  </header>
 
-  <!-- Hero -->
+  <!-- ============ HERO + ROI CALCULATOR ============ -->
   <section class="hero">
     <div class="container">
       <h1>Stop losing time, money,<br>and customers.</h1>
-      <p class="hero-sub">Growing companies still leak all three because information lives in silos and no one has time to join it up. We connect the tools already in use and build one Company Brain that watches the business, warns you before things slip, and is kept running by us — so the team can focus on what actually matters.</p>
-      <a href="contact.html" class="btn btn-primary">Book a free diagnostic &rarr;</a>
-    </div>
-  </section>
+      <p class="hero-sub">We put AI to work in businesses like yours. Winning back hours, adding revenue, keeping customers happier. Built on the tools you already use, run for you.</p>
 
-  <!-- Live dashboard mockup -->
-  <div class="container">
-    <div class="browser-frame">
-      <div class="browser-bar">
-        <div class="traffic"><span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span></div>
-        <div class="url-bar">app.tishka.ai/today</div>
-      </div>
-      <iframe src="dashboard-mockup.html" class="browser-iframe" title="Your Tishka dashboard, live"></iframe>
-    </div>
-  </div>
-
-  <!-- The Gap -->
-  <section>
-    <div class="container">
-      <h2 class="section-title">Stop experimenting. Start seeing results.</h2>
-      <div class="grid-2">
-        <div class="card">
-          <h3>Most companies pay to experiment with AI.</h3>
-          <p>They buy a tool, try a few prompts, and give up. Or they know AI matters but can't see how it fits — so they do nothing.</p>
+      <h2 class="calc-h">What is manual admin actually costing you?</h2>
+      <p class="calc-sub">Drag the sliders for your own numbers. No email required, this stays in your browser.</p>
+      <div class="roi-grid">
+        <div class="roi-card">
+          <div>
+            <div class="roi-rowlabel">
+              <label class="roi-label" for="roiRate">What's your time worth?</label>
+              <div class="roi-seg" id="roiSeg" role="group" aria-label="Rate unit">
+                <button type="button" class="on" data-mode="hour">Per hour</button>
+                <button type="button" data-mode="day">Per day</button>
+              </div>
+            </div>
+            <div class="roi-sliderline">
+              <input type="range" id="roiRate" min="15" max="150" step="5" value="35" aria-label="Time worth per hour">
+              <span class="roi-rateval" id="roiRateVal">£35<span>/hour</span></span>
+            </div>
+          </div>
+          <div class="roi-task">
+            <div class="roi-taskhead">
+              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg></span>
+              <div><div class="roi-tasklabel">Scrolling through and actioning emails</div>
+              <div class="roi-taskhelp">Classified and routed to the right person automatically instead of read one by one.</div></div>
+            </div>
+            <div class="roi-sliderline indent">
+              <input type="range" class="roi-cat" id="roiC1" data-pct="0.76" min="0" max="10" step="0.5" value="5" aria-label="Emails, hours per week">
+              <span class="roi-hrsval" id="roiH1">5 hrs/wk</span>
+            </div>
+          </div>
+          <div class="roi-task">
+            <div class="roi-taskhead">
+              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 17.5v-11"></path></svg></span>
+              <div><div class="roi-tasklabel">Processing supplier invoices</div>
+              <div class="roi-taskhelp">Matched against purchase orders automatically; you just approve the exceptions.</div></div>
+            </div>
+            <div class="roi-sliderline indent">
+              <input type="range" class="roi-cat" id="roiC2" data-pct="0.65" min="0" max="10" step="0.5" value="2" aria-label="Invoices, hours per week">
+              <span class="roi-hrsval" id="roiH2">2 hrs/wk</span>
+            </div>
+          </div>
+          <div class="roi-task">
+            <div class="roi-taskhead">
+              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path><path d="M16 4h2a2 2 0 0 1 2 2v4"></path><path d="M21 14H11"></path><path d="m15 10-4 4 4 4"></path></svg></span>
+              <div><div class="roi-tasklabel">Copying data into your CRM or job system</div>
+              <div class="roi-taskhelp">Captured straight from the source email or form the moment it arrives, no retyping.</div></div>
+            </div>
+            <div class="roi-sliderline indent">
+              <input type="range" class="roi-cat" id="roiC3" data-pct="0.90" min="0" max="15" step="0.5" value="6" aria-label="CRM copying, hours per week">
+              <span class="roi-hrsval" id="roiH3">6 hrs/wk</span>
+            </div>
+          </div>
+          <div class="roi-task">
+            <div class="roi-taskhead">
+              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"></path><path d="M3 11v-1a4 4 0 0 1 4-4h14"></path><path d="m7 22-4-4 4-4"></path><path d="M21 13v1a4 4 0 0 1-4 4H3"></path></svg></span>
+              <div><div class="roi-tasklabel">Other repetitive admin</div>
+              <div class="roi-taskhelp">Anything you or the team do the same way every week? The diagnostic is where we find yours.</div></div>
+            </div>
+            <div class="roi-sliderline indent">
+              <input type="range" class="roi-cat" id="roiC4" data-pct="0.60" min="0" max="15" step="0.5" value="0" aria-label="Other repetitive admin, hours per week">
+              <span class="roi-hrsval" id="roiH4">0 hrs/wk</span>
+            </div>
+          </div>
         </div>
-        <div class="card">
-          <h3>Our clients pay for results.</h3>
-          <p>They don't touch the tech. They just notice that quotes go out, invoices get paid, follow-ups happen, and the repetitive work no longer slows the business down.</p>
+        <div class="roi-card">
+          <p class="roi-outlabel">Your estimated time back</p>
+          <div class="roi-brow"><span class="k">Scrolling through and…</span><span class="v" id="roiB1">3.8 hrs/wk</span></div>
+          <div class="roi-brow"><span class="k">Processing supplier invoices…</span><span class="v" id="roiB2">1.3 hrs/wk</span></div>
+          <div class="roi-brow"><span class="k">Copying data into…</span><span class="v" id="roiB3">5.4 hrs/wk</span></div>
+          <div class="roi-brow"><span class="k">Other repetitive admin…</span><span class="v" id="roiB4">0 hrs/wk</span></div>
+          <div class="roi-totline">
+            <div class="roi-totalrow"><span class="k">Total time freed up</span><span class="roi-totalbig" id="roiTotal">10.5 <em>hrs/wk</em></span></div>
+            <p class="roi-gblabel">Your time back, worth</p>
+            <div class="roi-pline"><span class="v" id="roiWk">£366<span>/wk</span></span></div>
+            <div class="roi-pline big"><span class="v" id="roiMo">£1,585<span>/mo</span></span></div>
+          </div>
+          <a class="btn btn-primary roi-cta" href="tracker.html">Get your real numbers</a>
+          <p class="roi-disc">Illustrative estimate based on typical results across Tishka's live automations. The diagnostic gives you numbers specific to your business.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============ DEMOS ============ -->
+  <section>
+    <div class="container">
+      <div class="split">
+        <h2 class="split-title">See it work before you buy.</h2>
+        <p class="split-sub">Three demos, each on its own page. No signup, no call, no card. The parser really parses: in your browser, nothing sent anywhere.</p>
+      </div>
+      <div class="demo-grid">
+        <!-- Dashboard featured with its screenshot -->
+        <div class="demo-card">
+          <span class="demo-flag">Live demo</span>
+          <div class="demo-h">Your business, watched overnight.</div>
+          <div class="demo-p">Open the dashboard your morning brief lives on. Tick things off, approve decisions, draft a chase email, watch the numbers move.</div>
+          <img class="demo-shot" src="demo-dashboard-shot.png" alt="The Tishka dashboard: a morning brief for Meridian Electrical, showing today's one thing and what was done overnight" width="1280" height="800">
+          <a class="btn btn-primary" href="demo-dashboard.html">Open the demo</a>
+        </div>
+        <div class="demo-stack">
+          <div class="demo-card">
+            <span class="demo-flag">Live demo. Runs entirely in your browser</span>
+            <div class="demo-h">Paste your mess. Watch it get filed.</div>
+            <div class="demo-p">Paste your own text, upload a file, or load a sample. It parses for real, right in your browser. Nothing is sent or stored.</div>
+            <a class="btn btn-ghost" href="demo-parser.html">Open the demo</a>
+          </div>
+          <div class="demo-card">
+            <span class="demo-flag">Live demo</span>
+            <div class="demo-h">The inbox, turned into an action plan.</div>
+            <div class="demo-p">Run the brief on a sample inbox: priorities, what the backlog is costing you, and drafts waiting for your approval.</div>
+            <a class="btn btn-ghost" href="demo-brief.html">Open the demo</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Process intro -->
-  <section style="background: #0f0f0f;">
+  <!-- ============ THE DIAGNOSTIC + NOT AN AGENCY (merged per Pete) ============ -->
+  <section id="diagnostic" class="band">
     <div class="container">
-      <h2 class="section-title">Not an AI agency.<br>Your AI transformation partner.</h2>
-      <p class="section-sub">An agency builds something and walks away. A partner stays — builds the foundation, finds the opportunities, proves they work, and keeps them running. Three steps:</p>
-    </div>
-  </section>
-
-  <!-- 1 · BUILD THE COMPANY BRAIN -->
-  <section id="diagnostic">
-    <div class="container">
-      <h2 class="section-title">01 · Build the Company Brain</h2>
-      <p class="section-sub">This is the foundation. Most companies have their data and knowledge scattered across different tools and different people. Nothing talks to anything else.</p>
-      <p class="section-sub">We connect the systems already in use and pull everything into one place — the Company Brain — so AI has a single source of truth about how the business actually works.</p>
-      <p style="text-align: center; margin-top: 32px; color: var(--text-muted); font-size: 1.1rem;">
-        Without this, everything else is guesswork.
-      </p>
-      <p style="text-align: center; margin-top: 20px; color: var(--text-muted); font-size: 1.1rem;">
-        Not a wiki someone has to keep updated — a brain that watches the business and is kept accurate for you.
-      </p>
-    </div>
-  </section>
-
-  <!-- 2 · FIND THE LEAKS & PROVE THE VALUE -->
-  <section style="background: #0f0f0f;">
-    <div class="container">
-      <h2 class="section-title">02 · Find the leaks &amp; prove the value</h2>
-      <p class="section-sub">Once the full picture exists, we can clearly see where time and money are being lost, where work is being repeated, and where things are slipping.</p>
-      <p class="section-sub">We start small. One clear improvement in the business's hands within 1–2 weeks that proves the impact is real. Small proof first. Bigger gains next. Never asked to bet on a promise.</p>
-    </div>
-  </section>
-
-  <!-- 3 · HAND OVER THE REPETITIVE WORK -->
-  <section>
-    <div class="container">
-      <h2 class="section-title">03 · Hand over the repetitive work</h2>
-      <p class="section-sub">AI then takes on the less critical, repetitive jobs in the background — so the team can focus on the work that actually moves the business forward.</p>
-      <p style="text-align:center; margin-top:36px; color:var(--text-muted); font-size:1.125rem; max-width:560px; margin-left:auto; margin-right:auto;">
-        It only surfaces what needs a human decision. Everything else is handled.
-      </p>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section>
-    <div class="container" style="max-width: 720px;">
-      <h2 class="section-title">FAQs</h2>
-      <div class="faq-item">
-        <div class="faq-q">What happens in the Diagnostic?</div>
-        <div class="faq-a">A short call where we ask questions and listen. Afterwards you receive a clear report in plain English that maps the main leaks and shows what one Company Brain would make possible — plus the fastest first win.</div>
+      <div class="split">
+        <div class="split-aside">
+          <h2 class="split-title">Start with the diagnostic.</h2>
+          <p class="fee">£499, one fixed fee.</p>
+          <p class="guarantee"><b>5 hours found or full refund.</b> If the report doesn't surface at least 5 reclaimable hours a week, the £499 comes back in full. No conversation needed.</p>
+          <p class="guarantee"><b>Every pound credited.</b> Go ahead with any build and the £499 comes off it. The diagnostic was free.</p>
+          <a href="contact.html" class="btn btn-primary fee-cta">Book the diagnostic</a>
+          <p class="fee-note">One fixed fee. The refund promise is honoured, not negotiated.</p>
+        </div>
+        <div class="split-body">
+          <div class="steps-list">
+            <div class="step-item">
+              <div class="step-node">01</div>
+              <h3 class="step-title">The discovery call.</h3>
+              <p>One hour. We walk through the day-to-day: who does what, when, and how the week actually flows. So we can map the rhythm of the business and see where bottlenecks build up in the working day, and around whom. No pitch, no tech talk.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-node">02</div>
+              <h3 class="step-title">The report.</h3>
+              <p>Built from the call transcript through our own report pipeline: everything we heard in your words, every opportunity ranked, a map of the workflows that leak, and the one to fix first. Plain English.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-node">03</div>
+              <h3 class="step-title">The follow-up call.</h3>
+              <p>Thirty minutes on the report, on screen. We tell you what to build first for the quickest win. You decide whether we go ahead.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="faq-item">
-        <div class="faq-q">Does the team have to touch the tech?</div>
-        <div class="faq-a">No. That's the point. We build the Company Brain, set up the automation, and run it. The team just gets the results.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Are there lock-ins or minimum terms?</div>
-        <div class="faq-a">No. No lock-ins. No minimum terms. The company's data stays the company's.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">We already use Notion or AI tools. Why do we need this?</div>
-        <div class="faq-a">Notion is where you write down what you know. A Company Brain knows the business, watches it live, and warns you before things slip — and we keep it running. The tools are plumbing. We're the brain and the person who keeps it sharp.</div>
+      <div class="split" style="margin-top:72px;">
+        <div class="split-aside">
+          <h2 class="split-title">Not an AI agency.<br>Your AI partner.</h2>
+          <p class="split-sub">An agency builds something and walks away. A partner stays. Builds the foundation, finds the opportunities, proves they work, keeps them running. Three steps:</p>
+        </div>
+        <div class="split-body">
+          <div class="steps-list">
+            <div class="step-item">
+              <div class="step-node">01</div>
+              <h3 class="step-title">Build the Company Brain.</h3>
+              <p>This is the foundation. Most companies have their data and knowledge scattered across different tools and different people. Nothing talks to anything else. We connect the systems already in use and pull everything into one place, the Company Brain, so AI has a single source of truth about how the business actually works. Without this, everything else is guesswork. Not a wiki someone has to keep updated. A brain that watches the business and is kept accurate for you.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-node">02</div>
+              <h3 class="step-title">Find the leaks &amp; prove the value.</h3>
+              <p>Once the full picture exists, we can see clearly where time and money are lost, where work is repeated, where things slip. We start small: one clear improvement in your hands within 1–2 weeks that proves the impact is real. Small proof first, bigger gains next. Never asked to bet on a promise.</p>
+            </div>
+            <div class="step-item">
+              <div class="step-node">03</div>
+              <h3 class="step-title">Hand over the repetitive work.</h3>
+              <p>AI takes on the less critical, repetitive jobs in the background, so the team can focus on the work that actually moves the business forward. It only surfaces what needs a human decision. Everything else is handled.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
-
-  <!-- CTA -->
-  <section>
+  <!-- ============ WHY NOW (manifesto) ============ -->
+  <section class="manifesto">
     <div class="container">
-      <div class="download-section">
-        <h2 class="section-title" style="margin-bottom: 12px;">Book a free diagnostic.</h2>
-        <p class="section-sub" style="margin-bottom: 28px;">We'll show how one Company Brain gives the business a single source of truth, then find the leaks and start handing the repetitive work to AI — no pitch, no pressure.</p>
-        <a href="contact.html" class="btn btn-primary">Book a free diagnostic &rarr;</a>
+      <h2 class="manifesto-title">This wasn't possible 18 months ago.</h2>
+      <p>Drowning in admin used to mean hire more people or buy more software. Hiring adds a person to the queue instead of removing it. Software makes you the integrator. A person still does the work, just in a new tab.</p>
+      <p>What changed: in narrow, repeating workflows, AI now <b>does the work</b>. The invoice gets matched, the chase goes out, a person approves.</p>
+      <p>The catch: it only works where work repeats and there's a right answer. That's the only work we look for.</p>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="band">
+    <div class="container">
+      <div class="split">
+        <div class="split-aside">
+          <h2 class="split-title">FAQs</h2>
+        </div>
+        <div class="split-body">
+          <div class="faq-item"><div class="faq-q">What does it cost?</div>
+            <div class="faq-a">The diagnostic: £499, one fixed fee. A one-hour discovery call, the ranked report, and a follow-up call to walk it through. Every pound credits against any build we do together. Builds after that are scoped from your numbers and quoted before anything starts.</div></div>
+          <div class="faq-item"><div class="faq-q">What if you don't find 5 hours?</div>
+            <div class="faq-a">Then the diagnostic is free. The £499 comes back in full, no conversation needed. It's the same standard we hold everywhere: we answer for the work.</div></div>
+          <div class="faq-item"><div class="faq-q">Does the AI send things without asking?</div>
+            <div class="faq-a">No. Everything starts in draft mode. Replies queue for a human to approve. Once you're confident, you can switch routine categories to auto-send, per category, any time. Financial, compliance and legal always stay approval-only.</div></div>
+          <div class="faq-item"><div class="faq-q">Do we have to change our software?</div>
+            <div class="faq-a">No. We connect the tools already in use (inbox, job system, CRM, accounting) and file everything where it belongs. No new logins for your team or your customers.</div></div>
+          <div class="faq-item"><div class="faq-q">Does the team have to touch the tech?</div>
+            <div class="faq-a">No. We build it, set it up, and run it. The team just gets the results.</div></div>
+          <div class="faq-item"><div class="faq-q">Will this replace my team?</div>
+            <div class="faq-a">No. We take on the repetitive work your team does despite being hired for something harder. The bottleneck is rarely too few people. It's people doing the wrong work.</div></div>
+          <div class="faq-item"><div class="faq-q">We already use Notion or AI tools. Why do we need this?</div>
+            <div class="faq-a">Notion is where you write down what you know. A Company Brain knows the business, watches it live, and warns you before things slip. We keep it running. The tools are plumbing. We're the brain and the person who keeps it sharp.</div></div>
+          <div class="faq-item"><div class="faq-q">What if it doesn't work for our business?</div>
+            <div class="faq-a">Start with one automation and judge it in weeks, not months. Nothing here is sold as magic: AI drafts, humans approve, and the numbers come from your own systems, not our slides.</div></div>
+        </div>
       </div>
     </div>
   </section>
@@ -264,26 +471,107 @@
   <!-- Footer -->
   <footer>
     <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="terms.html">Terms &amp; Conditions</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="refund.html">Refund Policy</a></li>
+          </ul>
+        </div>
+      </div>
       <div class="footer-bottom">
         <div class="social-icons">
-          <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg>
-          </a>
-          <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
+          <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
+          <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
         </div>
         <div>TISHKA AI &copy; 2026</div>
-        <div class="footer-links">
-          <a href="terms.html">Terms &amp; Conditions</a>
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="refund.html">Refund Policy</a>
-          <a href="pricing.html">Pricing</a>
-          <a class="footer-cta" href="contact.html">Book a Diagnostic</a>
-        </div>
+        <a class="btn btn-primary" href="contact.html">Book a Diagnostic</a>
       </div>
     </div>
   </footer>
+  <script>
+  (function () {
+    /* ---------- theme toggle (light default, dark opt-in) ---------- */
+    var themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+      else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+    });
+
+    /* ---------- Hero ROI calculator (Rora's exact math) ---------- */
+    var $ = function (id) { return document.getElementById(id); };
+    var roiRate = $('roiRate');
+    var roiCats = [
+      { el: $('roiC1'), hrs: $('roiH1'), bk: $('roiB1'), share: 0.75 },
+      { el: $('roiC2'), hrs: $('roiH2'), bk: $('roiB2'), share: 0.65 },
+      { el: $('roiC3'), hrs: $('roiH3'), bk: $('roiB3'), share: 0.90 },
+      { el: $('roiC4'), hrs: $('roiH4'), bk: $('roiB4'), share: 0.60 }
+    ];
+    var roiModes = {
+      hour: { min: 15, max: 150, step: 5, label: '/hour', divisor: 1 },
+      day:  { min: 120, max: 1200, step: 20, label: '/day', divisor: 8 }
+    };
+    var roiMode = 'hour', roiShown = 35;
+    function rHrs(x) { var t = Math.round(10 * x) / 10; return t % 1 === 0 ? t.toFixed(0) : t.toFixed(1); }
+    function rGbp(x) { return '£' + Math.round(x).toLocaleString('en-GB'); }
+    function roiCalc() {
+      var M = roiModes[roiMode], hourly = roiShown / M.divisor;
+      $('roiRateVal').innerHTML = '£' + roiShown + '<span>' + M.label + '</span>';
+      var total = 0;
+      roiCats.forEach(function (c) {
+        var h = +c.el.value || 0, s = h * c.share; total += s;
+        c.hrs.textContent = rHrs(h) + ' hrs/wk';
+        c.bk.textContent = rHrs(s) + ' hrs/wk';
+      });
+      var wk = total * hourly, mo = wk * 52 / 12;
+      $('roiTotal').innerHTML = rHrs(total) + ' <em>hrs/wk</em>';
+      $('roiWk').innerHTML = rGbp(wk) + '<span>/wk</span>';
+      $('roiMo').innerHTML = rGbp(mo) + '<span>/mo</span>';
+    }
+    document.querySelectorAll('#roiSeg button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('#roiSeg button').forEach(function (x) { x.classList.remove('on'); });
+        b.classList.add('on');
+        var m = b.dataset.mode;
+        if (m !== roiMode) {
+          var hourly = roiShown / roiModes[roiMode].divisor, M = roiModes[m];
+          roiShown = Math.min(Math.max(Math.round(hourly * M.divisor / M.step) * M.step, M.min), M.max);
+          roiMode = m;
+          roiRate.min = M.min; roiRate.max = M.max; roiRate.step = M.step;
+          roiRate.value = roiShown;
+        }
+        roiCalc();
+      });
+    });
+    roiRate.addEventListener('input', function () { roiShown = +roiRate.value || roiShown; roiCalc(); });
+    roiCats.forEach(function (c) { c.el.addEventListener('input', roiCalc); });
+    roiCalc();
+
+    /* ---------- one-time count-up on the output figures (presentation only) ---------- */
+    var reduceMotion = false;
+    try { reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    if (!reduceMotion && 'requestAnimationFrame' in window) {
+      var finalTotal = 0;
+      roiCats.forEach(function (c) { finalTotal += (+c.el.value || 0) * c.share; });
+      var hourlyF = roiShown / roiModes[roiMode].divisor;
+      var finalWk = finalTotal * hourlyF, finalMo = finalWk * 52 / 12;
+      var t0 = null, DUR = 800;
+      var easeOut = function (t) { return 1 - Math.pow(1 - t, 3); };
+      var frame = function (ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min((ts - t0) / DUR, 1), e = easeOut(p);
+        $('roiTotal').innerHTML = rHrs(finalTotal * e) + ' <em>hrs/wk</em>';
+        $('roiWk').innerHTML = rGbp(finalWk * e) + '<span>/wk</span>';
+        $('roiMo').innerHTML = rGbp(finalMo * e) + '<span>/mo</span>';
+        if (p < 1) { requestAnimationFrame(frame); } else { roiCalc(); }
+      };
+      requestAnimationFrame(frame);
+    }
+  })();
+  </script>
 
   <!-- Chat widget (Tishka AI assistant) -->
   <script src="chat-widget.js"></script>
