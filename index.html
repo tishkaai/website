@@ -39,8 +39,14 @@
   from footer. Pages still exist on disk, just unlinked.
   Preview: http://localhost:8123/Drafts/index.html
   (python3 -m http.server 8123 from Business/Website/)
-  Demos = launcher cards opening three standalone interactive pages
-  in this folder: demo-dashboard.html · demo-brief.html · demo-parser.html.
+  Demos = launcher cards on the page: demo-dashboard.html · demo-brief.html ·
+  demo-parser.html (parser runs entirely in-browser).
+  2026-09-05 rev per Pete: "Not an AI agency" split out of the diagnostic band
+  into its own section on plain paper, bridge line added ("Say yes after the
+  follow-up call..."), partner steps restyled as plain blocks (no 01/02/03
+  timeline — the diagnostic owns the timeline). tracker.html is PUBLIC again
+  (free Time Leak Tracker, promoted by blog/social CTAs) — the 2026-09-04
+  clients-only note above is stale.
 ============================================================= -->
 <html lang="en">
 <head>
@@ -169,6 +175,14 @@
   .demo-shot { width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; object-position: top;
     border: 1px solid var(--border); border-radius: 8px; margin: 4px 0 18px; display: block; }
   .demo-card .btn { margin-top: auto; }
+
+  /* partner steps — plain blocks; the diagnostic owns the timeline */
+  .partner-steps { display: grid; gap: 0; }
+  .partner-step { border-top: 1px solid var(--border); border-bottom: none; padding: 18px 0 22px; }
+  .partner-step:first-child { border-top: none; padding-top: 4px; }
+  .partner-step:last-child { padding-bottom: 0; }
+  .partner-step h3 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .partner-step p { color: var(--muted); font-size: 1.125rem; }
 
   /* diagnostic timeline — the one true sequence */
   .fee { font-size: 1.15rem; font-weight: 700; margin-bottom: 22px; }
@@ -402,25 +416,28 @@
           </div>
         </div>
       </div>
-      <div class="split" style="margin-top:72px;">
+    </div>
+  </section>
+  <!-- ============ NOT AN AI AGENCY — own section, plain paper; the diagnostic owns the timeline ============ -->
+  <section id="partner">
+    <div class="container">
+      <div class="split">
         <div class="split-aside">
           <h2 class="split-title">Not an AI agency.<br>Your AI partner.</h2>
+          <p class="split-sub">Say yes after the follow-up call, and this is what happens next.</p>
           <p class="split-sub">An agency builds something and walks away. A partner stays. Builds the foundation, finds the opportunities, proves they work, keeps them running. Three steps:</p>
         </div>
         <div class="split-body">
-          <div class="steps-list">
-            <div class="step-item">
-              <div class="step-node">01</div>
+          <div class="partner-steps">
+            <div class="partner-step">
               <h3 class="step-title">Build the Company Brain.</h3>
               <p>This is the foundation. Most companies have their data and knowledge scattered across different tools and different people. Nothing talks to anything else. We connect the systems already in use and pull everything into one place, the Company Brain, so AI has a single source of truth about how the business actually works. Without this, everything else is guesswork. Not a wiki someone has to keep updated. A brain that watches the business and is kept accurate for you.</p>
             </div>
-            <div class="step-item">
-              <div class="step-node">02</div>
+            <div class="partner-step">
               <h3 class="step-title">Find the leaks &amp; prove the value.</h3>
               <p>Once the full picture exists, we can see clearly where time and money are lost, where work is repeated, where things slip. We start small: one clear improvement in your hands within 1–2 weeks that proves the impact is real. Small proof first, bigger gains next. Never asked to bet on a promise.</p>
             </div>
-            <div class="step-item">
-              <div class="step-node">03</div>
+            <div class="partner-step">
               <h3 class="step-title">Hand over the repetitive work.</h3>
               <p>AI takes on the less critical, repetitive jobs in the background, so the team can focus on the work that actually moves the business forward. It only surfaces what needs a human decision. Everything else is handled.</p>
             </div>
