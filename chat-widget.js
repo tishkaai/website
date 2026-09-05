@@ -250,6 +250,8 @@
 .msg.ai ul { margin: 12px 0; padding-left: 24px; }
 .msg.ai li { margin: 10px 0; }
 .msg.ai li::marker { color: var(--cw-muted); }
+.msg.ai a { color: var(--cw-ink); text-decoration: underline; text-underline-offset: 2px; }
+.msg.ai a:hover { text-decoration-thickness: 2px; }
 
 /* Icon row under AI reply (copy + time) */
 .msg-actions { display: flex; align-items: center; gap: 16px; margin-top: 10px; color: var(--cw-muted); }
@@ -501,6 +503,31 @@ body { transition: margin-right 0.25s ease; }
     el.messages.scrollTop = el.messages.scrollHeight;
   }
 
+  // Bot text renders as plain text, but markdown-style [label](url) links and
+  // bare URLs become real anchors, so raw brackets never show in the chat
+  // (Pete, 2026-09-05). Everything else stays escaped plain text.
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function linkifyAiText(content) {
+    const LINK_RE = /\[([^\]\n]+)\]\(([^)\s]+)\)|(?:https?:\/\/|www\.)[^\s<]+|\btishka\.ai\/[^\s<,."')]+/g;
+    let text = escapeHtml(content)
+      .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')   // **bold** → bold, never raw asterisks
+      .replace(/(^|\n)#{1,4}\s+/g, '$1');                     // heading hashes stripped
+    return text.replace(LINK_RE, function (m, label, url) {
+      const a = 'target="_blank" rel="noopener"';
+      if (label !== undefined) {
+        return '<a href="' + url + '" ' + a + '>' + label + '</a>';
+      }
+      const trail = (m.match(/[.,;:!?)\]]+$/) || [''])[0];
+      const addr = m.slice(0, m.length - trail.length);
+      const href = addr.indexOf('http') === 0 || addr.indexOf('www.') === 0 ? (addr.indexOf('www.') === 0 ? 'https://' + addr : addr) : 'https://' + addr;
+      return '<a href="' + href + '" ' + a + '>' + addr + '</a>' + trail;
+    });
+  }
+
   function renderMessage(role, content, ts) {
     const time = ts || nowTs();
     if (role === 'user') {
@@ -512,7 +539,7 @@ body { transition: margin-right 0.25s ease; }
     } else {
       const div = document.createElement('div');
       div.className = 'msg ai';
-      div.textContent = content;
+      div.innerHTML = linkifyAiText(content);
 
       const actions = document.createElement('div');
       actions.className = 'msg-actions';
@@ -735,7 +762,7 @@ body { transition: margin-right 0.25s ease; }
       renderMessage('assistant', thanks);
     } catch (err) {
       clearTimeout(timeoutId);
-      const fail = "Sorry, something went wrong. You can email Pete directly at hello@tishka.ai.";
+      const fail = "Sorry, something went wrong. You can email Pete directly at pete@tishka.ai.";
       state.messages.push({ role: 'assistant', content: fail, ts: nowTs() });
       renderMessage('assistant', fail);
     } finally {
