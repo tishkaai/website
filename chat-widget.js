@@ -21,7 +21,7 @@
   // CONFIG — edit here. Live webhooks point at the PikaPods n8n instance.
   // ─────────────────────────────────────────────────────────────
   const CONFIG = {
-    enabled:           true,    // LIVE — chat bubble shown
+    enabled:           true,    // LIVE — chat launcher shown
     webhookUrl:      'https://armored-perch.pikapod.net/webhook/chat',        // n8n chat endpoint (live PikaPods)
     emailWebhookUrl: 'https://armored-perch.pikapod.net/webhook/chat-email',  // email capture endpoint (live PikaPods)
     botName:         'Tishka AI',
@@ -46,7 +46,6 @@
   // ─────────────────────────────────────────────────────────────
   const IDs = {
     root:    'tishka-chat-widget',
-    bubble:  'tishka-chat-bubble',
     window:  'tishka-chat-window',
     header:  'tishka-chat-header',
     close:   'tishka-chat-close',
@@ -58,6 +57,7 @@
     input:   'tishka-chat-input',
     send:    'tishka-chat-send',
     quick:   'tishka-chat-quick',
+    ask:     'tishka-ask-ai',
   };
 
   // Page-push: while the panel is open the page shifts left instead of
@@ -156,20 +156,8 @@
 #${IDs.root} input:focus-visible,
 #${IDs.root} textarea:focus-visible { outline: none; }
 
-/* Bubble (launcher): the site's primary button as a floating action */
-#${IDs.bubble} {
-  width: 60px; height: 60px;
-  border-radius: var(--cw-r-btn);
-  background: var(--cw-btn-bg);
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.22);
-  display: flex; align-items: center; justify-content: center;
-  padding: 0;
-}
-#${IDs.bubble}:hover { background: var(--cw-btn-hover); }
-#${IDs.bubble}:active { transform: scale(0.97); }
-#${IDs.bubble} svg { width: 26px; height: 26px; fill: var(--cw-btn-fg); display: block; }
+/* Launcher: the "Ask AI" ghost button lives in the page header (next to
+   Book Diagnostic), injected by injectAskButton(). No floating bubble. */
 
 /* Window: a raised site card, flush bottom-right.
    Raised surface (not the page colour) so the panel reads as its own
@@ -379,7 +367,6 @@ html[data-theme="dark"] .send-btn {
     width: 100%; height: 100%;
     border-radius: 0; border: none;
   }
-  #${IDs.bubble} { width: 52px; height: 52px; }
 }
 
 /* Push, not overlay (Pete, 2026-09-04): the page content moves left to
@@ -397,7 +384,6 @@ body { transition: margin-right 0.25s ease; }
   // SVG icons
   // ─────────────────────────────────────────────────────────────
   const ICONS = {
-    bubble: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2 1 3.8 2.7 5.1-.1 1.3-.5 3-1.4 4.2-.2.3 0 .7.4.6 2.2-.6 3.7-1.5 4.6-2.2C9.5 19.5 10.7 20 12 20c5.5 0 10-3.6 10-8.5S17.5 3 12 3z"/></svg>',
     logo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2 1 3.8 2.7 5.1-.1 1.3-.5 3-1.4 4.2-.2.3 0 .7.4.9 2.2-.6 3.7-1.5 4.6-2.2C9.5 19.5 10.7 20 12 20c5.5 0 10-3.6 10-8.5S17.5 3 12 3z"/></svg>',
     dots: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>',
     close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>',
@@ -425,7 +411,6 @@ body { transition: margin-right 0.25s ease; }
     const root = document.createElement('div');
     root.id = IDs.root;
     root.innerHTML = `
-      <button id="${IDs.bubble}" aria-label="Open chat" aria-expanded="false">${ICONS.bubble}</button>
       <div id="${IDs.window}" role="dialog" aria-modal="false" aria-label="${CONFIG.botName} chat" style="display:none;">
         <div id="${IDs.header}">
           <span class="logo">${ICONS.logo}</span>
@@ -455,7 +440,6 @@ body { transition: margin-right 0.25s ease; }
 
     el = {
       root,
-      bubble:   document.getElementById(IDs.bubble),
       window:   document.getElementById(IDs.window),
       close:    document.getElementById(IDs.close),
       messages: document.getElementById(IDs.messages),
@@ -465,6 +449,32 @@ body { transition: margin-right 0.25s ease; }
       input:    document.getElementById(IDs.input),
       send:     document.getElementById(IDs.send),
     };
+  }
+
+  // Inject the "Ask AI" ghost button into the page header, next to the
+  // Book Diagnostic button. Reuses the site's .btn .btn-ghost styling so
+  // it matches whatever page it sits on. Returns the button (or null if
+  // the page has no header — e.g. the local chat-test.html).
+  function injectAskButton() {
+    const header = document.querySelector('header');
+    if (!header) return null;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = IDs.ask;
+    btn.className = 'btn btn-ghost';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.textContent = 'Ask AI';
+    const bookBtn = header.querySelector('.btn-primary');
+    const navActions = header.querySelector('.nav-actions');
+    if (bookBtn) {
+      bookBtn.parentNode.insertBefore(btn, bookBtn);
+    } else if (navActions) {
+      navActions.appendChild(btn);
+    } else {
+      const nav = header.querySelector('.nav') || header;
+      nav.appendChild(btn);
+    }
+    return btn;
   }
 
   // ─────────────────────────────────────────────────────────────
@@ -608,8 +618,7 @@ body { transition: margin-right 0.25s ease; }
   function openChat() {
     state.isOpen = true;
     el.window.style.display = 'flex';
-    el.bubble.style.display = 'none';
-    el.bubble.setAttribute('aria-expanded', 'true');
+    if (el.ask) el.ask.setAttribute('aria-expanded', 'true');
     updatePanelHeight();
     document.documentElement.classList.add(PUSH_CLASS);
     document.body.classList.add(PUSH_CLASS);
@@ -626,11 +635,18 @@ body { transition: margin-right 0.25s ease; }
   function closeChat() {
     state.isOpen = false;
     el.window.style.display = 'none';
-    el.bubble.style.display = 'flex';
-    el.bubble.setAttribute('aria-expanded', 'false');
+    if (el.ask) el.ask.setAttribute('aria-expanded', 'false');
     document.documentElement.classList.remove(PUSH_CLASS);
     document.body.classList.remove(PUSH_CLASS);
     saveToSessionStorage();
+  }
+
+  function toggleChat() {
+    if (state.isOpen) {
+      closeChat();
+    } else {
+      openChat();
+    }
   }
 
   function showEmailBar(message) {
@@ -778,14 +794,14 @@ body { transition: margin-right 0.25s ease; }
   // Click-away (Pete, 2026-09-04): any click outside the widget closes it.
   function handleOutsideClick(e) {
     if (!state.isOpen) return;
-    if (el.root && el.root.contains(e.target)) return; // bubble + panel + controls
+    if (el.root && el.root.contains(e.target)) return; // panel + controls
     closeChat();
   }
 
   function handleKeydown(e) {
     if (e.key === 'Escape' && state.isOpen) {
       closeChat();
-      el.bubble.focus();
+      if (el.ask) el.ask.focus();
       return;
     }
 
@@ -811,7 +827,12 @@ body { transition: margin-right 0.25s ease; }
   // Bind events
   // ─────────────────────────────────────────────────────────────
   function bindEvents() {
-    el.bubble.addEventListener('click', openChat);
+    if (el.ask) {
+      el.ask.addEventListener('click', function (e) {
+        e.stopPropagation(); // keep the header click from tripping handleOutsideClick
+        toggleChat();
+      });
+    }
     el.close.addEventListener('click', closeChat);
     el.send.addEventListener('click', sendMessage);
 
@@ -846,13 +867,13 @@ body { transition: margin-right 0.25s ease; }
 
     injectStyles();
     buildDOM();
+    el.ask = injectAskButton();
     bindEvents();
 
     if (hadHistory && state.messages.length > 0) {
       renderHistory();
     }
     el.window.style.display = 'none';
-    el.bubble.style.display = 'flex';
   }
 
   if (document.readyState === 'loading') {
