@@ -158,11 +158,15 @@
 
 /* Launcher: the "Ask AI" ghost button lives in the page header (next to
    Book Diagnostic), injected by injectAskButton(). No floating bubble.
-   It shares the site's .btn sizing so it matches Book Diagnostic exactly. */
-#${IDs.ask} {
+   Ask AI is a <button> (line-height: normal) and Book Diagnostic is an <a>
+   (inherits body line-height), so they render different heights. Force both
+   to one shared size so they match exactly (Pete). */
+#${IDs.ask},
+header .btn-primary {
   padding: 11px 20px;
   font-size: 1rem;
   font-weight: 600;
+  line-height: 1.5;
   white-space: nowrap;
 }
 
