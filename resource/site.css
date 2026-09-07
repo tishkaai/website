@@ -21,6 +21,11 @@
   --ledger: #0b7a52; --ledger-soft: rgba(11,122,82,0.10);
   --stamp: #9a3b12;
   --warn: #a3701a; --bad: #d43f3f;
+  /* diagram tints + bot (Pete's go 2026-09-07) — diagram/illustration use only */
+  --tint-blue: #74b9ff;   --tint-blue-soft: rgba(116,185,255,0.16);
+  --tint-orange: #f0a06a; --tint-orange-soft: rgba(240,160,106,0.16);
+  --tint-pink: #d98ac9;   --tint-pink-soft: rgba(217,138,201,0.16);
+  --bot-face: #d6adf2;    --bot-eye: #17171b;
   --header-bg: rgba(246,246,243,0.88);
   --btn-bg: #17171b; --btn-fg: #ffffff; --btn-bg-hover: #2e2e34;
   --ghost-bg: #ffffff; --ghost-hover: #eaeae4;
