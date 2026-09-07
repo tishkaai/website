@@ -40,8 +40,10 @@
     border-bottom: 1px solid var(--border);
   }
   .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .logo { display: inline-flex; align-items: center; }
-  .logo img { height: 28px; width: auto; display: block; }
+  .logo { display: inline-flex; align-items: center; gap: 6px; }
+  .logo-text { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 700; font-size: 22px; letter-spacing: -0.02em; line-height: 1; color: var(--ink); }
+  .logo-bot { width: 22px; height: 22px; flex-shrink: 0; color: var(--ink); }
   .nav-links { display: flex; gap: 28px; font-size: 1rem; color: var(--text-muted); }
   .nav-links a:hover { color: var(--text); }
   .btn {
@@ -70,7 +72,10 @@
   /* Footer */
   footer { border-top: 1px solid var(--border); padding: 48px 0 32px; margin-top: 60px; font-size: 1rem; color: var(--text-muted); }
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: 24px; }
-  .footer-loc { font-size: 1rem; margin: 0 0 20px; }
+
+  .footer-brand { display: inline-flex; align-items: center; gap: 6px; }
+  .footer-brand .logo-text { font-size: 1rem; font-weight: 600; }
+  .footer-brand .logo-bot { width: 18px; height: 18px; }  .footer-loc { font-size: 1rem; margin: 0 0 20px; }
   .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
   .footer-links a:hover { color: var(--text); }
   .footer-cta { color: var(--text); }
@@ -93,7 +98,11 @@
 
   <header>
     <div class="container nav">
-      <a href="index.html" class="logo"><img src="assets/Tishka_AI.svg" alt="Tishka AI" height="28"></a>
+      <a href="index.html" class="logo" aria-label="Tishka AI">
+        <span class="logo-text">Tishka</span>
+              <svg class="logo-bot" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><circle cx="16.4" cy="2.3" r="1.1" fill="currentColor"/><path d="M16.4 3.6v1.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="4" y="5.6" width="16" height="14.6" rx="4.5" fill="#D7ACF2"/><rect x="7.8" y="11.2" width="2.6" height="3.6" rx="0.9" fill="currentColor"/><rect x="13.6" y="11.2" width="2.6" height="3.6" rx="0.9" fill="currentColor"/></svg>
+              <span class="logo-text">AI</span>
+      </a>
       <a href="contact.html" class="btn btn-primary">Book Diagnostic</a>
     </div>
   </header>
@@ -151,7 +160,7 @@
     <div class="container">
       <p class="footer-loc">Tishka AI &middot; Cardigan, Ceredigion &middot; Working across Ceredigion and Pembrokeshire.</p>
       <div class="footer-bottom">
-        <div>TISHKA AI &copy; 2026</div>
+        <div class="footer-brand"><span class="logo-text">TISHKA</span><svg class="logo-bot" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><circle cx="16.4" cy="2.3" r="1.1" fill="currentColor"/><path d="M16.4 3.6v1.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="4" y="5.6" width="16" height="14.6" rx="4.5" fill="#D7ACF2"/><rect x="7.8" y="11.2" width="2.6" height="3.6" rx="0.9" fill="currentColor"/><rect x="13.6" y="11.2" width="2.6" height="3.6" rx="0.9" fill="currentColor"/></svg><span class="logo-text">AI</span> <span>&copy; 2026</span></div>
         <div class="footer-links">
           <a href="terms.html">Terms &amp; Conditions</a>
           <a href="privacy.html">Privacy Policy</a>
