@@ -112,7 +112,8 @@
 
 #${IDs.root} {
   position: fixed;
-  bottom: 24px;
+  top: 0;
+  bottom: 0;
   right: 24px;
   z-index: 9999;
   font-family: var(--font-body, "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
@@ -173,14 +174,14 @@ header .btn-primary {
 /* Window: a raised site card, flush bottom-right.
    Raised surface (not the page colour) so the panel reads as its own
    thing (Pete, 2026-09-04); 1px border is the edge, no drop shadow.
-   Height is set by JS at open time: panel stops at the header's bottom
-   edge (Pete: up to the top nav bar, never over it). */
+   Full height top-to-bottom of the viewport (Pete, 2026-09-07). */
 #${IDs.window} {
   position: absolute;
+  top: 0;
   bottom: 0;
   right: 0;
   width: 400px;
-  height: calc(100vh - 48px);
+  height: auto;
   background: var(--cw-raise);
   border: 1px solid var(--cw-border);
   border-radius: var(--cw-r-card);
@@ -608,22 +609,11 @@ body { transition: margin-right 0.25s ease; }
   // ─────────────────────────────────────────────────────────────
   // Open / close
   // ─────────────────────────────────────────────────────────────
-  // Panel height: from the header's bottom edge down to the 24px
-  // bottom gap. Falls back to the CSS height when no header exists.
+  // Panel is full height top-to-bottom of the viewport (CSS handles it).
+  // This just clears any stale inline height so the CSS wins on resize.
   function updatePanelHeight() {
     if (!state.isOpen) return;
-    if (window.matchMedia('(max-width: 480px)').matches) {
-      el.window.style.height = ''; // full-screen media query wins
-      return;
-    }
-    let top = 24; // no header → keep the CSS default top gap
-    const headerEl = document.querySelector('header');
-    if (headerEl) {
-      const rect = headerEl.getBoundingClientRect();
-      if (rect.bottom > 0 && rect.bottom < window.innerHeight) top = rect.bottom;
-    }
-    const height = Math.max(320, window.innerHeight - top - 24);
-    el.window.style.height = height + 'px';
+    el.window.style.height = '';
   }
 
   function openChat() {
