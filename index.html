@@ -301,8 +301,8 @@
     border-radius: 6px; font-size: 0.875rem; color: var(--muted); }
 
   /* business brain section */
-  .brain-flow { display: grid; grid-template-columns: minmax(0,1fr) 48px 200px 48px minmax(0,1fr);
-    grid-template-areas: "i1 w1 brain wout out" "i2 w2 brain wout out" "i3 w3 brain wout out";
+  .brain-flow { display: grid; grid-template-columns: minmax(0,1fr) 48px 24px 200px 48px minmax(0,1fr);
+    grid-template-areas: "i1 w1 rail brain wout out" "i2 w2 rail brain wout out" "i3 w3 rail brain wout out";
     align-items: center; column-gap: 0; row-gap: 16px; margin-top: 64px; }
   .bf-i1 { grid-area: i1; } .bf-i2 { grid-area: i2; } .bf-i3 { grid-area: i3; }
   .bf-w1 { grid-area: w1; } .bf-w2 { grid-area: w2; } .bf-w3 { grid-area: w3; } .bf-wout { grid-area: wout; }
@@ -320,8 +320,10 @@
     justify-self: stretch; }
   .bf-wire::after { content: ""; position: absolute; top: -3px; right: -4px; width: 8px; height: 8px;
     border-radius: 50%; background: var(--muted); }
-  .bf-rail { grid-row: 1 / 4; grid-column: 2; position: relative; align-self: stretch; }
-  .bf-rail::before { content: ""; position: absolute; top: 0; bottom: 0; right: 0; width: 2px;
+  .bf-rail { grid-area: rail; position: relative; align-self: stretch; }
+  .bf-rail::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 2px;
+    background: var(--border); }
+  .bf-rail::after { content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 2px;
     background: var(--border); }
   .bf-brain { grid-area: brain; width: 200px; height: 200px; border-radius: 24px;
     background: var(--raise); border: 1px solid var(--border); display: flex; flex-direction: column;
