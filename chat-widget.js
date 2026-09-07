@@ -157,7 +157,14 @@
 #${IDs.root} textarea:focus-visible { outline: none; }
 
 /* Launcher: the "Ask AI" ghost button lives in the page header (next to
-   Book Diagnostic), injected by injectAskButton(). No floating bubble. */
+   Book Diagnostic), injected by injectAskButton(). No floating bubble.
+   It shares the site's .btn sizing so it matches Book Diagnostic exactly. */
+#${IDs.ask} {
+  padding: 11px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
 
 /* Window: a raised site card, flush bottom-right.
    Raised surface (not the page colour) so the panel reads as its own
@@ -467,7 +474,7 @@ body { transition: margin-right 0.25s ease; }
     const bookBtn = header.querySelector('.btn-primary');
     const navActions = header.querySelector('.nav-actions');
     if (bookBtn) {
-      bookBtn.parentNode.insertBefore(btn, bookBtn);
+      bookBtn.parentNode.insertBefore(btn, bookBtn.nextSibling);
     } else if (navActions) {
       navActions.appendChild(btn);
     } else {
