@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <!-- ============================================================
-  TISHKA AI — BLOG POST: How to stop reformatting CVs by hand
-  Built by scripts/blog-publish.py from Blog/2026-09/2026-09-07-stop-reformatting-cvs.md (verbatim copy).
-  Template matches how-much-is-admin-really-costing-you.html (home page v2 style).
+  TISHKA AI — QUESTIONS ANSWERED
+  One page, four H2 sections + two definition blocks + FAQs.
+  FAQPage JSON-LD matches the visible text exactly.
+  Built 2026-09-07 per Pete's go (website fixes #2).
 ============================================================= -->
 <html lang="en">
 <head>
@@ -10,12 +11,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
 <script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
-<title>How to stop reformatting CVs by hand | Tishka AI</title>
-<link rel="canonical" href="https://tishka.ai/stop-reformatting-cvs">
-<meta name="description" content="Totaljobs puts recruiter admin at 17.7 hours per vacancy. How to hand CV reformatting to AI and keep a person checking before anything goes out.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="How to stop reformatting CVs by hand">
-<meta property="og:description" content="Totaljobs puts recruiter admin at 17.7 hours per vacancy. How to hand CV reformatting to AI and keep a person checking before anything goes out.">
+<title>AI for small businesses: the questions owners actually ask | Tishka AI</title>
+<link rel="canonical" href="https://tishka.ai/questions-answered">
+<meta name="description" content="Straight answers to the questions small business owners ask about AI: is it safe, what does it cost, can I do it myself, and will it replace my team.">
+<link rel="alternate" type="application/atom+xml" title="Tishka AI blog" href="https://tishka.ai/feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
@@ -69,14 +68,16 @@
   .post-body li { margin-bottom: 10px; }
   .post-body li::marker { color: var(--muted); }
   .post-body b, .post-body strong { font-weight: 700; }
-  .post-body .fig { font-weight: 700; }
   .post-body a { text-decoration: underline; text-underline-offset: 3px; }
   .post-body a:hover { color: var(--muted); }
 
   .faq { margin-bottom: 22px; }
   .faq b { display: block; margin-bottom: 6px; }
 
-  /* do-this-next card — same card treatment as the calculator */
+  .def { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px 24px 20px; margin: 22px 0; }
+  .def h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 8px; }
+
   .next-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
     padding: 28px 28px 24px; margin: 44px 0 10px; }
   .next-card h2 { margin-top: 0; }
@@ -95,6 +96,7 @@
   .footer-col a { color: var(--muted); }
   .footer-col a:hover { color: var(--ink); }
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-loc { font-size: 1rem; margin: 0 0 28px; }
   .social-icons { display: flex; gap: 14px; align-items: center; }
   .social-icons a { display: flex; align-items: center; color: var(--ink); }
 
@@ -131,61 +133,65 @@
 
   <article>
     <div class="post">
-      <p class="post-eyebrow">The How to series · Post 3</p>
-      <h1>How to stop reformatting CVs by hand</h1>
-      <p class="standfirst">For UK recruitment business owners still formatting CVs into client templates by hand: what the loop costs per person, and how to hand it over with a check still in place.</p>
+      <p class="post-eyebrow">Questions owners ask</p>
+      <h1>AI for small businesses: the questions owners actually ask</h1>
+      <p class="standfirst">Straight answers to the four questions that come up most. No jargon, no hype, and the price in pounds.</p>
       <p class="post-meta">Last updated 7 September 2026</p>
 
       <div class="post-body">
-        <p>It's 4pm on a Tuesday. A client emails: great shortlist, but can you send them in our template? The shortlist is finished. The afternoon now has a hole in it, and the same hole turns up again on Thursday from a different client.</p>
-        <p>That's the loop: reformatting CVs into a client's own template. Copy the details across and match their headings. Then straighten whatever the original file does to your layout. The work was finished on Wednesday. The formatting is what's eating the week.</p>
-        <h2>The maths (a sketch, not a client figure)</h2>
-        <p>The attributed number first. Totaljobs research from 2025 put recruiter admin at an average of 17.7 hours per vacancy, more than two working days per hire, and roughly £17,000 per recruiter per year in lost productivity. A solid slice of that is copying details from one document into someone else's template.</p>
-        <p>The slice, as a sketch:</p>
-        <ul>
-          <li><b>10 CVs a week</b> reformatted by hand, at <b>20 minutes each</b> (inside the 15 to 30 minutes a clean one really takes)</li>
-          <li>= <b>200 minutes a week</b>, which at £30 an hour is <b>£100 a week</b></li>
-          <li>× 46 working weeks = <b>£4,600 a year. Per person doing the formatting.</b></li>
-        </ul>
-        <p>Call it 150 hours a year of selling time, spent copying and pasting. Before someone says it: yes, software exists. Most teams still format by hand, because generic tools choke on a bespoke client template, and fixing their output takes as long as doing it properly.</p>
-        <h2>Score it: the three checks</h2>
-        <ul>
-          <li><b>Hours.</b> 4. Two to four hours a week on a busy desk, more in a busy month.</li>
-          <li><b>Repeat.</b> 5. Every client template has fixed headings and fixed fields. A new starter could follow the whole job from one page.</li>
-          <li><b>Risk-if-wrong.</b> 4. A slip is a detail in the wrong box, and it gets caught at the approval check before the client sees it.</li>
-        </ul>
-        <p>Verdict: three checks at 4 or more. Hand it over.</p>
-        <h2>Try one thing this week (free)</h2>
-        <p>Next time someone on your team formats a CV into a client template, ask them to run a stopwatch. Note the minutes. Then note the quirks: which headings, which fields, what always needs fixing after. By Friday you'll have the first draft of the one-page version of the job. Most owners have never timed it. They just feel the afternoons disappear.</p>
-        <h2>Where a person stays</h2>
-        <p>AI drafts the reformatted CV. A person approves it in two minutes. Nothing goes to a client unchecked. The check isn't a tax on the automation; it's what makes the hand-over safe. Software prepares, a person decides, and the client gets a CV that reads like your team sent it. Because your team did.</p>
+        <h2>Is it safe to let AI email my customers?</h2>
+        <p>Everything starts as a draft. The AI writes the reply, and it queues for a person to approve before anything sends. Nothing goes out that a person hasn't seen.</p>
+        <p>Financial, compliance and legal work always stays approval-only. You can switch routine categories to auto-send later, per category, any time. The check is what makes the hand-over safe, not a tax on it.</p>
+
+        <h2>What does AI automation cost a small business?</h2>
+        <p>The front door is the £499 diagnostic. One fixed fee. If we don't find 5 hours a week, you get a full refund. Every pound credits against any build.</p>
+        <p>Builds are scoped from your numbers and quoted before anything starts. After that, a retainer keeps it running and accurate, month after month.</p>
+
+        <h2>Can I do this myself with Zapier or ChatGPT, or do I need a partner?</h2>
+        <p>Honest answer: DIY genuinely works for simple repeating jobs. If the job is one step and never changes, do it yourself.</p>
+        <p>Where a partner earns their keep is wiring the tools together, keeping the knowledge accurate, and the person who maintains it. If the job touches several tools and needs to stay right, that's where we come in.</p>
+
+        <h2>Will AI replace my admin team?</h2>
+        <p>No. It takes the repetitive work that stops your team doing what you hired them for. The bottleneck is rarely too few people. It's people doing the wrong work.</p>
+        <p>Your team keeps the judgement. AI takes the retyping.</p>
+
+        <div class="def">
+          <h3>What is a business brain?</h3>
+          <p>A business brain is one clean home for everything your business knows. It holds your clients, jobs, deadlines, preferences and history. It's filled from the apps you already use, your documents, and a short interview. Plain files you own. No lock-in. Any AI tool can read it.</p>
+        </div>
+
+        <div class="def">
+          <h3>What is approval-first AI?</h3>
+          <p>Approval-first AI means everything starts as a draft. The AI drafts the reply, and it queues for a person to approve. Nothing sends until a person taps. Routine categories can switch to auto-send later, per category. Financial, compliance and legal always stay approval-only.</p>
+        </div>
+
         <h2>FAQ</h2>
-        <div class="faq"><b>Won't clients notice the CVs look machine-made?</b>
-          <p>They'll notice they look right, because the template is theirs. The approval check is where a person confirms headings, order and details before anything leaves. What no client should ever get is a CV nobody looked at.</p>
+        <div class="faq"><b>How long does the diagnostic take?</b>
+          <p>A one-hour discovery call, a written report, and a 30-minute follow-up where we recommend what to build first.</p>
         </div>
-        <div class="faq"><b>What about scanned CVs, tables and borders?</b>
-          <p>That's where the minutes go, and where the draft step earns its place. Software does the extraction, the person checks the result against the original. Messy files are exactly where an approval check pays for itself.</p>
+        <div class="faq"><b>What if you don't find 5 hours?</b>
+          <p>The £499 comes back in full, no conversation needed. We answer for the work.</p>
         </div>
-        <div class="faq"><b>Doesn't recruitment software already handle this?</b>
-          <p>Where it does, use it. The loop this post is about is the hand-formatting that still happens around the tools you already use, usually for the clients who send their own template.</p>
+        <div class="faq"><b>Do we have to change our software?</b>
+          <p>No. We connect the tools already in use and file everything where it belongs. No new logins for your team or your customers.</p>
         </div>
-        <div class="faq"><b>What else is inside the 17.7 hours?</b>
-          <p>Chasing client feedback, updating candidates, retyping details between tools. Score each with the same three checks and start with the one that eats the most hours and is easiest to write on one page.</p>
+        <div class="faq"><b>How fast do we see results?</b>
+          <p>Start with one automation and judge it in weeks, not months. Nothing here is sold as magic.</p>
         </div>
-        <div class="faq"><b>Do we hand over every CV, or only certain clients?</b>
-          <p>Only where a client sends their own template. The rest of the week the CV leaves in your own format, which was never a loop. Hand over the narrow, repeating version, not the whole pipeline.</p>
+        <div class="faq"><b>What happens after a build goes live?</b>
+          <p>We keep it running and accurate, month after month. That's the retainer, and it's what stops the system going stale.</p>
         </div>
 
         <div class="next-card">
           <h2>Do this next</h2>
           <ol>
-            <li>If the number warrants a wider map: the <b>£499 diagnostic</b>. A one-hour call, a written report, and a 30-minute follow-up where we recommend what to build first. <b>5 hours found or full refund, and the £499 is credited in full against any build.</b></li>
+            <li>If you want your own numbers: the <b>£499 diagnostic</b>. A one-hour call, a written report, and a 30-minute follow-up where we recommend what to build first. <b>5 hours found or full refund, and the £499 is credited in full against any build.</b></li>
           </ol>
           <a class="btn btn-primary" href="contact.html">Book the Diagnostic</a>
         </div>
       </div>
 
-      <p class="related">New posts in the series land through September.</p>
+      <p class="related">Back to <a href="index.html">the home page</a>.</p>
     </div>
   </article>
 
@@ -196,6 +202,7 @@
           <h3>Read</h3>
           <ul>
             <li><a href="blog.html">Blog</a></li>
+            <li><a href="questions-answered.html">Questions answered</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -206,6 +213,7 @@
           </ul>
         </div>
       </div>
+      <p class="footer-loc">Tishka AI &middot; Cardigan, Ceredigion &middot; Working across Ceredigion and Pembrokeshire.</p>
       <div class="footer-bottom">
         <div class="social-icons">
           <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
@@ -233,14 +241,34 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "How to stop reformatting CVs by hand",
-    "description": "Totaljobs puts recruiter admin at 17.7 hours per vacancy. How to hand CV reformatting to AI and keep a person checking before anything goes out.",
-    "datePublished": "2026-09-07",
-    "dateModified": "2026-09-07",
-    "author": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
-    "publisher": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
-    "mainEntityOfPage": "https://tishka.ai/stop-reformatting-cvs"
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long does the diagnostic take?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A one-hour discovery call, a written report, and a 30-minute follow-up where we recommend what to build first." }
+      },
+      {
+        "@type": "Question",
+        "name": "What if you don't find 5 hours?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The £499 comes back in full, no conversation needed. We answer for the work." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do we have to change our software?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. We connect the tools already in use and file everything where it belongs. No new logins for your team or your customers." }
+      },
+      {
+        "@type": "Question",
+        "name": "How fast do we see results?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Start with one automation and judge it in weeks, not months. Nothing here is sold as magic." }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens after a build goes live?",
+        "acceptedAnswer": { "@type": "Answer", "text": "We keep it running and accurate, month after month. That's the retainer, and it's what stops the system going stale." }
+      }
+    ]
   }
   </script>
 </body>

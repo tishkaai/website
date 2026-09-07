@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Tishka AI — The How to series</title>
+  <link href="https://tishka.ai/feed.xml" rel="self"/>
+  <link href="https://tishka.ai/blog"/>
+  <updated>2026-09-07T00:00:00Z</updated>
+  <id>https://tishka.ai/feed.xml</id>
+  <author>
+    <name>Tishka AI</name>
+  </author>
+  <entry>
+    <title>How to stop reformatting CVs by hand</title>
+    <link href="https://tishka.ai/stop-reformatting-cvs"/>
+    <id>https://tishka.ai/stop-reformatting-cvs</id>
+    <updated>2026-09-07T00:00:00Z</updated>
+    <summary>Totaljobs puts recruiter admin at 17.7 hours per vacancy. How to hand CV reformatting to AI and keep a person checking before anything goes out.</summary>
+  </entry>
+  <entry>
+    <title>Which work can AI take off your desk, and which it shouldn't touch</title>
+    <link href="https://tishka.ai/what-ai-takes-off-your-desk"/>
+    <id>https://tishka.ai/what-ai-takes-off-your-desk</id>
+    <updated>2026-09-06T00:00:00Z</updated>
+    <summary>How to sort your week's work: what AI can take off your desk, what stays with a person, and the three checks that decide which is which.</summary>
+  </entry>
+  <entry>
+    <title>How much is admin really costing you? Run the 20-minute count</title>
+    <link href="https://tishka.ai/how-much-is-admin-really-costing-you"/>
+    <id>https://tishka.ai/how-much-is-admin-really-costing-you</id>
+    <updated>2026-09-04T00:00:00Z</updated>
+    <summary>A 20-minute exercise that puts a £ figure on the admin eating your week, and three checks that decide what to hand over first.</summary>
+  </entry>
+</feed>
