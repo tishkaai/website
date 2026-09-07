@@ -65,8 +65,19 @@
     font-size: 1.125rem; color: var(--muted); max-width: 44ch; }
   .guarantee b { color: var(--stamp); }
   .fee-note { font-size: 1rem; color: var(--muted); margin-top: 14px; }
-  .founding-note { font-size: 1.125rem; color: var(--muted); margin-top: 16px; max-width: 44ch; }
-  .founding-note b { color: var(--ink); }
+
+  /* founding partner offer — stamped banner strip under the header */
+  .offer-banner { background: var(--raise); border-bottom: 1px solid var(--border);
+    box-shadow: inset 3px 0 0 var(--stamp); }
+  .offer-banner-row { display: flex; align-items: center; gap: 16px; padding: 13px 24px; }
+  .offer-badge { flex: none; font-size: var(--text-chip); font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper);
+    background: var(--stamp); padding: 5px 10px; border-radius: 4px; white-space: nowrap; }
+  .offer-copy { margin: 0; font-size: 1rem; line-height: 1.55; color: var(--ink); }
+  .offer-copy b { font-weight: 700; }
+  @media (max-width: 640px) {
+    .offer-banner-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
 
   /* form card — same card treatment as the calculator on the home page */
   .form-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
@@ -142,6 +153,14 @@
     </div>
   </header>
 
+  <!-- Founding partner offer — stamped banner strip -->
+  <div class="offer-banner" role="region" aria-label="Founding partner offer">
+    <div class="container offer-banner-row">
+      <span class="offer-badge">Founding partner offer</span>
+      <p class="offer-copy">The first 3 case-study clients get their <b>initial build fee waived</b> in exchange for a testimonial. The <b>£499 diagnostic is credited against your monthly fee</b> if you proceed. Ongoing management is <b>£300/month, locked in for life</b>.</p>
+    </div>
+  </div>
+
   <!-- Intro (left) + Form (right) -->
   <section id="book">
     <div class="container split">
@@ -151,7 +170,6 @@
         <p>One hour on how your week actually runs: who does what, when, and where the bottlenecks build up in the working day. No pitch, no tech talk.</p>
         <div class="guarantee"><b>£499, one fixed fee.</b> We find five hours a week or the fee comes back in full. Go ahead with any build and every pound is credited against it.</div>
         <p class="fee-note">Send the form and you're taken straight to the booking page to pick your time.</p>
-        <p class="founding-note"><b>Founding partner offer:</b> the first 3 case-study clients get their initial build fee waived in exchange for a testimonial. The £499 diagnostic is credited against your monthly fee if you proceed. Ongoing management is £300/month, locked in for life.</p>
       </div>
       <div class="form-card">
         <!-- Lead capture via n8n (PikaPods). POSTs to the "Lead Capture" workflow,
