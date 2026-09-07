@@ -301,47 +301,28 @@
     border-radius: 6px; font-size: 0.875rem; color: var(--muted); }
 
   /* business brain section */
-  .brain-flow { display: grid; grid-template-columns: 200px 64px auto;
-    grid-template-areas: "brain w1 i1" "brain w2 i2" "brain w3 i3" "brain wout out";
+  .brain-flow { display: grid; grid-template-columns: minmax(0,1fr) 48px 200px 48px minmax(0,1fr);
+    grid-template-areas: "i1 w1 brain wout out" "i2 w2 brain wout out" "i3 w3 brain wout out";
     align-items: center; column-gap: 0; row-gap: 16px; margin-top: 64px; }
   .bf-i1 { grid-area: i1; } .bf-i2 { grid-area: i2; } .bf-i3 { grid-area: i3; }
   .bf-w1 { grid-area: w1; } .bf-w2 { grid-area: w2; } .bf-w3 { grid-area: w3; } .bf-wout { grid-area: wout; }
   .bf-node { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
     padding: 10px 16px; display: flex; align-items: center; gap: 12px; max-width: 340px; }
-  .bf-i1, .bf-i2, .bf-i3, .bf-out { justify-self: start; height: 76px; }
-  .bf-out { grid-area: out; }
+  .bf-i1, .bf-i2, .bf-i3 { justify-self: end; height: 76px; }
+  .bf-out { grid-area: out; justify-self: start; height: 76px; }
   .bf-copy { min-width: 0; }
   .bf-t { font-weight: 600; }
   .bf-s { color: var(--muted); font-size: 1rem; margin-top: 1px; line-height: 1.35; }
-  .bf-ico { width: 34px; height: 34px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-    border-radius: 8px; background: var(--band); color: var(--muted); }
-  .bf-i1 .bf-ico { background: var(--tint-blue-soft); color: #2f9e63; }
-  .bf-i2 .bf-ico { background: var(--tint-orange-soft); color: #c8922f; }
-  .bf-i3 .bf-ico { background: var(--tint-pink-soft); color: #a76fce; }
-  html[data-theme="dark"] .bf-i1 .bf-ico { color: #61C884; }
-  html[data-theme="dark"] .bf-i2 .bf-ico { color: #E3B864; }
-  html[data-theme="dark"] .bf-i3 .bf-ico { color: #D7ACF2; }
   .bf-marks { margin-left: auto; display: flex; align-items: center; gap: 9px;
     color: var(--muted); flex-shrink: 0; }
   .bf-marks svg { width: 20px; height: 20px; fill: currentColor; display: block; }
   .bf-wire { position: relative; height: 2px; background: var(--border); z-index: 1;
     justify-self: stretch; }
-  .bf-wire::after { content: ""; position: absolute; top: -3px; left: -4px; width: 8px; height: 8px;
+  .bf-wire::after { content: ""; position: absolute; top: -3px; right: -4px; width: 8px; height: 8px;
     border-radius: 50%; background: var(--muted); }
-  /* Your apps + Any AI tool wires bend 90deg to the brain's top/bottom centre (desktop only) */
-  @media (min-width: 961px) {
-    .bf-w1, .bf-wout { background: none; }
-    .bf-w1 { height: 38px; align-self: end; }
-    .bf-w1::before { content: ""; position: absolute; bottom: 0; right: 0; height: 2px;
-      width: 164px; background: var(--border); }
-    .bf-w1::after { content: ""; position: absolute; right: 0; top: 0; width: 2px; height: 100%;
-      background: var(--border); border-radius: 0; }
-    .bf-wout { height: 38px; align-self: start; }
-    .bf-wout::before { content: ""; position: absolute; top: 0; right: 0; height: 2px;
-      width: 164px; background: var(--border); }
-    .bf-wout::after { content: ""; position: absolute; right: 0; top: 0; width: 2px; height: 100%;
-      background: var(--border); border-radius: 0; }
-  }
+  .bf-rail { grid-row: 1 / 4; grid-column: 2; position: relative; align-self: stretch; }
+  .bf-rail::before { content: ""; position: absolute; top: 0; bottom: 0; right: 0; width: 2px;
+    background: var(--border); }
   .bf-brain { grid-area: brain; width: 200px; height: 200px; border-radius: 24px;
     background: var(--raise); border: 1px solid var(--border); display: flex; flex-direction: column;
     align-items: center; justify-content: center; text-align: center; gap: 6px; padding: 16px;
@@ -383,6 +364,7 @@
   /* the flow diagram stacks earlier than the rest of the page: the row
      layout needs ~1000px for nodes + wires + circle side by side */
   @media (max-width: 960px) {
+    .bf-rail { display: none; }
     .brain-flow { grid-template-columns: 1fr; row-gap: 0;
       grid-template-areas: "i1" "w1" "i2" "w2" "i3" "w3" "brain" "wout" "out"; margin-top: 44px; }
     .bf-i1, .bf-i2, .bf-i3 { justify-self: stretch; height: auto; }
@@ -556,6 +538,7 @@
           <div><div class="bf-t">Your interview</div><div class="bf-s">What's in your head</div></div>
         </div>
         <span class="bf-wire bf-w3"></span>
+        <span class="bf-rail" aria-hidden="true"></span>
         <div class="bf-brain">
           <svg class="bf-bot" viewBox="0 0 84 84" aria-hidden="true" focusable="false">
             <rect class="bf-face" x="3" y="3" width="78" height="78" rx="22"/>
