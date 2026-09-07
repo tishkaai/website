@@ -210,6 +210,19 @@
   .guarantee b { color: var(--stamp); }
   .fee-cta { margin-top: 28px; }
   .fee-note { font-size: 1rem; color: var(--muted); margin-top: 14px; }
+
+  /* founding partner offer — clickable expandable line under the fee CTA */
+  .founding-offer { margin-top: 14px; font-size: 1rem; color: var(--muted); max-width: 44ch; }
+  .founding-offer summary { cursor: pointer; list-style: none; display: flex; align-items: center;
+    gap: 8px; font-weight: 600; color: var(--ink); }
+  .founding-offer summary::-webkit-details-marker { display: none; }
+  .founding-offer summary:hover { color: var(--stamp); }
+  .founding-offer summary .chev { flex: none; transition: transform 0.15s ease; }
+  .founding-offer[open] summary .chev { transform: rotate(90deg); }
+  .founding-offer-body { margin-top: 12px; }
+  .founding-offer-body p { margin-bottom: 10px; }
+  .founding-offer-body p:last-child { margin-bottom: 0; }
+  .founding-offer-body b { color: var(--ink); }
   .prose-lead b { color: var(--ink); }
 
   /* manifesto */
@@ -526,6 +539,14 @@
           <p class="guarantee"><b>Every pound credited.</b> Go ahead with any build and the £499 comes off it. The diagnostic was free.</p>
           <a href="contact.html" class="btn btn-primary fee-cta">Book the diagnostic</a>
           <p class="fee-note">One fixed fee. The refund promise is honoured, not negotiated.</p>
+          <details class="founding-offer">
+            <summary><svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>Founding partner offer — read this first</summary>
+            <div class="founding-offer-body">
+              <p>I'm looking for 3 case-study clients. For these 3 clients, the initial build fee is waived in exchange for honest feedback and a short testimonial.</p>
+              <p>The £499 diagnostic fee is credited against your monthly fee if you proceed, covering your first month and part of your second.</p>
+              <p>Ongoing management is £300/month. This covers hosting, AI usage, monitoring, fixes and adjustments. Founding partners keep £300/month for life.</p>
+            </div>
+          </details>
         </div>
         <div class="split-body">
           <div class="steps-list">
