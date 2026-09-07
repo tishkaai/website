@@ -114,7 +114,7 @@
   position: fixed;
   top: 0;
   bottom: 0;
-  right: 24px;
+  right: 0;
   z-index: 9999;
   font-family: var(--font-body, "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
 
@@ -174,7 +174,8 @@ header .btn-primary {
 /* Window: a raised site card, flush bottom-right.
    Raised surface (not the page colour) so the panel reads as its own
    thing (Pete, 2026-09-04); 1px border is the edge, no drop shadow.
-   Full height top-to-bottom of the viewport (Pete, 2026-09-07). */
+   Full height top-to-bottom, flush to the right edge, no rounded corners
+   (Pete, 2026-09-07). */
 #${IDs.window} {
   position: absolute;
   top: 0;
@@ -184,7 +185,7 @@ header .btn-primary {
   height: auto;
   background: var(--cw-raise);
   border: 1px solid var(--cw-border);
-  border-radius: var(--cw-r-card);
+  border-radius: 0;
   box-shadow: none;
   display: none;            /* JS toggles 'flex' on open, 'none' on close */
   flex-direction: column;
@@ -382,13 +383,14 @@ html[data-theme="dark"] .send-btn {
 }
 
 /* Push, not overlay (Pete, 2026-09-04): the page content moves left to
-   make room while the panel is open. Panel is 400px + 24px right offset;
-   448px keeps a 24px gutter. Below 768px the panel overlays as before
-   (it goes full-screen under 480px). Sticky headers shift with the body. */
+   make room while the panel is open. Panel is 400px wide, flush to the
+   right edge; 400px keeps the page clear of it. Below 768px the panel
+   overlays as before (it goes full-screen under 480px). Sticky headers
+   shift with the body. */
 body { transition: margin-right 0.25s ease; }
 @media (min-width: 768px) {
   html.${PUSH_CLASS} { background: var(--paper, var(--bg, #f6f6f3)); }
-  html.${PUSH_CLASS} body { margin-right: 448px; }
+  html.${PUSH_CLASS} body { margin-right: 400px; }
 }
 `;
 
