@@ -448,7 +448,7 @@ body { transition: margin-right 0.25s ease; }
             <button id="${IDs.send}" class="send-btn" aria-label="Send message">${ICONS.send}</button>
           </div>
         </div>
-        <div class="disclaimer">AI assistant — always check important details</div>
+        <div class="disclaimer">AI assistant. Always check important details.</div>
       </div>
     `;
     document.body.appendChild(root);
