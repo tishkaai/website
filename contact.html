@@ -16,6 +16,7 @@
 <meta name="color-scheme" content="light dark">
 <script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 <title>Tishka AI · Book the Diagnostic</title>
+<link rel="canonical" href="https://tishka.ai/contact">
 <meta name="description" content="Book the Tishka diagnostic. One hour on how your week actually runs, a ranked report in plain English, and a follow-up call to walk it through. 5 hours found or the fee comes back.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,17 +67,19 @@
   .guarantee b { color: var(--stamp); }
   .fee-note { font-size: 1rem; color: var(--muted); margin-top: 14px; }
 
-  /* founding partner offer — stamped banner strip under the header */
-  .offer-banner { background: var(--raise); border-bottom: 1px solid var(--border);
-    box-shadow: inset 3px 0 0 var(--stamp); }
-  .offer-banner-row { display: flex; align-items: center; gap: 16px; padding: 13px 24px; }
-  .offer-badge { flex: none; font-size: var(--text-chip); font-weight: 700;
-    letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper);
-    background: var(--stamp); padding: 5px 10px; border-radius: 4px; white-space: nowrap; }
-  .offer-copy { margin: 0; font-size: 1rem; line-height: 1.55; color: var(--ink); }
+  /* founding partner offer — stamp card, aligned to the page grid */
+  .offer-banner { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
+    box-shadow: inset 4px 0 0 var(--stamp);
+    display: flex; align-items: center; gap: 24px;
+    padding: 22px 28px; margin-top: 26px; }
+  .offer-badge { flex: none; font-size: var(--text-chip); font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--stamp); border: 2px solid var(--stamp);
+    padding: 7px 12px; border-radius: 6px; white-space: nowrap; }
+  .offer-copy { margin: 0; font-size: var(--text-body); line-height: 1.55; color: var(--ink); }
   .offer-copy b { font-weight: 700; }
-  @media (max-width: 640px) {
-    .offer-banner-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  @media (max-width: 840px) {
+    .offer-banner { flex-direction: column; align-items: flex-start; gap: 12px;
+      padding: 18px 20px; margin-top: 16px; }
   }
 
   /* form card — same card treatment as the calculator on the home page */
@@ -153,9 +156,9 @@
     </div>
   </header>
 
-  <!-- Founding partner offer — stamped banner strip -->
-  <div class="offer-banner" role="region" aria-label="Founding partner offer">
-    <div class="container offer-banner-row">
+  <!-- Founding partner offer — stamp card -->
+  <div class="container">
+    <div class="offer-banner" role="region" aria-label="Founding partner offer">
       <span class="offer-badge">Founding partner offer</span>
       <p class="offer-copy">The first 3 case-study clients get their <b>initial build fee waived</b> in exchange for a testimonial. The <b>£499 diagnostic is credited against your monthly fee</b> if you proceed. Ongoing management is <b>£300/month, locked in for life</b>.</p>
     </div>
