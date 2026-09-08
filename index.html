@@ -211,6 +211,10 @@
   .demo-shot { width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; object-position: top;
     border: 1px solid var(--border); border-radius: 8px; margin: 4px 0 18px; display: block; }
   .demo-card .btn { margin-top: auto; }
+  .demo-card-link { text-decoration: none; color: inherit; cursor: pointer; width: 100%; }
+  .demo-card-link:hover { border-color: var(--btn-bg-hover); box-shadow: 0 6px 24px rgba(0,0,0,0.18); }
+  .demo-card-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .demo-card-link:hover .btn-primary { background: var(--btn-bg-hover); }
 
   /* partner steps — plain blocks; the diagnostic owns the timeline */
   .partner-steps { display: grid; gap: 0; }
@@ -563,32 +567,15 @@
     <div class="container">
       <div class="split">
         <h2 class="split-title">See it work before you buy.</h2>
-        <p class="split-sub">Three demos, each on its own page. No signup, no call, no card. The parser really parses: in your browser, nothing sent anywhere.</p>
+        <p class="split-sub">One live demo, in your browser. No signup, no call, no card. Click the screenshot to open it in a new tab.</p>
       </div>
-      <div class="demo-grid">
-        <!-- Dashboard featured with its screenshot -->
-        <div class="demo-card">
-          <span class="demo-flag">Live demo</span>
-          <div class="demo-h">Your business, watched overnight.</div>
-          <div class="demo-p">Open the dashboard your morning brief lives on. Tick things off, approve decisions, draft a chase email, watch the numbers move.</div>
-          <img class="demo-shot" src="demo-dashboard-shot.png" alt="The Tishka dashboard: a morning brief for Meridian Electrical, showing today's one thing and what was done overnight" width="1280" height="800">
-          <a class="btn btn-primary" href="demo-dashboard.html">Open the demo</a>
-        </div>
-        <div class="demo-stack">
-          <div class="demo-card">
-            <span class="demo-flag">Live demo. Runs entirely in your browser</span>
-            <div class="demo-h">Paste your mess. Watch it get filed.</div>
-            <div class="demo-p">Paste your own text, upload a file, or load a sample. It parses for real, right in your browser. Nothing is sent or stored.</div>
-            <a class="btn btn-ghost" href="demo-parser.html">Open the demo</a>
-          </div>
-          <div class="demo-card">
-            <span class="demo-flag">Live demo</span>
-            <div class="demo-h">The inbox, turned into an action plan.</div>
-            <div class="demo-p">Run the brief on a sample inbox: priorities, what the backlog is costing you, and drafts waiting for your approval.</div>
-            <a class="btn btn-ghost" href="demo-brief.html">Open the demo</a>
-          </div>
-        </div>
-      </div>
+      <a class="demo-card demo-card-link" href="demo-dashboard.html" target="_blank" rel="noopener" aria-label="Open the live dashboard demo in a new tab">
+        <span class="demo-flag">Live demo · click to open in a new tab</span>
+        <div class="demo-h">Your business, watched overnight.</div>
+        <div class="demo-p">Open the dashboard your morning brief lives on. Tick things off, approve decisions, draft a chase email, watch the numbers move.</div>
+        <img class="demo-shot" src="demo-dashboard-shot.png" alt="The Tishka dashboard: a morning brief for Meridian Electrical, showing today's one thing and what was done overnight" width="1280" height="800">
+        <span class="btn btn-primary">Open the demo</span>
+      </a>
     </div>
   </section>
 
