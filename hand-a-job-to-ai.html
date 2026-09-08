@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — BLOG POST: How to hand a job to AI without losing control of it
+  Built by scripts/blog-publish.py from Blog/2026-09/2026-09-08-hand-a-job-to-ai.md (verbatim copy).
+  Template matches how-much-is-admin-really-costing-you.html (home page v2 style).
+============================================================= -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<title>How to hand a job to AI without losing control of it | Tishka AI</title>
+<meta name="description" content="How to hand a job to AI and keep control: score it on three checks, start narrow, keep a person approving. Nothing sends unchecked.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to hand a job to AI without losing control of it">
+<meta property="og:description" content="How to hand a job to AI and keep control: score it on three checks, start narrow, keep a person approving. Nothing sends unchecked.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="resource/site.css">
+<style>
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { color-scheme: light; }
+  html[data-theme="dark"] { color-scheme: dark; }
+  body { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { font-family: "Schibsted Grotesk", "Archivo", sans-serif; }
+
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo img { height: 26px; width: auto; display: block; }
+  html:not([data-theme="dark"]) .logo img { filter: invert(1); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    padding: 11px 20px; border-radius: 6px; font-size: 1rem; font-weight: 600;
+    font-family: inherit; white-space: nowrap; transition: background 0.15s ease; cursor: pointer; border: none; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
+  .btn-ghost { background: var(--ghost-bg); border: 1px solid var(--border); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+  .theme-btn { padding: 0; width: 40px; height: 40px; background: transparent; border: none;
+    color: var(--muted); }
+  .theme-btn:hover { color: var(--ink); background: transparent; }
+  .theme-btn .ico-sun, .theme-btn .ico-moon { display: block; }
+  .theme-btn .ico-sun { display: none; }
+  html[data-theme="dark"] .theme-btn .ico-sun { display: block; }
+  html[data-theme="dark"] .theme-btn .ico-moon { display: none; }
+
+  /* article: one narrow reading column */
+  .post { max-width: 720px; margin: 0 auto; padding: 64px 0 24px; }
+  .post-eyebrow { font-size: 1rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .post h1 { font-size: clamp(2.1rem, 4.6vw, 3.1rem); font-weight: 800;
+    letter-spacing: -0.045em; line-height: 1.08; margin-bottom: 20px; }
+  .standfirst { font-size: 1.25rem; color: var(--muted); line-height: 1.55; margin-bottom: 16px; }
+  .post-meta { font-size: 1rem; color: var(--muted); margin-bottom: 40px;
+    padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+
+  .post-body { font-size: 1.125rem; line-height: 1.75; }
+  .post-body p { margin-bottom: 22px; }
+  .post-body h2 { font-size: 1.65rem; font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.2; margin: 44px 0 18px; }
+  .post-body ul, .post-body ol { margin: 0 0 22px 0; padding-left: 26px; }
+  .post-body li { margin-bottom: 10px; }
+  .post-body li::marker { color: var(--muted); }
+  .post-body b, .post-body strong { font-weight: 700; }
+  .post-body .fig { font-weight: 700; }
+  .post-body a { text-decoration: underline; text-underline-offset: 3px; }
+  .post-body a:hover { color: var(--muted); }
+
+  .faq { margin-bottom: 22px; }
+  .faq b { display: block; margin-bottom: 6px; }
+
+  /* do-this-next card — same card treatment as the calculator */
+  .next-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
+    padding: 28px 28px 24px; margin: 44px 0 10px; }
+  .next-card h2 { margin-top: 0; }
+  .next-card ol { margin-bottom: 18px; }
+  .next-card .btn { margin-top: 4px; }
+
+  .related { font-size: 1rem; color: var(--muted); margin-bottom: 56px; }
+  .related a { text-decoration: underline; text-underline-offset: 3px; }
+
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: 1rem; color: var(--muted); }
+  .footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+    padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
+  .footer-col h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; }
+  .footer-col a { color: var(--muted); }
+  .footer-col a:hover { color: var(--ink); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-loc { font-size: 1rem; margin: 0 0 28px; }
+  .social-icons { display: flex; gap: 14px; align-items: center; }
+  .social-icons a { display: flex; align-items: center; color: var(--ink); }
+
+  @media (max-width: 640px) {
+    .post { padding-top: 44px; }
+    .nav { height: 56px; }
+    .nav .btn { padding: 7px 10px; font-size: 1rem; }
+    .logo img { height: 22px; }
+  }
+
+</style>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yemhdfh65o");
+</script>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo"><img src="assets/Tishka_AI.svg" alt="Tishka AI" height="26"></a>
+      <div class="nav-actions">
+        <button id="themeToggle" class="btn btn-ghost theme-btn" type="button" aria-label="Switch colour theme">
+          <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary">Book Diagnostic</a>
+      </div>
+    </div>
+  </header>
+
+  <article>
+    <div class="post">
+      <p class="post-eyebrow">The How to series · Post 4</p>
+      <h1>How to hand a job to AI without losing control of it</h1>
+      <p class="standfirst">For any UK owner about to give a job to AI: the three checks that decide which job goes first, and the one rule that keeps you in control of it.</p>
+      <p class="post-meta">Last updated 8 September 2026</p>
+
+      <div class="post-body">
+        <p>A few weeks ago, on a Tuesday afternoon, a tool started drafting the chase emails. It was quick. It was also wrong once: last month's prices, straight out the door to a client. Now the drafts sit in a folder and the owner retypes them by hand anyway. The tool didn't fail. The hand-over did.</p>
+        <p>That's the loop this post is about: the hand-over itself. Hand a job over well and the week gets quieter. Hand it over badly and the tool goes in the drawer, and the job goes back on a person, plus the checking, plus the distrust.</p>
+        <h2>The maths (a sketch, not a client figure)</h2>
+        <p>Take one job: drafting the chase emails, about 30 minutes a day by hand.</p>
+        <ul>
+          <li>× 5 days = <b>2.5 hours a week</b></li>
+          <li>× £30 an hour = <b>£75 a week</b></li>
+          <li>× 46 working weeks = <b>£3,450 a year</b></li>
+        </ul>
+        <p>Now the same job with a check step. Software drafts, a person reads and approves in 5 minutes a day:</p>
+        <ul>
+          <li>5 minutes × 5 days = <b>25 minutes a week</b></li>
+          <li>× 46 weeks = <b>about 19 hours a year</b> of human time, instead of 115.</li>
+        </ul>
+        <p>The gap between those numbers is only real if the check actually happens. Skip the check and you're back to reading every draft from scratch, which is the worst of both: the machine's speed with your doubt on top.</p>
+        <h2>Score it: the three checks</h2>
+        <p>Pick the job before the tool, and score it:</p>
+        <ul>
+          <li><b>Hours.</b> Four or more hours of someone's week, every week. Under that, the hand-over costs more than it saves.</li>
+          <li><b>Repeat.</b> Could a new starter follow the job from one written page? If you can't write the page, nobody can automate the job.</li>
+          <li><b>Risk-if-wrong.</b> If it slips once, how bad? A recoverable slip scores high. A slip that costs a client scores low.</li>
+        </ul>
+        <p>Our example job scores Hours 4, Repeat 4, Risk 3. Verdict: two checks at 4 or more, so start narrow. One kind of email, drafted and approved, for a fortnight. Then widen. All three at 4 or more, hand it over. One or less, it stays human. Most owners run this backwards: they start with the one job that must never go wrong, get burned, and spend a year not trusting any of it.</p>
+        <h2>Try one thing this week (free)</h2>
+        <p>Write the page for the job you'd hand over first. What starts it, the steps in order, what finished looks like, and one line at the bottom: what must never go out unchecked. Then run the page test: give it to someone else and have them follow it once. By Friday you'll know whether the job is writable. If it isn't, it isn't ready to hand over, and knowing that early is worth the hour it took.</p>
+        <h2>Where a person stays</h2>
+        <p>The whole design is one line: software prepares, a person decides. AI drafts, a named human approves, nothing sends unchecked. Financial, compliance and legal work stays approval-only, always. Every approval is logged, so nobody argues later about who checked what. That's how you hand over the typing without handing over the judgement, which is the only hand-over worth having.</p>
+        <h2>FAQ</h2>
+        <div class="faq"><b>What if AI does the job wrong and nobody notices?</b>
+          <p>Then the hand-over was designed wrong. Every draft lands in front of a named person with the source attached, and nothing sends unchecked. Wrong drafts get caught in two minutes. Automation with no named approver isn't a hand-over. It's hoping.</p>
+        </div>
+        <div class="faq"><b>Do we have to write everything down first?</b>
+          <p>One page, one job: trigger, steps, what finished looks like, what never goes unchecked. The page doubles as the training doc for whoever covers the job when the person who owns it is on holiday.</p>
+        </div>
+        <div class="faq"><b>What if the team thinks this is about replacing them?</b>
+          <p>The jobs worth handing over are the ones people hate. Say plainly which hours come back and where they go next. The approval step keeps a person on every decision that matters, so the tools make more of your team, not less.</p>
+        </div>
+        <div class="faq"><b>How many jobs should we hand over at once?</b>
+          <p>One. Watched for a fortnight, then the next. Handing over five in one go is how nobody trusts any of them by Friday, and the checking lands back on you.</p>
+        </div>
+        <div class="faq"><b>What does approval actually look like day to day?</b>
+          <p>A queue, not a flood. Drafts wait in one place with what they came from attached. A named person taps approve, edit or reject, and the log keeps the receipt. On a quiet week that's minutes a day, not a new job.</p>
+        </div>
+
+        <div class="next-card">
+          <h2>Do this next</h2>
+          <ol>
+            <li>If the number warrants a wider map: the <b>£499 diagnostic</b>. A one-hour call, a written report, and a 30-minute follow-up where we recommend what to build first. <b>5 hours found or full refund, and the £499 is credited in full against any build.</b></li>
+          </ol>
+          <a class="btn btn-primary" href="contact.html">Book the Diagnostic</a>
+        </div>
+      </div>
+
+      <p class="related">New posts in the series land through September.</p>
+    </div>
+  </article>
+
+  <footer>
+    <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>Read</h3>
+          <ul>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="ceredigion.html">Ceredigion</a></li>
+            <li><a href="pembrokeshire.html">Pembrokeshire</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="terms.html">Terms &amp; Conditions</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer-loc">Tishka AI &middot; Cardigan, Ceredigion &middot; Working across Ceredigion and Pembrokeshire.</p>
+      <div class="footer-bottom">
+        <div class="social-icons">
+          <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
+          <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+        <div>TISHKA AI &copy; 2026</div>
+        <a class="btn btn-primary" href="contact.html">Book a Diagnostic</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+      else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+    });
+  })();
+  </script>
+
+  <script src="chat-widget.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to hand a job to AI without losing control of it",
+    "description": "How to hand a job to AI and keep control: score it on three checks, start narrow, keep a person approving. Nothing sends unchecked.",
+    "datePublished": "2026-09-08",
+    "dateModified": "2026-09-08",
+    "author": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
+    "publisher": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
+    "mainEntityOfPage": "https://tishka.ai/hand-a-job-to-ai"
+  }
+  </script>
+</body>
+</html>

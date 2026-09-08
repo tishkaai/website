@@ -3,11 +3,25 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-07T00:00:00Z</updated>
+  <updated>2026-09-08T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>How a holiday let in Cardigan or Tenby can answer guest questions without you on the phone</title>
+    <link href="https://tishka.ai/holiday-let-guest-questions"/>
+    <id>https://tishka.ai/holiday-let-guest-questions</id>
+    <updated>2026-09-08T00:00:00Z</updated>
+    <summary>How a holiday let in Cardigan or Tenby can answer the same guest questions every week, with a person approving before anything goes out.</summary>
+  </entry>
+  <entry>
+    <title>How to hand a job to AI without losing control of it</title>
+    <link href="https://tishka.ai/hand-a-job-to-ai"/>
+    <id>https://tishka.ai/hand-a-job-to-ai</id>
+    <updated>2026-09-08T00:00:00Z</updated>
+    <summary>How to hand a job to AI and keep control: score it on three checks, start narrow, keep a person approving. Nothing sends unchecked.</summary>
+  </entry>
   <entry>
     <title>What a small business in Cardigan can hand to AI this week</title>
     <link href="https://tishka.ai/ai-for-small-business-cardigan"/>
