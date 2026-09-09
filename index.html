@@ -66,9 +66,10 @@
    Customers tabs showing one panel at a time. Added the missing "Hours Freed Up"
    figure as the strip's 4th cell. Maths unchanged (Rora engine). Copy unchanged.
    2026-09-09 rev per Pete (calculator collapsible): added an "Open / Close the
-   calculator" toggle button under the heading. The summary strip stays visible;
-   only the tabs and slider panels (plus the CTA row) collapse behind the button,
-   closed by default so the section stays tight. Maths + copy unchanged.
+   calculator" toggle button under the heading. Per Pete: the ENTIRE calculator —
+   summary strip, tabs, panels and CTA row — now sits behind the button, closed by
+   default. Only the title, sub line and the toggle button show on load; clicking
+   the button reveals (and hides) the full calculator. Maths + copy unchanged.
 ============================================================= -->
 <html lang="en">
 <head>
@@ -488,6 +489,7 @@
         </button>
       </div>
 
+      <div class="roi-collapsible" id="roiCollapsible" hidden>
       <div class="roi-strip" role="region" aria-live="polite" aria-label="Running AI ROI totals">
         <div class="roi-strip-cell">
           <div class="roi-strip-k">Costs Cut</div>
@@ -513,9 +515,7 @@
           Estimated Annual Impact: <b id="roiAnnual">£0<span>/year</span></b>
         </div>
       </div>
-
-      <div class="roi-collapsible" id="roiCollapsible" hidden>
-        <div class="roi-tabs" role="tablist" aria-label="AI ROI categories">
+      <div class="roi-tabs" role="tablist" aria-label="AI ROI categories">
         <button class="roi-tab" role="tab" aria-selected="true" aria-controls="panel-cut" id="tab-cut">
           <span class="roi-tab-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg></span>
           Cut Costs
