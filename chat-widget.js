@@ -512,7 +512,12 @@ body { transition: margin-right 0.25s ease; }
       </div>
     `;
     wrap.querySelectorAll('.chip').forEach((chip) => {
-      chip.addEventListener('click', function () {
+      chip.addEventListener('click', function (e) {
+        // Stop the click from bubbling to document. sendMessage() removes this
+        // chip from the DOM mid-click, so by the time the event reaches
+        // handleOutsideClick the chip is detached and el.root.contains() is
+        // false — which would wrongly close the panel. (Pete, 2026-09-09)
+        e.stopPropagation();
         el.input.value = QUICK_ACTIONS[parseInt(chip.getAttribute('data-q'), 10)];
         sendMessage();
       });
