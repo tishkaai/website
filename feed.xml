@@ -3,11 +3,25 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-08T00:00:00Z</updated>
+  <updated>2026-09-09T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The paperwork that eats a farm&#x27;s week, and how to hand it to AI</title>
+    <link href="https://tishka.ai/farm-paperwork"/>
+    <id>https://tishka.ai/farm-paperwork</id>
+    <updated>2026-09-09T00:00:00Z</updated>
+    <summary>Farm paperwork never shrinks: records, forms, supplier chasing. What a farm can hand to AI with a person approving, and what stays on a human desk.</summary>
+  </entry>
+  <entry>
+    <title>How to stop chasing clients for records every Monday</title>
+    <link href="https://tishka.ai/chasing-records"/>
+    <id>https://tishka.ai/chasing-records</id>
+    <updated>2026-09-09T00:00:00Z</updated>
+    <summary>Stop chasing clients for records every Monday. Put the chase on a rhythm: drafted for you, approved by a person, and logged every time.</summary>
+  </entry>
   <entry>
     <title>How a holiday let in Cardigan or Tenby can answer guest questions without you on the phone</title>
     <link href="https://tishka.ai/holiday-let-guest-questions"/>
