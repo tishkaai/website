@@ -26,6 +26,11 @@
   CTA section removed (diagnostic CTA is the closer). COPY UNCHANGED.
   Calculator math = Rora's exact engine — do not change without Pete.
   SOP name rule: customer-facing = "diagnostic", never "assessment/audit".
+  2026-09-09 rev per Pete (AI ROI calculator): calculator expanded from a
+  time-saved-only tool into three ROI sections — Cut Costs (admin hours x
+  rate), Grow Revenue (30% of missed/late leads recovered), Keep Customers
+  (25% of at-risk/lost customers saved) — plus a combined monthly/annual
+  summary. Heading now "What is the status quo actually costing you?".
   2026-09-04 rev per Pete (page focus): top draft-nav strip REMOVED — header is
   logo + icon theme toggle + Book Diagnostic. Theme toggle now icon-only
   (sun/moon). "Not an AI agency" three steps now use the numbered 01/02/03
@@ -135,7 +140,7 @@
 
   /* calculator input card */
   .calc-h { font-size: clamp(1.05rem, 4.4vw, 2.3rem); font-weight: 700; letter-spacing: -0.035em;
-    margin: 56px auto 10px; max-width: 720px; white-space: nowrap; }
+    margin: 56px auto 10px; max-width: 720px; }
   .calc-sub { color: var(--muted); font-size: 1.125rem; margin-bottom: 36px; }
   .roi-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 20px; align-items: stretch;
     text-align: left; max-width: 1080px; margin: 0 auto; }
@@ -184,6 +189,29 @@
   .roi-pline.big .v span { font-size: 1.1rem; color: var(--muted); font-weight: 400; }
   .roi-cta { width: 100%; margin-top: 24px; }
   .roi-disc { font-size: 1rem; color: var(--muted); margin-top: 14px; line-height: 1.5; }
+
+  /* calculator section cards (Cut Costs / Grow Revenue / Keep Customers) */
+  .roi-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch;
+    text-align: left; max-width: 1080px; margin: 0 auto; }
+  .roi-sec-cut, .roi-summary { grid-column: 1 / -1; }
+  @media (max-width: 900px) { .roi-sections { grid-template-columns: 1fr; } }
+  .roi-sec { display: flex; flex-direction: column; }
+  .roi-sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .roi-sec-title { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+  .roi-sec-sub { font-size: 1rem; color: var(--muted); margin-top: 2px; }
+  .roi-sec-body { flex: 1; }
+  .roi-sec-result { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border); }
+  .roi-resultline { display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    font-size: 1rem; margin-bottom: 6px; font-variant-numeric: tabular-nums; }
+  .roi-resultline .k { color: var(--muted); }
+  .roi-resultline .v { font-weight: 700; font-size: 1.15rem; }
+  .roi-resultline .v span { color: var(--muted); font-weight: 400; font-size: 1rem; }
+  .roi-resultline.big .v { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 1.7rem;
+    font-weight: 800; letter-spacing: -0.03em; color: var(--ledger); line-height: 1.15; }
+  .roi-resultline.big .v span { font-size: 1.05rem; color: var(--muted); font-weight: 400; }
+  .roi-pline .k { color: var(--muted); }
+  .roi-summary .roi-totalbig { color: var(--ledger); font-size: 2.4rem; }
 
   section { padding: 76px 0; }
   section.band { background: var(--band); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -363,6 +391,9 @@
     .roi-sliderline.indent { padding-left: 0; }
     .roi-rateval, .roi-hrsval { width: auto; text-align: left; }
     .roi-hrsval { font-size: 1rem; }
+    .roi-resultline { flex-direction: column; align-items: flex-start; gap: 2px; }
+    .roi-resultline.big .v { font-size: 1.5rem; }
+    .roi-summary .roi-totalbig { font-size: 2rem; }
     .manifesto { padding: 72px 0; }
   }
   /* the flow diagram stacks earlier than the rest of the page: the row
@@ -413,83 +444,162 @@
       <p class="hero-sub">We put AI to work in businesses like yours. Lower operating costs, higher conversion rates, stronger retention. Built on the tools you already use, run for you.</p>
       <p class="hero-loc">Working with businesses across Ceredigion and Pembrokeshire.</p>
 
-      <h2 class="calc-h">Calculate your real AI ROI.</h2>
+      <h2 class="calc-h">What is the status quo actually costing you?</h2>
       <p class="calc-sub">Drag the sliders for your own numbers. No email required, this stays in your browser.</p>
-      <div class="roi-grid">
-        <div class="roi-card">
-          <div>
+      <div class="roi-sections">
+
+        <!-- Section 1: Cut Costs -->
+        <div class="roi-card roi-sec roi-sec-cut">
+          <div class="roi-sec-head">
+            <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg></span>
+            <div>
+              <div class="roi-sec-title">Cut Costs</div>
+              <div class="roi-sec-sub">Lower your operating costs</div>
+            </div>
+          </div>
+          <div class="roi-sec-body">
             <div class="roi-rowlabel">
               <label class="roi-label" for="roiRate">What's your time worth?</label>
-              <div class="roi-seg" id="roiSeg" role="group" aria-label="Rate unit">
-                <button type="button" class="on" data-mode="hour">Per hour</button>
-                <button type="button" data-mode="day">Per day</button>
-              </div>
             </div>
             <div class="roi-sliderline">
               <input type="range" id="roiRate" min="15" max="150" step="5" value="35" aria-label="Time worth per hour">
               <span class="roi-rateval" id="roiRateVal">£35<span>/hour</span></span>
             </div>
+            <div class="roi-task">
+              <div class="roi-taskhead">
+                <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg></span>
+                <div><div class="roi-tasklabel">Scrolling through and actioning emails</div>
+                <div class="roi-taskhelp">Classified and routed to the right person automatically instead of being read one by one.</div></div>
+              </div>
+              <div class="roi-sliderline indent">
+                <input type="range" id="roiC1" min="0" max="10" step="0.5" value="5" aria-label="Emails, hours per week">
+                <span class="roi-hrsval" id="roiH1">5 hrs/wk</span>
+              </div>
+            </div>
+            <div class="roi-task">
+              <div class="roi-taskhead">
+                <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 17.5v-11"></path></svg></span>
+                <div><div class="roi-tasklabel">Processing supplier invoices</div>
+                <div class="roi-taskhelp">Matched against purchase orders automatically; you only approve the exceptions.</div></div>
+              </div>
+              <div class="roi-sliderline indent">
+                <input type="range" id="roiC2" min="0" max="10" step="0.5" value="2" aria-label="Invoices, hours per week">
+                <span class="roi-hrsval" id="roiH2">2 hrs/wk</span>
+              </div>
+            </div>
+            <div class="roi-task">
+              <div class="roi-taskhead">
+                <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path><path d="M16 4h2a2 2 0 0 1 2 2v4"></path><path d="M21 14H11"></path><path d="m15 10-4 4 4 4"></path></svg></span>
+                <div><div class="roi-tasklabel">Copying data into your CRM or job system</div>
+                <div class="roi-taskhelp">Captured straight from the source email or form the moment it arrives, no retyping.</div></div>
+              </div>
+              <div class="roi-sliderline indent">
+                <input type="range" id="roiC3" min="0" max="15" step="0.5" value="6" aria-label="CRM copying, hours per week">
+                <span class="roi-hrsval" id="roiH3">6 hrs/wk</span>
+              </div>
+            </div>
+            <div class="roi-task">
+              <div class="roi-taskhead">
+                <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"></path><path d="M3 11v-1a4 4 0 0 1 4-4h14"></path><path d="m7 22-4-4 4-4"></path><path d="M21 13v1a4 4 0 0 1-4 4H3"></path></svg></span>
+                <div><div class="roi-tasklabel">Other repetitive admin</div>
+                <div class="roi-taskhelp">Anything you or the team do the same way every week? The diagnostic is where we find yours.</div></div>
+              </div>
+              <div class="roi-sliderline indent">
+                <input type="range" id="roiC4" min="0" max="15" step="0.5" value="0" aria-label="Other repetitive admin, hours per week">
+                <span class="roi-hrsval" id="roiH4">0 hrs/wk</span>
+              </div>
+            </div>
           </div>
-          <div class="roi-task">
-            <div class="roi-taskhead">
-              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg></span>
-              <div><div class="roi-tasklabel">Scrolling through and actioning emails</div>
-              <div class="roi-taskhelp">Classified and routed to the right person automatically instead of read one by one.</div></div>
-            </div>
-            <div class="roi-sliderline indent">
-              <input type="range" class="roi-cat" id="roiC1" data-pct="0.76" min="0" max="10" step="0.5" value="5" aria-label="Emails, hours per week">
-              <span class="roi-hrsval" id="roiH1">5 hrs/wk</span>
-            </div>
-          </div>
-          <div class="roi-task">
-            <div class="roi-taskhead">
-              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 17.5v-11"></path></svg></span>
-              <div><div class="roi-tasklabel">Processing supplier invoices</div>
-              <div class="roi-taskhelp">Matched against purchase orders automatically; you just approve the exceptions.</div></div>
-            </div>
-            <div class="roi-sliderline indent">
-              <input type="range" class="roi-cat" id="roiC2" data-pct="0.65" min="0" max="10" step="0.5" value="2" aria-label="Invoices, hours per week">
-              <span class="roi-hrsval" id="roiH2">2 hrs/wk</span>
-            </div>
-          </div>
-          <div class="roi-task">
-            <div class="roi-taskhead">
-              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path><path d="M16 4h2a2 2 0 0 1 2 2v4"></path><path d="M21 14H11"></path><path d="m15 10-4 4 4 4"></path></svg></span>
-              <div><div class="roi-tasklabel">Copying data into your CRM or job system</div>
-              <div class="roi-taskhelp">Captured straight from the source email or form the moment it arrives, no retyping.</div></div>
-            </div>
-            <div class="roi-sliderline indent">
-              <input type="range" class="roi-cat" id="roiC3" data-pct="0.90" min="0" max="15" step="0.5" value="6" aria-label="CRM copying, hours per week">
-              <span class="roi-hrsval" id="roiH3">6 hrs/wk</span>
-            </div>
-          </div>
-          <div class="roi-task">
-            <div class="roi-taskhead">
-              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"></path><path d="M3 11v-1a4 4 0 0 1 4-4h14"></path><path d="m7 22-4-4 4-4"></path><path d="M21 13v1a4 4 0 0 1-4 4H3"></path></svg></span>
-              <div><div class="roi-tasklabel">Other repetitive admin</div>
-              <div class="roi-taskhelp">Anything you or the team do the same way every week? The diagnostic is where we find yours.</div></div>
-            </div>
-            <div class="roi-sliderline indent">
-              <input type="range" class="roi-cat" id="roiC4" data-pct="0.60" min="0" max="15" step="0.5" value="0" aria-label="Other repetitive admin, hours per week">
-              <span class="roi-hrsval" id="roiH4">0 hrs/wk</span>
-            </div>
+          <div class="roi-sec-result">
+            <div class="roi-resultline big"><span class="k">Operating Costs Cut</span><span class="v" id="roiCut">£0<span>/month</span></span></div>
+            <div class="roi-resultline"><span class="k">Time freed up</span><span class="v" id="roiTime">0 hrs/wk</span></div>
           </div>
         </div>
-        <div class="roi-card">
-          <p class="roi-outlabel">Your estimated time back</p>
-          <div class="roi-brow"><span class="k">Scrolling through and…</span><span class="v" id="roiB1">3.8 hrs/wk</span></div>
-          <div class="roi-brow"><span class="k">Processing supplier invoices…</span><span class="v" id="roiB2">1.3 hrs/wk</span></div>
-          <div class="roi-brow"><span class="k">Copying data into…</span><span class="v" id="roiB3">5.4 hrs/wk</span></div>
-          <div class="roi-brow"><span class="k">Other repetitive admin…</span><span class="v" id="roiB4">0 hrs/wk</span></div>
+
+        <!-- Section 2: Grow Revenue -->
+        <div class="roi-card roi-sec">
+          <div class="roi-sec-head">
+            <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>
+            <div>
+              <div class="roi-sec-title">Grow Revenue</div>
+              <div class="roi-sec-sub">Convert more enquiries</div>
+            </div>
+          </div>
+          <div class="roi-sec-body">
+            <div class="roi-task">
+              <div class="roi-taskhead">
+                <div><div class="roi-tasklabel">How many enquiries or leads do you miss or respond to too late each week?</div></div>
+              </div>
+              <div class="roi-sliderline">
+                <input type="range" id="roiLeads" min="0" max="50" step="1" value="3" aria-label="Missed or late enquiries per week">
+                <span class="roi-hrsval" id="roiLeadsVal">3/wk</span>
+              </div>
+            </div>
+            <div class="roi-task">
+              <div class="roi-taskhead">
+                <div><div class="roi-tasklabel">What is your average job or deal value?</div></div>
+              </div>
+              <div class="roi-sliderline">
+                <input type="range" id="roiDeal" min="0" max="10000" step="50" value="500" aria-label="Average job or deal value">
+                <span class="roi-rateval" id="roiDealVal">£500</span>
+              </div>
+            </div>
+            <p class="roi-taskhelp">AI can respond instantly, qualify the enquiry, capture details, and follow up automatically so fewer opportunities go cold.</p>
+          </div>
+          <div class="roi-sec-result">
+            <div class="roi-resultline big"><span class="k">Extra Revenue from Faster Response</span><span class="v" id="roiGrow">£0<span>/month</span></span></div>
+          </div>
+        </div>
+
+        <!-- Section 3: Keep Customers -->
+        <div class="roi-card roi-sec">
+          <div class="roi-sec-head">
+            <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
+            <div>
+              <div class="roi-sec-title">Keep Customers</div>
+              <div class="roi-sec-sub">Stronger retention, less churn</div>
+            </div>
+          </div>
+          <div class="roi-sec-body">
+            <div class="roi-task">
+              <div class="roi-taskhead">
+                <div><div class="roi-tasklabel">How many customers do you lose each month due to slow responses, poor support, or falling out of touch?</div></div>
+              </div>
+              <div class="roi-sliderline">
+                <input type="range" id="roiLost" min="0" max="20" step="1" value="2" aria-label="Customers lost per month">
+                <span class="roi-hrsval" id="roiLostVal">2/mo</span>
+              </div>
+            </div>
+            <div class="roi-task">
+              <div class="roi-taskhead">
+                <div><div class="roi-tasklabel">What is the average lifetime value of a customer?</div></div>
+              </div>
+              <div class="roi-sliderline">
+                <input type="range" id="roiLtv" min="0" max="50000" step="500" value="2000" aria-label="Average customer lifetime value">
+                <span class="roi-rateval" id="roiLtvVal">£2,000</span>
+              </div>
+            </div>
+            <p class="roi-taskhelp">AI can improve retention with faster support, proactive updates, automated follow-ups, and win-back messages for customers who have gone quiet.</p>
+          </div>
+          <div class="roi-sec-result">
+            <div class="roi-resultline big"><span class="k">Revenue Saved from Better Retention</span><span class="v" id="roiKeep">£0<span>/month</span></span></div>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="roi-card roi-summary">
+          <p class="roi-outlabel">Your combined monthly impact</p>
+          <div class="roi-brow"><span class="k">Operating Costs Cut</span><span class="v" id="roiSumCut">£0/month</span></div>
+          <div class="roi-brow"><span class="k">Extra Revenue from Faster Response</span><span class="v" id="roiSumGrow">£0/month</span></div>
+          <div class="roi-brow"><span class="k">Revenue Saved from Better Retention</span><span class="v" id="roiSumKeep">£0/month</span></div>
           <div class="roi-totline">
-            <div class="roi-totalrow"><span class="k">Total time freed up</span><span class="roi-totalbig" id="roiTotal">10.5 <em>hrs/wk</em></span></div>
-            <p class="roi-gblabel">Your time back, worth</p>
-            <div class="roi-pline"><span class="v" id="roiWk">£366<span>/wk</span></span></div>
-            <div class="roi-pline big"><span class="v" id="roiMo">£1,585<span>/mo</span></span></div>
+            <div class="roi-totalrow"><span class="k">Total Estimated Monthly Impact</span><span class="roi-totalbig" id="roiTotal">£0 <em>/month</em></span></div>
+            <div class="roi-pline"><span class="k">Estimated Annual Impact</span><span class="v" id="roiAnnual">£0<span>/year</span></span></div>
           </div>
           <a class="btn btn-primary roi-cta" href="contact.html">Get your real numbers</a>
           <p class="roi-disc">Illustrative estimate. The diagnostic gives you numbers specific to your business.</p>
         </div>
+
       </div>
     </div>
   </section>
@@ -769,71 +879,85 @@
       else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
     });
 
-    /* ---------- Hero ROI calculator (Rora's exact math) ---------- */
+    /* ---------- Hero AI ROI calculator (Cut Costs / Grow Revenue / Keep Customers) ---------- */
     var $ = function (id) { return document.getElementById(id); };
+    function rGbp(x) { return '£' + Math.round(x).toLocaleString('en-GB'); }
+    function rHrs(x) { var t = Math.round(10 * x) / 10; return t % 1 === 0 ? t.toFixed(0) : t.toFixed(1); }
+
     var roiRate = $('roiRate');
     var roiCats = [
-      { el: $('roiC1'), hrs: $('roiH1'), bk: $('roiB1'), share: 0.75 },
-      { el: $('roiC2'), hrs: $('roiH2'), bk: $('roiB2'), share: 0.65 },
-      { el: $('roiC3'), hrs: $('roiH3'), bk: $('roiB3'), share: 0.90 },
-      { el: $('roiC4'), hrs: $('roiH4'), bk: $('roiB4'), share: 0.60 }
+      { el: $('roiC1'), hrs: $('roiH1') },
+      { el: $('roiC2'), hrs: $('roiH2') },
+      { el: $('roiC3'), hrs: $('roiH3') },
+      { el: $('roiC4'), hrs: $('roiH4') }
     ];
-    var roiModes = {
-      hour: { min: 15, max: 150, step: 5, label: '/hour', divisor: 1 },
-      day:  { min: 120, max: 1200, step: 20, label: '/day', divisor: 8 }
-    };
-    var roiMode = 'hour', roiShown = 35;
-    function rHrs(x) { var t = Math.round(10 * x) / 10; return t % 1 === 0 ? t.toFixed(0) : t.toFixed(1); }
-    function rGbp(x) { return '£' + Math.round(x).toLocaleString('en-GB'); }
+    var roiLeads = $('roiLeads'), roiDeal = $('roiDeal');
+    var roiLost = $('roiLost'), roiLtv = $('roiLtv');
+
     function roiCalc() {
-      var M = roiModes[roiMode], hourly = roiShown / M.divisor;
-      $('roiRateVal').innerHTML = '£' + roiShown + '<span>' + M.label + '</span>';
-      var total = 0;
+      var rate = +roiRate.value || 0;
+      $('roiRateVal').innerHTML = '£' + rate + '<span>/hour</span>';
+
+      /* Section 1: Cut Costs — admin hours saved × hourly rate, monthly */
+      var totalHrs = 0;
       roiCats.forEach(function (c) {
-        var h = +c.el.value || 0, s = h * c.share; total += s;
+        var h = +c.el.value || 0;
+        totalHrs += h;
         c.hrs.textContent = rHrs(h) + ' hrs/wk';
-        c.bk.textContent = rHrs(s) + ' hrs/wk';
       });
-      var wk = total * hourly, mo = wk * 52 / 12;
-      $('roiTotal').innerHTML = rHrs(total) + ' <em>hrs/wk</em>';
-      $('roiWk').innerHTML = rGbp(wk) + '<span>/wk</span>';
-      $('roiMo').innerHTML = rGbp(mo) + '<span>/mo</span>';
+      var cut = totalHrs * rate * 52 / 12;
+      $('roiCut').innerHTML = rGbp(cut) + '<span>/month</span>';
+      $('roiTime').textContent = rHrs(totalHrs) + ' hrs/wk';
+
+      /* Section 2: Grow Revenue — 30% of missed/late leads recovered */
+      var leads = +roiLeads.value || 0, deal = +roiDeal.value || 0;
+      $('roiLeadsVal').textContent = leads + '/wk';
+      $('roiDealVal').textContent = '£' + deal.toLocaleString('en-GB');
+      var grow = leads * 0.30 * deal * 4;
+      $('roiGrow').innerHTML = rGbp(grow) + '<span>/month</span>';
+
+      /* Section 3: Keep Customers — 25% of at-risk/lost customers saved */
+      var lost = +roiLost.value || 0, ltv = +roiLtv.value || 0;
+      $('roiLostVal').textContent = lost + '/mo';
+      $('roiLtvVal').textContent = '£' + ltv.toLocaleString('en-GB');
+      var keep = lost * 0.25 * ltv;
+      $('roiKeep').innerHTML = rGbp(keep) + '<span>/month</span>';
+
+      /* Summary — combined monthly + annual impact */
+      var total = cut + grow + keep;
+      $('roiSumCut').textContent = rGbp(cut) + '/month';
+      $('roiSumGrow').textContent = rGbp(grow) + '/month';
+      $('roiSumKeep').textContent = rGbp(keep) + '/month';
+      $('roiTotal').innerHTML = rGbp(total) + ' <em>/month</em>';
+      $('roiAnnual').innerHTML = rGbp(total * 12) + '<span>/year</span>';
     }
-    document.querySelectorAll('#roiSeg button').forEach(function (b) {
-      b.addEventListener('click', function () {
-        document.querySelectorAll('#roiSeg button').forEach(function (x) { x.classList.remove('on'); });
-        b.classList.add('on');
-        var m = b.dataset.mode;
-        if (m !== roiMode) {
-          var hourly = roiShown / roiModes[roiMode].divisor, M = roiModes[m];
-          roiShown = Math.min(Math.max(Math.round(hourly * M.divisor / M.step) * M.step, M.min), M.max);
-          roiMode = m;
-          roiRate.min = M.min; roiRate.max = M.max; roiRate.step = M.step;
-          roiRate.value = roiShown;
-        }
-        roiCalc();
-      });
-    });
-    roiRate.addEventListener('input', function () { roiShown = +roiRate.value || roiShown; roiCalc(); });
+
+    roiRate.addEventListener('input', roiCalc);
     roiCats.forEach(function (c) { c.el.addEventListener('input', roiCalc); });
+    roiLeads.addEventListener('input', roiCalc);
+    roiDeal.addEventListener('input', roiCalc);
+    roiLost.addEventListener('input', roiCalc);
+    roiLtv.addEventListener('input', roiCalc);
     roiCalc();
 
-    /* ---------- one-time count-up on the output figures (presentation only) ---------- */
+    /* ---------- one-time count-up on the summary total (presentation only) ---------- */
     var reduceMotion = false;
     try { reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
     if (!reduceMotion && 'requestAnimationFrame' in window) {
-      var finalTotal = 0;
-      roiCats.forEach(function (c) { finalTotal += (+c.el.value || 0) * c.share; });
-      var hourlyF = roiShown / roiModes[roiMode].divisor;
-      var finalWk = finalTotal * hourlyF, finalMo = finalWk * 52 / 12;
+      var rateF = +roiRate.value || 0;
+      var totalHrsF = 0;
+      roiCats.forEach(function (c) { totalHrsF += +c.el.value || 0; });
+      var cutF = totalHrsF * rateF * 52 / 12;
+      var growF = (+roiLeads.value || 0) * 0.30 * (+roiDeal.value || 0) * 4;
+      var keepF = (+roiLost.value || 0) * 0.25 * (+roiLtv.value || 0);
+      var totalF = cutF + growF + keepF;
       var t0 = null, DUR = 800;
       var easeOut = function (t) { return 1 - Math.pow(1 - t, 3); };
       var frame = function (ts) {
         if (t0 === null) t0 = ts;
         var p = Math.min((ts - t0) / DUR, 1), e = easeOut(p);
-        $('roiTotal').innerHTML = rHrs(finalTotal * e) + ' <em>hrs/wk</em>';
-        $('roiWk').innerHTML = rGbp(finalWk * e) + '<span>/wk</span>';
-        $('roiMo').innerHTML = rGbp(finalMo * e) + '<span>/mo</span>';
+        $('roiTotal').innerHTML = rGbp(totalF * e) + ' <em>/month</em>';
+        $('roiAnnual').innerHTML = rGbp(totalF * 12 * e) + '<span>/year</span>';
         if (p < 1) { requestAnimationFrame(frame); } else { roiCalc(); }
       };
       requestAnimationFrame(frame);
