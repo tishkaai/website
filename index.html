@@ -145,22 +145,22 @@
   .roi-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 20px; align-items: stretch;
     text-align: left; max-width: 1080px; margin: 0 auto; }
   @media (max-width: 900px) { .roi-grid { grid-template-columns: 1fr; } }
-  .roi-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+  .roi-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }
   input[type=range] { width: 100%; accent-color: var(--ledger); }
   .roi-rowlabel { display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    margin-bottom: 14px; flex-wrap: wrap; }
+    margin-bottom: 10px; flex-wrap: wrap; }
   .roi-label { font-size: 1rem; font-weight: 600; }
   .roi-seg { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; padding: 3px; }
   .roi-seg button { background: transparent; color: var(--muted); border: 0; border-radius: 4px;
     padding: 5px 13px; font-size: 1rem; font-weight: 600; font-family: inherit; cursor: pointer; }
   .roi-seg button.on { background: var(--btn-bg); color: var(--btn-fg); }
-  .roi-sliderline { display: flex; align-items: center; gap: 16px; }
+  .roi-sliderline { display: flex; align-items: center; gap: 12px; }
   .roi-sliderline.indent { padding-left: 44px; }
   .roi-rateval { width: 96px; flex-shrink: 0; text-align: right; font-size: 1.2rem; font-weight: 700;
     font-variant-numeric: tabular-nums; }
   .roi-rateval span { color: var(--muted); font-weight: 400; font-size: 1rem; }
-  .roi-task { margin-top: 28px; }
-  .roi-taskhead { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+  .roi-task { margin-top: 16px; }
+  .roi-taskhead { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 6px; }
   .roi-ico { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
     border-radius: 8px; background: var(--ledger-soft); color: var(--ledger); }
   .roi-tasklabel { font-size: 1rem; font-weight: 600; }
@@ -169,12 +169,12 @@
     font-variant-numeric: tabular-nums; }
 
   /* calculator output card — the instrument */
-  .roi-outlabel { font-size: 1rem; font-weight: 600; color: var(--muted); margin-bottom: 16px; }
+  .roi-outlabel { font-size: 1rem; font-weight: 600; color: var(--muted); margin-bottom: 10px; }
   .roi-brow { display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-    font-size: 1rem; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
+    font-size: 1rem; margin-bottom: 6px; font-variant-numeric: tabular-nums; }
   .roi-brow .k { color: var(--muted); }
   .roi-brow .v { font-weight: 600; }
-  .roi-totline { border-top: 1px solid var(--border); margin-top: 20px; padding-top: 20px; }
+  .roi-totline { border-top: 1px solid var(--border); margin-top: 14px; padding-top: 14px; }
   .roi-totalrow { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
   .roi-totalrow .k { font-size: 1rem; font-weight: 600; }
   .roi-totalbig { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em;
@@ -187,31 +187,35 @@
   .roi-pline.big .v { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 2.9rem;
     font-weight: 800; letter-spacing: -0.035em; color: var(--ledger); line-height: 1.15; }
   .roi-pline.big .v span { font-size: 1.1rem; color: var(--muted); font-weight: 400; }
-  .roi-cta { width: 100%; margin-top: 24px; }
-  .roi-disc { font-size: 1rem; color: var(--muted); margin-top: 14px; line-height: 1.5; }
+  .roi-cta { width: 100%; margin-top: 16px; }
+  .roi-disc { font-size: 1rem; color: var(--muted); margin-top: 10px; line-height: 1.5; }
 
   /* calculator section cards (Cut Costs / Grow Revenue / Keep Customers) */
-  .roi-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch;
+  .roi-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch;
     text-align: left; max-width: 1080px; margin: 0 auto; }
   .roi-sec-cut, .roi-summary { grid-column: 1 / -1; }
   @media (max-width: 900px) { .roi-sections { grid-template-columns: 1fr; } }
   .roi-sec { display: flex; flex-direction: column; }
-  .roi-sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
-    padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-  .roi-sec-title { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+  .roi-sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .roi-sec-title { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
   .roi-sec-sub { font-size: 1rem; color: var(--muted); margin-top: 2px; }
   .roi-sec-body { flex: 1; }
-  .roi-sec-result { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border); }
+  .roi-sec-result { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
   .roi-resultline { display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-    font-size: 1rem; margin-bottom: 6px; font-variant-numeric: tabular-nums; }
+    font-size: 1rem; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
   .roi-resultline .k { color: var(--muted); }
   .roi-resultline .v { font-weight: 700; font-size: 1.15rem; }
   .roi-resultline .v span { color: var(--muted); font-weight: 400; font-size: 1rem; }
-  .roi-resultline.big .v { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 1.7rem;
+  .roi-resultline.big .v { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 1.4rem;
     font-weight: 800; letter-spacing: -0.03em; color: var(--ledger); line-height: 1.15; }
-  .roi-resultline.big .v span { font-size: 1.05rem; color: var(--muted); font-weight: 400; }
+  .roi-resultline.big .v span { font-size: 1rem; color: var(--muted); font-weight: 400; }
   .roi-pline .k { color: var(--muted); }
-  .roi-summary .roi-totalbig { color: var(--ledger); font-size: 2.4rem; }
+  .roi-summary .roi-totalbig { color: var(--ledger); font-size: 2rem; }
+  /* admin tasks sit two-up inside the Cut Costs card to halve its height */
+  .roi-admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+  .roi-admin-grid .roi-sliderline.indent { padding-left: 0; }
+  @media (max-width: 700px) { .roi-admin-grid { grid-template-columns: 1fr; } }
 
   section { padding: 76px 0; }
   section.band { background: var(--band); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -392,8 +396,8 @@
     .roi-rateval, .roi-hrsval { width: auto; text-align: left; }
     .roi-hrsval { font-size: 1rem; }
     .roi-resultline { flex-direction: column; align-items: flex-start; gap: 2px; }
-    .roi-resultline.big .v { font-size: 1.5rem; }
-    .roi-summary .roi-totalbig { font-size: 2rem; }
+    .roi-resultline.big .v { font-size: 1.3rem; }
+    .roi-summary .roi-totalbig { font-size: 1.8rem; }
     .manifesto { padding: 72px 0; }
   }
   /* the flow diagram stacks earlier than the rest of the page: the row
@@ -444,7 +448,7 @@
       <p class="hero-sub">We put AI to work in businesses like yours. Lower operating costs, higher conversion rates, stronger retention. Built on the tools you already use, run for you.</p>
       <p class="hero-loc">Working with businesses across Ceredigion and Pembrokeshire.</p>
 
-      <h2 class="calc-h">What is the status quo actually costing you?</h2>
+      <h2 class="calc-h">Calculate your real AI ROI.</h2>
       <p class="calc-sub">Drag the sliders for your own numbers. No email required, this stays in your browser.</p>
       <div class="roi-sections">
 
@@ -465,6 +469,7 @@
               <input type="range" id="roiRate" min="15" max="150" step="5" value="35" aria-label="Time worth per hour">
               <span class="roi-rateval" id="roiRateVal">£35<span>/hour</span></span>
             </div>
+            <div class="roi-admin-grid">
             <div class="roi-task">
               <div class="roi-taskhead">
                 <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg></span>
@@ -508,6 +513,7 @@
                 <input type="range" id="roiC4" min="0" max="15" step="0.5" value="0" aria-label="Other repetitive admin, hours per week">
                 <span class="roi-hrsval" id="roiH4">0 hrs/wk</span>
               </div>
+            </div>
             </div>
           </div>
           <div class="roi-sec-result">
