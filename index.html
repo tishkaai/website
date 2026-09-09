@@ -190,10 +190,9 @@
   .roi-cta { width: 100%; margin-top: 16px; }
   .roi-disc { font-size: 1rem; color: var(--muted); margin-top: 10px; line-height: 1.5; }
 
-  /* calculator section cards (Cut Costs / Grow Revenue / Keep Customers) */
+  /* calculator section cards (Cut Costs / Grow Revenue / Keep Customers / Summary) */
   .roi-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch;
     text-align: left; max-width: 1080px; margin: 0 auto; }
-  .roi-sec-cut, .roi-summary { grid-column: 1 / -1; }
   @media (max-width: 900px) { .roi-sections { grid-template-columns: 1fr; } }
   .roi-sec { display: flex; flex-direction: column; }
   .roi-sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
@@ -212,8 +211,8 @@
   .roi-resultline.big .v span { font-size: 1rem; color: var(--muted); font-weight: 400; }
   .roi-pline .k { color: var(--muted); }
   .roi-summary .roi-totalbig { color: var(--ledger); font-size: 2rem; }
-  /* admin tasks sit two-up inside the Cut Costs card to halve its height */
-  .roi-admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+  /* admin tasks sit two-up inside the half-width Cut Costs card */
+  .roi-admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
   .roi-admin-grid .roi-sliderline.indent { padding-left: 0; }
   @media (max-width: 700px) { .roi-admin-grid { grid-template-columns: 1fr; } }
 
