@@ -59,6 +59,12 @@
   the 3-step process gains the "filled three ways" line; "Your data, handled
   properly" gains the "Your data is yours" claim card. Push gated on Pete's review
   (ships together with e70398c).
+   2026-09-09 rev per Pete (ROI calculator layout): summary strip + tabs. Restyled
+   the 4-card grid (Cut Costs / Grow Revenue / Keep Customers / summary card) into
+   a single summary strip on top (Costs Cut · Revenue Grown · Revenue Saved ·
+   Hours Freed Up + Total monthly + Annual), then Cut Costs / Grow Revenue / Keep
+   Customers tabs showing one panel at a time. Added the missing "Hours Freed Up"
+   figure as the strip's 4th cell. Maths unchanged (Rora engine). Copy unchanged.
 ============================================================= -->
 <html lang="en">
 <head>
@@ -138,83 +144,87 @@
   .hero-sub { font-size: 1.18rem; color: var(--muted); max-width: 600px; margin: 0 auto 20px; }
   .hero-loc { font-size: 1rem; color: var(--muted); margin: 0 auto 26px; }
 
-  /* calculator input card */
+  /* ============ AI ROI calculator — summary strip + tabs (layout per Pete mockup 2026-09-13) ============ */
   .calc-h { font-size: clamp(1.05rem, 4.4vw, 2.3rem); font-weight: 700; letter-spacing: -0.035em;
     margin: 56px auto 10px; max-width: 720px; }
-  .calc-sub { color: var(--muted); font-size: 1.125rem; margin-bottom: 36px; }
-  .roi-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 20px; align-items: stretch;
-    text-align: left; max-width: 1080px; margin: 0 auto; }
-  @media (max-width: 900px) { .roi-grid { grid-template-columns: 1fr; } }
-  .roi-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }
+  .calc-sub { color: var(--muted); font-size: 1.125rem; margin-bottom: 28px; }
+
+  .roi-strip { max-width: 1080px; margin: 0 auto 16px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 20px; }
+  .roi-strip-cell { text-align: center; }
+  .roi-strip-k { font-size: 1rem; color: var(--muted); line-height: 1.3; margin-bottom: 2px; }
+  .roi-strip-v { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 1.4rem; font-weight: 800;
+    letter-spacing: -0.03em; color: var(--ledger); font-variant-numeric: tabular-nums; }
+  .roi-strip-v span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+  .roi-strip-hrs .roi-strip-v { color: var(--ink); }
+  .roi-strip-total { grid-column: 1 / -1; border-top: 1px solid var(--border);
+    padding-top: 12px; margin-top: 4px; display: flex; align-items: baseline;
+    justify-content: space-between; gap: 12px; }
+  .roi-strip-total-k { font-size: 1rem; font-weight: 600; }
+  .roi-strip-total-v { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 2rem; font-weight: 800;
+    letter-spacing: -0.03em; color: var(--ledger); font-variant-numeric: tabular-nums; }
+  .roi-strip-total-v span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+  .roi-strip-annual { font-size: 1rem; color: var(--muted); grid-column: 1 / -1; }
+  .roi-strip-annual b { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  .roi-tabs { max-width: 1080px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px;
+    background: var(--band); border: 1px solid var(--border); border-radius: 12px; padding: 4px; }
+  .roi-tab { background: transparent; border: none; padding: 12px 16px;
+    font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 1rem; font-weight: 600; color: var(--muted); border-radius: 8px;
+    cursor: pointer; transition: all 0.15s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .roi-tab:hover { color: var(--ink); }
+  .roi-tab[aria-selected="true"] { background: var(--raise); color: var(--ink);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+  .roi-tab-ico { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;
+    border-radius: 5px; background: var(--ledger-soft); color: var(--ledger); flex-shrink: 0; }
+
+  .roi-panel { max-width: 1080px; margin: 12px auto 0;
+    background: var(--raise); border: 1px solid var(--border); border-radius: 12px; padding: 24px;
+    text-align: left; }
+  .roi-panel[hidden] { display: none; }
+  .roi-panel-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .roi-panel-title { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 1.25rem; font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.2; }
+  .roi-panel-sub { font-size: 1rem; color: var(--muted); margin-top: 2px; }
+
   input[type=range] { width: 100%; accent-color: var(--ledger); }
   .roi-rowlabel { display: flex; align-items: center; justify-content: space-between; gap: 12px;
     margin-bottom: 10px; flex-wrap: wrap; }
   .roi-label { font-size: 1rem; font-weight: 600; }
-  .roi-seg { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; padding: 3px; }
-  .roi-seg button { background: transparent; color: var(--muted); border: 0; border-radius: 4px;
-    padding: 5px 13px; font-size: 1rem; font-weight: 600; font-family: inherit; cursor: pointer; }
-  .roi-seg button.on { background: var(--btn-bg); color: var(--btn-fg); }
   .roi-sliderline { display: flex; align-items: center; gap: 12px; }
   .roi-sliderline.indent { padding-left: 44px; }
   .roi-rateval { width: 96px; flex-shrink: 0; text-align: right; font-size: 1.2rem; font-weight: 700;
     font-variant-numeric: tabular-nums; }
   .roi-rateval span { color: var(--muted); font-weight: 400; font-size: 1rem; }
+  .roi-hrsval { width: 78px; flex-shrink: 0; text-align: right; font-size: 1rem; font-weight: 700;
+    font-variant-numeric: tabular-nums; }
   .roi-task { margin-top: 16px; }
+  .roi-task:first-of-type { margin-top: 0; }
   .roi-taskhead { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 6px; }
   .roi-ico { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
     border-radius: 8px; background: var(--ledger-soft); color: var(--ledger); }
   .roi-tasklabel { font-size: 1rem; font-weight: 600; }
   .roi-taskhelp { font-size: 1rem; color: var(--muted); margin-top: 2px; }
-  .roi-hrsval { width: 78px; flex-shrink: 0; text-align: right; font-size: 1rem; font-weight: 700;
-    font-variant-numeric: tabular-nums; }
-
-  /* calculator output card — the instrument */
-  .roi-outlabel { font-size: 1rem; font-weight: 600; color: var(--muted); margin-bottom: 10px; }
-  .roi-brow { display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-    font-size: 1rem; margin-bottom: 6px; font-variant-numeric: tabular-nums; }
-  .roi-brow .k { color: var(--muted); }
-  .roi-brow .v { font-weight: 600; }
-  .roi-totline { border-top: 1px solid var(--border); margin-top: 14px; padding-top: 14px; }
-  .roi-totalrow { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
-  .roi-totalrow .k { font-size: 1rem; font-weight: 600; }
-  .roi-totalbig { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em;
-    font-variant-numeric: tabular-nums; }
-  .roi-totalbig em { font-style: normal; font-size: 1rem; font-weight: 400; color: var(--muted); }
-  .roi-gblabel { font-size: 1rem; color: var(--muted); margin: 14px 0 2px; }
-  .roi-pline { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 2px; }
-  .roi-pline .v { font-size: 1.1rem; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .roi-pline .v span { color: var(--muted); font-weight: 400; font-size: 1rem; }
-  .roi-pline.big .v { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 2.9rem;
-    font-weight: 800; letter-spacing: -0.035em; color: var(--ledger); line-height: 1.15; }
-  .roi-pline.big .v span { font-size: 1.1rem; color: var(--muted); font-weight: 400; }
-  .roi-cta { width: 100%; margin-top: 16px; }
-  .roi-disc { font-size: 1rem; color: var(--muted); margin-top: 10px; line-height: 1.5; }
-
-  /* calculator section cards (Cut Costs / Grow Revenue / Keep Customers / Summary) */
-  .roi-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch;
-    text-align: left; max-width: 1080px; margin: 0 auto; }
-  @media (max-width: 900px) { .roi-sections { grid-template-columns: 1fr; } }
-  .roi-sec { display: flex; flex-direction: column; }
-  .roi-sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
-    padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-  .roi-sec-title { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
-  .roi-sec-sub { font-size: 1rem; color: var(--muted); margin-top: 2px; }
-  .roi-sec-body { flex: 1; }
-  .roi-sec-result { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
-  .roi-resultline { display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-    font-size: 1rem; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
-  .roi-resultline .k { color: var(--muted); }
-  .roi-resultline .v { font-weight: 700; font-size: 1.15rem; }
-  .roi-resultline .v span { color: var(--muted); font-weight: 400; font-size: 1rem; }
-  .roi-resultline.big .v { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 1.4rem;
-    font-weight: 800; letter-spacing: -0.03em; color: var(--ledger); line-height: 1.15; }
-  .roi-resultline.big .v span { font-size: 1rem; color: var(--muted); font-weight: 400; }
-  .roi-pline .k { color: var(--muted); }
-  .roi-summary .roi-totalbig { color: var(--ledger); font-size: 2rem; }
-  /* admin tasks sit two-up inside the half-width Cut Costs card */
   .roi-admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
   .roi-admin-grid .roi-sliderline.indent { padding-left: 0; }
-  @media (max-width: 700px) { .roi-admin-grid { grid-template-columns: 1fr; } }
+
+  .roi-result { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border);
+    display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .roi-result-k { font-size: 1rem; color: var(--muted); }
+  .roi-result-v { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 1.4rem; font-weight: 800;
+    letter-spacing: -0.03em; color: var(--ledger); font-variant-numeric: tabular-nums; }
+  .roi-result-v span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+  .roi-result-extra { font-size: 1rem; color: var(--muted); }
+  .roi-result-extra b { color: var(--ink); font-weight: 700; }
+
+  .roi-cta-row { max-width: 1080px; margin: 20px auto 0; text-align: center; }
+  .roi-cta-row .btn { margin-bottom: 8px; }
+  .roi-disc { font-size: 1rem; color: var(--muted); line-height: 1.5; }
 
   section { padding: 76px 0; }
   section.band { background: var(--band); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -381,6 +391,10 @@
   .bf-chip { font-size: var(--text-chip); line-height: 1; padding: 3px 8px; border-radius: 6px;
     background: var(--band); border: 1px solid var(--border); color: var(--ink); white-space: nowrap; }
 
+  /* calculator: strip + tabs stack on mobile, admin grid drops to one col */
+  @media (max-width: 900px) { .roi-admin-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 720px) { .roi-strip { grid-template-columns: 1fr 1fr; } }
+
   /* mobile */
   @media (max-width: 640px) {
     .hero { padding: 56px 0 40px; }
@@ -389,14 +403,19 @@
     .logo-text { font-size: 16px; }
     .logo-bot { width: 20px; height: 20px; }
     h1 br { display: none; }
-    .roi-card { padding: 20px; }
+    .roi-strip { grid-template-columns: 1fr; gap: 8px; padding: 14px 16px; }
+    .roi-strip-cell { text-align: left; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .roi-strip-v { font-size: 1.2rem; }
+    .roi-strip-total { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .roi-strip-total-v { font-size: 1.6rem; }
+    .roi-tabs { grid-template-columns: 1fr; gap: 2px; padding: 3px; }
+    .roi-tab { justify-content: flex-start; padding: 10px 14px; }
+    .roi-panel { padding: 20px; }
     .roi-sliderline { flex-direction: column; align-items: stretch; gap: 6px; }
     .roi-sliderline.indent { padding-left: 0; }
     .roi-rateval, .roi-hrsval { width: auto; text-align: left; }
-    .roi-hrsval { font-size: 1rem; }
-    .roi-resultline { flex-direction: column; align-items: flex-start; gap: 2px; }
-    .roi-resultline.big .v { font-size: 1.3rem; }
-    .roi-summary .roi-totalbig { font-size: 1.8rem; }
+    .roi-result { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .roi-result-v { font-size: 1.3rem; }
     .manifesto { padding: 72px 0; }
   }
   /* the flow diagram stacks earlier than the rest of the page: the row
@@ -449,162 +468,185 @@
 
       <h2 class="calc-h">Calculate your real AI ROI.</h2>
       <p class="calc-sub">Drag the sliders for your own numbers. No email required, this stays in your browser.</p>
-      <div class="roi-sections">
 
-        <!-- Section 1: Cut Costs -->
-        <div class="roi-card roi-sec roi-sec-cut">
-          <div class="roi-sec-head">
-            <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg></span>
-            <div>
-              <div class="roi-sec-title">Cut Costs</div>
-              <div class="roi-sec-sub">Lower your operating costs</div>
-            </div>
-          </div>
-          <div class="roi-sec-body">
-            <div class="roi-rowlabel">
-              <label class="roi-label" for="roiRate">What's your time worth?</label>
-            </div>
-            <div class="roi-sliderline">
-              <input type="range" id="roiRate" min="15" max="150" step="5" value="35" aria-label="Time worth per hour">
-              <span class="roi-rateval" id="roiRateVal">£35<span>/hour</span></span>
-            </div>
-            <div class="roi-admin-grid">
-            <div class="roi-task">
-              <div class="roi-taskhead">
-                <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg></span>
-                <div><div class="roi-tasklabel">Scrolling through and actioning emails</div>
-                <div class="roi-taskhelp">Classified and routed to the right person automatically instead of being read one by one.</div></div>
-              </div>
-              <div class="roi-sliderline indent">
-                <input type="range" id="roiC1" min="0" max="10" step="0.5" value="5" aria-label="Emails, hours per week">
-                <span class="roi-hrsval" id="roiH1">5 hrs/wk</span>
-              </div>
-            </div>
-            <div class="roi-task">
-              <div class="roi-taskhead">
-                <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 17.5v-11"></path></svg></span>
-                <div><div class="roi-tasklabel">Processing supplier invoices</div>
-                <div class="roi-taskhelp">Matched against purchase orders automatically; you only approve the exceptions.</div></div>
-              </div>
-              <div class="roi-sliderline indent">
-                <input type="range" id="roiC2" min="0" max="10" step="0.5" value="2" aria-label="Invoices, hours per week">
-                <span class="roi-hrsval" id="roiH2">2 hrs/wk</span>
-              </div>
-            </div>
-            <div class="roi-task">
-              <div class="roi-taskhead">
-                <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path><path d="M16 4h2a2 2 0 0 1 2 2v4"></path><path d="M21 14H11"></path><path d="m15 10-4 4 4 4"></path></svg></span>
-                <div><div class="roi-tasklabel">Copying data into your CRM or job system</div>
-                <div class="roi-taskhelp">Captured straight from the source email or form the moment it arrives, no retyping.</div></div>
-              </div>
-              <div class="roi-sliderline indent">
-                <input type="range" id="roiC3" min="0" max="15" step="0.5" value="6" aria-label="CRM copying, hours per week">
-                <span class="roi-hrsval" id="roiH3">6 hrs/wk</span>
-              </div>
-            </div>
-            <div class="roi-task">
-              <div class="roi-taskhead">
-                <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"></path><path d="M3 11v-1a4 4 0 0 1 4-4h14"></path><path d="m7 22-4-4 4-4"></path><path d="M21 13v1a4 4 0 0 1-4 4H3"></path></svg></span>
-                <div><div class="roi-tasklabel">Other repetitive admin</div>
-                <div class="roi-taskhelp">Anything you or the team do the same way every week? The diagnostic is where we find yours.</div></div>
-              </div>
-              <div class="roi-sliderline indent">
-                <input type="range" id="roiC4" min="0" max="15" step="0.5" value="0" aria-label="Other repetitive admin, hours per week">
-                <span class="roi-hrsval" id="roiH4">0 hrs/wk</span>
-              </div>
-            </div>
-            </div>
-          </div>
-          <div class="roi-sec-result">
-            <div class="roi-resultline big"><span class="k">Operating Costs Cut</span><span class="v" id="roiCut">£0<span>/month</span></span></div>
-            <div class="roi-resultline"><span class="k">Time freed up</span><span class="v" id="roiTime">0 hrs/wk</span></div>
+      <div class="roi-strip" role="region" aria-live="polite" aria-label="Running AI ROI totals">
+        <div class="roi-strip-cell">
+          <div class="roi-strip-k">Costs Cut</div>
+          <div class="roi-strip-v" id="roiSumCut">£0<span>/mo</span></div>
+        </div>
+        <div class="roi-strip-cell">
+          <div class="roi-strip-k">Revenue Grown</div>
+          <div class="roi-strip-v" id="roiSumGrow">£0<span>/mo</span></div>
+        </div>
+        <div class="roi-strip-cell">
+          <div class="roi-strip-k">Revenue Saved</div>
+          <div class="roi-strip-v" id="roiSumKeep">£0<span>/mo</span></div>
+        </div>
+        <div class="roi-strip-cell roi-strip-hrs">
+          <div class="roi-strip-k">Hours Freed Up</div>
+          <div class="roi-strip-v" id="roiSumHours">0<span> hrs/wk</span></div>
+        </div>
+        <div class="roi-strip-total">
+          <span class="roi-strip-total-k">Total Estimated Monthly Impact</span>
+          <span class="roi-strip-total-v" id="roiTotal">£0<span>/month</span></span>
+        </div>
+        <div class="roi-strip-annual">
+          Estimated Annual Impact: <b id="roiAnnual">£0<span>/year</span></b>
+        </div>
+      </div>
+
+      <div class="roi-tabs" role="tablist" aria-label="AI ROI categories">
+        <button class="roi-tab" role="tab" aria-selected="true" aria-controls="panel-cut" id="tab-cut">
+          <span class="roi-tab-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg></span>
+          Cut Costs
+        </button>
+        <button class="roi-tab" role="tab" aria-selected="false" aria-controls="panel-grow" id="tab-grow" tabindex="-1">
+          <span class="roi-tab-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>
+          Grow Revenue
+        </button>
+        <button class="roi-tab" role="tab" aria-selected="false" aria-controls="panel-keep" id="tab-keep" tabindex="-1">
+          <span class="roi-tab-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
+          Keep Customers
+        </button>
+      </div>
+
+      <!-- Tab 1: Cut Costs -->
+      <div class="roi-panel" role="tabpanel" id="panel-cut" aria-labelledby="tab-cut">
+        <div class="roi-panel-head">
+          <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg></span>
+          <div>
+            <div class="roi-panel-title">Cut Costs</div>
+            <div class="roi-panel-sub">Lower your operating costs</div>
           </div>
         </div>
-
-        <!-- Section 2: Grow Revenue -->
-        <div class="roi-card roi-sec">
-          <div class="roi-sec-head">
-            <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>
-            <div>
-              <div class="roi-sec-title">Grow Revenue</div>
-              <div class="roi-sec-sub">Convert more enquiries</div>
+        <div class="roi-rowlabel">
+          <label class="roi-label" for="roiRate">What's your time worth?</label>
+        </div>
+        <div class="roi-sliderline">
+          <input type="range" id="roiRate" min="15" max="150" step="5" value="35" aria-label="Time worth per hour">
+          <span class="roi-rateval" id="roiRateVal">£35<span>/hour</span></span>
+        </div>
+        <div class="roi-admin-grid">
+          <div class="roi-task">
+            <div class="roi-taskhead">
+              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg></span>
+              <div><div class="roi-tasklabel">Scrolling through and actioning emails</div>
+              <div class="roi-taskhelp">Classified and routed to the right person automatically instead of being read one by one.</div></div>
+            </div>
+            <div class="roi-sliderline indent">
+              <input type="range" id="roiC1" min="0" max="10" step="0.5" value="5" aria-label="Emails, hours per week">
+              <span class="roi-hrsval" id="roiH1">5 hrs/wk</span>
             </div>
           </div>
-          <div class="roi-sec-body">
-            <div class="roi-task">
-              <div class="roi-taskhead">
-                <div><div class="roi-tasklabel">How many enquiries or leads do you miss or respond to too late each week?</div></div>
-              </div>
-              <div class="roi-sliderline">
-                <input type="range" id="roiLeads" min="0" max="50" step="1" value="3" aria-label="Missed or late enquiries per week">
-                <span class="roi-hrsval" id="roiLeadsVal">3/wk</span>
-              </div>
+          <div class="roi-task">
+            <div class="roi-taskhead">
+              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 17.5v-11"></path></svg></span>
+              <div><div class="roi-tasklabel">Processing supplier invoices</div>
+              <div class="roi-taskhelp">Matched against purchase orders automatically; you only approve the exceptions.</div></div>
             </div>
-            <div class="roi-task">
-              <div class="roi-taskhead">
-                <div><div class="roi-tasklabel">What is your average job or deal value?</div></div>
-              </div>
-              <div class="roi-sliderline">
-                <input type="range" id="roiDeal" min="0" max="10000" step="50" value="500" aria-label="Average job or deal value">
-                <span class="roi-rateval" id="roiDealVal">£500</span>
-              </div>
+            <div class="roi-sliderline indent">
+              <input type="range" id="roiC2" min="0" max="10" step="0.5" value="2" aria-label="Invoices, hours per week">
+              <span class="roi-hrsval" id="roiH2">2 hrs/wk</span>
             </div>
-            <p class="roi-taskhelp">AI can respond instantly, qualify the enquiry, capture details, and follow up automatically so fewer opportunities go cold.</p>
           </div>
-          <div class="roi-sec-result">
-            <div class="roi-resultline big"><span class="k">Extra Revenue from Faster Response</span><span class="v" id="roiGrow">£0<span>/month</span></span></div>
+          <div class="roi-task">
+            <div class="roi-taskhead">
+              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path><path d="M16 4h2a2 2 0 0 1 2 2v4"></path><path d="M21 14H11"></path><path d="m15 10-4 4 4 4"></path></svg></span>
+              <div><div class="roi-tasklabel">Copying data into your CRM or job system</div>
+              <div class="roi-taskhelp">Captured straight from the source email or form the moment it arrives, no retyping.</div></div>
+            </div>
+            <div class="roi-sliderline indent">
+              <input type="range" id="roiC3" min="0" max="15" step="0.5" value="6" aria-label="CRM copying, hours per week">
+              <span class="roi-hrsval" id="roiH3">6 hrs/wk</span>
+            </div>
+          </div>
+          <div class="roi-task">
+            <div class="roi-taskhead">
+              <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"></path><path d="M3 11v-1a4 4 0 0 1 4-4h14"></path><path d="m7 22-4-4 4-4"></path><path d="M21 13v1a4 4 0 0 1-4 4H3"></path></svg></span>
+              <div><div class="roi-tasklabel">Other repetitive admin</div>
+              <div class="roi-taskhelp">Anything you or the team do the same way every week? The diagnostic is where we find yours.</div></div>
+            </div>
+            <div class="roi-sliderline indent">
+              <input type="range" id="roiC4" min="0" max="15" step="0.5" value="0" aria-label="Other repetitive admin, hours per week">
+              <span class="roi-hrsval" id="roiH4">0 hrs/wk</span>
+            </div>
           </div>
         </div>
+        <div class="roi-result">
+          <div><span class="roi-result-k">Operating Costs Cut </span><span class="roi-result-v" id="roiCut">£0<span>/month</span></span></div>
+          <div class="roi-result-extra">Time freed up: <b id="roiTime">0 hrs/wk</b></div>
+        </div>
+      </div>
 
-        <!-- Section 3: Keep Customers -->
-        <div class="roi-card roi-sec">
-          <div class="roi-sec-head">
-            <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
-            <div>
-              <div class="roi-sec-title">Keep Customers</div>
-              <div class="roi-sec-sub">Stronger retention, less churn</div>
-            </div>
-          </div>
-          <div class="roi-sec-body">
-            <div class="roi-task">
-              <div class="roi-taskhead">
-                <div><div class="roi-tasklabel">How many customers do you lose each month due to slow responses, poor support, or falling out of touch?</div></div>
-              </div>
-              <div class="roi-sliderline">
-                <input type="range" id="roiLost" min="0" max="20" step="1" value="2" aria-label="Customers lost per month">
-                <span class="roi-hrsval" id="roiLostVal">2/mo</span>
-              </div>
-            </div>
-            <div class="roi-task">
-              <div class="roi-taskhead">
-                <div><div class="roi-tasklabel">What is the average lifetime value of a customer?</div></div>
-              </div>
-              <div class="roi-sliderline">
-                <input type="range" id="roiLtv" min="0" max="50000" step="500" value="2000" aria-label="Average customer lifetime value">
-                <span class="roi-rateval" id="roiLtvVal">£2,000</span>
-              </div>
-            </div>
-            <p class="roi-taskhelp">AI can improve retention with faster support, proactive updates, automated follow-ups, and win-back messages for customers who have gone quiet.</p>
-          </div>
-          <div class="roi-sec-result">
-            <div class="roi-resultline big"><span class="k">Revenue Saved from Better Retention</span><span class="v" id="roiKeep">£0<span>/month</span></span></div>
+      <!-- Tab 2: Grow Revenue -->
+      <div class="roi-panel" role="tabpanel" id="panel-grow" aria-labelledby="tab-grow" hidden>
+        <div class="roi-panel-head">
+          <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>
+          <div>
+            <div class="roi-panel-title">Grow Revenue</div>
+            <div class="roi-panel-sub">Convert more enquiries</div>
           </div>
         </div>
-
-        <!-- Summary -->
-        <div class="roi-card roi-summary">
-          <p class="roi-outlabel">Your combined monthly impact</p>
-          <div class="roi-brow"><span class="k">Operating Costs Cut</span><span class="v" id="roiSumCut">£0/month</span></div>
-          <div class="roi-brow"><span class="k">Extra Revenue from Faster Response</span><span class="v" id="roiSumGrow">£0/month</span></div>
-          <div class="roi-brow"><span class="k">Revenue Saved from Better Retention</span><span class="v" id="roiSumKeep">£0/month</span></div>
-          <div class="roi-totline">
-            <div class="roi-totalrow"><span class="k">Total Estimated Monthly Impact</span><span class="roi-totalbig" id="roiTotal">£0 <em>/month</em></span></div>
-            <div class="roi-pline"><span class="k">Estimated Annual Impact</span><span class="v" id="roiAnnual">£0<span>/year</span></span></div>
+        <div class="roi-task">
+          <div class="roi-taskhead">
+            <div><div class="roi-tasklabel">How many enquiries or leads do you miss or respond to too late each week?</div></div>
           </div>
-          <a class="btn btn-primary roi-cta" href="contact.html">Get your real numbers</a>
-          <p class="roi-disc">Illustrative estimate. The diagnostic gives you numbers specific to your business.</p>
+          <div class="roi-sliderline">
+            <input type="range" id="roiLeads" min="0" max="50" step="1" value="3" aria-label="Missed or late enquiries per week">
+            <span class="roi-hrsval" id="roiLeadsVal">3/wk</span>
+          </div>
         </div>
+        <div class="roi-task">
+          <div class="roi-taskhead">
+            <div><div class="roi-tasklabel">What is your average job or deal value?</div></div>
+          </div>
+          <div class="roi-sliderline">
+            <input type="range" id="roiDeal" min="0" max="10000" step="50" value="500" aria-label="Average job or deal value">
+            <span class="roi-rateval" id="roiDealVal">£500</span>
+          </div>
+        </div>
+        <p class="roi-taskhelp" style="margin-top:16px">AI can respond instantly, qualify the enquiry, capture details, and follow up automatically so fewer opportunities go cold.</p>
+        <div class="roi-result">
+          <div><span class="roi-result-k">Extra Revenue from Faster Response </span><span class="roi-result-v" id="roiGrow">£0<span>/month</span></span></div>
+        </div>
+      </div>
 
+      <!-- Tab 3: Keep Customers -->
+      <div class="roi-panel" role="tabpanel" id="panel-keep" aria-labelledby="tab-keep" hidden>
+        <div class="roi-panel-head">
+          <span class="roi-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span>
+          <div>
+            <div class="roi-panel-title">Keep Customers</div>
+            <div class="roi-panel-sub">Stronger retention, less churn</div>
+          </div>
+        </div>
+        <div class="roi-task">
+          <div class="roi-taskhead">
+            <div><div class="roi-tasklabel">How many customers do you lose each month due to slow responses, poor support, or falling out of touch?</div></div>
+          </div>
+          <div class="roi-sliderline">
+            <input type="range" id="roiLost" min="0" max="20" step="1" value="2" aria-label="Customers lost per month">
+            <span class="roi-hrsval" id="roiLostVal">2/mo</span>
+          </div>
+        </div>
+        <div class="roi-task">
+          <div class="roi-taskhead">
+            <div><div class="roi-tasklabel">What is the average lifetime value of a customer?</div></div>
+          </div>
+          <div class="roi-sliderline">
+            <input type="range" id="roiLtv" min="0" max="50000" step="500" value="2000" aria-label="Average customer lifetime value">
+            <span class="roi-rateval" id="roiLtvVal">£2,000</span>
+          </div>
+        </div>
+        <p class="roi-taskhelp" style="margin-top:16px">AI can improve retention with faster support, proactive updates, automated follow-ups, and win-back messages for customers who have gone quiet.</p>
+        <div class="roi-result">
+          <div><span class="roi-result-k">Revenue Saved from Better Retention </span><span class="roi-result-v" id="roiKeep">£0<span>/month</span></span></div>
+        </div>
+      </div>
+
+      <div class="roi-cta-row">
+        <a class="btn btn-primary" href="contact.html">Get your real numbers</a>
+        <p class="roi-disc">Illustrative estimate. The diagnostic gives you numbers specific to your business.</p>
       </div>
     </div>
   </section>
@@ -913,6 +955,7 @@
       var cut = totalHrs * rate * 52 / 12;
       $('roiCut').innerHTML = rGbp(cut) + '<span>/month</span>';
       $('roiTime').textContent = rHrs(totalHrs) + ' hrs/wk';
+      $('roiSumHours').innerHTML = rHrs(totalHrs) + '<span> hrs/wk</span>';
 
       /* Section 2: Grow Revenue — 30% of missed/late leads recovered */
       var leads = +roiLeads.value || 0, deal = +roiDeal.value || 0;
@@ -928,14 +971,39 @@
       var keep = lost * 0.25 * ltv;
       $('roiKeep').innerHTML = rGbp(keep) + '<span>/month</span>';
 
-      /* Summary — combined monthly + annual impact */
+      /* Summary strip — combined monthly + annual impact */
       var total = cut + grow + keep;
-      $('roiSumCut').textContent = rGbp(cut) + '/month';
-      $('roiSumGrow').textContent = rGbp(grow) + '/month';
-      $('roiSumKeep').textContent = rGbp(keep) + '/month';
-      $('roiTotal').innerHTML = rGbp(total) + ' <em>/month</em>';
+      $('roiSumCut').innerHTML = rGbp(cut) + '<span>/mo</span>';
+      $('roiSumGrow').innerHTML = rGbp(grow) + '<span>/mo</span>';
+      $('roiSumKeep').innerHTML = rGbp(keep) + '<span>/mo</span>';
+      $('roiTotal').innerHTML = rGbp(total) + '<span>/month</span>';
       $('roiAnnual').innerHTML = rGbp(total * 12) + '<span>/year</span>';
     }
+
+    /* ---------- tab switching (Cut Costs / Grow Revenue / Keep Customers) ---------- */
+    var roiTabs = document.querySelectorAll('.roi-tab');
+    var roiPanels = document.querySelectorAll('.roi-panel');
+    function roiSwitchTab(tab) {
+      roiTabs.forEach(function (t) {
+        var sel = t === tab;
+        t.setAttribute('aria-selected', sel ? 'true' : 'false');
+        t.setAttribute('tabindex', sel ? '0' : '-1');
+      });
+      roiPanels.forEach(function (p) {
+        p.hidden = (p.id !== tab.getAttribute('aria-controls'));
+      });
+    }
+    roiTabs.forEach(function (tab, idx) {
+      tab.addEventListener('click', function () { roiSwitchTab(tab); });
+      tab.addEventListener('keydown', function (e) {
+        var next = -1;
+        if (e.key === 'ArrowRight') next = (idx + 1) % roiTabs.length;
+        else if (e.key === 'ArrowLeft') next = (idx - 1 + roiTabs.length) % roiTabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = roiTabs.length - 1;
+        if (next >= 0) { e.preventDefault(); roiSwitchTab(roiTabs[next]); roiTabs[next].focus(); }
+      });
+    });
 
     roiRate.addEventListener('input', roiCalc);
     roiCats.forEach(function (c) { c.el.addEventListener('input', roiCalc); });
@@ -961,7 +1029,7 @@
       var frame = function (ts) {
         if (t0 === null) t0 = ts;
         var p = Math.min((ts - t0) / DUR, 1), e = easeOut(p);
-        $('roiTotal').innerHTML = rGbp(totalF * e) + ' <em>/month</em>';
+        $('roiTotal').innerHTML = rGbp(totalF * e) + '<span>/month</span>';
         $('roiAnnual').innerHTML = rGbp(totalF * 12 * e) + '<span>/year</span>';
         if (p < 1) { requestAnimationFrame(frame); } else { roiCalc(); }
       };
