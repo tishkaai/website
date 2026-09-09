@@ -16,3 +16,5 @@ chat-test.html
 # stylesheet every live page links. It must ship with the site.
 resource/*
 !resource/site.css
+# Throwaway mockups / browser junk — not part of the live site
+Drafts/
