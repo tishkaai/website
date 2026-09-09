@@ -65,6 +65,10 @@
    Hours Freed Up + Total monthly + Annual), then Cut Costs / Grow Revenue / Keep
    Customers tabs showing one panel at a time. Added the missing "Hours Freed Up"
    figure as the strip's 4th cell. Maths unchanged (Rora engine). Copy unchanged.
+   2026-09-09 rev per Pete (calculator collapsible): added an "Open / Close the
+   calculator" toggle button under the heading. The summary strip stays visible;
+   only the tabs and slider panels (plus the CTA row) collapse behind the button,
+   closed by default so the section stays tight. Maths + copy unchanged.
 ============================================================= -->
 <html lang="en">
 <head>
@@ -147,7 +151,15 @@
   /* ============ AI ROI calculator — summary strip + tabs (layout per Pete mockup 2026-09-13) ============ */
   .calc-h { font-size: clamp(1.05rem, 4.4vw, 2.3rem); font-weight: 700; letter-spacing: -0.035em;
     margin: 56px auto 10px; max-width: 720px; }
-  .calc-sub { color: var(--muted); font-size: 1.125rem; margin-bottom: 28px; }
+  .calc-sub { color: var(--muted); font-size: 1.125rem; margin-bottom: 20px; }
+
+  /* toggle button — opens / closes the tabbed controls */
+  .roi-toggle-wrap { text-align: center; margin-bottom: 16px; }
+  .roi-toggle { gap: 8px; }
+  .roi-toggle-ico { transition: transform 0.2s ease; }
+  .roi-toggle[aria-expanded="true"] .roi-toggle-ico { transform: rotate(180deg); }
+
+  .roi-collapsible[hidden] { display: none; }
 
   .roi-strip { max-width: 1080px; margin: 0 auto 16px;
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
@@ -469,6 +481,13 @@
       <h2 class="calc-h">Calculate your real AI ROI.</h2>
       <p class="calc-sub">Drag the sliders for your own numbers. No email required, this stays in your browser.</p>
 
+      <div class="roi-toggle-wrap">
+        <button type="button" class="btn btn-ghost roi-toggle" id="roiToggle" aria-expanded="false" aria-controls="roiCollapsible">
+          <svg class="roi-toggle-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          <span class="roi-toggle-label">Open the calculator</span>
+        </button>
+      </div>
+
       <div class="roi-strip" role="region" aria-live="polite" aria-label="Running AI ROI totals">
         <div class="roi-strip-cell">
           <div class="roi-strip-k">Costs Cut</div>
@@ -495,7 +514,8 @@
         </div>
       </div>
 
-      <div class="roi-tabs" role="tablist" aria-label="AI ROI categories">
+      <div class="roi-collapsible" id="roiCollapsible" hidden>
+        <div class="roi-tabs" role="tablist" aria-label="AI ROI categories">
         <button class="roi-tab" role="tab" aria-selected="true" aria-controls="panel-cut" id="tab-cut">
           <span class="roi-tab-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg></span>
           Cut Costs
@@ -648,6 +668,7 @@
         <a class="btn btn-primary" href="contact.html">Get your real numbers</a>
         <p class="roi-disc">Illustrative estimate. The diagnostic gives you numbers specific to your business.</p>
       </div>
+      </div><!-- /roi-collapsible -->
     </div>
   </section>
   <!-- ============ INTEGRATIONS LOGO STRIP ============ -->
@@ -1004,6 +1025,19 @@
         if (next >= 0) { e.preventDefault(); roiSwitchTab(roiTabs[next]); roiTabs[next].focus(); }
       });
     });
+
+    /* ---------- open / close the tabbed controls ---------- */
+    var roiToggle = $('roiToggle');
+    var roiCollapsible = $('roiCollapsible');
+    if (roiToggle && roiCollapsible) {
+      roiToggle.addEventListener('click', function () {
+        var open = roiCollapsible.hidden;
+        roiCollapsible.hidden = !open;
+        roiToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        var label = document.querySelector('.roi-toggle-label');
+        if (label) label.textContent = open ? 'Close the calculator' : 'Open the calculator';
+      });
+    }
 
     roiRate.addEventListener('input', roiCalc);
     roiCats.forEach(function (c) { c.el.addEventListener('input', roiCalc); });
