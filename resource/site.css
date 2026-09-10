@@ -36,6 +36,11 @@
   --ghost-bg: #ffffff; --ghost-hover: #eaeae4;
 
   /* type scale (Pete's locked rule) */
+  --text-hero: clamp(2.5rem, 5.4vw, 3.9rem); /* page hero — largest */
+  --text-h1: 2rem;      /* 32px — page title */
+  --text-h2: 1.5rem;    /* 24px — section title */
+  --text-h3: 1.25rem;   /* 20px — card title */
+  --text-h4: 1.125rem;  /* 18px — sub-title / card sub-heading */
   --text-body: 1.125rem;  /* 18px — body, reading text */
   --text-ui:   1rem;      /* 16px — everything else: help lines, disclaimers, buttons, labels, nav, footer */
   --text-chip: 0.875rem;  /* 14px — chips/badges/tags ONLY, the sole exception below 16px */
