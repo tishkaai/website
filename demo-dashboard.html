@@ -7,7 +7,7 @@
 <link rel="canonical" href="https://tishka.ai/demo-dashboard">
 <meta name="description" content="See Tishka's morning brief on a live example dashboard: today's one thing, what ran overnight, approvals waiting. Runs in your browser, no signup.">
 <script>(function(){try{var p=new URLSearchParams(location.search).get("theme");if(p==="dark")localStorage.setItem("tishka-theme","dark");if(localStorage.getItem("tishka-theme")==="dark")document.documentElement.classList.add("dark");}catch(e){}})();</script>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
 
 html { background: #f5f1ea; }
@@ -17,8 +17,8 @@ html { background: #f5f1ea; }
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
-    --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
-    --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+    --font-sans: "Inter", "Inter Variable", "Inter var", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "Inter", "Inter Variable", "Inter var", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --color-orange-400: oklch(75% 0.183 55.934);
     --color-orange-500: oklch(70.5% 0.213 47.604);
     --color-amber-400: oklch(82.8% 0.189 84.429);
@@ -96,10 +96,10 @@ html { background: #f5f1ea; }
     --aspect-video: 16 / 9;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    --default-font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
-    --default-mono-font-family: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+    --default-font-family: "Inter", "Inter Variable", "Inter var", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --default-mono-font-family: "Inter", "Inter Variable", "Inter var", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --color-border: var(--border);
-    --font-display: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Inter", "Inter Variable", "Inter var", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
 }
 @layer base {
@@ -1963,10 +1963,10 @@ html { background: #f5f1ea; }
     vertical-align: middle;
   }
   .font-mono {
-    font-family: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+    font-family: "Inter", "Inter Variable", "Inter var", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
   .font-sans {
-    font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+    font-family: "Inter", "Inter Variable", "Inter var", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
   .text-2xl {
     font-size: var(--text-2xl);

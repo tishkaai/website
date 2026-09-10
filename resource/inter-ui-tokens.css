@@ -1,0 +1,506 @@
+/* =====================================================
+   INTER UI DESIGN TOKENS
+   Single source of truth for website + web app
+   ===================================================== */
+
+:root {
+  /* ---------------------------------------------------
+     1. FONT FAMILY
+     --------------------------------------------------- */
+
+  --font-sans:
+    "Inter",
+    "Inter Variable",
+    "Inter var",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+
+  /* ---------------------------------------------------
+     2. FONT WEIGHTS
+     --------------------------------------------------- */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ---------------------------------------------------
+     3. FONT SIZES
+     Use rem so user browser settings still work.
+     Base: 1rem = 16px
+     --------------------------------------------------- */
+
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 1.875rem;    /* 30px */
+  --text-4xl: 2.25rem;     /* 36px */
+
+  /* Responsive display sizes for website hero sections */
+  --text-display-xs: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);   /* 28px to 36px */
+  --text-display-sm: clamp(2.25rem, 1.75rem + 2vw, 3rem);     /* 36px to 48px */
+  --text-display-md: clamp(2.75rem, 2rem + 3vw, 4rem);        /* 44px to 64px */
+
+  /* ---------------------------------------------------
+     4. LINE HEIGHTS
+     --------------------------------------------------- */
+
+  --leading-none: 1;
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.6;
+
+  /* ---------------------------------------------------
+     5. LETTER SPACING
+     --------------------------------------------------- */
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.02em;
+  --tracking-uppercase: 0.06em;
+
+  /* ---------------------------------------------------
+     6. SPACING SCALE
+     Base: 4px
+     --------------------------------------------------- */
+
+  --space-0: 0rem;         /* 0px */
+  --space-0-5: 0.125rem;   /* 2px */
+  --space-1: 0.25rem;      /* 4px */
+  --space-2: 0.5rem;       /* 8px */
+  --space-3: 0.75rem;      /* 12px */
+  --space-4: 1rem;         /* 16px */
+  --space-5: 1.25rem;      /* 20px */
+  --space-6: 1.5rem;       /* 24px */
+  --space-8: 2rem;         /* 32px */
+  --space-10: 2.5rem;      /* 40px */
+  --space-12: 3rem;        /* 48px */
+  --space-16: 4rem;        /* 64px */
+  --space-20: 5rem;        /* 80px */
+  --space-24: 6rem;        /* 96px */
+
+  /* ---------------------------------------------------
+     7. LAYOUT TOKENS
+     --------------------------------------------------- */
+
+  --page-gutter-mobile: var(--space-4);   /* 16px */
+  --page-gutter-tablet: var(--space-6);   /* 24px */
+  --page-gutter-desktop: var(--space-8);  /* 32px */
+
+  --content-max-width: 42rem;             /* 672px, good reading width */
+  --container-max-width: 72rem;           /* 1152px */
+  --app-shell-max-width: 90rem;           /* 1440px */
+
+  --paragraph-max-width: 65ch;
+
+  /* ---------------------------------------------------
+     8. CONTROL SIZES
+     --------------------------------------------------- */
+
+  --touch-target: 2.75rem;        /* 44px minimum interactive target */
+  --control-height-sm: 2.25rem;   /* 36px, dense desktop only */
+  --control-height-md: 2.75rem;   /* 44px */
+  --control-height-lg: 3rem;      /* 48px */
+
+  --icon-sm: 1rem;     /* 16px */
+  --icon-md: 1.25rem;  /* 20px */
+  --icon-lg: 1.5rem;   /* 24px */
+
+  /* ---------------------------------------------------
+     9. RADIUS
+     --------------------------------------------------- */
+
+  --radius-sm: 0.375rem;  /* 6px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-full: 9999px;
+
+  /* ---------------------------------------------------
+     10. GLOBAL TEXT TOKENS
+     --------------------------------------------------- */
+
+  --body-font-size: var(--text-base);
+  --body-font-weight: var(--font-weight-regular);
+  --body-line-height: var(--leading-relaxed);
+  --body-letter-spacing: var(--tracking-normal);
+
+  --lead-font-size: var(--text-lg);
+  --lead-font-weight: var(--font-weight-regular);
+  --lead-line-height: var(--leading-relaxed);
+  --lead-letter-spacing: var(--tracking-normal);
+
+  --secondary-font-size: var(--text-sm);
+  --secondary-font-weight: var(--font-weight-regular);
+  --secondary-line-height: var(--leading-normal);
+  --secondary-letter-spacing: var(--tracking-normal);
+
+  --caption-font-size: var(--text-xs);
+  --caption-font-weight: var(--font-weight-medium);
+  --caption-line-height: var(--leading-snug);
+  --caption-letter-spacing: var(--tracking-normal);
+
+  /* ---------------------------------------------------
+     11. HEADINGS
+     --------------------------------------------------- */
+
+  --h1-font-size: clamp(1.5rem, 1.25rem + 0.8vw, 1.875rem); /* 24px to 30px */
+  --h1-font-weight: var(--font-weight-bold);
+  --h1-line-height: var(--leading-tight);
+  --h1-letter-spacing: var(--tracking-tight);
+
+  --h2-font-size: clamp(1.25rem, 1.125rem + 0.5vw, 1.5rem); /* 20px to 24px */
+  --h2-font-weight: var(--font-weight-semibold);
+  --h2-line-height: var(--leading-snug);
+  --h2-letter-spacing: var(--tracking-tight);
+
+  --h3-font-size: var(--text-lg);
+  --h3-font-weight: var(--font-weight-semibold);
+  --h3-line-height: var(--leading-snug);
+  --h3-letter-spacing: var(--tracking-normal);
+
+  --h4-font-size: var(--text-base);
+  --h4-font-weight: var(--font-weight-semibold);
+  --h4-line-height: var(--leading-normal);
+  --h4-letter-spacing: var(--tracking-normal);
+
+  --page-title-font-size: var(--h1-font-size);
+  --page-title-font-weight: var(--h1-font-weight);
+  --page-title-line-height: var(--h1-line-height);
+  --page-title-letter-spacing: var(--h1-letter-spacing);
+
+  --section-title-font-size: var(--h2-font-size);
+  --section-title-font-weight: var(--h2-font-weight);
+  --section-title-line-height: var(--h2-line-height);
+  --section-title-letter-spacing: var(--h2-letter-spacing);
+
+  --card-title-font-size: var(--text-lg);
+  --card-title-font-weight: var(--font-weight-semibold);
+  --card-title-line-height: var(--leading-snug);
+  --card-title-letter-spacing: var(--tracking-normal);
+
+  /* Website hero */
+  --hero-title-font-size: var(--text-display-sm);
+  --hero-title-font-weight: var(--font-weight-bold);
+  --hero-title-line-height: var(--leading-tight);
+  --hero-title-letter-spacing: var(--tracking-tight);
+
+  --hero-subtitle-font-size: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+  --hero-subtitle-font-weight: var(--font-weight-regular);
+  --hero-subtitle-line-height: var(--leading-relaxed);
+  --hero-subtitle-letter-spacing: var(--tracking-normal);
+
+  /* ---------------------------------------------------
+     12. FORM TYPOGRAPHY
+     --------------------------------------------------- */
+
+  --label-font-size: var(--text-sm);
+  --label-font-weight: var(--font-weight-semibold);
+  --label-line-height: var(--leading-snug);
+  --label-letter-spacing: var(--tracking-normal);
+
+  --input-font-size: var(--text-base);
+  --input-font-weight: var(--font-weight-regular);
+  --input-line-height: var(--leading-normal);
+  --input-letter-spacing: var(--tracking-normal);
+
+  --helper-font-size: var(--text-sm);
+  --helper-font-weight: var(--font-weight-regular);
+  --helper-line-height: var(--leading-snug);
+  --helper-letter-spacing: var(--tracking-normal);
+
+  --error-font-size: var(--text-sm);
+  --error-font-weight: var(--font-weight-medium);
+  --error-line-height: var(--leading-snug);
+  --error-letter-spacing: var(--tracking-normal);
+
+  /* ---------------------------------------------------
+     13. CONTROL TYPOGRAPHY
+     --------------------------------------------------- */
+
+  --button-font-size: var(--text-base);
+  --button-font-size-sm: var(--text-sm);
+  --button-font-weight: var(--font-weight-semibold);
+  --button-line-height: var(--leading-none);
+  --button-letter-spacing: var(--tracking-normal);
+
+  --nav-item-font-size: var(--text-sm);
+  --nav-item-font-size-lg: var(--text-base);
+  --nav-item-font-weight: var(--font-weight-medium);
+  --nav-item-active-font-weight: var(--font-weight-semibold);
+  --nav-item-line-height: var(--leading-snug);
+  --nav-item-letter-spacing: var(--tracking-normal);
+
+  --tab-font-size: var(--text-sm);
+  --tab-font-size-lg: var(--text-base);
+  --tab-font-weight: var(--font-weight-medium);
+  --tab-active-font-weight: var(--font-weight-semibold);
+  --tab-line-height: var(--leading-snug);
+  --tab-letter-spacing: var(--tracking-normal);
+
+  --table-header-font-size: var(--text-xs);
+  --table-header-font-weight: var(--font-weight-semibold);
+  --table-header-letter-spacing: var(--tracking-wide);
+
+  --table-cell-font-size: var(--text-sm);
+  --table-cell-font-weight: var(--font-weight-regular);
+  --table-cell-line-height: var(--leading-snug);
+  --table-cell-letter-spacing: var(--tracking-normal);
+
+  --badge-font-size: var(--text-xs);
+  --badge-font-weight: var(--font-weight-semibold);
+  --badge-line-height: var(--leading-none);
+  --badge-letter-spacing: var(--tracking-normal);
+
+  --chip-font-size: var(--text-sm);
+  --chip-font-weight: var(--font-weight-medium);
+  --chip-line-height: var(--leading-snug);
+  --chip-letter-spacing: var(--tracking-normal);
+
+  --tooltip-font-size: var(--text-xs);
+  --tooltip-font-weight: var(--font-weight-medium);
+  --tooltip-line-height: var(--leading-snug);
+  --tooltip-letter-spacing: var(--tracking-normal);
+  --tooltip-max-width: 16rem;
+
+  --modal-title-font-size: var(--text-xl);
+  --modal-title-font-weight: var(--font-weight-semibold);
+  --modal-title-line-height: var(--leading-snug);
+  --modal-title-letter-spacing: var(--tracking-normal);
+
+  --modal-body-font-size: var(--text-base);
+  --modal-body-font-weight: var(--font-weight-regular);
+  --modal-body-line-height: var(--leading-relaxed);
+  --modal-body-letter-spacing: var(--tracking-normal);
+
+  --alert-title-font-size: var(--text-sm);
+  --alert-title-font-weight: var(--font-weight-semibold);
+  --alert-title-line-height: var(--leading-snug);
+
+  --alert-body-font-size: var(--text-sm);
+  --alert-body-font-weight: var(--font-weight-regular);
+  --alert-body-line-height: var(--leading-snug);
+
+  --toast-font-size: var(--text-sm);
+  --toast-font-weight: var(--font-weight-medium);
+  --toast-line-height: var(--leading-snug);
+
+  --empty-state-title-font-size: var(--text-xl);
+  --empty-state-title-font-weight: var(--font-weight-semibold);
+  --empty-state-title-line-height: var(--leading-snug);
+
+  --empty-state-body-font-size: var(--text-base);
+  --empty-state-body-font-weight: var(--font-weight-regular);
+  --empty-state-body-line-height: var(--leading-relaxed);
+
+  /* ---------------------------------------------------
+     14. COMPONENT SPACING TOKENS
+     --------------------------------------------------- */
+
+  /* Buttons */
+  --button-padding-x: var(--space-5);       /* 20px */
+  --button-padding-x-sm: var(--space-4);    /* 16px */
+  --button-padding-x-lg: var(--space-6);    /* 24px */
+  --button-gap: var(--space-2);             /* 8px */
+  --button-group-gap: var(--space-3);       /* 12px */
+
+  /* Icon button */
+  --icon-button-size: var(--touch-target);  /* 44px */
+
+  /* Forms */
+  --input-padding-y: var(--space-3);        /* 12px */
+  --input-padding-x: var(--space-4);        /* 16px */
+  --input-gap: var(--space-2);              /* 8px */
+  --field-gap: var(--space-2);              /* label to input */
+  --form-gap: var(--space-5);               /* between fields */
+  --form-section-gap: var(--space-6);       /* between form sections */
+
+  /* Cards */
+  --card-padding: var(--space-4);           /* 16px */
+  --card-padding-lg: var(--space-6);        /* 24px */
+  --card-gap: var(--space-3);               /* 12px */
+  --card-grid-gap: var(--space-4);          /* 16px */
+
+  /* Lists */
+  --list-item-padding-x: var(--space-4);    /* 16px */
+  --list-item-padding-y: var(--space-3);    /* 12px */
+  --list-item-min-height: 3rem;             /* 48px */
+  --list-item-gap: var(--space-3);          /* 12px */
+
+  /* Tables */
+  --table-cell-padding-x: var(--space-4);   /* 16px */
+  --table-cell-padding-y: var(--space-3);   /* 12px */
+  --table-row-min-height: 3rem;             /* 48px */
+
+  /* App bar / header */
+  --app-bar-height: 3.5rem;                 /* 56px */
+  --app-bar-height-lg: 4rem;                /* 64px */
+  --app-bar-padding-x: var(--space-4);      /* 16px */
+  --app-bar-title-font-size: var(--text-lg);
+  --app-bar-title-font-weight: var(--font-weight-semibold);
+  --app-bar-title-line-height: var(--leading-snug);
+
+  /* Sidebar */
+  --sidebar-item-min-height: var(--touch-target);
+  --sidebar-item-padding-x: var(--space-3);
+  --sidebar-item-padding-y: var(--space-2);
+  --sidebar-item-gap: var(--space-3);
+
+  /* Tabs */
+  --tab-list-gap: var(--space-6);
+  --tab-item-min-height: var(--touch-target);
+  --tab-item-padding-x: var(--space-1);
+  --tab-item-padding-y: var(--space-3);
+
+  /* Bottom navigation */
+  --bottom-nav-height: 3.5rem;
+  --bottom-nav-label-font-size: var(--text-xs);
+  --bottom-nav-icon-size: var(--icon-lg);
+
+  /* Badges */
+  --badge-padding-y: var(--space-0-5);
+  --badge-padding-x: var(--space-2);
+  --badge-min-height: 1.25rem;
+
+  /* Chips */
+  --chip-padding-y: var(--space-1);
+  --chip-padding-x: var(--space-3);
+  --chip-min-height: 2rem;
+  --chip-gap: var(--space-2);
+
+  /* Alerts */
+  --alert-padding-y: var(--space-3);
+  --alert-padding-x: var(--space-4);
+  --alert-gap: var(--space-3);
+
+  /* Toasts */
+  --toast-padding-y: var(--space-3);
+  --toast-padding-x: var(--space-4);
+  --toast-gap: var(--space-3);
+  --toast-min-height: var(--touch-target);
+
+  /* Modals */
+  --modal-padding: var(--space-5);
+  --modal-gap: var(--space-4);
+  --modal-footer-gap: var(--space-3);
+  --modal-max-width: 32rem;
+
+  /* Tooltips */
+  --tooltip-padding-y: var(--space-2);
+  --tooltip-padding-x: var(--space-3);
+  --tooltip-radius: var(--radius-md);
+
+  /* Page / section spacing */
+  --section-gap-app: var(--space-6);              /* 24px */
+  --section-gap-site-mobile: var(--space-12);     /* 48px */
+  --section-gap-site-desktop: var(--space-20);    /* 80px */
+
+  /* Stack helpers */
+  --stack-xs: var(--space-2);   /* 8px */
+  --stack-sm: var(--space-3);   /* 12px */
+  --stack-md: var(--space-4);   /* 16px */
+  --stack-lg: var(--space-6);   /* 24px */
+  --stack-xl: var(--space-8);   /* 32px */
+}
+
+/* =====================================================
+   BASE IMPLEMENTATION
+   ===================================================== */
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--body-font-size);
+  font-weight: var(--body-font-weight);
+  line-height: var(--body-line-height);
+  letter-spacing: var(--body-letter-spacing);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button {
+  font-weight: var(--button-font-weight);
+}
+
+input,
+select,
+textarea {
+  font-size: var(--input-font-size);
+  line-height: var(--input-line-height);
+  letter-spacing: var(--input-letter-spacing);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-sans);
+}
+
+h1 {
+  font-size: var(--h1-font-size);
+  font-weight: var(--h1-font-weight);
+  line-height: var(--h1-line-height);
+  letter-spacing: var(--h1-letter-spacing);
+}
+
+h2 {
+  font-size: var(--h2-font-size);
+  font-weight: var(--h2-font-weight);
+  line-height: var(--h2-line-height);
+  letter-spacing: var(--h2-letter-spacing);
+}
+
+h3 {
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: var(--h3-line-height);
+  letter-spacing: var(--h3-letter-spacing);
+}
+
+h4 {
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+}
+
+p {
+  margin: 0;
+  max-width: var(--paragraph-max-width);
+}
+
+table {
+  border-collapse: collapse;
+}
+
+/* Use tabular numbers for numbers, prices, dates, IDs, table amounts */
+.numbers,
+input[type="number"],
+time,
+td[data-numeric="true"] {
+  font-variant-numeric: tabular-nums;
+}

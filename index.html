@@ -20,7 +20,7 @@
   week isn't the named three still get a number. Default output unchanged:
   10.5 hrs/wk · £366/wk · £1,585/mo.
   2026-09-04 rev (design overhaul, per Pete / frontend-design pass):
-  visual identity reworked — Schibsted Grotesk display + Archivo body,
+  visual identity reworked — Inter everywhere,
   ledger-green reserved for money/time found, asymmetric split layout,
   diagnostic steps as a real sequence, parser demo promoted, standalone
   CTA section removed (diagnostic CTA is the closer). COPY UNCHANGED.
@@ -106,29 +106,29 @@
 <link rel="alternate" type="application/atom+xml" title="Tishka AI blog" href="https://tishka.ai/feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="resource/site.css">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root { color-scheme: light; }
   html[data-theme="dark"] { color-scheme: dark; }
-  body { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  body { font-family: var(--font-sans);
     background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
   .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-  h1, h2, h3, .display { font-family: "Schibsted Grotesk", "Archivo", sans-serif; }
+  h1, h2, h3, .display { font-family: var(--font-sans); }
   :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
   header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
   .nav { display: flex; align-items: center; justify-content: space-between; height: 76px; }
   .logo { display: inline-flex; align-items: center; gap: 6px; }
-  .logo-text { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-weight: 700; font-size: 18px; letter-spacing: -0.02em; line-height: 1; color: var(--ink); }
+  .logo-text { font-family: var(--font-sans);
+    font-weight: 700; font-size: var(--text-lg); letter-spacing: -0.02em; line-height: 1; color: var(--ink); }
   .logo-bot { width: 22px; height: 22px; flex-shrink: 0; color: var(--ink); }
   .nav-actions { display: flex; align-items: center; gap: 8px; }
   .btn { display: inline-flex; align-items: center; justify-content: center;
-    padding: 11px 20px; border-radius: 6px; font-size: 1rem; font-weight: 600;
+    padding: 11px 20px; border-radius: 6px; font-size: var(--text-base); font-weight: 600;
     font-family: inherit; white-space: nowrap; transition: background 0.15s ease; cursor: pointer; border: none; }
   .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
   .btn-primary:hover { background: var(--btn-bg-hover); }
@@ -144,15 +144,15 @@
 
   /* hero */
   .hero { padding: 84px 0 56px; text-align: center; }
-  h1 { font-size: clamp(2.5rem, 5.4vw, 3.9rem); font-weight: 800; letter-spacing: -0.045em;
+  h1 { font-size: var(--text-display-md); font-weight: 700; letter-spacing: -0.045em;
     line-height: 1.08; margin-bottom: 22px; }
-  .hero-sub { font-size: 1.18rem; color: var(--muted); max-width: 600px; margin: 0 auto 20px; }
-  .hero-loc { font-size: 1rem; color: var(--muted); margin: 0 auto 26px; }
+  .hero-sub { font-size: var(--text-lg); color: var(--muted); max-width: 600px; margin: 0 auto 20px; }
+  .hero-loc { font-size: var(--text-base); color: var(--muted); margin: 0 auto 26px; }
 
   /* ============ AI ROI calculator — summary strip + tabs (layout per Pete mockup 2026-09-13) ============ */
-  .calc-h { font-size: clamp(1.05rem, 4.4vw, 2.3rem); font-weight: 700; letter-spacing: -0.035em;
+  .calc-h { font-size: var(--text-display-xs); font-weight: 700; letter-spacing: -0.035em;
     margin: 56px auto 10px; max-width: 720px; }
-  .calc-sub { color: var(--muted); font-size: 1.125rem; margin-bottom: 20px; }
+  .calc-sub { color: var(--muted); font-size: var(--text-lg); margin-bottom: 20px; }
 
   /* toggle button — opens / closes the tabbed controls */
   .roi-toggle-wrap { text-align: center; margin-bottom: 16px; }
@@ -167,27 +167,27 @@
     background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
     padding: 16px 20px; }
   .roi-strip-cell { text-align: center; }
-  .roi-strip-k { font-size: 1rem; color: var(--muted); line-height: 1.3; margin-bottom: 2px; }
-  .roi-strip-v { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 1.4rem; font-weight: 800;
+  .roi-strip-k { font-size: var(--text-base); color: var(--muted); line-height: 1.3; margin-bottom: 2px; }
+  .roi-strip-v { font-family: var(--font-sans); font-size: var(--text-xl); font-weight: 700;
     letter-spacing: -0.03em; color: var(--ledger); font-variant-numeric: tabular-nums; }
-  .roi-strip-v span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+  .roi-strip-v span { font-size: var(--text-base); font-weight: 400; color: var(--muted); }
   .roi-strip-hrs .roi-strip-v { color: var(--ink); }
   .roi-strip-total { grid-column: 1 / -1; border-top: 1px solid var(--border);
     padding-top: 12px; margin-top: 4px; display: flex; align-items: baseline;
     justify-content: space-between; gap: 12px; }
-  .roi-strip-total-k { font-size: 1rem; font-weight: 600; }
-  .roi-strip-total-v { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 2rem; font-weight: 800;
+  .roi-strip-total-k { font-size: var(--text-base); font-weight: 600; }
+  .roi-strip-total-v { font-family: var(--font-sans); font-size: var(--text-2xl); font-weight: 700;
     letter-spacing: -0.03em; color: var(--ledger); font-variant-numeric: tabular-nums; }
-  .roi-strip-total-v span { font-size: 1rem; font-weight: 400; color: var(--muted); }
-  .roi-strip-annual { font-size: 1rem; color: var(--muted); grid-column: 1 / -1; }
+  .roi-strip-total-v span { font-size: var(--text-base); font-weight: 400; color: var(--muted); }
+  .roi-strip-annual { font-size: var(--text-base); color: var(--muted); grid-column: 1 / -1; }
   .roi-strip-annual b { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
 
   .roi-tabs { max-width: 1080px; margin: 0 auto;
     display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px;
     background: var(--band); border: 1px solid var(--border); border-radius: 12px; padding: 4px; }
   .roi-tab { background: transparent; border: none; padding: 12px 16px;
-    font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 1rem; font-weight: 600; color: var(--muted); border-radius: 8px;
+    font-family: var(--font-sans);
+    font-size: var(--text-base); font-weight: 600; color: var(--muted); border-radius: 8px;
     cursor: pointer; transition: all 0.15s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
   .roi-tab:hover { color: var(--ink); }
   .roi-tab[aria-selected="true"] { background: var(--raise); color: var(--ink);
@@ -201,43 +201,43 @@
   .roi-panel[hidden] { display: none; }
   .roi-panel-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
     padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-  .roi-panel-title { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 1.25rem; font-weight: 700;
+  .roi-panel-title { font-family: var(--font-sans); font-size: var(--text-xl); font-weight: 700;
     letter-spacing: -0.02em; line-height: 1.2; }
-  .roi-panel-sub { font-size: 1rem; color: var(--muted); margin-top: 2px; }
+  .roi-panel-sub { font-size: var(--text-base); color: var(--muted); margin-top: 2px; }
 
   input[type=range] { width: 100%; accent-color: var(--ledger); }
   .roi-rowlabel { display: flex; align-items: center; justify-content: space-between; gap: 12px;
     margin-bottom: 10px; flex-wrap: wrap; }
-  .roi-label { font-size: 1rem; font-weight: 600; }
+  .roi-label { font-size: var(--text-base); font-weight: 600; }
   .roi-sliderline { display: flex; align-items: center; gap: 12px; }
   .roi-sliderline.indent { padding-left: 44px; }
-  .roi-rateval { width: 96px; flex-shrink: 0; text-align: right; font-size: 1.2rem; font-weight: 700;
+  .roi-rateval { width: 96px; flex-shrink: 0; text-align: right; font-size: var(--text-xl); font-weight: 700;
     font-variant-numeric: tabular-nums; }
-  .roi-rateval span { color: var(--muted); font-weight: 400; font-size: 1rem; }
-  .roi-hrsval { width: 78px; flex-shrink: 0; text-align: right; font-size: 1rem; font-weight: 700;
+  .roi-rateval span { color: var(--muted); font-weight: 400; font-size: var(--text-base); }
+  .roi-hrsval { width: 78px; flex-shrink: 0; text-align: right; font-size: var(--text-base); font-weight: 700;
     font-variant-numeric: tabular-nums; }
   .roi-task { margin-top: 16px; }
   .roi-task:first-of-type { margin-top: 0; }
   .roi-taskhead { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 6px; }
   .roi-ico { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
     border-radius: 8px; background: var(--ledger-soft); color: var(--ledger); }
-  .roi-tasklabel { font-size: 1rem; font-weight: 600; }
-  .roi-taskhelp { font-size: 1rem; color: var(--muted); margin-top: 2px; }
+  .roi-tasklabel { font-size: var(--text-base); font-weight: 600; }
+  .roi-taskhelp { font-size: var(--text-base); color: var(--muted); margin-top: 2px; }
   .roi-admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
   .roi-admin-grid .roi-sliderline.indent { padding-left: 0; }
 
   .roi-result { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border);
     display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-  .roi-result-k { font-size: 1rem; color: var(--muted); }
-  .roi-result-v { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 1.4rem; font-weight: 800;
+  .roi-result-k { font-size: var(--text-base); color: var(--muted); }
+  .roi-result-v { font-family: var(--font-sans); font-size: 1.4rem; font-weight: 700;
     letter-spacing: -0.03em; color: var(--ledger); font-variant-numeric: tabular-nums; }
-  .roi-result-v span { font-size: 1rem; font-weight: 400; color: var(--muted); }
-  .roi-result-extra { font-size: 1rem; color: var(--muted); }
+  .roi-result-v span { font-size: var(--text-base); font-weight: 400; color: var(--muted); }
+  .roi-result-extra { font-size: var(--text-base); color: var(--muted); }
   .roi-result-extra b { color: var(--ink); font-weight: 700; }
 
   .roi-cta-row { max-width: 1080px; margin: 20px auto 0; text-align: center; }
   .roi-cta-row .btn { margin-bottom: 8px; }
-  .roi-disc { font-size: 1rem; color: var(--muted); line-height: 1.5; }
+  .roi-disc { font-size: var(--text-base); color: var(--muted); line-height: 1.5; }
 
   section { padding: 76px 0; }
   section.band { background: var(--band); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -246,11 +246,11 @@
   .split { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; align-items: start; }
   .split-aside { position: sticky; top: 96px; }
   @media (max-width: 840px) { .split { grid-template-columns: 1fr; gap: 24px; } .split-aside { position: static; } }
-  .split-title { font-size: clamp(1.9rem, 3.4vw, 2.5rem); font-weight: 700; letter-spacing: -0.035em;
+  .split-title { font-size: var(--text-display-xs); font-weight: 700; letter-spacing: -0.035em;
     line-height: 1.15; margin-bottom: 14px; }
-  .split-sub { color: var(--muted); font-size: 1.125rem; }
+  .split-sub { color: var(--muted); font-size: var(--text-lg); }
   .split-body { max-width: 62ch; }
-  .split-body p { margin-bottom: 18px; font-size: 1.125rem; }
+  .split-body p { margin-bottom: 18px; font-size: var(--text-lg); }
   .split-body p:last-child { margin-bottom: 0; }
 
   /* demos */
@@ -259,9 +259,9 @@
   .demo-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px; padding: 28px;
     display: flex; flex-direction: column; align-items: flex-start; }
   .demo-stack { display: grid; gap: 20px; }
-  .demo-flag { font-size: 1rem; font-weight: 600; color: var(--muted); margin-bottom: 12px; }
-  .demo-h { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
-  .demo-p { color: var(--muted); font-size: 1.125rem; margin-bottom: 20px; }
+  .demo-flag { font-size: var(--text-base); font-weight: 600; color: var(--muted); margin-bottom: 12px; }
+  .demo-h { font-size: var(--text-xl); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .demo-p { color: var(--muted); font-size: var(--text-lg); margin-bottom: 20px; }
   .demo-shot { width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; object-position: top;
     border: 1px solid var(--border); border-radius: 8px; margin: 4px 0 18px; display: block; }
   .demo-card .btn { margin-top: auto; }
@@ -273,11 +273,11 @@
   .partner-step { border-top: 1px solid var(--border); border-bottom: none; padding: 18px 0 22px; }
   .partner-step:first-child { border-top: none; padding-top: 4px; }
   .partner-step:last-child { padding-bottom: 0; }
-  .partner-step h3 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
-  .partner-step p { color: var(--muted); font-size: 1.125rem; }
+  .partner-step h3 { font-size: var(--text-lg); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .partner-step p { color: var(--muted); font-size: var(--text-lg); }
 
   /* diagnostic timeline — the one true sequence */
-  .fee { font-size: 1.15rem; font-weight: 700; margin-bottom: 22px; }
+  .fee { font-size: var(--text-lg); font-weight: 700; margin-bottom: 22px; }
   .steps-list { position: relative; }
   .steps-list::before { content: ""; position: absolute; left: 15px; top: 10px; bottom: 10px;
     width: 2px; background: var(--border); }
@@ -285,18 +285,18 @@
   .step-item:last-child { padding-bottom: 0; }
   .step-node { position: absolute; left: 0; top: 0; width: 32px; height: 32px; border-radius: 50%;
     background: var(--raise); border: 2px solid var(--ink); display: flex; align-items: center; justify-content: center;
-    font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 0.875rem; font-weight: 700; }
+    font-family: var(--font-sans); font-size: var(--text-sm); font-weight: 700; }
   .step-item:last-child .step-node { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .step-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
-  .step-item p { color: var(--muted); font-size: 1.125rem; }
+  .step-title { font-size: var(--text-lg); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .step-item p { color: var(--muted); font-size: var(--text-lg); }
   .guarantee { border-left: 3px solid var(--stamp); padding: 2px 0 2px 14px; margin-top: 18px;
-    font-size: 1.125rem; color: var(--muted); max-width: 44ch; }
+    font-size: var(--text-lg); color: var(--muted); max-width: 44ch; }
   .guarantee b { color: var(--stamp); }
   .fee-cta { margin-top: 28px; }
-  .fee-note { font-size: 1rem; color: var(--muted); margin-top: 14px; }
+  .fee-note { font-size: var(--text-base); color: var(--muted); margin-top: 14px; }
 
   /* founding partner offer — clickable expandable line under the fee CTA */
-  .founding-offer { margin-top: 14px; font-size: 1rem; color: var(--muted); max-width: 44ch; }
+  .founding-offer { margin-top: 14px; font-size: var(--text-base); color: var(--muted); max-width: 44ch; }
   .founding-offer summary { cursor: pointer; list-style: none; display: flex; align-items: center;
     gap: 8px; font-weight: 600; color: var(--ink); }
   .founding-offer summary::-webkit-details-marker { display: none; }
@@ -311,31 +311,31 @@
 
   /* manifesto */
   .manifesto { padding: 96px 0; }
-  .manifesto-title { font-size: clamp(2.1rem, 4.6vw, 3.2rem); font-weight: 800; letter-spacing: -0.04em;
+  .manifesto-title { font-size: var(--text-display-sm); font-weight: 700; letter-spacing: -0.04em;
     line-height: 1.1; max-width: 16ch; margin-bottom: 32px; }
-  .manifesto p { font-size: 1.2rem; line-height: 1.55; color: var(--muted); max-width: 34em; margin-bottom: 22px; }
+  .manifesto p { font-size: var(--text-xl); line-height: 1.55; color: var(--muted); max-width: 34em; margin-bottom: 22px; }
   .manifesto b { color: var(--ink); }
 
   /* FAQ */
   .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
   .faq-item:first-child { padding-top: 4px; }
   .faq-item:last-child { border-bottom: none; }
-  .faq-q { font-weight: 600; font-size: 1.125rem; margin-bottom: 8px; }
-  .faq-a { color: var(--muted); font-size: 1.125rem; max-width: 62ch; }
+  .faq-q { font-weight: 600; font-size: var(--text-lg); margin-bottom: 8px; }
+  .faq-a { color: var(--muted); font-size: var(--text-lg); max-width: 62ch; }
 
-  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: 1rem; color: var(--muted); }
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: var(--text-base); color: var(--muted); }
   .footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
     padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
-  .footer-col h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .footer-col h3 { font-size: var(--text-base); font-weight: 700; color: var(--ink); margin-bottom: 12px; }
   .footer-col ul { list-style: none; }
   .footer-col li { margin-bottom: 8px; }
   .footer-col a { color: var(--muted); }
   .footer-col a:hover { color: var(--ink); }
   @media (max-width: 640px) { .footer-cols { grid-template-columns: 1fr; gap: 24px; } }
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-  .footer-loc { font-size: 1rem; margin: 0 0 28px; }
+  .footer-loc { font-size: var(--text-base); margin: 0 0 28px; }
   .footer-brand { display: inline-flex; align-items: center; gap: 6px; }
-  .footer-brand .logo-text { font-size: 0.9rem; font-weight: 600; }
+  .footer-brand .logo-text { font-size: var(--text-sm); font-weight: 600; }
   .footer-brand .logo-bot { width: 18px; height: 18px; }
   .footer-links { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
   .footer-links a:hover { color: var(--ink); }
@@ -345,16 +345,16 @@
 
   /* integrations logo strip */
   .integrations { padding: 0 0 76px; text-align: center; }
-  .integrations-label { font-size: 1rem; color: var(--muted); margin-bottom: 28px; }
+  .integrations-label { font-size: var(--text-base); color: var(--muted); margin-bottom: 28px; }
   .logo-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
     gap: 24px 36px; max-width: 880px; margin: 0 auto; }
   .logo-item { display: flex; flex-direction: column; align-items: center; gap: 8px;
     color: var(--muted); transition: color 0.15s ease; }
   .logo-item:hover { color: var(--ink); }
   .logo-item svg { display: block; width: 28px; height: 28px; fill: currentColor; }
-  .logo-item span { font-size: 1rem; }
+  .logo-item span { font-size: var(--text-base); }
   .logo-chip { display: inline-flex; margin-top: 28px; padding: 5px 14px; border: 1px solid var(--border);
-    border-radius: 6px; font-size: 0.875rem; color: var(--muted); }
+    border-radius: 6px; font-size: var(--text-sm); color: var(--muted); }
 
   /* business brain section */
   .brain-flow { display: grid; grid-template-columns: minmax(0,1fr) 48px 24px 200px 48px minmax(0,1fr);
@@ -368,7 +368,7 @@
   .bf-out { grid-area: out; justify-self: start; height: 76px; }
   .bf-copy { min-width: 0; }
   .bf-t { font-weight: 600; }
-  .bf-s { color: var(--muted); font-size: 1rem; margin-top: 1px; line-height: 1.35; }
+  .bf-s { color: var(--muted); font-size: var(--text-base); margin-top: 1px; line-height: 1.35; }
   .bf-marks { margin-left: auto; display: flex; align-items: center; gap: 9px;
     color: var(--muted); flex-shrink: 0; }
   .bf-marks svg { width: 20px; height: 20px; fill: currentColor; display: block; }
@@ -399,7 +399,7 @@
     96% { transform: scaleY(1); }
   }
   @media (prefers-reduced-motion: reduce) { .bf-bot .bf-eye { animation: none; } }
-  .bf-brain .bf-t { font-family: "Schibsted Grotesk", "Archivo", sans-serif; font-size: 1.15rem;
+  .bf-brain .bf-t { font-family: var(--font-sans); font-size: var(--text-lg);
     font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
   .bf-chip { font-size: var(--text-chip); line-height: 1; padding: 3px 8px; border-radius: 6px;
     background: var(--band); border: 1px solid var(--border); color: var(--ink); white-space: nowrap; }
@@ -412,15 +412,15 @@
   @media (max-width: 640px) {
     .hero { padding: 56px 0 40px; }
     .nav { height: 64px; }
-    .nav .btn { padding: 7px 10px; font-size: 1rem; }
-    .logo-text { font-size: 16px; }
+    .nav .btn { padding: 7px 10px; font-size: var(--text-base); }
+    .logo-text { font-size: var(--text-base); }
     .logo-bot { width: 20px; height: 20px; }
     h1 br { display: none; }
     .roi-strip { grid-template-columns: 1fr; gap: 8px; padding: 14px 16px; }
     .roi-strip-cell { text-align: left; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-    .roi-strip-v { font-size: 1.2rem; }
+    .roi-strip-v { font-size: var(--text-xl); }
     .roi-strip-total { flex-direction: column; align-items: flex-start; gap: 4px; }
-    .roi-strip-total-v { font-size: 1.6rem; }
+    .roi-strip-total-v { font-size: var(--text-2xl); }
     .roi-tabs { grid-template-columns: 1fr; gap: 2px; padding: 3px; }
     .roi-tab { justify-content: flex-start; padding: 10px 14px; }
     .roi-panel { padding: 20px; }
@@ -428,7 +428,7 @@
     .roi-sliderline.indent { padding-left: 0; }
     .roi-rateval, .roi-hrsval { width: auto; text-align: left; }
     .roi-result { flex-direction: column; align-items: flex-start; gap: 6px; }
-    .roi-result-v { font-size: 1.3rem; }
+    .roi-result-v { font-size: var(--text-xl); }
     .manifesto { padding: 72px 0; }
   }
   /* the flow diagram stacks earlier than the rest of the page: the row
@@ -443,7 +443,7 @@
     .bf-wire::after { top: auto; bottom: -3px; right: auto; left: 50%; margin-left: -4px; }
     .bf-brain { width: 170px; height: 170px; margin: 0 auto; padding: 12px; gap: 4px; }
     .bf-bot { width: 46px; height: 46px; }
-    .bf-brain .bf-t { font-size: 1.05rem; }
+    .bf-brain .bf-t { font-size: var(--text-base); }
     .bf-out { justify-self: stretch; }
   }
 </style>

@@ -17,18 +17,18 @@
 <meta property="og:description" content="How a holiday let in Cardigan or Tenby can answer the same guest questions every week, with a person approving before anything goes out.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="resource/site.css">
 <style>
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root { color-scheme: light; }
   html[data-theme="dark"] { color-scheme: dark; }
-  body { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  body { font-family: var(--font-sans);
     background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
   .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-  h1, h2, h3 { font-family: "Schibsted Grotesk", "Archivo", sans-serif; }
+  h1, h2, h3 { font-family: var(--font-sans); }
 
   header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
@@ -37,7 +37,7 @@
   html:not([data-theme="dark"]) .logo img { filter: invert(1); }
   .nav-actions { display: flex; align-items: center; gap: 8px; }
   .btn { display: inline-flex; align-items: center; justify-content: center;
-    padding: 11px 20px; border-radius: 6px; font-size: 1rem; font-weight: 600;
+    padding: 11px 20px; border-radius: 6px; font-size: var(--text-base); font-weight: 600;
     font-family: inherit; white-space: nowrap; transition: background 0.15s ease; cursor: pointer; border: none; }
   .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
   .btn-primary:hover { background: var(--btn-bg-hover); }
@@ -53,17 +53,17 @@
 
   /* article: one narrow reading column */
   .post { max-width: 720px; margin: 0 auto; padding: 64px 0 24px; }
-  .post-eyebrow { font-size: 1rem; font-weight: 600; letter-spacing: 0.08em;
+  .post-eyebrow { font-size: var(--text-base); font-weight: 600; letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
-  .post h1 { font-size: clamp(2.1rem, 4.6vw, 3.1rem); font-weight: 800;
+  .post h1 { font-size: var(--text-display-sm); font-weight: 700;
     letter-spacing: -0.045em; line-height: 1.08; margin-bottom: 20px; }
-  .standfirst { font-size: 1.25rem; color: var(--muted); line-height: 1.55; margin-bottom: 16px; }
-  .post-meta { font-size: 1rem; color: var(--muted); margin-bottom: 40px;
+  .standfirst { font-size: var(--text-xl); color: var(--muted); line-height: 1.55; margin-bottom: 16px; }
+  .post-meta { font-size: var(--text-base); color: var(--muted); margin-bottom: 40px;
     padding-bottom: 24px; border-bottom: 1px solid var(--border); }
 
-  .post-body { font-size: 1.125rem; line-height: 1.75; }
+  .post-body { font-size: var(--text-lg); line-height: 1.75; }
   .post-body p { margin-bottom: 22px; }
-  .post-body h2 { font-size: 1.65rem; font-weight: 800; letter-spacing: -0.03em;
+  .post-body h2 { font-size: var(--text-2xl); font-weight: 700; letter-spacing: -0.03em;
     line-height: 1.2; margin: 44px 0 18px; }
   .post-body ul, .post-body ol { margin: 0 0 22px 0; padding-left: 26px; }
   .post-body li { margin-bottom: 10px; }
@@ -83,26 +83,26 @@
   .next-card ol { margin-bottom: 18px; }
   .next-card .btn { margin-top: 4px; }
 
-  .related { font-size: 1rem; color: var(--muted); margin-bottom: 56px; }
+  .related { font-size: var(--text-base); color: var(--muted); margin-bottom: 56px; }
   .related a { text-decoration: underline; text-underline-offset: 3px; }
 
-  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: 1rem; color: var(--muted); }
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: var(--text-base); color: var(--muted); }
   .footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
     padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
-  .footer-col h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .footer-col h3 { font-size: var(--text-base); font-weight: 700; color: var(--ink); margin-bottom: 12px; }
   .footer-col ul { list-style: none; }
   .footer-col li { margin-bottom: 8px; }
   .footer-col a { color: var(--muted); }
   .footer-col a:hover { color: var(--ink); }
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-  .footer-loc { font-size: 1rem; margin: 0 0 28px; }
+  .footer-loc { font-size: var(--text-base); margin: 0 0 28px; }
   .social-icons { display: flex; gap: 14px; align-items: center; }
   .social-icons a { display: flex; align-items: center; color: var(--ink); }
 
   @media (max-width: 640px) {
     .post { padding-top: 44px; }
     .nav { height: 56px; }
-    .nav .btn { padding: 7px 10px; font-size: 1rem; }
+    .nav .btn { padding: 7px 10px; font-size: var(--text-base); }
     .logo img { height: 22px; }
   }
 

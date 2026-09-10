@@ -3,6 +3,12 @@
    Canonical source: Business/Website/style-guide.md
    Reference page:   Business/Website/Drafts/index-v2.html
    ============================================================
+   Fonts: Inter is the single product font. The full Inter design
+   token system lives in inter-ui-tokens.css (single source of
+   truth). This file keeps the site's colour/layout tokens and
+   aliases the font tokens to Inter.
+   ============================================================ */
+@import './inter-ui-tokens.css';
    This file owns shared TOKENS ONLY. It must never restyle
    anything: pages keep their own rules and their per-page
    legacy alias blocks, which resolve to the tokens below.
@@ -44,8 +50,8 @@
   --text-body: 1.125rem;  /* 18px — body, reading text */
   --text-ui:   1rem;      /* 16px — everything else: help lines, disclaimers, buttons, labels, nav, footer */
   --text-chip: 0.875rem;  /* 14px — chips/badges/tags ONLY, the sole exception below 16px */
-  --font-display: "Schibsted Grotesk", "Archivo", sans-serif;
-  --font-body: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
 }
 
 html[data-theme="dark"] {
