@@ -3,11 +3,25 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-11T00:00:00Z</updated>
+  <updated>2026-09-12T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>What we run our own business on</title>
+    <link href="https://tishka.ai/what-we-run-on"/>
+    <id>https://tishka.ai/what-we-run-on</id>
+    <updated>2026-09-12T00:00:00Z</updated>
+    <summary>Pre-launch, so no client list: here is exactly what our own business runs on, what it costs and saves us, and the rule that nothing sends unchecked.</summary>
+  </entry>
+  <entry>
+    <title>AI for a small business in West Wales: what it costs and what it&#x27;s worth</title>
+    <link href="https://tishka.ai/ai-cost-west-wales"/>
+    <id>https://tishka.ai/ai-cost-west-wales</id>
+    <updated>2026-09-12T00:00:00Z</updated>
+    <summary>What AI actually costs a small business in West Wales: the £499 diagnostic, builds quoted before they start, and how to weigh the hours against the fee.</summary>
+  </entry>
   <entry>
     <title>How to get invoices paid on time without the awkward phone call</title>
     <link href="https://tishka.ai/invoices-paid"/>
