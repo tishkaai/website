@@ -3,11 +3,25 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-09T00:00:00Z</updated>
+  <updated>2026-09-10T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>How to keep on top of compliance deadlines without the Sunday dread</title>
+    <link href="https://tishka.ai/compliance-deadlines"/>
+    <id>https://tishka.ai/compliance-deadlines</id>
+    <updated>2026-09-10T00:00:00Z</updated>
+    <summary>Keep compliance deadlines in one place and get warned before they slip. Under the Renters&#x27; Rights Act 2025, fines run to £7,000 a breach.</summary>
+  </entry>
+  <entry>
+    <title>Chasing invoices from a job in Pembrokeshire: the admin that follows the work</title>
+    <link href="https://tishka.ai/chasing-invoices-pembrokeshire"/>
+    <id>https://tishka.ai/chasing-invoices-pembrokeshire</id>
+    <updated>2026-09-10T00:00:00Z</updated>
+    <summary>The job is done, the invoice is out, the chase begins. How a Pembrokeshire trade can put invoice chasing on a rhythm, with a person approving every send.</summary>
+  </entry>
   <entry>
     <title>The paperwork that eats a farm&#x27;s week, and how to hand it to AI</title>
     <link href="https://tishka.ai/farm-paperwork"/>
