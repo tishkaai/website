@@ -3,11 +3,25 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-10T00:00:00Z</updated>
+  <updated>2026-09-11T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>How to get invoices paid on time without the awkward phone call</title>
+    <link href="https://tishka.ai/invoices-paid"/>
+    <id>https://tishka.ai/invoices-paid</id>
+    <updated>2026-09-11T00:00:00Z</updated>
+    <summary>Late payment costs affected UK businesses 86 hours a year. Put the invoice chase on a rhythm and keep the awkward call short and armed with dates.</summary>
+  </entry>
+  <entry>
+    <title>What a small accountancy or letting firm in Ceredigion can safely hand to AI</title>
+    <link href="https://tishka.ai/ai-for-accountancy-letting-firms"/>
+    <id>https://tishka.ai/ai-for-accountancy-letting-firms</id>
+    <updated>2026-09-11T00:00:00Z</updated>
+    <summary>Chasing and typing can go to AI at a small accountancy or letting firm. Compliance and client money never leave a human&#x27;s hands. Where the safe line sits.</summary>
+  </entry>
   <entry>
     <title>How to keep on top of compliance deadlines without the Sunday dread</title>
     <link href="https://tishka.ai/compliance-deadlines"/>
