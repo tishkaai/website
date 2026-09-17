@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — BLOG POST: How much of Monday is the same five questions?
+  Built by scripts/blog-publish.py from Blog/2026-09/2026-09-14-same-five-questions.md (verbatim copy).
+  Template matches how-much-is-admin-really-costing-you.html (home page v2 style).
+============================================================= -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<title>How much of Monday is the same five questions? | Tishka AI</title>
+<meta name="description" content="The same five questions eat every Monday morning. What they cost a practice in a year, and how approve-first drafts stop the retyping.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How much of Monday is the same five questions?">
+<meta property="og:description" content="The same five questions eat every Monday morning. What they cost a practice in a year, and how approve-first drafts stop the retyping.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="resource/site.css">
+<style>
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { color-scheme: light; }
+  html[data-theme="dark"] { color-scheme: dark; }
+  body { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { font-family: "Schibsted Grotesk", "Archivo", sans-serif; }
+
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo-text { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    padding: 11px 20px; border-radius: 6px; font-size: 1rem; font-weight: 600;
+    font-family: inherit; white-space: nowrap; transition: background 0.15s ease; cursor: pointer; border: none; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
+  .btn-ghost { background: var(--ghost-bg); border: 1px solid var(--border); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+  .theme-btn { padding: 0; width: 40px; height: 40px; background: transparent; border: none;
+    color: var(--muted); }
+  .theme-btn:hover { color: var(--ink); background: transparent; }
+  .theme-btn .ico-sun, .theme-btn .ico-moon { display: block; }
+  .theme-btn .ico-sun { display: none; }
+  html[data-theme="dark"] .theme-btn .ico-sun { display: block; }
+  html[data-theme="dark"] .theme-btn .ico-moon { display: none; }
+
+  /* article: one narrow reading column */
+  .post { max-width: 720px; margin: 0 auto; padding: 64px 0 24px; }
+  .post-eyebrow { font-size: 1rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .post h1 { font-size: clamp(2.1rem, 4.6vw, 3.1rem); font-weight: 800;
+    letter-spacing: -0.045em; line-height: 1.08; margin-bottom: 20px; }
+  .standfirst { font-size: 1.25rem; color: var(--muted); line-height: 1.55; margin-bottom: 16px; }
+  .post-meta { font-size: 1rem; color: var(--muted); margin-bottom: 40px;
+    padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+
+  .post-body { font-size: 1.125rem; line-height: 1.75; }
+  .post-body p { margin-bottom: 22px; }
+  .post-body h2 { font-size: 1.65rem; font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.2; margin: 44px 0 18px; }
+  .post-body ul, .post-body ol { margin: 0 0 22px 0; padding-left: 26px; }
+  .post-body li { margin-bottom: 10px; }
+  .post-body li::marker { color: var(--muted); }
+  .post-body b, .post-body strong { font-weight: 700; }
+  .post-body .fig { font-weight: 700; }
+  .post-body a { text-decoration: underline; text-underline-offset: 3px; }
+  .post-body a:hover { color: var(--muted); }
+
+  .faq { margin-bottom: 22px; }
+  .faq b { display: block; margin-bottom: 6px; }
+
+  /* do-this-next card — same card treatment as the calculator */
+  .next-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
+    padding: 28px 28px 24px; margin: 44px 0 10px; }
+  .next-card h2 { margin-top: 0; }
+  .next-card ol { margin-bottom: 18px; }
+  .next-card .btn { margin-top: 4px; }
+
+  .related { font-size: 1rem; color: var(--muted); margin-bottom: 56px; }
+  .related a { text-decoration: underline; text-underline-offset: 3px; }
+
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: 1rem; color: var(--muted); }
+  .footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+    padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
+  .footer-col h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; }
+  .footer-col a { color: var(--muted); }
+  .footer-col a:hover { color: var(--ink); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-loc { font-size: 1rem; margin: 0 0 28px; }
+  .social-icons { display: flex; gap: 14px; align-items: center; }
+  .social-icons a { display: flex; align-items: center; color: var(--ink); }
+
+  @media (max-width: 640px) {
+    .post { padding-top: 44px; }
+    .nav { height: 56px; }
+    .nav .btn { padding: 7px 10px; font-size: 1rem; }
+    .logo img { height: 22px; }
+  }
+
+</style>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yemhdfh65o");
+</script>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo" aria-label="Tishka AI"><span class="logo-text">Tishka AI</span></a>
+      <div class="nav-actions">
+        <button id="themeToggle" class="btn btn-ghost theme-btn" type="button" aria-label="Switch colour theme">
+          <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary">Book Diagnostic</a>
+      </div>
+    </div>
+  </header>
+
+  <article>
+    <div class="post">
+      <p class="post-eyebrow">The How to series · Post 10</p>
+      <h1>How much of Monday is the same five questions?</h1>
+      <p class="standfirst">For UK accountancy practices, and any owner whose Monday starts the same way: what the five repeat questions cost each year, and the approve-first fix.</p>
+      <p class="post-meta">Last updated 14 September 2026</p>
+
+      <div class="post-body">
+        <p>It's 8:40 on a Monday morning and the inbox is the same as last Monday with different names on it. Did you get my records? What do you still need from me? Can you send the invoice? When will the return be ready? Did you get my last message? Five questions, none of them hard, all of them costing focus while the real work waits.</p>
+        <p>That is the loop this post is about: the same five questions, arriving in a different order, answered from scratch every week. Practices know this Monday better than most, because half the questions come with a deadline attached. Every service business has its own five; a builder's are about quotes and start dates, an agency's about shortlists. The shape never changes: the answers exist, and somebody retypes them anyway.</p>
+        <p>None of the five is hard. All of them cost attention: they land one at a time, mid-thought, each one pulling somebody out of work that needed them. The Monday morning goes to rewriting answers the team gave last week, while the job that would win the next client sits untouched.</p>
+        <h2>The maths (a sketch, not a client figure)</h2>
+        <p>Sketch it per person doing the answering:</p>
+        <ul>
+          <li><b>5 questions a day</b> at <b>4 minutes each</b> to find the answer and type it out = 20 minutes a day</li>
+          <li>× 5 days = <b>100 minutes a week</b>, about 1 hour 40</li>
+          <li>× £30 an hour (a team member's hour; an owner's is worth more) = <b>£50 a week</b></li>
+          <li>× 46 weeks = <b>£2,300 a year. Per person answering.</b></li>
+        </ul>
+        <p>At an owner's or partner's rate of £90 an hour, the same 100 minutes is £150 a week, £6,900 a year. And none of that counts the client who waited until Tuesday afternoon for an answer that existed last week. Swap in your own counts and your own rate. (A sketch, not a client figure.)</p>
+        <h2>Score it: the three checks</h2>
+        <p>Score the loop, re-answering the five, on the three checks:</p>
+        <ul>
+          <li><b>Hours.</b> 100 minutes a week per person in the sketch, before counting the interruption cost (3).</li>
+          <li><b>Repeat.</b> The answers already exist; each of the five fits on one page with blanks for the name and the number (5).</li>
+          <li><b>Risk-if-wrong.</b> Most of the five have one right answer, and every draft is read by a person before it sends (4).</li>
+        </ul>
+        <p>Two checks at 4 or more, so the verdict is start narrow. Pick the most-asked of the five, write its answer once, and approve every send for a fortnight. If the drafts hold, add the second question. If a draft is still wrong in week three, the question goes back to a person.</p>
+        <h2>Try one thing this week (free)</h2>
+        <p>On Friday afternoon, ask your team one question: which questions did you answer this week that you had already answered the week before? Have them count. The count times four minutes is Monday's bill, and the top name on the list is the first answer worth drafting. Judge it by Friday: the count sits on one page and it cost you nothing.</p>
+        <h2>Where a person stays</h2>
+        <p>Nothing about this auto-sends. The draft lands in the outbox with figures already pulled from the practice's own records, and a person reads it, edits it and taps approve. Answers with numbers in them stay approval-only, because a figure that reaches a client wrong costs more than the minute it took to check. Deadlines and tax positions get written by a person from the start. Software prepares the reply. The practice decides.</p>
+        <h2>FAQ</h2>
+        <div class="faq"><b>Our clients' questions vary too much for template answers.</b>
+          <p>The five most-asked don't vary. They are the same five in a different order, which is why the team can answer them from memory. Leave the genuinely one-off questions to a person and start with the repeats, where the words barely change from client to client.</p>
+        </div>
+        <div class="faq"><b>Isn't this what our practice software already does?</b>
+          <p>It stores the answer. Somebody still has to turn the stored data into a reply that reads like a person wrote it, and that step is the one eating Monday. The drafting is the missing layer, which is why the retyping never stopped when the software went in.</p>
+        </div>
+        <div class="faq"><b>What about answers with figures in them?</b>
+          <p>Figures stay approval-only. The draft shows where each number came from, a person checks it against the records and taps send. No figure leaves unchecked, which is the standard we hold on our own work too.</p>
+        </div>
+        <div class="faq"><b>Will clients be able to tell a machine wrote it?</b>
+          <p>They will notice the reply arrived in minutes instead of hours, in your voice, checked by you. What clients remember is the wait. If a draft reads wrong, you edit it before it goes, so nothing reaches them unchecked.</p>
+        </div>
+        <div class="faq"><b>How long before the drafts are worth trusting?</b>
+          <p>A fortnight of approving is usually enough to see which of the five hold. A draft that still needs a rewrite in week three is telling you the question was not as repeatable as it looked, and the three checks will usually say why.</p>
+        </div>
+
+        <div class="next-card">
+          <h2>Do this next</h2>
+          <ol>
+            <li>If the number warrants a wider map: the <b>£499 diagnostic</b>. A one-hour call, a written report, and a 30-minute follow-up where we recommend what to build first. <b>5 hours found or full refund, and the £499 is credited in full against any build.</b></li>
+          </ol>
+          <a class="btn btn-primary" href="contact.html">Book the Diagnostic</a>
+        </div>
+      </div>
+
+      <p class="related">New posts in the series land through September.</p>
+    </div>
+  </article>
+
+  <footer>
+    <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>Read</h3>
+          <ul>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="ceredigion.html">Ceredigion</a></li>
+            <li><a href="pembrokeshire.html">Pembrokeshire</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="terms.html">Terms &amp; Conditions</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer-loc">Tishka AI &middot; Cardigan, Ceredigion &middot; Working across Ceredigion and Pembrokeshire.</p>
+      <div class="footer-bottom">
+        <div class="social-icons">
+          <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
+          <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+        <div>TISHKA AI &copy; 2026</div>
+        <a class="btn btn-primary" href="contact.html">Book a Diagnostic</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+      else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+    });
+  })();
+  </script>
+
+  <script src="chat-widget.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How much of Monday is the same five questions?",
+    "description": "The same five questions eat every Monday morning. What they cost a practice in a year, and how approve-first drafts stop the retyping.",
+    "datePublished": "2026-09-14",
+    "dateModified": "2026-09-14",
+    "author": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
+    "publisher": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
+    "mainEntityOfPage": "https://tishka.ai/same-five-questions"
+  }
+  </script>
+</body>
+</html>
