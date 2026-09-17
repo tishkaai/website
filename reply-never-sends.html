@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — BLOG POST: The reply that never sends itself
+  Built by scripts/blog-publish.py from Blog/2026-09/2026-09-15-reply-never-sends.md (verbatim copy).
+  Template matches how-much-is-admin-really-costing-you.html (home page v2 style).
+============================================================= -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<title>The reply that never sends itself | Tishka AI</title>
+<meta name="description" content="AI drafts the reply, a person approves, nothing sends unchecked. What approval-first drafting is, what it saves, and where it stops.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The reply that never sends itself">
+<meta property="og:description" content="AI drafts the reply, a person approves, nothing sends unchecked. What approval-first drafting is, what it saves, and where it stops.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="resource/site.css">
+<style>
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { color-scheme: light; }
+  html[data-theme="dark"] { color-scheme: dark; }
+  body { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { font-family: "Schibsted Grotesk", "Archivo", sans-serif; }
+
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo-text { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    padding: 11px 20px; border-radius: 6px; font-size: 1rem; font-weight: 600;
+    font-family: inherit; white-space: nowrap; transition: background 0.15s ease; cursor: pointer; border: none; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
+  .btn-ghost { background: var(--ghost-bg); border: 1px solid var(--border); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+  .theme-btn { padding: 0; width: 40px; height: 40px; background: transparent; border: none;
+    color: var(--muted); }
+  .theme-btn:hover { color: var(--ink); background: transparent; }
+  .theme-btn .ico-sun, .theme-btn .ico-moon { display: block; }
+  .theme-btn .ico-sun { display: none; }
+  html[data-theme="dark"] .theme-btn .ico-sun { display: block; }
+  html[data-theme="dark"] .theme-btn .ico-moon { display: none; }
+
+  /* article: one narrow reading column */
+  .post { max-width: 720px; margin: 0 auto; padding: 64px 0 24px; }
+  .post-eyebrow { font-size: 1rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .post h1 { font-size: clamp(2.1rem, 4.6vw, 3.1rem); font-weight: 800;
+    letter-spacing: -0.045em; line-height: 1.08; margin-bottom: 20px; }
+  .standfirst { font-size: 1.25rem; color: var(--muted); line-height: 1.55; margin-bottom: 16px; }
+  .post-meta { font-size: 1rem; color: var(--muted); margin-bottom: 40px;
+    padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+
+  .post-body { font-size: 1.125rem; line-height: 1.75; }
+  .post-body p { margin-bottom: 22px; }
+  .post-body h2 { font-size: 1.65rem; font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.2; margin: 44px 0 18px; }
+  .post-body ul, .post-body ol { margin: 0 0 22px 0; padding-left: 26px; }
+  .post-body li { margin-bottom: 10px; }
+  .post-body li::marker { color: var(--muted); }
+  .post-body b, .post-body strong { font-weight: 700; }
+  .post-body .fig { font-weight: 700; }
+  .post-body a { text-decoration: underline; text-underline-offset: 3px; }
+  .post-body a:hover { color: var(--muted); }
+
+  .faq { margin-bottom: 22px; }
+  .faq b { display: block; margin-bottom: 6px; }
+
+  /* do-this-next card — same card treatment as the calculator */
+  .next-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
+    padding: 28px 28px 24px; margin: 44px 0 10px; }
+  .next-card h2 { margin-top: 0; }
+  .next-card ol { margin-bottom: 18px; }
+  .next-card .btn { margin-top: 4px; }
+
+  .related { font-size: 1rem; color: var(--muted); margin-bottom: 56px; }
+  .related a { text-decoration: underline; text-underline-offset: 3px; }
+
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: 1rem; color: var(--muted); }
+  .footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+    padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
+  .footer-col h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; }
+  .footer-col a { color: var(--muted); }
+  .footer-col a:hover { color: var(--ink); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-loc { font-size: 1rem; margin: 0 0 28px; }
+  .social-icons { display: flex; gap: 14px; align-items: center; }
+  .social-icons a { display: flex; align-items: center; color: var(--ink); }
+
+  @media (max-width: 640px) {
+    .post { padding-top: 44px; }
+    .nav { height: 56px; }
+    .nav .btn { padding: 7px 10px; font-size: 1rem; }
+    .logo img { height: 22px; }
+  }
+
+</style>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yemhdfh65o");
+</script>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo" aria-label="Tishka AI"><span class="logo-text">Tishka AI</span></a>
+      <div class="nav-actions">
+        <button id="themeToggle" class="btn btn-ghost theme-btn" type="button" aria-label="Switch colour theme">
+          <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary">Book Diagnostic</a>
+      </div>
+    </div>
+  </header>
+
+  <article>
+    <div class="post">
+      <p class="post-eyebrow">The How to series · Post 11</p>
+      <h1>The reply that never sends itself</h1>
+      <p class="standfirst">For UK owners who like the sound of AI email but not the chaos stories: how drafting with a human approval works, minute by minute and pound by pound.</p>
+      <p class="post-meta">Last updated 15 September 2026</p>
+
+      <div class="post-body">
+        <p>It's 4pm on a Tuesday and a client wants an answer about next week's visit. The reply takes twenty minutes to write, and it's the fourth one like it this week. Nobody would hire a person to type the same twenty minutes every day, but that is the job the inbox hands out. The loop this post is about is the routine reply: written from scratch, every time, by the most expensive person in the building.</p>
+        <p>The rule we build by: AI drafts the email, the quote, the update. A person reads it and taps approve. Nothing sends unchecked. That last part is not a bolt-on safety feature; it is the whole design.</p>
+        <p>People hear "AI handles your email" and picture the chaos version: a reply in the wrong tone, a promise nobody meant to make. Fair. That is what happens when you take the person out. So don't take the person out. Take out the typing. The draft is sitting there when you open it, in your voice, with the right numbers pulled from your own files. You fix what's wrong and press send. Two minutes instead of twenty, and every word still has your name on it.</p>
+        <h2>The maths (a sketch, not a client figure)</h2>
+        <p>Sketch it for one person's routine replies:</p>
+        <ul>
+          <li><b>3 routine replies a day</b> × <b>12 minutes</b> to write each from scratch = 36 minutes a day</li>
+          <li>× 5 days = <b>3 hours a week</b> at £30 an hour = <b>£90 a week</b></li>
+          <li>× 46 weeks = <b>£4,140 a year</b> of typing.</li>
+        </ul>
+        <p>Approval-first version: the same 3 replies, each reviewed in 2 minutes = 6 minutes a day = half an hour a week = <b>£15 a week</b>, £690 a year. The difference, about <b>£75 a week or £3,450 a year</b>, is what the typing was costing. Swap in your own counts. (A sketch, not a client figure.)</p>
+        <h2>Score it: the three checks</h2>
+        <p>Score the loop, the routine reply, on the three checks:</p>
+        <ul>
+          <li><b>Hours.</b> 3 hours a week of routine replies in the sketch (4).</li>
+          <li><b>Repeat.</b> Each reply type fits on one page: the tone, the facts to include, what never to get promised (4).</li>
+          <li><b>Risk-if-wrong.</b> A bad draft is caught at approval and costs two minutes, not a client, because nothing sends unchecked (4).</li>
+        </ul>
+        <p>Three checks at 4 or more, so the verdict is hand over: the drafting goes to software, the sending stays human. Same trade for the quote, the update and the chase.</p>
+        <h2>Try one thing this week (free)</h2>
+        <p>Pick one reply you have already sent this week and save it as a template, with the changing parts as blanks. Next time the same request lands, fill the blanks and send. Time yourself against the twenty minutes. Judge it on Friday: the gap between what you spent and what you usually spend is the size of the loop, measured on your own week for nothing.</p>
+        <h2>Where a person stays</h2>
+        <p>The decision is the part nobody hands over: what we promise, at what price, in what tone. Software prepares the ten minutes before that decision, and a person makes it. Nothing sends unchecked, on our own work included. Financial, compliance and legal replies stay approval-only, always, which means a machine can lay out the numbers and a person signs. If control is the reason you have held off AI, that is the feature, not the catch.</p>
+        <h2>FAQ</h2>
+        <div class="faq"><b>What stops it promising something we can't do?</b>
+          <p>The approval step. The draft can only send after a person reads it, so a wrong promise costs an edit instead of an apology. The design assumes the machine will get things wrong sometimes, and puts a person in the one place where wrong is still cheap.</p>
+        </div>
+        <div class="faq"><b>Is this an out-of-office with extra steps?</b>
+          <p>No. An auto-reply is one canned text for everyone, sent unchecked. A draft is written for the specific message that arrived, in your voice, and waits for a person. The difference matters most when the message is not routine, which is exactly when the canned version embarrasses you.</p>
+        </div>
+        <div class="faq"><b>Which replies should never be drafted at all?</b>
+          <p>The ones with no right answer: a complaint with real damage in it, a legal position, a price you haven't settled. Those are written by a person from the first word. The test is simple: if two good people would write it differently, it is a judgement call, and judgement calls need a human name on them.</p>
+        </div>
+        <div class="faq"><b>Do clients mind that a machine was involved?</b>
+          <p>Most clients care about the wait and the accuracy, not the typing. Nothing reaches them unchecked, so nothing reaches them that you wouldn't have written yourself. The reply gets faster.</p>
+        </div>
+        <div class="faq"><b>What does it cost to try?</b>
+          <p>Nothing this week: the template trick above is free and uses the tools you already use. Measuring which replies are worth drafting properly is part of the £499 diagnostic, which comes with 5 hours found or full refund.</p>
+        </div>
+
+        <div class="next-card">
+          <h2>Do this next</h2>
+          <ol>
+            <li>If the number warrants a wider map: the <b>£499 diagnostic</b>. A one-hour call, a written report, and a 30-minute follow-up where we recommend what to build first. <b>5 hours found or full refund, and the £499 is credited in full against any build.</b></li>
+          </ol>
+          <a class="btn btn-primary" href="contact.html">Book the Diagnostic</a>
+        </div>
+      </div>
+
+      <p class="related">New posts in the series land through September.</p>
+    </div>
+  </article>
+
+  <footer>
+    <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>Read</h3>
+          <ul>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="ceredigion.html">Ceredigion</a></li>
+            <li><a href="pembrokeshire.html">Pembrokeshire</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="terms.html">Terms &amp; Conditions</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer-loc">Tishka AI &middot; Cardigan, Ceredigion &middot; Working across Ceredigion and Pembrokeshire.</p>
+      <div class="footer-bottom">
+        <div class="social-icons">
+          <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
+          <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+        <div>TISHKA AI &copy; 2026</div>
+        <a class="btn btn-primary" href="contact.html">Book a Diagnostic</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+      else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+    });
+  })();
+  </script>
+
+  <script src="chat-widget.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The reply that never sends itself",
+    "description": "AI drafts the reply, a person approves, nothing sends unchecked. What approval-first drafting is, what it saves, and where it stops.",
+    "datePublished": "2026-09-15",
+    "dateModified": "2026-09-15",
+    "author": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
+    "publisher": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
+    "mainEntityOfPage": "https://tishka.ai/reply-never-sends"
+  }
+  </script>
+</body>
+</html>

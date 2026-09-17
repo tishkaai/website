@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-14T00:00:00Z</updated>
+  <updated>2026-09-15T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The reply that never sends itself</title>
+    <link href="https://tishka.ai/reply-never-sends"/>
+    <id>https://tishka.ai/reply-never-sends</id>
+    <updated>2026-09-15T00:00:00Z</updated>
+    <summary>AI drafts the reply, a person approves, nothing sends unchecked. What approval-first drafting is, what it saves, and where it stops.</summary>
+  </entry>
   <entry>
     <title>What a West Wales tourism business can automate in the quiet months</title>
     <link href="https://tishka.ai/tourism-quiet-months"/>
