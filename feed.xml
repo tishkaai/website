@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-16T00:00:00Z</updated>
+  <updated>2026-09-17T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The morning brief that catches it first</title>
+    <link href="https://tishka.ai/morning-brief"/>
+    <id>https://tishka.ai/morning-brief</id>
+    <updated>2026-09-17T00:00:00Z</updated>
+    <summary>A two-minute morning brief: what happened, what needs a decision, what is slipping. Built on the tools you already use, read before the day starts.</summary>
+  </entry>
   <entry>
     <title>Maintenance enquiries: the day the boiler breaks</title>
     <link href="https://tishka.ai/maintenance-triage"/>

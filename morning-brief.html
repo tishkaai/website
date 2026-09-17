@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!-- ============================================================
+  TISHKA AI — BLOG POST: The morning brief that catches it first
+  Built by scripts/blog-publish.py from Blog/2026-09/2026-09-17-morning-brief.md (verbatim copy).
+  Template matches how-much-is-admin-really-costing-you.html (home page v2 style).
+============================================================= -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<title>The morning brief that catches it first | Tishka AI</title>
+<meta name="description" content="A two-minute morning brief: what happened, what needs a decision, what is slipping. Built on the tools you already use, read before the day starts.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The morning brief that catches it first">
+<meta property="og:description" content="A two-minute morning brief: what happened, what needs a decision, what is slipping. Built on the tools you already use, read before the day starts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Schibsted+Grotesk:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="resource/site.css">
+<style>
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { color-scheme: light; }
+  html[data-theme="dark"] { color-scheme: dark; }
+  body { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { font-family: "Schibsted Grotesk", "Archivo", sans-serif; }
+
+  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo-text { font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center;
+    padding: 11px 20px; border-radius: 6px; font-size: 1rem; font-weight: 600;
+    font-family: inherit; white-space: nowrap; transition: background 0.15s ease; cursor: pointer; border: none; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+  .btn-primary:hover { background: var(--btn-bg-hover); }
+  .btn-ghost { background: var(--ghost-bg); border: 1px solid var(--border); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ghost-hover); }
+  .theme-btn { padding: 0; width: 40px; height: 40px; background: transparent; border: none;
+    color: var(--muted); }
+  .theme-btn:hover { color: var(--ink); background: transparent; }
+  .theme-btn .ico-sun, .theme-btn .ico-moon { display: block; }
+  .theme-btn .ico-sun { display: none; }
+  html[data-theme="dark"] .theme-btn .ico-sun { display: block; }
+  html[data-theme="dark"] .theme-btn .ico-moon { display: none; }
+
+  /* article: one narrow reading column */
+  .post { max-width: 720px; margin: 0 auto; padding: 64px 0 24px; }
+  .post-eyebrow { font-size: 1rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .post h1 { font-size: clamp(2.1rem, 4.6vw, 3.1rem); font-weight: 800;
+    letter-spacing: -0.045em; line-height: 1.08; margin-bottom: 20px; }
+  .standfirst { font-size: 1.25rem; color: var(--muted); line-height: 1.55; margin-bottom: 16px; }
+  .post-meta { font-size: 1rem; color: var(--muted); margin-bottom: 40px;
+    padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+
+  .post-body { font-size: 1.125rem; line-height: 1.75; }
+  .post-body p { margin-bottom: 22px; }
+  .post-body h2 { font-size: 1.65rem; font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.2; margin: 44px 0 18px; }
+  .post-body ul, .post-body ol { margin: 0 0 22px 0; padding-left: 26px; }
+  .post-body li { margin-bottom: 10px; }
+  .post-body li::marker { color: var(--muted); }
+  .post-body b, .post-body strong { font-weight: 700; }
+  .post-body .fig { font-weight: 700; }
+  .post-body a { text-decoration: underline; text-underline-offset: 3px; }
+  .post-body a:hover { color: var(--muted); }
+
+  .faq { margin-bottom: 22px; }
+  .faq b { display: block; margin-bottom: 6px; }
+
+  /* do-this-next card — same card treatment as the calculator */
+  .next-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
+    padding: 28px 28px 24px; margin: 44px 0 10px; }
+  .next-card h2 { margin-top: 0; }
+  .next-card ol { margin-bottom: 18px; }
+  .next-card .btn { margin-top: 4px; }
+
+  .related { font-size: 1rem; color: var(--muted); margin-bottom: 56px; }
+  .related a { text-decoration: underline; text-underline-offset: 3px; }
+
+  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: 1rem; color: var(--muted); }
+  .footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+    padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
+  .footer-col h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; }
+  .footer-col a { color: var(--muted); }
+  .footer-col a:hover { color: var(--ink); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-loc { font-size: 1rem; margin: 0 0 28px; }
+  .social-icons { display: flex; gap: 14px; align-items: center; }
+  .social-icons a { display: flex; align-items: center; color: var(--ink); }
+
+  @media (max-width: 640px) {
+    .post { padding-top: 44px; }
+    .nav { height: 56px; }
+    .nav .btn { padding: 7px 10px; font-size: 1rem; }
+    .logo img { height: 22px; }
+  }
+
+</style>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yemhdfh65o");
+</script>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo" aria-label="Tishka AI"><span class="logo-text">Tishka AI</span></a>
+      <div class="nav-actions">
+        <button id="themeToggle" class="btn btn-ghost theme-btn" type="button" aria-label="Switch colour theme">
+          <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary">Book Diagnostic</a>
+      </div>
+    </div>
+  </header>
+
+  <article>
+    <div class="post">
+      <p class="post-eyebrow">The How to series · Post 13</p>
+      <h1>The morning brief that catches it first</h1>
+      <p class="standfirst">For UK owners who find out about problems from their clients first: how a two-minute morning brief catches the invoice, the silence and the deadline early.</p>
+      <p class="post-meta">Last updated 17 September 2026</p>
+
+      <div class="post-body">
+        <p>It's 7:40 on a Thursday and the first email of the day is a client chasing an invoice you didn't know had gone past its terms. It went overdue four days ago. Nobody was watching, because watching means opening every inbox and system in turn before the kettle boils. That is the loop this post is about: finding out late, again, because checking is a project.</p>
+        <p>Most businesses own a shared drive full of documents nobody opens, or a wiki three months out of date. The knowledge is in there somewhere. Looking things up is a project, so people ask the owner instead, which is how the business ends up living in your head.</p>
+        <p>A different design: stop keeping a library and start keeping a watchdog. The system connects to the tools the business already uses and watches them. At 7am a brief lands, two minutes long: what happened overnight, what needs a decision today. An invoice past its terms, a client who has gone quiet, a deadline two days out that nobody has picked up, a job sitting where it sat yesterday. The wiki waits for you to dig. The brief barks first.</p>
+        <p>It's plain files the client owns: no lock-in, and it replaces nothing you already run on. It just tells you what those tools are saying, once a day, in one place.</p>
+        <h2>The maths (a sketch, not a client figure)</h2>
+        <p>Sketch the cost of finding out late:</p>
+        <ul>
+          <li><b>2 problems a week</b> discovered days after they started, like the invoice or the slipping deadline</li>
+          <li>× <b>45 minutes each</b> to sort once found: the chase, the apology, the rearranged plan = 90 minutes a week</li>
+          <li>× £30 an hour = <b>£45 a week</b> × 46 weeks = <b>£2,070 a year</b> of late discovery.</li>
+        </ul>
+        <p>Against it, the brief itself: about 2 minutes a morning to read, 10 minutes a week. The gap, roughly <b>£40 a week</b>, is what catching it first is worth at sketch rates, and it doesn't count the problems a client finds before you do. Swap in your own numbers. (A sketch, not a client figure.)</p>
+        <h2>Score it: the three checks</h2>
+        <p>Score the loop, assembling the day's status by hand, on the three checks:</p>
+        <ul>
+          <li><b>Hours.</b> The manual version, checking each system in turn, is about 15 minutes a day before the real work starts (3).</li>
+          <li><b>Repeat.</b> The same places every day; a new starter could follow it from one page (5).</li>
+          <li><b>Risk-if-wrong.</b> A miss costs a day or two, and the underlying systems still hold the truth (3).</li>
+        </ul>
+        <p>Two checks at 4 or more, so the verdict is start narrow: brief one system, the inbox, for a week, then add a source at a time, the way we built ours. The brief earns trust by being right about the small things first.</p>
+        <h2>Try one thing this week (free)</h2>
+        <p>For three mornings this week, write your own brief before opening anything: two lines, what happened yesterday and what needs a decision today. Then do your normal checks and compare. On Friday, look at what the notes missed: that list is the spec for the brief you actually need, and it cost you nothing.</p>
+        <h2>Where a person stays</h2>
+        <p>The brief reports. It doesn't act. It can shout that an invoice is overdue; it cannot send the chase. It can flag a deadline; it cannot move the work. A person reads the two minutes, decides what each warning means and names who handles it. Anything that would send, pay or commit stays approval-only: financial, compliance and legal, always. The day starts informed; the decisions stay with people.</p>
+        <h2>FAQ</h2>
+        <div class="faq"><b>Isn't this just a dashboard?</b>
+          <p>A dashboard waits for you to open it, and the failure mode is the bad week, exactly when nobody has time to look. The brief comes to you and names what needs a decision. One arrives, one waits, and the difference shows up on the days it matters.</p>
+        </div>
+        <div class="faq"><b>Where does the brief get its information?</b>
+          <p>From the tools the business already uses, plus your documents and a short interview at the start. Nothing new for the team to learn, nothing replaced. It reads what you already run on and reports what it finds.</p>
+        </div>
+        <div class="faq"><b>What if the brief is wrong about something?</b>
+          <p>You correct it, and the correction becomes a rule it follows from then on. And because it prepares rather than acts, a wrong line costs you a minute, not a mistake in the world. The person is still the decider, which is what makes the correction cheap.</p>
+        </div>
+        <div class="faq"><b>We're five people. Is this overkill?</b>
+          <p>The brief costs two minutes. The alternative, finding an invoice chase four days late, costs the same at five people as it does at fifty. Overkill would be the shared drive nobody opens, which most businesses already own and already regret.</p>
+        </div>
+        <div class="faq"><b>Does it replace the tools we run on?</b>
+          <p>No. It reads them and tells you what they're saying, once a day, in one place. The tools keep doing their jobs; the brief just stops their problems from arriving by surprise.</p>
+        </div>
+
+        <div class="next-card">
+          <h2>Do this next</h2>
+          <ol>
+            <li>If the number warrants a wider map: the <b>£499 diagnostic</b>. A one-hour call, a written report, and a 30-minute follow-up where we recommend what to build first. <b>5 hours found or full refund, and the £499 is credited in full against any build.</b></li>
+          </ol>
+          <a class="btn btn-primary" href="contact.html">Book the Diagnostic</a>
+        </div>
+      </div>
+
+      <p class="related">New posts in the series land through September.</p>
+    </div>
+  </article>
+
+  <footer>
+    <div class="container">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>Read</h3>
+          <ul>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="ceredigion.html">Ceredigion</a></li>
+            <li><a href="pembrokeshire.html">Pembrokeshire</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="terms.html">Terms &amp; Conditions</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer-loc">Tishka AI &middot; Cardigan, Ceredigion &middot; Working across Ceredigion and Pembrokeshire.</p>
+      <div class="footer-bottom">
+        <div class="social-icons">
+          <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
+          <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+        <div>TISHKA AI &copy; 2026</div>
+        <a class="btn btn-primary" href="contact.html">Book a Diagnostic</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var themeBtn = document.getElementById('themeToggle');
+    themeBtn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (dark) { document.documentElement.removeAttribute('data-theme'); try { localStorage.setItem('tishka-theme', 'light'); } catch (e) {} }
+      else { document.documentElement.setAttribute('data-theme', 'dark'); try { localStorage.setItem('tishka-theme', 'dark'); } catch (e) {} }
+    });
+  })();
+  </script>
+
+  <script src="chat-widget.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The morning brief that catches it first",
+    "description": "A two-minute morning brief: what happened, what needs a decision, what is slipping. Built on the tools you already use, read before the day starts.",
+    "datePublished": "2026-09-17",
+    "dateModified": "2026-09-17",
+    "author": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
+    "publisher": { "@type": "Organization", "name": "Tishka AI", "url": "https://tishka.ai" },
+    "mainEntityOfPage": "https://tishka.ai/morning-brief"
+  }
+  </script>
+</body>
+</html>
