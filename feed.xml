@@ -3,11 +3,25 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-12T00:00:00Z</updated>
+  <updated>2026-09-13T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The four-blank test</title>
+    <link href="https://tishka.ai/four-blank-test"/>
+    <id>https://tishka.ai/four-blank-test</id>
+    <updated>2026-09-13T00:00:00Z</updated>
+    <summary>Five minutes with a pen before you hand any job to AI: four blanks to fill in, and why a job with an empty blank is not ready to hand over.</summary>
+  </entry>
+  <entry>
+    <title>Who offers AI automation for small businesses near Cardigan?</title>
+    <link href="https://tishka.ai/ai-automation-near-cardigan"/>
+    <id>https://tishka.ai/ai-automation-near-cardigan</id>
+    <updated>2026-09-13T00:00:00Z</updated>
+    <summary>Who offers AI automation near Cardigan? What a small business should look for, what it should cost, and the questions to ask before signing anyone.</summary>
+  </entry>
   <entry>
     <title>What we run our own business on</title>
     <link href="https://tishka.ai/what-we-run-on"/>
