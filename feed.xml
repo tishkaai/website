@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-18T00:00:00Z</updated>
+  <updated>2026-09-19T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>Quote follow-ups: the money in your sent folder</title>
+    <link href="https://tishka.ai/quote-follow-ups"/>
+    <id>https://tishka.ai/quote-follow-ups</id>
+    <updated>2026-09-19T00:00:00Z</updated>
+    <summary>Quotes go quiet and nobody chases. The maths of the sent folder, three checks for handing over the nudge, plus a free test to run this week.</summary>
+  </entry>
   <entry>
     <title>What we won&#x27;t automate, and why</title>
     <link href="https://tishka.ai/what-we-wont-automate"/>
