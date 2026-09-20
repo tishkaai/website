@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-19T00:00:00Z</updated>
+  <updated>2026-09-20T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>Job paperwork: certs, photos, invoices</title>
+    <link href="https://tishka.ai/job-paperwork"/>
+    <id>https://tishka.ai/job-paperwork</id>
+    <updated>2026-09-20T00:00:00Z</updated>
+    <summary>Certs, photos and invoices that turn into a second shift at the kitchen table. What the evening paperwork costs, and a free test to run this week.</summary>
+  </entry>
   <entry>
     <title>Quote follow-ups: the money in your sent folder</title>
     <link href="https://tishka.ai/quote-follow-ups"/>
