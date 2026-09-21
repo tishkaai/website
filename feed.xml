@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-20T00:00:00Z</updated>
+  <updated>2026-09-21T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>How much of Monday is viewing-to-application chasing</title>
+    <link href="https://tishka.ai/viewing-chase"/>
+    <id>https://tishka.ai/viewing-chase</id>
+    <updated>2026-09-21T00:00:00Z</updated>
+    <summary>Weekend viewings fill the diary and Monday fills with chasing. The cost of the gap between a viewing and an application, and a free count to run this week.</summary>
+  </entry>
   <entry>
     <title>Job paperwork: certs, photos, invoices</title>
     <link href="https://tishka.ai/job-paperwork"/>
