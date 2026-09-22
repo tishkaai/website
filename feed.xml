@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-21T00:00:00Z</updated>
+  <updated>2026-09-22T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The maths of a hire vs an automation</title>
+    <link href="https://tishka.ai/hire-vs-automation"/>
+    <id>https://tishka.ai/hire-vs-automation</id>
+    <updated>2026-09-22T00:00:00Z</updated>
+    <summary>A part-time hire costs about £12,000 a year before NI. Where the work repeats, a machine costs less. Three checks tell you which work is which.</summary>
+  </entry>
   <entry>
     <title>How much of Monday is viewing-to-application chasing</title>
     <link href="https://tishka.ai/viewing-chase"/>
