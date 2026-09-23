@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-22T00:00:00Z</updated>
+  <updated>2026-09-23T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The engagement letter chase</title>
+    <link href="https://tishka.ai/engagement-letter"/>
+    <id>https://tishka.ai/engagement-letter</id>
+    <updated>2026-09-23T00:00:00Z</updated>
+    <summary>Unsigned engagement letters stall for weeks while the work has started. What the chase costs, a day 7 and day 14 cadence, plus a free test this week.</summary>
+  </entry>
   <entry>
     <title>The maths of a hire vs an automation</title>
     <link href="https://tishka.ai/hire-vs-automation"/>
