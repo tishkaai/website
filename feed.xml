@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-23T00:00:00Z</updated>
+  <updated>2026-09-24T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>One connection: every AI tool shares the same brain</title>
+    <link href="https://tishka.ai/one-connection"/>
+    <id>https://tishka.ai/one-connection</id>
+    <updated>2026-09-24T00:00:00Z</updated>
+    <summary>Every AI tool wants its own copy of your business. One clean home for what your company knows, plain files you own, any tool through one connection.</summary>
+  </entry>
   <entry>
     <title>The engagement letter chase</title>
     <link href="https://tishka.ai/engagement-letter"/>
