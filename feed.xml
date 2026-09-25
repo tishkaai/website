@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-24T00:00:00Z</updated>
+  <updated>2026-09-25T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>Follow-ups that don&#x27;t depend on remembering</title>
+    <link href="https://tishka.ai/follow-ups-remembering"/>
+    <id>https://tishka.ai/follow-ups-remembering</id>
+    <updated>2026-09-25T00:00:00Z</updated>
+    <summary>Follow-ups happen when somebody remembers. The cost of the remembering tax, a day 7 and day 14 cadence, plus a free test to run this week.</summary>
+  </entry>
   <entry>
     <title>One connection: every AI tool shares the same brain</title>
     <link href="https://tishka.ai/one-connection"/>
