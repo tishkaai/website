@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-25T00:00:00Z</updated>
+  <updated>2026-09-26T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The refund promise: why we answer for the work with money</title>
+    <link href="https://tishka.ai/refund-promise"/>
+    <id>https://tishka.ai/refund-promise</id>
+    <updated>2026-09-26T00:00:00Z</updated>
+    <summary>We have no clients yet, so the proof is a promise with money behind it. 5 hours found or the £499 diagnostic fee comes back.</summary>
+  </entry>
   <entry>
     <title>Follow-ups that don&#x27;t depend on remembering</title>
     <link href="https://tishka.ai/follow-ups-remembering"/>
