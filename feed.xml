@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-26T00:00:00Z</updated>
+  <updated>2026-09-27T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>Landlord statements without the Sunday</title>
+    <link href="https://tishka.ai/landlord-statements"/>
+    <id>https://tishka.ai/landlord-statements</id>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary>Month-end landlord statements eat a Sunday. What the reconciliation really costs a letting office, and how the draft is ready before the weekend.</summary>
+  </entry>
   <entry>
     <title>The refund promise: why we answer for the work with money</title>
     <link href="https://tishka.ai/refund-promise"/>
