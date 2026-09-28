@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-27T00:00:00Z</updated>
+  <updated>2026-09-28T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>How much of Monday is reformatting documents to fit someone else&#x27;s template</title>
+    <link href="https://tishka.ai/template-trap"/>
+    <id>https://tishka.ai/template-trap</id>
+    <updated>2026-09-28T00:00:00Z</updated>
+    <summary>Reformatting documents to fit someone else&#x27;s template is a quiet weekly leak. The maths for a small team, and one narrow way to stop the copying.</summary>
+  </entry>
   <entry>
     <title>Landlord statements without the Sunday</title>
     <link href="https://tishka.ai/landlord-statements"/>
