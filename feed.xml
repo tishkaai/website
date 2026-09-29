@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-28T00:00:00Z</updated>
+  <updated>2026-09-29T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The MTD deadline machine</title>
+    <link href="https://tishka.ai/mtd-machine"/>
+    <id>https://tishka.ai/mtd-machine</id>
+    <updated>2026-09-29T00:00:00Z</updated>
+    <summary>Making Tax Digital adds quarterly deadlines from April 2026. What the calendar costs a practice each quarter, and who watches for clients going quiet.</summary>
+  </entry>
   <entry>
     <title>How much of Monday is reformatting documents to fit someone else&#x27;s template</title>
     <link href="https://tishka.ai/template-trap"/>
