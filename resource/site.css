@@ -82,3 +82,99 @@ html[data-theme="dark"] {
 
 /* focus — same on every page */
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* ============================================================
+   MOBILE FIXES — shared, measured, 2026-09-29
+   Found by a real-browser audit of all 58 live pages at 320px
+   (iPhone SE / older Android), 360px (common Android) and 390px
+   (iPhone 12–15). Raw data: outputs/website/mobile-qa-2026-09-29/.
+
+   Both faults are fixed here, in the shared file, because it is
+   on every page. It loads BEFORE each page's inline <style>, so
+   where the page sets the same property the page still wins; the
+   rules that must beat it (the header grid) carry one extra
+   element in the selector to settle the order.
+
+   1. Header overflow on phones narrower than 375px.
+      The one-row header needs 392–396px: logo (51–70) + theme
+      toggle 40 + Book Diagnostic 141–146 + the Ask AI button the
+      chat widget injects (89–92) + 48px side padding. So at
+      360px it overflowed by 8–13px and at 320px by 49–60px, and
+      the page scrolled sideways. From 375px up it fits and is
+      left exactly as it was (the one exception is the 375px
+      iPhone, which is 5px short on some pages, so it gets the
+      two-row header too).
+
+   2. Footer tap targets below the floor. Footer links were
+      20px tall and the social icons 18x18 (the floor is 24px,
+      44px is comfortable). Both now reach 44px without moving
+      the layout.
+   ============================================================ */
+
+@media (max-width: 379px) {
+  /* Header becomes two rows: logo + theme toggle + Book
+     Diagnostic on the first, Ask AI full width beneath. Nothing
+     is hidden. Flex-wrap was tried first and was worse — the
+     logo and the button group shared one squeezed line (measured
+     517px wide at 320px, against 369px before any fix), so this
+     is a grid with fixed placement.
+
+     "header .nav", not ".nav": each page's inline <style> loads
+     after this file and sets .nav { display:flex }. Same
+     specificity plus later in the document wins, which is why
+     the plain selector did nothing.
+
+     align-content/justify-content: start is required for the same
+     reason — the page's .nav { justify-content: space-between }
+     means "distribute the grid rows inside the height" once this
+     is a grid, which pushed the buttons up to y=-40 and clipped
+     them. */
+  header .nav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    justify-content: start;
+    height: auto;              /* pages pin this to 56–64px */
+    gap: 8px 0;
+  }
+  header .nav > .logo { justify-self: start; min-width: 0; }
+  header .nav .nav-actions {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 8px;
+    align-items: center;
+    justify-content: start;
+    height: auto;
+  }
+  /* Ask AI is a direct child of .nav-actions, injected there by
+     chat-widget.js, so a page's own rules cannot reach it. Full
+     width on the row under the theme toggle and the CTA. line-
+     height 1.5 + 8px + 8px + 16px = 40px, so a 44px box holds it
+     without clipping; height rather than min-height keeps the row
+     tight. */
+  header .nav .nav-actions #tishka-ask-ai {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 44px;
+    line-height: 1.5;
+  }
+  header .nav .nav-actions .btn-primary { height: auto; min-height: 44px; }
+  header .nav .nav-actions #themeToggle { height: 44px; width: 44px; }
+}
+
+/* Footer links: a 44px tap height, which the 20px-tall links did
+   not have. line-height does the work (2.75 x 16px = 44px) so the
+   clickable box and the link box are the same thing; the old
+   per-page margin-bottom still adds the visual gap. Scoped to the
+   footer's own link lists so inline links in prose are untouched. */
+footer .footer-col a,
+footer .footer-links a { display: inline-block; line-height: 2.75; }
+
+/* Social icons: the 18x18 glyph keeps its size, the link around it
+   becomes a 44x44 target. */
+footer .social-icons a { min-height: 44px; min-width: 44px; justify-content: center; }
+
+/* The logo link was a 20px-tall tap on the way home. min-height
+   gives it a proper target and centres the wordmark in it; the
+   header row is auto-sized, so nothing else moves. */
+header .logo { min-height: 44px; }
