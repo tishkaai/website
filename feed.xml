@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-21T00:00:00Z</updated>
+  <updated>2026-09-22T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>When a Pembrokeshire builder&#x27;s supplier prices move</title>
+    <link href="https://tishka.ai/supplier-prices-trades"/>
+    <id>https://tishka.ai/supplier-prices-trades</id>
+    <updated>2026-09-22T00:00:00Z</updated>
+    <summary>How Pembrokeshire builders and trades keep quotes honest when supplier prices move, and why the final number stays with a person.</summary>
+  </entry>
   <entry>
     <title>The same three questions in an Aberystwyth firm&#x27;s inbox</title>
     <link href="https://tishka.ai/client-questions-aberystwyth"/>
