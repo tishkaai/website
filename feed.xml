@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-16T00:00:00Z</updated>
+  <updated>2026-09-17T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The vet and medicine records a Ceredigion farm still keeps by hand</title>
+    <link href="https://tishka.ai/farm-medicine-records"/>
+    <id>https://tishka.ai/farm-medicine-records</id>
+    <updated>2026-09-17T00:00:00Z</updated>
+    <summary>How Ceredigion farms can keep the medicine book and vet records ready for inspection without the last-minute scramble.</summary>
+  </entry>
   <entry>
     <title>Changeover day in Tenby: the messages that actually run the let</title>
     <link href="https://tishka.ai/changeover-day-holiday-let"/>
