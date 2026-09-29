@@ -44,8 +44,9 @@
   from footer. Pages still exist on disk, just unlinked.
   Preview: http://localhost:8123/Drafts/index.html
   (python3 -m http.server 8123 from Business/Website/)
-  Demos = launcher cards on the page: demo-dashboard.html · demo-brief.html ·
-  demo-parser.html (parser runs entirely in-browser).
+  Demos = one card on the page, linking to the app demo at /demo/ (2026-09-29).
+  The older standalone demo pages (demo-dashboard.html · demo-brief.html ·
+  demo-parser.html) still exist on disk but are no longer linked from here.
   2026-09-05 rev per Pete: "Not an AI agency" split out of the diagnostic band
   into its own section on plain paper, bridge line added ("Say yes after the
   follow-up call..."), partner steps restyled as plain blocks (no 01/02/03
@@ -70,6 +71,11 @@
    summary strip, tabs, panels and CTA row — now sits behind the button, closed by
    default. Only the title, sub line and the toggle button show on load; clicking
    the button reveals (and hides) the full calculator. Maths + copy unchanged.
+  2026-09-29 rev per Pete (demo): the demos section links to the real app demo
+   at /demo/ (the built React app, dark by default) and opens it in a new tab,
+   replacing the static demo-brief.html one-pager. Screenshot swapped from the
+   light-mode demo-brief-shot.png to demo-app-dark.png, a dark capture of the
+   same demo, so the thumbnail matches both the dark site and the page it opens.
 ============================================================= -->
 <html lang="en">
 <head>
@@ -743,13 +749,13 @@
     <div class="container">
       <div class="split">
         <h2 class="split-title">See it work before you buy.</h2>
-        <p class="split-sub">One live demo, in your browser. No signup, no call, no card. Click the screenshot to open it in a new tab.</p>
+        <p class="split-sub">One live demo, in your browser. No signup, no call, no card. Click the screenshot to open the app demo in a new tab.</p>
       </div>
-      <a class="demo-card demo-card-link" href="demo-brief.html" target="_blank" rel="noopener" aria-label="Open the live morning brief demo in a new tab">
+      <a class="demo-card demo-card-link" href="/demo/" target="_blank" rel="noopener" aria-label="Open the live app demo in a new tab">
         <span class="demo-flag">Live demo · click to open in a new tab</span>
         <div class="demo-h">Your morning brief, ready before you are.</div>
-        <div class="demo-p">The morning brief tells you what to do. Chat answers from your own files and apps. Approve lets Tishka act — it drafts, you decide. Upload and connect feeds it your business.</div>
-        <img class="demo-shot" src="demo-brief-shot.png" alt="The Tishka morning brief: today's one thing, what Tishka did overnight, the standup, today's calendar and who you're waiting on" width="1280" height="1600">
+        <div class="demo-p">The morning brief tells you what to do. Chat answers from the connected apps. Approve is where Tishka acts: it drafts, you decide.</div>
+        <img class="demo-shot" src="demo-app-dark.png" alt="The Tishka app in dark mode: the morning brief with today's one thing, what Tishka did overnight, the standup, today's schedule and who you're waiting on" width="1280" height="1600">
         <span class="btn btn-primary">Open the demo</span>
       </a>
     </div>
