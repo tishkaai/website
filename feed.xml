@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-17T00:00:00Z</updated>
+  <updated>2026-09-18T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The reminder a Haverfordwest garage never gets round to sending</title>
+    <link href="https://tishka.ai/garage-booking-reminders"/>
+    <id>https://tishka.ai/garage-booking-reminders</id>
+    <updated>2026-09-18T00:00:00Z</updated>
+    <summary>Why service and MOT reminders get skipped on a busy Friday, and what a standing rhythm changes for a garage in Pembrokeshire.</summary>
+  </entry>
   <entry>
     <title>The vet and medicine records a Ceredigion farm still keeps by hand</title>
     <link href="https://tishka.ai/farm-medicine-records"/>
