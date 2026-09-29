@@ -12,7 +12,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="color-scheme" content="light dark" />
-<script>(function(){try{if(localStorage.getItem('tishka-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<script>(function(){try{if(localStorage.getItem('tishka-theme')==='light')return;}catch(e){}document.documentElement.setAttribute('data-theme','dark');})();</script>
 <title>Tishka demo: Parser (runs in your browser)</title>
 <link rel="canonical" href="https://tishka.ai/demo-parser">
 <meta name="description" content="Paste your own messy text and watch it get filed. Tishka's parser runs for real in your browser: nothing sent, nothing stored, no signup needed.">
@@ -96,7 +96,7 @@
   .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
   .tab { font-family: inherit; font-size: var(--text-base); font-weight: 600; color: var(--muted); background: var(--raise);
     border: 1px solid var(--border); border-radius: 6px; padding: 9px 16px; cursor: pointer; }
-  .tab .auto { font-size: var(--text-sm); font-weight: 600; color: var(--muted); margin-left: 6px; }
+  .tab .auto { font-size: var(--text-sm); font-weight: 600; color: inherit; margin-left: 6px; }
   .tab.on { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-fg); font-weight: 600; }
   .tab .auto.on2 { color: var(--btn-fg); }
 

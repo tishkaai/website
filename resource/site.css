@@ -1,29 +1,39 @@
 /* ============================================================
-   TISHKA AI — site tokens (operations-instrument identity)
+   TISHKA AI — site tokens
    Canonical source: Business/Website/style-guide.md
    Reference page:   Business/Website/Drafts/index-v2.html
-   ============================================================
+
+   Palette source (Pete, 2026-09-29): appllama.io/flows.
+   Dark is the site's default look; light mirrors their light
+   theme. Values were read off their live CSS, not guessed:
+     page    #141414      cards  #1c1c1c  (white 3.5% over page)
+     text    #f7f7f7 / #adadad
+     CTA     #f0dcc8 sand, text #2b2725, hover #fbebd9
+   Their Get started button is the same sand in both themes
+   (their header is a "brand island"), so Tishka's primary
+   button uses it in both themes too.
+
    Fonts: Inter is the single product font. The full Inter design
    token system lives in inter-ui-tokens.css (single source of
    truth). This file keeps the site's colour/layout tokens and
    aliases the font tokens to Inter.
-   ============================================================ */
-@import './inter-ui-tokens.css';
+
    This file owns shared TOKENS ONLY. It must never restyle
    anything: pages keep their own rules and their per-page
    legacy alias blocks, which resolve to the tokens below.
    Link it in <head> BEFORE the page's inline <style> so page
    CSS always wins.
-   ------------------------------------------------------------
+
    Lock rule (Pete, 2026-09-04): body text 18px. Nothing under
    16px anywhere. Chips/badges/tags may sit at 14px — that is
    the only role allowed below the 16px floor.
    ------------------------------------------------------------ */
+@import './inter-ui-tokens.css';
 
+/* light — appllama light tokens */
 :root {
-  /* palette — light */
-  --paper: #f6f6f3; --raise: #ffffff; --band: #ecece6;
-  --border: #e3e3dc; --ink: #17171b; --muted: #5b5b64;
+  --paper: #ffffff; --raise: #f6f6f6; --band: #eeeeee;
+  --border: rgba(0,0,0,0.09); --ink: #111111; --muted: #4b4b4b;
   /* three accent colours (Pete 2026-09-07) — the only accents on the site */
   --accent-1: #D7ACF2;   --accent-1-soft: rgba(215,172,242,0.16); /* pink-lavender */
   --accent-2: #61C884;   --accent-2-soft: rgba(97,200,132,0.16);  /* green */
@@ -31,15 +41,16 @@
   /* legacy semantic names now resolve to the three accents */
   --ledger: #61C884; --ledger-soft: rgba(97,200,132,0.12);
   --stamp: #E3B864;
-  --warn: #b98b3a; --bad: #d43f3f;
+  --warn: #97621c; --bad: #ab342d;
   /* diagram tints + bot (Pete's go 2026-09-07) — diagram/illustration use only */
   --tint-blue: #61C884;   --tint-blue-soft: rgba(97,200,132,0.16);
   --tint-orange: #E3B864; --tint-orange-soft: rgba(227,184,100,0.16);
   --tint-pink: #D7ACF2;   --tint-pink-soft: rgba(215,172,242,0.16);
   --bot-face: #D7ACF2;    --bot-eye: #17171b;
-  --header-bg: rgba(246,246,243,0.88);
-  --btn-bg: #17171b; --btn-fg: #ffffff; --btn-bg-hover: #2e2e34;
-  --ghost-bg: #ffffff; --ghost-hover: #eaeae4;
+  --header-bg: rgba(255,255,255,0.88);
+  /* CTA — the reference site's Get started button (sand in both themes) */
+  --btn-bg: #f0dcc8; --btn-fg: #2b2725; --btn-bg-hover: #fbebd9;
+  --ghost-bg: #f7f7f7; --ghost-hover: #efefef;
 
   /* type scale (Pete's locked rule) */
   --text-hero: clamp(2.5rem, 5.4vw, 3.9rem); /* page hero — largest */
@@ -54,15 +65,19 @@
   --font-body: var(--font-sans);
 }
 
+/* dark — appllama dark tokens. This is the site's default theme:
+   the pre-paint script in every page sets data-theme="dark"
+   unless the visitor has chosen light. */
 html[data-theme="dark"] {
-  --paper: #0e0e10; --raise: #161619; --band: #0a0a0c;
-  --border: #2a2a2e; --ink: #f2f2f0; --muted: #a1a1a6;
+  --paper: #141414; --raise: #1c1c1c; --band: #0f0f0f;
+  --border: rgba(255,255,255,0.08); --ink: #f7f7f7; --muted: #adadad;
   --ledger: #61C884; --ledger-soft: rgba(97,200,132,0.14);
   --stamp: #E3B864;
-  --warn: #d9a441; --bad: #ff5c5c;
-  --header-bg: rgba(14,14,16,0.88);
-  --btn-bg: #f2f2f0; --btn-fg: #0e0e10; --btn-bg-hover: #d9d9d4;
-  --ghost-bg: #161619; --ghost-hover: #222226;
+  --warn: #e1a656; --bad: #ef7759;
+  --header-bg: rgba(20,20,20,0.88);
+  /* CTA stays sand — same as the reference's Get started button */
+  --btn-bg: #f0dcc8; --btn-fg: #2b2725; --btn-bg-hover: #fbebd9;
+  --ghost-bg: #212020; --ghost-hover: #323131;
 }
 
 /* focus — same on every page */
