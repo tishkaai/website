@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-20T00:00:00Z</updated>
+  <updated>2026-09-21T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The same three questions in an Aberystwyth firm&#x27;s inbox</title>
+    <link href="https://tishka.ai/client-questions-aberystwyth"/>
+    <id>https://tishka.ai/client-questions-aberystwyth</id>
+    <updated>2026-09-21T00:00:00Z</updated>
+    <summary>Why a small Ceredigion firm retypes the same client answers every week, and how written answers plus drafted replies cut the retyping.</summary>
+  </entry>
   <entry>
     <title>Deposit paperwork at the end of a Ceredigion tenancy</title>
     <link href="https://tishka.ai/tenancy-deposit-paperwork"/>
