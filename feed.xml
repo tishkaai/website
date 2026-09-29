@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-19T00:00:00Z</updated>
+  <updated>2026-09-20T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>Deposit paperwork at the end of a Ceredigion tenancy</title>
+    <link href="https://tishka.ai/tenancy-deposit-paperwork"/>
+    <id>https://tishka.ai/tenancy-deposit-paperwork</id>
+    <updated>2026-09-20T00:00:00Z</updated>
+    <summary>A plain guide for Ceredigion letting agents on end of tenancy deposit paperwork: dates held, letters drafted, a person approving every one.</summary>
+  </entry>
   <entry>
     <title>The Thursday order a Cardigan café writes from memory</title>
     <link href="https://tishka.ai/cafe-supplier-orders"/>
