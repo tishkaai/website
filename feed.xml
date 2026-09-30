@@ -3,11 +3,25 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-29T00:00:00Z</updated>
+  <updated>2026-09-30T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>What a month of drafting taught us about the loops</title>
+    <link href="https://tishka.ai/what-drafting-taught"/>
+    <id>https://tishka.ai/what-drafting-taught</id>
+    <updated>2026-09-30T00:00:00Z</updated>
+    <summary>A month of daily drafting found the same loops in every trade. What kept coming back, what the fix was, and the loop we would like you to name.</summary>
+  </entry>
+  <entry>
+    <title>The last-minute cancellation in a West Wales holiday let</title>
+    <link href="https://tishka.ai/holiday-let-cancellations"/>
+    <id>https://tishka.ai/holiday-let-cancellations</id>
+    <updated>2026-09-30T00:00:00Z</updated>
+    <summary>A late holiday let cancellation leaves a refund question and an empty week. How West Wales owners close the loop without inventing a policy.</summary>
+  </entry>
   <entry>
     <title>What to ask before handing a Pembrokeshire business&#x27;s admin to AI</title>
     <link href="https://tishka.ai/questions-before-ai-pembrokeshire"/>
