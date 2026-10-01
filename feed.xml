@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-09-30T00:00:00Z</updated>
+  <updated>2026-10-01T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The batch and traceability records a Pembrokeshire food producer keeps</title>
+    <link href="https://tishka.ai/pembrokeshire-food-producer-records"/>
+    <id>https://tishka.ai/pembrokeshire-food-producer-records</id>
+    <updated>2026-10-01T00:00:00Z</updated>
+    <summary>Batch and traceability records for Pembrokeshire food producers: what they cost in evenings, and how to get them drafted and signed off.</summary>
+  </entry>
   <entry>
     <title>What a month of drafting taught us about the loops</title>
     <link href="https://tishka.ai/what-drafting-taught"/>
