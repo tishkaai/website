@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-10-01T00:00:00Z</updated>
+  <updated>2026-10-02T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The winter delivery round a Ceredigion merchant runs by phone</title>
+    <link href="https://tishka.ai/log-delivery-round-ceredigion"/>
+    <id>https://tishka.ai/log-delivery-round-ceredigion</id>
+    <updated>2026-10-02T00:00:00Z</updated>
+    <summary>How a Ceredigion fuel, log or feed merchant can take winter orders off the phone and onto one sheet, with the route left to the driver.</summary>
+  </entry>
   <entry>
     <title>The batch and traceability records a Pembrokeshire food producer keeps</title>
     <link href="https://tishka.ai/pembrokeshire-food-producer-records"/>
