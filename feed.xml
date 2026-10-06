@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-10-05T00:00:00Z</updated>
+  <updated>2026-10-06T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The allergen question a Pembrokeshire kitchen answers ten times a week</title>
+    <link href="https://tishka.ai/allergen-questions-pembrokeshire"/>
+    <id>https://tishka.ai/allergen-questions-pembrokeshire</id>
+    <updated>2026-10-06T00:00:00Z</updated>
+    <summary>How a Pembrokeshire kitchen handles the same allergen and ingredient questions by phone and message, with a person confirming every answer.</summary>
+  </entry>
   <entry>
     <title>The survey paperwork an Aberystwyth surveyor carries in the van</title>
     <link href="https://tishka.ai/surveyor-paperwork-aberystwyth"/>
