@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-10-09T00:00:00Z</updated>
+  <updated>2026-10-10T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>Market day in Ceredigion: the takings that never get written down</title>
+    <link href="https://tishka.ai/market-day-stock-ceredigion"/>
+    <id>https://tishka.ai/market-day-stock-ceredigion</id>
+    <updated>2026-10-10T00:00:00Z</updated>
+    <summary>What actually sold at market in Ceredigion, and how one written page at the stall replaces the memory and the shoebox.</summary>
+  </entry>
   <entry>
     <title>The snagging list a Pembrokeshire builder owes the client</title>
     <link href="https://tishka.ai/snagging-handover-pembrokeshire"/>
