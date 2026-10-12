@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-10-11T00:00:00Z</updated>
+  <updated>2026-10-12T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The first month of a new client&#x27;s records in a Ceredigion practice</title>
+    <link href="https://tishka.ai/new-client-onboarding-ceredigion"/>
+    <id>https://tishka.ai/new-client-onboarding-ceredigion</id>
+    <updated>2026-10-12T00:00:00Z</updated>
+    <summary>How a Ceredigion practice can onboard a new client&#x27;s records on one written checklist and a dated chase, with a person approving every message.</summary>
+  </entry>
   <entry>
     <title>The winter maintenance list a Pembrokeshire holiday park keeps in its head</title>
     <link href="https://tishka.ai/winter-maintenance-pembrokeshire"/>
