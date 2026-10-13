@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-10-12T00:00:00Z</updated>
+  <updated>2026-10-13T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>Answering the same guest question in Welsh and English</title>
+    <link href="https://tishka.ai/welsh-english-guest-questions"/>
+    <id>https://tishka.ai/welsh-english-guest-questions</id>
+    <updated>2026-10-13T00:00:00Z</updated>
+    <summary>A West Wales guest reply loop in Welsh and English, with a Welsh speaker checking every draft before a named person approves it.</summary>
+  </entry>
   <entry>
     <title>The first month of a new client&#x27;s records in a Ceredigion practice</title>
     <link href="https://tishka.ai/new-client-onboarding-ceredigion"/>
