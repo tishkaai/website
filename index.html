@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 <!-- ============================================================
   TISHKA AI - HOME PAGE (live)
-  Rebuilt 2026-11-03 per Pete: all page copy replaced with his
-  diagnostic-led local offer (hero, £499 diagnostic with the 5-hours
-  guarantee, what happens next, founding partners, £250-£400 monthly,
-  service area). The "Built on the tools you already use" strip and its
-  app logos are kept as-is per Pete.
-  Previous version saved at archive/index-2026-11-03-before-copy-rewrite.html
-  and in git history.
-  Removed from this page: ROI calculator, business-brain section and
-  diagram, demo card, manifesto, FAQ, security section. The calculator's
-  JS is preserved in the backup. SOP name rule stays: customer-facing
-  wording is "diagnostic", never "assessment"/"audit".
-  Copy rules: Pete's wording is kept verbatim, including its em dashes.
+  Rebuilt 2026-11-03: diagnostic-led copy on an editorial grid.
+  Previous page: archive/index-2026-11-03-before-copy-rewrite.html
+  Copy is Pete's, verbatim. The tools strip and its logos are kept.
+  Design notes: one focal object (the offer card), the rest quiet and
+  aligned to the same left edge; hairlines instead of stacked bands;
+  section headings at one size so the hero carries the scale.
 ============================================================= -->
 <html lang="en">
 <head>
@@ -51,186 +45,249 @@
   "url": "https://tishka.ai"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does it cost?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Diagnostic £499 (refundable if no 5 hours found, or fully credited if we build). First build quoted fixed after the diagnostic. Ongoing £250–£400 per month after you have seen the result." }
+    },
+    {
+      "@type": "Question",
+      "name": "Will this replace my team?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. It takes the repetitive work so your team can do the valuable work." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do we have to change our software?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. It works with the tools you already use." }
+    },
+    {
+      "@type": "Question",
+      "name": "More questions?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Just ask." }
+    }
+  ]
+}
+</script>
 <link rel="alternate" type="application/atom+xml" title="Tishka AI blog" href="https://tishka.ai/feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="resource/site.css">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  :root { color-scheme: light; }
-  html[data-theme="dark"] { color-scheme: dark; }
-  body { font-family: var(--font-sans);
-    background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-padding-top: 88px; }
+  body { margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--font-sans); font-size: var(--text-lg); line-height: 1.6;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   a { color: inherit; text-decoration: none; }
-  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-  h1, h2, h3, .display { font-family: var(--font-sans); }
-  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  svg { display: block; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  .container { width: 100%; max-width: 1120px; margin-inline: auto;
+    padding-inline: clamp(20px, 4vw, 32px); }
 
   /* header */
-  header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-  .nav { display: flex; align-items: center; justify-content: space-between; height: 76px; }
-  .logo { display: inline-flex; align-items: center; gap: 6px; }
-  .logo-text { font-family: var(--font-sans);
-    font-weight: 700; font-size: var(--text-lg); letter-spacing: -0.02em; line-height: 1; color: var(--ink); }
+  .site-header { position: sticky; top: 0; z-index: 50; background: var(--header-bg);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); }
+  .nav { display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; min-height: 72px; }
+  .logo { display: inline-flex; align-items: center; }
+  .logo-text { font-size: var(--text-lg); font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
   .nav-actions { display: flex; align-items: center; gap: 8px; }
   .btn { display: inline-flex; align-items: center; justify-content: center;
-    padding: 11px 20px; border-radius: 6px; font-size: var(--text-base); font-weight: 600;
-    font-family: inherit; white-space: nowrap; transition: background 0.15s ease; cursor: pointer; border: none; }
+    min-height: 48px; padding: 0 22px; border: 1px solid transparent; border-radius: 6px;
+    font-family: inherit; font-size: var(--text-base); font-weight: 600; letter-spacing: -0.01em;
+    line-height: 1; white-space: nowrap; cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease; }
   .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
   .btn-primary:hover { background: var(--btn-bg-hover); }
-  .theme-btn { padding: 0; width: 40px; height: 40px; background: transparent; border: none;
-    color: var(--muted); }
-  .theme-btn:hover { color: var(--ink); background: transparent; }
-  .theme-btn .ico-sun, .theme-btn .ico-moon { display: block; }
+  .btn-primary:active { transform: scale(0.96); }
+  .theme-btn { width: 40px; min-height: 40px; padding: 0; display: inline-flex;
+    align-items: center; justify-content: center; background: transparent; border: 0;
+    border-radius: 6px; color: var(--muted); }
+  .theme-btn:hover { color: var(--ink); }
   .theme-btn .ico-sun { display: none; }
   html[data-theme="dark"] .theme-btn .ico-sun { display: block; }
   html[data-theme="dark"] .theme-btn .ico-moon { display: none; }
+  .nav .btn-primary { min-height: 44px; padding: 0 18px; }
 
-  /* hero */
-  .hero { padding: 92px 0 56px; text-align: center; }
-  h1 { font-size: var(--text-display-md); font-weight: 700; letter-spacing: -0.045em;
-    line-height: 1.08; margin-bottom: 24px; }
-  .hero-sub { font-size: var(--text-lg); color: var(--muted); max-width: 620px; margin: 0 auto 20px; }
-  .hero-loc { font-size: var(--text-base); color: var(--muted); margin: 0 auto; }
+  /* hero: headline left, the reading column right */
+  .hero { padding-block: clamp(52px, 7vw, 88px) clamp(48px, 6vw, 72px); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(28px, 5vw, 72px); align-items: start; }
+  h1 { margin: 0; font-size: var(--text-display-md); font-weight: 700;
+    line-height: 1.02; letter-spacing: -0.045em; text-wrap: pretty; }
+  .hero-intro { padding-top: 8px; }
+  .lead { margin: 0 0 20px; max-width: 40ch; color: var(--muted);
+    font-size: var(--text-lg); line-height: 1.6; text-wrap: pretty; }
+  .lead:last-of-type { margin-bottom: 0; }
+  .hero-actions { margin-top: 32px; display: flex; flex-direction: column;
+    align-items: flex-start; gap: 16px; }
+  .hero-actions .btn { min-height: 52px; padding: 0 26px; font-size: var(--text-lg); }
+  .hero-loc { margin: 0; max-width: 36ch; color: var(--muted);
+    font-size: var(--text-sm); line-height: 1.5; }
 
-  section { padding: 76px 0; }
-  section.band { background: var(--band); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  /* tools: a quiet legend band */
+  .tools { border-block: 1px solid var(--border); background: var(--band); }
+  .tools-row { display: grid; gap: 14px; padding-block: 18px; }
+  .tools-head { display: flex; flex-wrap: wrap; align-items: center;
+    justify-content: space-between; gap: 8px 24px; }
+  .tools-label { margin: 0; color: var(--muted); font-size: var(--text-sm); line-height: 1.4; }
+  .logo-row { display: grid; grid-template-columns: repeat(8, max-content);
+    justify-content: space-between; align-items: center; gap: 12px 16px; }
+  .logo-item { display: inline-flex; align-items: center; gap: 8px;
+    color: var(--muted); font-size: var(--text-sm); line-height: 1; transition: color 0.15s ease; }
+  .logo-item svg { width: 18px; height: 18px; fill: currentColor; }
+  .logo-item:hover { color: var(--ink); }
+  .logo-chip { display: inline-flex; align-items: center; padding: 5px 10px;
+    border: 1px solid var(--border); border-radius: 4px; color: var(--muted);
+    font-size: var(--text-xs); line-height: 1.2; white-space: nowrap; }
 
-  /* asymmetric split: heading left, prose right */
-  .split { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; align-items: start; }
-  .split-aside { position: sticky; top: 96px; }
-  @media (max-width: 840px) { .split { grid-template-columns: 1fr; gap: 24px; } .split-aside { position: static; } }
-  .split-title { font-size: var(--text-display-xs); font-weight: 700; letter-spacing: -0.035em;
-    line-height: 1.15; margin-bottom: 14px; }
-  .split-sub { color: var(--muted); font-size: var(--text-lg); }
-  .split-body { max-width: 62ch; }
-  .split-body p { margin-bottom: 18px; font-size: var(--text-lg); }
-  .split-body p:last-child { margin-bottom: 0; }
+  /* the offer */
+  .offer { padding-block: clamp(56px, 7vw, 88px); }
+  .offer-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(32px, 5vw, 72px); align-items: start; }
+  .offer-card { background: var(--raise); border: 1px solid var(--border);
+    border-radius: 12px; padding: clamp(24px, 3.5vw, 40px); }
+  .offer-card h2, .next h2, .partners h2, .faq h2 { margin: 0; font-size: var(--text-2xl);
+    font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+  .offer-card h2 { margin-bottom: 24px; }
+  .price { margin: 0 0 24px; display: flex; align-items: baseline; gap: 10px;
+    font-size: clamp(3rem, 5vw, 3.5rem); font-weight: 700; letter-spacing: -0.04em;
+    line-height: 1; font-variant-numeric: tabular-nums; }
+  .price span { color: var(--muted); font-size: var(--text-lg); font-weight: 400; letter-spacing: 0; }
+  .offer-desc { margin: 0; color: var(--muted); font-size: var(--text-lg); text-wrap: pretty; }
+  .offer-refund { margin: 24px 0 0; padding-top: 24px; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: var(--text-lg); text-wrap: pretty; }
+  .found { color: var(--ledger); font-weight: 600; }
+  html:not([data-theme="dark"]) .found { color: #1c6b3c; }
+  .offer-credit { margin: 16px 0 32px; color: var(--ink); font-size: var(--text-lg); text-wrap: pretty; }
+  .offer-card .btn { width: 100%; min-height: 52px; font-size: var(--text-lg); }
 
-  /* diagnostic */
-  .fee { font-size: var(--text-lg); font-weight: 700; margin-bottom: 22px; }
-  .guarantee { border-left: 3px solid var(--stamp); padding: 2px 0 2px 14px; margin-top: 18px;
-    font-size: var(--text-lg); color: var(--muted); max-width: 46ch; }
-  .guarantee b { color: var(--ink); }
-  .guarantee .found { color: var(--ledger); font-weight: 700; }
-  /* the bright ledger green fails as small text on a light band (1.79:1),
-     so light mode uses a darker cut of the same green (5.63:1). Dark keeps the accent. */
-  html:not([data-theme="dark"]) .guarantee .found { color: #1c6b3c; }
-  .credit-note { font-size: var(--text-lg); font-weight: 600; color: var(--ink);
-    margin-top: 18px; max-width: 46ch; }
+  /* what happens next */
+  .next h2 { margin-bottom: 24px; }
+  .next-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
+  .next-list li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 20px;
+    padding: 24px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+  .next-n { color: var(--muted); font-size: var(--text-sm);
+    font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+  .next-list h3 { margin: 0; font-size: var(--text-xl); font-weight: 600;
+    letter-spacing: -0.02em; line-height: 1.3; text-wrap: pretty; }
 
-  /* the one true sequence */
-  .steps { max-width: 62ch; }
-  .steps-head { font-size: var(--text-xl); font-weight: 700; letter-spacing: -0.02em;
-    margin-bottom: 28px; }
-  .steps-list { position: relative; }
-  .steps-list::before { content: ""; position: absolute; left: 15px; top: 10px; bottom: 10px;
-    width: 2px; background: var(--border); }
-  .step-item { position: relative; padding-left: 48px; padding-bottom: 30px; }
-  .step-item:last-child { padding-bottom: 0; }
-  .step-node { position: absolute; left: 0; top: 0; width: 32px; height: 32px; border-radius: 50%;
-    background: var(--raise); border: 2px solid var(--ink); display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-sans); font-size: var(--text-sm); font-weight: 700; }
-  .step-item:last-child .step-node { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .step-title { font-size: var(--text-lg); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
-  .step-item p { color: var(--muted); font-size: var(--text-lg); }
+  /* founding partners */
+  .partners { padding-block: clamp(64px, 7vw, 96px); border-top: 1px solid var(--border); }
+  .partners-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: clamp(24px, 5vw, 72px); align-items: start; }
+  .partners-body { max-width: 60ch; }
+  .partners-lead { margin: 0 0 20px; font-size: var(--text-2xl); font-weight: 600;
+    letter-spacing: -0.02em; line-height: 1.25; text-wrap: balance; }
+  .partners-body p { margin: 0 0 16px; color: var(--muted); font-size: var(--text-lg); text-wrap: pretty; }
+  .partners-body .monthly-line { margin: 32px 0 8px; padding-top: 28px;
+    border-top: 1px solid var(--border); color: var(--ink);
+    font-size: var(--text-xl); font-weight: 500; }
+  .monthly-line b { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
-  .booking { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--border); }
-  .booking .btn { font-size: var(--text-lg); padding: 13px 24px; }
-
-  /* founding partners + ongoing management */
-  .partner-steps { display: grid; gap: 0; }
-  .partner-step { border-top: 1px solid var(--border); padding: 18px 0 22px; }
-  .partner-step:first-child { border-top: none; padding-top: 4px; }
-  .partner-step:last-child { padding-bottom: 0; }
-  .partner-step h3 { font-size: var(--text-lg); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
-  .partner-step p { color: var(--muted); font-size: var(--text-lg); }
-  .price-line { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; }
-  .price { font-size: var(--text-xl); font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
-  .price-note { color: var(--muted); font-size: var(--text-lg); }
-
-  /* closing */
-  .closing { text-align: center; padding: 84px 0; }
-  .closing h2 { font-size: var(--text-display-xs); font-weight: 700; letter-spacing: -0.035em;
-    margin-bottom: 24px; font-variant-numeric: tabular-nums; }
-  .fine { margin-top: 18px; font-size: var(--text-base); color: var(--muted); }
+  /* faqs */
+  .faq { padding-block: clamp(64px, 7vw, 96px); border-top: 1px solid var(--border); }
+  .faq-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: clamp(24px, 5vw, 72px); align-items: start; }
+  .faq-list { border-top: 1px solid var(--border); }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-item summary { display: flex; align-items: center; justify-content: space-between;
+    gap: 24px; padding: 22px 0; list-style: none; cursor: pointer;
+    font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.01em; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-ico { position: relative; flex: none; width: 18px; height: 18px; }
+  .faq-ico::before, .faq-ico::after { content: ""; position: absolute; background: currentColor;
+    border-radius: 1px; transition: transform 0.2s ease, opacity 0.2s ease; }
+  .faq-ico::before { top: 8px; left: 0; width: 18px; height: 2px; }
+  .faq-ico::after { top: 0; left: 8px; width: 2px; height: 18px; }
+  .faq-item[open] .faq-ico::after { transform: rotate(90deg); opacity: 0; }
+  .faq-item p { margin: 0 0 24px; max-width: 58ch; color: var(--muted);
+    font-size: var(--text-lg); text-wrap: pretty; }
+  .faq-item a { color: var(--ink); text-decoration: underline;
+    text-decoration-thickness: 1px; text-underline-offset: 3px; }
 
   /* footer */
-  footer { border-top: 1px solid var(--border); padding: 48px 0 32px; font-size: var(--text-base); color: var(--muted); }
-  .footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
-    padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
-  .footer-col h3 { font-size: var(--text-base); font-weight: 700; color: var(--ink); margin-bottom: 12px; }
-  .footer-col ul { list-style: none; }
-  .footer-col li { margin-bottom: 8px; }
-  .footer-col a { color: var(--muted); }
-  .footer-col a:hover { color: var(--ink); }
-  @media (max-width: 640px) { .footer-cols { grid-template-columns: 1fr; gap: 24px; } }
-  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-  .footer-loc { font-size: var(--text-base); margin: 0 0 28px; }
-  .footer-brand { display: inline-flex; align-items: center; gap: 6px; }
-  .footer-brand .logo-text { font-size: var(--text-sm); font-weight: 600; }
-  .social-icons { display: flex; gap: 14px; align-items: center; }
-  .social-icons a { display: flex; align-items: center; color: var(--ink); }
+  .site-footer { border-top: 1px solid var(--border); padding-block: 48px 28px; }
+  .footer-top { display: flex; flex-wrap: wrap; align-items: flex-end;
+    justify-content: space-between; gap: 24px; padding-bottom: 36px;
+    border-bottom: 1px solid var(--border); }
+  .footer-brand .logo-text { font-size: var(--text-xl); }
+  .footer-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px; padding-block: 32px; }
+  .footer-nav h3 { margin: 0 0 4px; font-size: var(--text-sm); font-weight: 600; color: var(--ink); }
+  .footer-nav ul { margin: 0; padding: 0; list-style: none; }
+  .footer-nav a { display: inline-flex; align-items: center; min-height: 44px;
+    color: var(--muted); font-size: var(--text-sm); }
+  .footer-nav a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  .footer-bottom { display: flex; flex-wrap: wrap; gap: 12px 24px;
+    align-items: center; justify-content: space-between;
+    padding-top: 8px; color: var(--muted); font-size: var(--text-xs); }
 
-  /* integrations logo strip */
-  .integrations { padding: 0 0 76px; text-align: center; }
-  .integrations-label { font-size: var(--text-base); color: var(--muted); margin-bottom: 28px; }
-  .logo-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
-    gap: 24px 36px; max-width: 880px; margin: 0 auto; }
-  .logo-item { display: flex; flex-direction: column; align-items: center; gap: 8px;
-    color: var(--muted); transition: color 0.15s ease; }
-  .logo-item:hover { color: var(--ink); }
-  .logo-item svg { display: block; width: 28px; height: 28px; fill: currentColor; }
-  .logo-item span { font-size: var(--text-base); }
-  .logo-chip { display: inline-flex; margin-top: 28px; padding: 5px 14px; border: 1px solid var(--border);
-    border-radius: 6px; font-size: var(--text-sm); color: var(--muted); }
-
-  /* mobile */
-  /* two-row header from 430px down, so the injected Ask AI button and the
-     CTA never push the page sideways. The shared site.css only switches at
-     379px, which left a 3px overflow at 390px. Page rules load after
-     site.css, so these win. Ask AI is a direct .nav-actions child. */
-  @media (max-width: 430px) {
-    header .nav {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      align-content: start;
-      justify-content: start;
-      height: auto;
-      gap: 8px 0;
-    }
-    header .nav > .logo { justify-self: start; min-width: 0; }
-    header .nav .nav-actions {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
-      gap: 8px;
-      align-items: center;
-      justify-content: start;
-      height: auto;
-    }
-    header .nav .nav-actions #tishka-ask-ai { grid-column: 1 / -1; width: 100%; height: 44px; line-height: 1.5; }
-    header .nav .nav-actions .nav .btn-primary { height: auto; min-height: 44px; }
-    header .nav .nav-actions #themeToggle { height: 44px; width: 44px; }
+  /* narrow screens */
+  @media (max-width: 1000px) {
+    .logo-row { grid-template-columns: repeat(4, max-content); }
+  }
+  @media (max-width: 900px) {
+    .hero-grid, .offer-grid, .partners-grid, .faq-grid { grid-template-columns: minmax(0, 1fr); }
+    .hero-grid { gap: 28px; }
+    .hero-intro { padding-top: 0; }
+  }
+  @media (max-width: 560px) {
+    .logo-row { grid-template-columns: repeat(2, max-content); }
   }
   @media (max-width: 640px) {
-    .hero { padding: 56px 0 40px; }
-    .nav { height: 64px; }
-    .nav .btn { padding: 7px 10px; font-size: var(--text-base); }
+    .hero { padding-block: 44px 40px; }
+    .nav { min-height: 64px; }
     .logo-text { font-size: var(--text-base); }
-    h1 br { display: none; }
-    .closing { padding: 64px 0; }
+    .nav .btn-primary { padding: 0 14px; font-size: var(--text-sm); }
+    .price { font-size: 3rem; }
+    .footer-nav { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 380px) {
+    /* the headline's first sentence must hold one line on the smallest phones */
+    h1 { font-size: 2.25rem; }
+  }
+  @media (max-width: 520px) {
+    /* two-row header: wordmark, theme and CTA on top, Ask AI full width below.
+       display:contents lets the injected button join the nav grid without JS. */
+    header .nav { display: grid; grid-template-columns: auto auto minmax(0, 1fr);
+      grid-template-areas: "logo theme cta" "ask ask ask";
+      align-items: center; gap: 8px; height: auto; min-height: 0; padding-block: 8px; }
+    header .nav > .logo { grid-area: logo; }
+    header .nav .nav-actions { display: contents; }
+    header .nav #themeToggle { grid-area: theme; width: 44px; height: 44px; }
+    header .nav .nav-actions .btn-primary { grid-area: cta; width: 100%; min-height: 44px; }
+    header .nav #tishka-ask-ai { grid-area: ask; width: 100%; height: 44px; line-height: 1.5; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+    .btn-primary:active { transform: none; }
   }
 </style>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yemhdfh65o");
+</script>
+</head>
 <body>
-  <header>
+  <header class="site-header">
     <div class="container nav">
       <a href="index.html" class="logo" aria-label="Tishka AI">
         <span class="logo-text">Tishka AI</span>
       </a>
       <div class="nav-actions">
-        <button id="themeToggle" class="btn btn-ghost theme-btn" type="button" aria-label="Switch colour theme">
+        <button id="themeToggle" class="theme-btn" type="button" aria-label="Switch colour theme">
           <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
           <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
         </button>
@@ -239,113 +296,114 @@
     </div>
   </header>
 
-  <!-- ============ HERO ============ -->
-  <section class="hero">
-    <div class="container">
-      <h1>Cut the admin.<br>Get the hours and the money back.</h1>
-      <p class="hero-sub">Most local owners spend too much of the week on the same repetitive tasks — chasing invoices, following up leads, scheduling, quoting, routine replies.</p>
-      <p class="hero-sub">I take those tasks off your plate so you and your team can focus on the work that actually grows the business.</p>
-      <p class="hero-loc">Working with businesses across Ceredigion, Pembrokeshire and Carmarthenshire.</p>
-    </div>
-  </section>
-
-  <!-- ============ INTEGRATIONS LOGO STRIP (kept per Pete) ============ -->
-  <section class="integrations" aria-label="Tools we connect with">
-    <div class="container">
-      <p class="integrations-label">Built on the tools you already use.</p>
-      <div class="logo-row">
-        <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg><span>Gmail</span></span>
-        <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M7.88 12.04q0 .45-.11.87-.1.41-.33.74-.22.33-.58.52-.37.2-.87.2t-.85-.2q-.35-.21-.57-.55-.22-.33-.33-.75-.1-.42-.1-.86t.1-.87q.1-.43.34-.76.22-.34.59-.54.36-.2.87-.2t.86.2q.35.21.57.55.22.34.31.77.1.43.1.88zM24 12v9.38q0 .46-.33.8-.33.32-.8.32H7.13q-.46 0-.8-.33-.32-.33-.32-.8V18H1q-.41 0-.7-.3-.3-.29-.3-.7V7q0-.41.3-.7Q.58 6 1 6h6.5V2.55q0-.44.3-.75.3-.3.75-.3h12.9q.44 0 .75.3.3.3.3.75V10.85l1.24.72h.01q.1.07.18.18.07.12.07.25zm-6-8.25v3h3v-3zm0 4.5v3h3v-3zm0 4.5v1.83l3.05-1.83zm-5.25-9v3h3.75v-3zm0 4.5v3h3.75v-3zm0 4.5v2.03l2.41 1.5 1.34-.8v-2.73zM9 3.75V6h2l.13.01.12.04v-2.3zM5.98 15.98q.9 0 1.6-.3.7-.32 1.19-.86.48-.55.73-1.28.25-.74.25-1.61 0-.83-.25-1.55-.24-.71-.71-1.24t-1.15-.83q-.68-.3-1.55-.3-.92 0-1.64.3-.71.3-1.2.85-.5.54-.75 1.3-.25.74-.25 1.63 0 .85.26 1.56.26.72.74 1.23.48.52 1.17.81.69.3 1.56.3zM7.5 21h12.39L12 16.08V17q0 .41-.3.7-.29.3-.7.3H7.5zm15-.13v-7.24l-5.9 3.54Z"/></svg><span>Outlook</span></span>
-        <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.585 14.655c-1.485 0-2.69-1.206-2.69-2.689 0-1.485 1.207-2.691 2.69-2.691 1.485 0 2.69 1.207 2.69 2.691s-1.207 2.689-2.69 2.689zM7.53 14.644c-.099 0-.192-.041-.267-.116l-2.043-2.04-2.052 2.047c-.069.068-.16.108-.258.108-.202 0-.368-.166-.368-.368 0-.099.04-.191.111-.263l2.04-2.05-2.038-2.047c-.075-.069-.113-.162-.113-.261 0-.203.166-.366.368-.366.098 0 .188.037.258.105l2.055 2.048 2.048-2.045c.069-.071.162-.108.26-.108.211 0 .375.165.375.366 0 .098-.029.188-.104.258l-2.056 2.055 2.055 2.051c.068.069.104.16.104.258 0 .202-.165.368-.365.368h-.01zm8.017-4.591c-.796.101-.882.476-.882 1.404v2.787c0 .202-.165.366-.366.366-.203 0-.367-.165-.368-.366v-4.53c0-.204.16-.366.362-.366.166 0 .316.125.346.289.27-.209.6-.317.93-.317h.105c.195 0 .359.165.359.368 0 .201-.164.352-.375.359 0 0-.09 0-.164.008l.053-.002zm-3.091 2.205H8.625c0 .019.003.037.006.057.02.105.045.211.083.31.194.531.765 1.275 1.829 1.29.33-.003.631-.086.9-.229.21-.12.391-.271.525-.428.045-.058.09-.112.12-.168.18-.229.405-.186.54-.083.164.135.18.391.045.57l-.016.016c-.21.27-.435.495-.689.66-.255.164-.525.284-.811.345-.33.09-.645.104-.975.06-1.095-.135-2.01-.93-2.28-2.01-.06-.21-.09-.42-.09-.645 0-.855.421-1.695 1.125-2.205.885-.615 2.085-.66 3-.075.63.405 1.035 1.021 1.185 1.771.075.419-.21.794-.734.81l.068-.046zm6.129-2.223c-1.064 0-1.931.865-1.931 1.931 0 1.064.866 1.931 1.931 1.931s1.931-.867 1.931-1.931c0-1.065-.866-1.933-1.931-1.933v.002zm0 2.595c-.367 0-.666-.297-.666-.666 0-.367.3-.665.666-.665.367 0 .667.299.667.665 0 .369-.3.667-.667.666zm-8.04-2.603c-.91 0-1.672.623-1.886 1.466v.03h3.776c-.203-.855-.973-1.494-1.891-1.494v-.002z"/></svg><span>Xero</span></span>
-        <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm.642 4.1335c.9554 0 1.7296.776 1.7296 1.7332v9.0667h1.6c1.614 0 2.9275-1.3156 2.9275-2.933 0-1.6173-1.3136-2.9333-2.9276-2.9333h-.6654V7.3334h.6654c2.5722 0 4.6577 2.0897 4.6577 4.667 0 2.5774-2.0855 4.6666-4.6577 4.6666H12.642zM7.9837 7.333h3.3291v12.533c-.9555 0-1.73-.7759-1.73-1.7332V9.0662H7.9837c-1.6146 0-2.9277 1.316-2.9277 2.9334 0 1.6175 1.3131 2.9333 2.9277 2.9333h.6654v1.7332h-.6654c-2.5725 0-4.6577-2.0892-4.6577-4.6665 0-2.5771 2.0852-4.6666 4.6577-4.6666Z"/></svg><span>QuickBooks</span></span>
-        <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg><span>Slack</span></span>
-        <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M20.625 8.127q-.55 0-1.025-.205-.475-.205-.832-.563-.358-.357-.563-.832Q18 6.053 18 5.502q0-.54.205-1.02t.563-.837q.357-.358.832-.563.474-.205 1.025-.205.54 0 1.02.205t.837.563q.358.357.563.837.205.48.205 1.02 0 .55-.205 1.025-.205.475-.563.832-.357.358-.837.563-.48.205-1.02.205zm0-3.75q-.469 0-.797.328-.328.328-.328.797 0 .469.328.797.328.328.797.328.469 0 .797-.328.328-.328.328-.797 0-.469-.328-.797-.328-.328-.797-.328zM24 10.002v5.578q0 .774-.293 1.46-.293.685-.803 1.194-.51.51-1.195.803-.686.293-1.459.293-.445 0-.908-.105-.463-.106-.85-.329-.293.95-.855 1.729-.563.78-1.319 1.336-.756.557-1.67.861-.914.305-1.898.305-1.148 0-2.162-.398-1.014-.399-1.805-1.102-.79-.703-1.312-1.664t-.674-2.086h-5.8q-.411 0-.704-.293T0 16.881V6.873q0-.41.293-.703t.703-.293h8.59q-.34-.715-.34-1.5 0-.727.275-1.365.276-.639.75-1.114.475-.474 1.114-.75.638-.275 1.365-.275t1.365.275q.639.276 1.114.75.474.475.75 1.114.275.638.275 1.365t-.275 1.365q-.276.639-.75 1.113-.475.475-1.114.75-.638.276-1.365.276-.188 0-.375-.024-.188-.023-.375-.058v1.078h10.875q.469 0 .797.328.328.328.328.797zM12.75 2.373q-.41 0-.78.158-.368.158-.638.434-.27.275-.428.639-.158.363-.158.773 0 .41.158.78.159.368.428.638.27.27.639.428.369.158.779.158.41 0 .773-.158.364-.159.64-.428.274-.27.433-.639.158-.369.158-.779 0-.41-.158-.773-.159-.364-.434-.64-.275-.275-.639-.433-.363-.158-.773-.158zM6.937 9.814h2.25V7.94H2.814v1.875h2.25v6h1.875zm10.313 7.313v-6.75H12v6.504q0 .41-.293.703t-.703.293H8.309q.152.809.556 1.5.405.691.985 1.19.58.497 1.318.779.738.281 1.582.281.926 0 1.746-.352.82-.351 1.436-.966.615-.616.966-1.43.352-.815.352-1.752zm5.25-1.547v-5.203h-3.75v6.855q.305.305.691.452.387.146.809.146.469 0 .879-.176.41-.175.715-.48.304-.305.48-.715t.176-.879Z"/></svg><span>Teams</span></span>
-        <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M18.164 7.93V5.084a2.198 2.198 0 001.267-1.978v-.067A2.2 2.2 0 0017.238.845h-.067a2.2 2.2 0 00-2.193 2.193v.067a2.196 2.196 0 001.252 1.973l.013.006v2.852a6.22 6.22 0 00-2.969 1.31l.012-.01-7.828-6.095A2.497 2.497 0 104.3 4.656l-.012.006 7.697 5.991a6.176 6.176 0 00-1.038 3.446c0 1.343.425 2.588 1.147 3.607l-.013-.02-2.342 2.343a1.968 1.968 0 00-.58-.095h-.002a2.033 2.033 0 102.033 2.033 1.978 1.978 0 00-.1-.595l.005.014 2.317-2.317a6.247 6.247 0 104.782-11.134l-.036-.005zm-.964 9.378a3.206 3.206 0 113.215-3.207v.002a3.206 3.206 0 01-3.207 3.207z"/></svg><span>HubSpot</span></span>
-        <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M19.655 14.262c.281 0 .557.023.828.064 0 .005-.005.01-.005.014-.105.267-.234.534-.381.786l-1.219 2.106c-1.112 1.936-3.177 3.127-5.411 3.127h-2.432c-2.23 0-4.294-1.191-5.412-3.127l-1.218-2.106a6.251 6.251 0 0 1 0-6.252l1.218-2.106C6.736 4.832 8.8 3.641 11.035 3.641h2.432c2.23 0 4.294 1.191 5.411 3.127l1.219 2.106c.147.252.271.519.381.786 0 .004.005.009.005.014-.267.041-.543.064-.828.064-1.816 0-2.501-.607-3.291-1.306-.764-.676-1.711-1.517-3.44-1.517h-1.029c-1.251 0-2.387.455-3.2 1.278-.796.805-1.233 1.904-1.233 3.099v1.411c0 1.196.437 2.295 1.233 3.099.813.823 1.949 1.278 3.2 1.278h1.034c1.729 0 2.676-.841 3.439-1.517.791-.703 1.471-1.306 3.287-1.301Zm.005-3.237c.399 0 .794-.036 1.179-.11-.002-.004-.002-.01-.002-.014-.073-.414-.193-.823-.349-1.218.731-.12 1.407-.396 1.986-.819 0-.004-.005-.013-.005-.018-.331-1.085-.832-2.101-1.489-3.03-.649-.915-1.435-1.719-2.331-2.395-1.867-1.398-4.088-2.138-6.428-2.138-1.448 0-2.855.28-4.175.841-1.273.543-2.423 1.315-3.407 2.299S2.878 6.552 2.341 7.83c-.557 1.324-.842 2.726-.842 4.175 0 1.448.281 2.855.842 4.174.542 1.274 1.314 2.423 2.298 3.407s2.129 1.761 3.407 2.299c1.324.556 2.727.841 4.175.841 2.34 0 4.561-.74 6.428-2.137a10.815 10.815 0 0 0 2.331-2.396c.652-.929 1.158-1.949 1.489-3.03 0-.004.005-.014.005-.018-.579-.423-1.255-.699-1.986-.819.161-.395.276-.804.349-1.218.005-.009.005-.014.005-.023.869.166 1.692.506 2.404 1.035.685.505.552 1.075.446 1.416C22.184 20.437 17.619 24 12.221 24c-6.625 0-12-5.375-12-12s5.37-12 12-12c5.398 0 9.963 3.563 11.471 8.464.106.341.239.915-.446 1.421-.717.529-1.535.873-2.404 1.034.128.716.128 1.45 0 2.166-.387-.074-.782-.11-1.182-.11-4.184 0-3.968 2.823-6.736 2.823h-1.029c-1.899 0-3.15-1.357-3.15-3.095v-1.411c0-1.738 1.251-3.094 3.15-3.094h1.034c2.768 0 2.552 2.823 6.731 2.827Z"/></svg><span>Calendly</span></span>
-      </div>
-      <span class="logo-chip">Plus 1,000+ apps</span>
-    </div>
-  </section>
-
-  <!-- ============ THE DIAGNOSTIC ============ -->
-  <section id="diagnostic" class="band">
-    <div class="container">
-      <div class="split">
-        <div class="split-aside">
-          <h2 class="split-title">Start with the diagnostic</h2>
-          <p class="fee">£499 fixed</p>
-          <p class="split-sub">One conversation. I map your actual week and show exactly where the hours and money are leaking.</p>
-          <p class="guarantee">If I cannot find at least <span class="found">5 reclaimable hours</span> a week, you get the £499 back in full.</p>
-          <p class="credit-note">If we go ahead with any work, the full £499 comes off the price of the build.</p>
-        </div>
-        <div class="split-body">
-          <div class="steps">
-            <h3 class="steps-head">What happens next</h3>
-            <div class="steps-list">
-              <div class="step-item">
-                <div class="step-node">01</div>
-                <h3 class="step-title">Discovery call (about 1 hour)</h3>
-              </div>
-              <div class="step-item">
-                <div class="step-node">02</div>
-                <h3 class="step-title">Clear report in plain English showing the leaks and the first fix</h3>
-              </div>
-              <div class="step-item">
-                <div class="step-node">03</div>
-                <h3 class="step-title">You decide. Nothing is built until you say yes.</h3>
-              </div>
-            </div>
-            <div class="booking">
-              <a href="contact.html" class="btn btn-primary">Book the diagnostic</a>
-            </div>
+  <main>
+    <!-- hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <h1>Cut the admin.<br>Get the hours and the money back.</h1>
+        <div class="hero-intro">
+          <p class="lead">Most local owners spend too much of the week on the same repetitive tasks — chasing invoices, following up leads, scheduling, quoting, routine replies.</p>
+          <p class="lead">I take those tasks off your plate so you and your team can focus on the work that actually grows the business.</p>
+          <div class="hero-actions">
+            <a href="contact.html" class="btn btn-primary">Book the diagnostic</a>
+            <p class="hero-loc">Working with businesses across Ceredigion, Pembrokeshire and Carmarthenshire.</p>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ FOUNDING PARTNERS + ONGOING MANAGEMENT ============ -->
-  <section id="partners">
-    <div class="container">
-      <div class="split">
-        <div class="split-aside">
-          <h2 class="split-title">Founding partners</h2>
+    <!-- tools (kept per Pete) -->
+    <section class="tools" aria-label="Tools we connect with">
+      <div class="container tools-row">
+        <div class="tools-head">
+          <p class="tools-label">Built on the tools you already use.</p>
+          <span class="logo-chip">Plus 1,000+ apps</span>
         </div>
-        <div class="split-body">
-          <div class="partner-steps">
-            <div class="partner-step">
-              <h3 class="step-title">I am looking for 3 local case-study clients.</h3>
-              <p>For these three the initial build fee is waived in exchange for honest feedback and a short testimonial.</p>
-            </div>
-            <div class="partner-step">
-              <h3 class="step-title">The diagnostics still count.</h3>
-              <p>The £499 diagnostic still credits against the monthly fee.</p>
-            </div>
-            <div class="partner-step">
-              <div class="price-line"><span class="price">£250–£400</span><span class="price-note">per month</span></div>
-              <h3 class="step-title">Ongoing management once the first win is live.</h3>
-              <p>You stay in control. Nothing sends without your approval.</p>
-            </div>
-          </div>
+        <div class="logo-row">
+          <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg><span>Gmail</span></span>
+          <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M7.88 12.04q0 .45-.11.87-.1.41-.33.74-.22.33-.58.52-.37.2-.87.2t-.85-.2q-.35-.21-.57-.55-.22-.33-.33-.75-.1-.42-.1-.86t.1-.87q.1-.43.34-.76.22-.34.59-.54.36-.2.87-.2t.86.2q.35.21.57.55.22.34.31.77.1.43.1.88zM24 12v9.38q0 .46-.33.8-.33.32-.8.32H7.13q-.46 0-.8-.33-.32-.33-.32-.8V18H1q-.41 0-.7-.3-.3-.29-.3-.7V7q0-.41.3-.7Q.58 6 1 6h6.5V2.55q0-.44.3-.75.3-.3.75-.3h12.9q.44 0 .75.3.3.3.3.75V10.85l1.24.72h.01q.1.07.18.18.07.12.07.25zm-6-8.25v3h3v-3zm0 4.5v3h3v-3zm0 4.5v1.83l3.05-1.83zm-5.25-9v3h3.75v-3zm0 4.5v3h3.75v-3zm0 4.5v2.03l2.41 1.5 1.34-.8v-2.73zM9 3.75V6h2l.13.01.12.04v-2.3zM5.98 15.98q.9 0 1.6-.3.7-.32 1.19-.86.48-.55.73-1.28.25-.74.25-1.61 0-.83-.25-1.55-.24-.71-.71-1.24t-1.15-.83q-.68-.3-1.55-.3-.92 0-1.64.3-.71.3-1.2.85-.5.54-.75 1.3-.25.74-.25 1.63 0 .85.26 1.56.26.72.74 1.23.48.52 1.17.81.69.3 1.56.3zM7.5 21h12.39L12 16.08V17q0 .41-.3.7-.29.3-.7.3H7.5zm15-.13v-7.24l-5.9 3.54Z"/></svg><span>Outlook</span></span>
+          <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.585 14.655c-1.485 0-2.69-1.206-2.69-2.689 0-1.485 1.207-2.691 2.69-2.691 1.485 0 2.69 1.207 2.69 2.691s-1.207 2.689-2.69 2.689zM7.53 14.644c-.099 0-.192-.041-.267-.116l-2.043-2.04-2.052 2.047c-.069.068-.16.108-.258.108-.202 0-.368-.166-.368-.368 0-.099.04-.191.111-.263l2.04-2.05-2.038-2.047c-.075-.069-.113-.162-.113-.261 0-.203.166-.366.368-.366.098 0 .188.037.258.105l2.055 2.048 2.048-2.045c.069-.071.162-.108.26-.108.211 0 .375.165.375.366 0 .098-.029.188-.104.258l-2.056 2.055 2.055 2.051c.068.069.104.16.104.258 0 .202-.165.368-.365.368h-.01zm8.017-4.591c-.796.101-.882.476-.882 1.404v2.787c0 .202-.165.366-.366.366-.203 0-.367-.165-.368-.366v-4.53c0-.204.16-.366.362-.366.166 0 .316.125.346.289.27-.209.6-.317.93-.317h.105c.195 0 .359.165.359.368 0 .201-.164.352-.375.359 0 0-.09 0-.164.008l.053-.002zm-3.091 2.205H8.625c0 .019.003.037.006.057.02.105.045.211.083.31.194.531.765 1.275 1.829 1.29.33-.003.631-.086.9-.229.21-.12.391-.271.525-.428.045-.058.09-.112.12-.168.18-.229.405-.186.54-.083.164.135.18.391.045.57l-.016.016c-.21.27-.435.495-.689.66-.255.164-.525.284-.811.345-.33.09-.645.104-.975.06-1.095-.135-2.01-.93-2.28-2.01-.06-.21-.09-.42-.09-.645 0-.855.421-1.695 1.125-2.205.885-.615 2.085-.66 3-.075.63.405 1.035 1.021 1.185 1.771.075.419-.21.794-.734.81l.068-.046zm6.129-2.223c-1.064 0-1.931.865-1.931 1.931 0 1.064.866 1.931 1.931 1.931s1.931-.867 1.931-1.931c0-1.065-.866-1.933-1.931-1.933v.002zm0 2.595c-.367 0-.666-.297-.666-.666 0-.367.3-.665.666-.665.367 0 .667.299.667.665 0 .369-.3.667-.667.666zm-8.04-2.603c-.91 0-1.672.623-1.886 1.466v.03h3.776c-.203-.855-.973-1.494-1.891-1.494v-.002z"/></svg><span>Xero</span></span>
+          <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm.642 4.1335c.9554 0 1.7296.776 1.7296 1.7332v9.0667h1.6c1.614 0 2.9275-1.3156 2.9275-2.933 0-1.6173-1.3136-2.9333-2.9276-2.9333h-.6654V7.3334h.6654c2.5722 0 4.6577 2.0897 4.6577 4.667 0 2.5774-2.0855 4.6666-4.6577 4.6666H12.642zM7.9837 7.333h3.3291v12.533c-.9555 0-1.73-.7759-1.73-1.7332V9.0662H7.9837c-1.6146 0-2.9277 1.316-2.9277 2.9334 0 1.6175 1.3131 2.9333 2.9277 2.9333h.6654v1.7332h-.6654c-2.5725 0-4.6577-2.0892-4.6577-4.6665 0-2.5771 2.0852-4.6666 4.6577-4.6666Z"/></svg><span>QuickBooks</span></span>
+          <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg><span>Slack</span></span>
+          <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M20.625 8.127q-.55 0-1.025-.205-.475-.205-.832-.563-.358-.357-.563-.832Q18 6.053 18 5.502q0-.54.205-1.02t.563-.837q.357-.358.832-.563.474-.205 1.025-.205.54 0 1.02.205t.837.563q.358.357.563.837.205.48.205 1.02 0 .55-.205 1.025-.205.475-.563.832-.357.358-.837.563-.48.205-1.02.205zm0-3.75q-.469 0-.797.328-.328.328-.328.797 0 .469.328.797.328.328.797.328.469 0 .797-.328.328-.328.328-.797 0-.469-.328-.797-.328-.328-.797-.328zM24 10.002v5.578q0 .774-.293 1.46-.293.685-.803 1.194-.51.51-1.195.803-.686.293-1.459.293-.445 0-.908-.105-.463-.106-.85-.329-.293.95-.855 1.729-.563.78-1.319 1.336-.756.557-1.67.861-.914.305-1.898.305-1.148 0-2.162-.398-1.014-.399-1.805-1.102-.79-.703-1.312-1.664t-.674-2.086h-5.8q-.411 0-.704-.293T0 16.881V6.873q0-.41.293-.703t.703-.293h8.59q-.34-.715-.34-1.5 0-.727.275-1.365.276-.639.75-1.114.475-.474 1.114-.75.638-.275 1.365-.275t1.365.275q.639.276 1.114.75.474.475.75 1.114.275.638.275 1.365t-.275 1.365q-.276.639-.75 1.113-.475.475-1.114.75-.638.276-1.365.276-.188 0-.375-.024-.188-.023-.375-.058v1.078h10.875q.469 0 .797.328.328.328.328.797zM12.75 2.373q-.41 0-.78.158-.368.158-.638.434-.27.275-.428.639-.158.363-.158.773 0 .41.158.78.159.368.428.638.27.27.639.428.369.158.779.158.41 0 .773-.158.364-.159.64-.428.274-.27.433-.639.158-.369.158-.779 0-.41-.158-.773-.159-.364-.434-.64-.275-.275-.639-.433-.363-.158-.773-.158zM6.937 9.814h2.25V7.94H2.814v1.875h2.25v6h1.875zm10.313 7.313v-6.75H12v6.504q0 .41-.293.703t-.703.293H8.309q.152.809.556 1.5.405.691.985 1.19.58.497 1.318.779.738.281 1.582.281.926 0 1.746-.352.82-.351 1.436-.966.615-.616.966-1.43.352-.815.352-1.752zm5.25-1.547v-5.203h-3.75v6.855q.305.305.691.452.387.146.809.146.469 0 .879-.176.41-.175.715-.48.304-.305.48-.715t.176-.879Z"/></svg><span>Teams</span></span>
+          <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M18.164 7.93V5.084a2.198 2.198 0 001.267-1.978v-.067A2.2 2.2 0 0017.238.845h-.067a2.2 2.2 0 00-2.193 2.193v.067a2.196 2.196 0 001.252 1.973l.013.006v2.852a6.22 6.22 0 00-2.969 1.31l.012-.01-7.828-6.095A2.497 2.497 0 104.3 4.656l-.012.006 7.697 5.991a6.176 6.176 0 00-1.038 3.446c0 1.343.425 2.588 1.147 3.607l-.013-.02-2.342 2.343a1.968 1.968 0 00-.58-.095h-.002a2.033 2.033 0 102.033 2.033 1.978 1.978 0 00-.1-.595l.005.014 2.317-2.317a6.247 6.247 0 104.782-11.134l-.036-.005zm-.964 9.378a3.206 3.206 0 113.215-3.207v.002a3.206 3.206 0 01-3.207 3.207z"/></svg><span>HubSpot</span></span>
+          <span class="logo-item"><svg viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false"><path d="M19.655 14.262c.281 0 .557.023.828.064 0 .005-.005.01-.005.014-.105.267-.234.534-.381.786l-1.219 2.106c-1.112 1.936-3.177 3.127-5.411 3.127h-2.432c-2.23 0-4.294-1.191-5.412-3.127l-1.218-2.106a6.251 6.251 0 0 1 0-6.252l1.218-2.106C6.736 4.832 8.8 3.641 11.035 3.641h2.432c2.23 0 4.294 1.191 5.411 3.127l1.219 2.106c.147.252.271.519.381.786 0 .004.005.009.005.014-.267.041-.543.064-.828.064-1.816 0-2.501-.607-3.291-1.306-.764-.676-1.711-1.517-3.44-1.517h-1.029c-1.251 0-2.387.455-3.2 1.278-.796.805-1.233 1.904-1.233 3.099v1.411c0 1.196.437 2.295 1.233 3.099.813.823 1.949 1.278 3.2 1.278h1.034c1.729 0 2.676-.841 3.439-1.517.791-.703 1.471-1.306 3.287-1.301Zm.005-3.237c.399 0 .794-.036 1.179-.11-.002-.004-.002-.01-.002-.014-.073-.414-.193-.823-.349-1.218.731-.12 1.407-.396 1.986-.819 0-.004-.005-.013-.005-.018-.331-1.085-.832-2.101-1.489-3.03-.649-.915-1.435-1.719-2.331-2.395-1.867-1.398-4.088-2.138-6.428-2.138-1.448 0-2.855.28-4.175.841-1.273.543-2.423 1.315-3.407 2.299S2.878 6.552 2.341 7.83c-.557 1.324-.842 2.726-.842 4.175 0 1.448.281 2.855.842 4.174.542 1.274 1.314 2.423 2.298 3.407s2.129 1.761 3.407 2.299c1.324.556 2.727.841 4.175.841 2.34 0 4.561-.74 6.428-2.137a10.815 10.815 0 0 0 2.331-2.396c.652-.929 1.158-1.949 1.489-3.03 0-.004.005-.014.005-.018-.579-.423-1.255-.699-1.986-.819.161-.395.276-.804.349-1.218.005-.009.005-.014.005-.023.869.166 1.692.506 2.404 1.035.685.505.552 1.075.446 1.416C22.184 20.437 17.619 24 12.221 24c-6.625 0-12-5.375-12-12s5.37-12 12-12c5.398 0 9.963 3.563 11.471 8.464.106.341.239.915-.446 1.421-.717.529-1.535.873-2.404 1.034.128.716.128 1.45 0 2.166-.387-.074-.782-.11-1.182-.11-4.184 0-3.968 2.823-6.736 2.823h-1.029c-1.899 0-3.15-1.357-3.15-3.095v-1.411c0-1.738 1.251-3.094 3.15-3.094h1.034c2.768 0 2.552 2.823 6.731 2.827Z"/></svg><span>Calendly</span></span>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ CLOSING ============ -->
-  <section class="band closing" id="book">
-    <div class="container">
-      <h2>Book the diagnostic</h2>
-      <a href="contact.html" class="btn btn-primary">Book the diagnostic</a>
-      <p class="fine">£499 fixed. 5 reclaimable hours found or your money back. Credited in full against the build.</p>
-    </div>
-  </section>
+    <!-- the offer and the sequence -->
+    <section class="offer" id="diagnostic" aria-labelledby="offer-title">
+      <div class="container offer-grid">
+        <div class="offer-card">
+          <h2 id="offer-title">Start with the diagnostic</h2>
+          <p class="price">£499 <span>fixed</span></p>
+          <p class="offer-desc">One conversation. I map your actual week and show exactly where the hours and money are leaking.</p>
+          <p class="offer-refund">If I cannot find at least <span class="found">5 reclaimable hours</span> a week, you get the £499 back in full.</p>
+          <p class="offer-credit">If we go ahead with any work, the full £499 comes off the price of the build.</p>
+          <a href="contact.html" class="btn btn-primary">Book the diagnostic</a>
+        </div>
+        <div class="next">
+          <h2 id="next-title">What happens next</h2>
+          <ol class="next-list">
+            <li><span class="next-n" aria-hidden="true">01</span><h3>Discovery call (about 1 hour)</h3></li>
+            <li><span class="next-n" aria-hidden="true">02</span><h3>Clear report in plain English showing the leaks and the first fix</h3></li>
+            <li><span class="next-n" aria-hidden="true">03</span><h3>You decide. Nothing is built until you say yes.</h3></li>
+          </ol>
+        </div>
+      </div>
+    </section>
 
-  <!-- Footer -->
-  <footer>
+    <!-- founding partners -->
+    <section class="partners" id="partners" aria-labelledby="partners-title">
+      <div class="container partners-grid">
+        <h2 id="partners-title">Founding partners</h2>
+        <div class="partners-body">
+          <p class="partners-lead">I am looking for 3 local case-study clients.</p>
+          <p>For these three the initial build fee is waived in exchange for honest feedback and a short testimonial.</p>
+          <p>The £499 diagnostic still credits against the monthly fee.</p>
+          <p class="monthly-line">Ongoing management is <b>£250–£400</b> per month once the first win is live.</p>
+          <p>You stay in control. Nothing sends without your approval.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- faqs -->
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div class="container faq-grid">
+        <h2 id="faq-title">FAQs</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary><span>What does it cost?</span><span class="faq-ico" aria-hidden="true"></span></summary>
+            <p>Diagnostic £499 (refundable if no 5 hours found, or fully credited if we build). First build quoted fixed after the diagnostic. Ongoing £250–£400 per month after you have seen the result.</p>
+          </details>
+          <details class="faq-item">
+            <summary><span>Will this replace my team?</span><span class="faq-ico" aria-hidden="true"></span></summary>
+            <p>No. It takes the repetitive work so your team can do the valuable work.</p>
+          </details>
+          <details class="faq-item">
+            <summary><span>Do we have to change our software?</span><span class="faq-ico" aria-hidden="true"></span></summary>
+            <p>No. It works with the tools you already use.</p>
+          </details>
+          <details class="faq-item">
+            <summary><span>More questions?</span><span class="faq-ico" aria-hidden="true"></span></summary>
+            <p><a href="contact.html">Just ask.</a></p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
     <div class="container">
-      <div class="footer-cols">
-        <div class="footer-col">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="logo-text">Tishka AI</span>
+        </div>
+        <a href="contact.html" class="btn btn-primary">Book the diagnostic</a>
+      </div>
+      <div class="footer-nav">
+        <div>
           <h3>Read</h3>
           <ul>
             <li><a href="blog.html">Blog</a></li>
@@ -353,29 +411,30 @@
             <li><a href="pembrokeshire.html">Pembrokeshire</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+        <div>
           <h3>Legal</h3>
           <ul>
             <li><a href="terms.html">Terms &amp; Conditions</a></li>
             <li><a href="privacy.html">Privacy Policy</a></li>
           </ul>
         </div>
-      </div>
-      <p class="footer-loc">Tishka AI &middot; Cardigan, Ceredigion &middot; Working across Ceredigion, Pembrokeshire and Carmarthenshire.</p>
-      <div class="footer-bottom">
-        <div class="social-icons">
-          <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
-          <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <div>
+          <h3>Follow</h3>
+          <ul>
+            <li><a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
+            <li><a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
         </div>
-        <div class="footer-brand"><span class="logo-text">Tishka AI</span> <span>&copy; 2026</span></div>
-        <a class="btn btn-primary" href="contact.html">Book the diagnostic</a>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Tishka AI</span>
+        <span>Cardigan, Ceredigion</span>
       </div>
     </div>
   </footer>
 
   <script>
   (function () {
-    /* theme toggle (dark default, light opt-in) */
     var themeBtn = document.getElementById('themeToggle');
     themeBtn.addEventListener('click', function () {
       var dark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -384,9 +443,6 @@
     });
   })();
   </script>
-
-  <!-- Chat widget (Tishka AI assistant) -->
   <script src="chat-widget.js"></script>
 </body>
 </html>
-<!-- deploy trigger -->
