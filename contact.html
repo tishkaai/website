@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <!-- ============================================================
   TISHKA AI — BOOK THE DIAGNOSTIC
-  Rebuilt 2026-09-04 in the home page v2 style (Inter,
-  site.css tokens, paper/ink identity). Form plumbing is
-  UNCHANGED: same n8n webhook, same Cal.com redirect, same field names.
-  Copy aligned to the £499 diagnostic per Pete's 2026-09-04 decisions
-  (diagnostic front door · 5 hrs found or full refund · every pound
-  credited). Budget options switched $ -> £. SOP name rule: customer-
-  facing = "diagnostic", never "assessment/audit".
+  Rebuilt 2026-09-04 in the home page v2 style (Inter, site.css tokens).
+  2026-11-03: founding-partner banner removed, pricing/guarantee aligned to
+  the homepage, and the dead n8n lead webhook removed. The form now prefills
+  Cal.com with the visitor's name and email and sends them straight to the
+  booking page. Copy aligned to the £499 diagnostic (5 hrs found or full
+  refund, every pound credited). SOP name rule: customer-facing wording is
+  "diagnostic", never "assessment/audit".
 ============================================================= -->
 <html lang="en">
 <head>
@@ -95,6 +95,8 @@
   textarea { min-height: 140px; resize: vertical; }
   .form-submit { grid-column: 1 / -1; margin-top: 8px; }
   .form-submit .btn { width: 100%; padding: 14px 18px; }
+  .book-alt { margin: 18px 0 0; font-size: var(--text-base); color: var(--muted); }
+  .book-alt a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
   /* form feedback states */
   .form-message { border-radius: 8px; padding: 18px 20px; font-size: var(--text-base); line-height: 1.5;
@@ -182,81 +184,32 @@
         <p>One hour on how your week actually runs: who does what, when, and where the bottlenecks build up in the working day. No pitch, no tech talk.</p>
         <div class="guarantee"><b>£499 fixed.</b> If we cannot find at least 5 reclaimable hours a week, you get the £499 back in full. If we go ahead with any work, the full £499 comes off the price of the build.</div>
         <p class="ongoing">Ongoing management is <b>£250–£400</b> per month once the first win is live. You stay in control. Nothing sends without your approval.</p>
-        <p class="fee-note">Send the form and you're taken straight to the booking page to pick your time.</p>
+        <p class="fee-note">Fill in your name and email, then pick a time on the next page.</p>
       </div>
       <div class="form-card">
-        <!-- Lead capture via n8n (PikaPods). POSTs to the "Lead Capture" workflow,
-             which writes the lead to Supabase + pings Pete on Telegram, then the
-             visitor is redirected to Cal.com to book the diagnostic. -->
-        <div id="form-success" class="form-message success" role="status" aria-live="polite">
-          Thanks, you're being taken to the booking page to pick your time for the discovery call.
-        </div>
-        <div id="form-error" class="form-message error" role="alert" aria-live="polite">
-          We could not send your details just now. You can still pick a time on the <a href="https://cal.com/tishka/30min?user=tishka&amp;overlayCalendar=true">booking page</a>, or email Pete at <a href="mailto:pete@tishka.ai">pete@tishka.ai</a>.
-        </div>
-        <form id="book-diagnostic-form" action="https://armored-perch.pikapod.net/webhook/book-diagnostic" method="POST">
+        <!-- Cal.com prefill: collect the name and email, then hand them to the
+             booking page. The old n8n lead-capture host is gone; nothing is
+             stored on this page. -->
+        <form id="book-diagnostic-form">
           <div class="form-grid">
             <div class="form-group">
-              <label for="first-name">First Name</label>
-              <input id="first-name" name="first-name" type="text" required>
+              <label for="first-name">First name</label>
+              <input id="first-name" name="first-name" type="text" autocomplete="given-name" required>
             </div>
             <div class="form-group">
-              <label for="last-name">Last Name</label>
-              <input id="last-name" name="last-name" type="text" required>
-            </div>
-            <div class="form-group">
-              <label for="work-email">Work Email</label>
-              <input id="work-email" name="work-email" type="email" placeholder="you@company.com" required>
-            </div>
-            <div class="form-group">
-              <label for="company">Company</label>
-              <input id="company" name="company" type="text">
-            </div>
-            <div class="form-group">
-              <label for="website">Company Website</label>
-              <input id="website" name="website" type="url" placeholder="https://...">
-            </div>
-            <div class="form-group">
-              <label for="role">Your Role</label>
-              <select id="role" name="role">
-                <option value="" disabled selected>Select your role</option>
-                <option>CEO / Founder</option>
-                <option>COO / Head of Operations</option>
-                <option>CFO / Finance Lead</option>
-                <option>CIO / CTO / Head of Data</option>
-                <option>VP / Director</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="size">Company Size</label>
-              <select id="size" name="size">
-                <option value="" disabled selected>Number of employees</option>
-                <option>1 - 10</option>
-                <option>11 - 25</option>
-                <option>26 - 50</option>
-                <option>50+</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="budget">Budget Range</label>
-              <select id="budget" name="budget">
-                <option value="" disabled selected>Select a range</option>
-                <option>Under £5K</option>
-                <option>£5K - £10K</option>
-                <option>£10K - £15K</option>
-                <option>Not Sure Yet</option>
-              </select>
+              <label for="last-name">Last name</label>
+              <input id="last-name" name="last-name" type="text" autocomplete="family-name" required>
             </div>
             <div class="form-group full">
-              <label for="project">Anything we should know before the call?</label>
-              <textarea id="project" name="project" placeholder="What does a typical week look like? Where do you think the time goes?"></textarea>
+              <label for="work-email">Email</label>
+              <input id="work-email" name="work-email" type="email" autocomplete="email" placeholder="you@company.com" required>
             </div>
             <div class="form-group full form-submit">
-              <button type="submit" class="btn btn-primary">Book the diagnostic</button>
+              <button type="submit" class="btn btn-primary">Choose a time</button>
             </div>
           </div>
         </form>
+        <p class="book-alt">Prefer to talk first? Email <a href="mailto:pete@tishka.ai">pete@tishka.ai</a>.</p>
       </div>
     </div>
   </section>
@@ -302,48 +255,24 @@
     });
   })();
 
-  // Lead capture via n8n (PikaPods). POST form-encoded data to the "Lead Capture"
-  // workflow (form-encoded is a "simple" CORS request, so no preflight — n8n's
-  // webhook 500s on preflight). On success, redirect to Cal.com to book.
+  // Cal.com prefill: no backend needed. The name and email travel as query
+  // params, so the booking page opens with the visitor's details filled in.
   (function () {
-    const form = document.getElementById('book-diagnostic-form');
-    const submitBtn = form.querySelector('.form-submit .btn');
-    const successEl = document.getElementById('form-success');
-    const errorEl = document.getElementById('form-error');
-    const BOOKING_URL = 'https://cal.com/tishka/30min?user=tishka&overlayCalendar=true';
-    const WEBHOOK_URL = 'https://armored-perch.pikapod.net/webhook/book-diagnostic';
-
-    form.addEventListener('submit', async function (e) {
+    var form = document.getElementById('book-diagnostic-form');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
-
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      submitBtn.classList.add('is-sending');
-      errorEl.style.display = 'none';
-
-      try {
-        const res = await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(new FormData(form))
-        });
-        if (!res.ok) throw new Error('Form rejected');
-
-        // Lead delivered — send the visitor to book the diagnostic.
-        window.location.href = BOOKING_URL;
-      } catch (err) {
-        errorEl.style.display = 'block';
-        submitBtn.classList.remove('is-sending');
-      }
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      var name = ((form['first-name'].value || '') + ' ' + (form['last-name'].value || '')).trim();
+      var email = (form['work-email'].value || '').trim();
+      var url = 'https://cal.com/tishka/30min?user=tishka&overlayCalendar=true'
+        + '&name=' + encodeURIComponent(name)
+        + '&email=' + encodeURIComponent(email);
+      window.location.href = url;
     });
   })();
   </script>
 
 
-  <!-- Chat widget (Tishka AI assistant) -->
-  <script src="chat-widget.js"></script>
 </body>
 </html>
