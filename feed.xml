@@ -3,11 +3,18 @@
   <title>Tishka AI — The How to series</title>
   <link href="https://tishka.ai/feed.xml" rel="self"/>
   <link href="https://tishka.ai/blog"/>
-  <updated>2026-10-13T00:00:00Z</updated>
+  <updated>2026-11-03T00:00:00Z</updated>
   <id>https://tishka.ai/feed.xml</id>
   <author>
     <name>Tishka AI</name>
   </author>
+  <entry>
+    <title>The cold snap that fills a heating engineer&#x27;s phone by nine</title>
+    <link href="https://tishka.ai/cold-snap-heating-engineer-ceredigion"/>
+    <id>https://tishka.ai/cold-snap-heating-engineer-ceredigion</id>
+    <updated>2026-11-03T00:00:00Z</updated>
+    <summary>What the first cold morning does to a Ceredigion heating engineer&#x27;s phone, and how one written call-back list keeps the day from running itself.</summary>
+  </entry>
   <entry>
     <title>Answering the same guest question in Welsh and English</title>
     <link href="https://tishka.ai/welsh-english-guest-questions"/>
