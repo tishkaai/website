@@ -68,21 +68,8 @@
     font-size: var(--text-lg); color: var(--muted); max-width: 44ch; }
   .guarantee b { color: var(--stamp); }
   .fee-note { font-size: var(--text-base); color: var(--muted); margin-top: 14px; }
-
-  /* founding partner offer — stamp card, aligned to the page grid */
-  .offer-banner { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
-    box-shadow: inset 4px 0 0 var(--stamp);
-    display: flex; align-items: center; gap: 24px;
-    padding: 22px 28px; margin-top: 26px; }
-  .offer-badge { flex: none; font-size: var(--text-chip); font-weight: 700; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--stamp); border: 2px solid var(--stamp);
-    padding: 7px 12px; border-radius: 6px; white-space: nowrap; }
-  .offer-copy { margin: 0; font-size: var(--text-body); line-height: 1.55; color: var(--ink); }
-  .offer-copy b { font-weight: 700; }
-  @media (max-width: 840px) {
-    .offer-banner { flex-direction: column; align-items: flex-start; gap: 12px;
-      padding: 18px 20px; margin-top: 16px; }
-  }
+  .ongoing { font-size: var(--text-lg); color: var(--muted); margin-top: 16px; max-width: 44ch; }
+  .ongoing b { color: var(--ink); }
 
   /* form card — same card treatment as the calculator on the home page */
   .form-card { background: var(--raise); border: 1px solid var(--border); border-radius: 12px;
@@ -146,6 +133,19 @@
   .logo-text { font-size: var(--text-xl); }
   .logo-bot { width: 20px; height: 20px; }
   }
+
+  /* two-row header on phones, same pattern as the homepage: the longer CTA
+     plus the injected Ask AI button no longer fit one row below ~470px */
+  @media (max-width: 520px) {
+    header .nav { display: grid; grid-template-columns: auto auto minmax(0, 1fr);
+      grid-template-areas: "logo theme cta" "ask ask ask";
+      align-items: center; gap: 8px; height: auto; padding-block: 8px; }
+    header .nav > .logo { grid-area: logo; }
+    header .nav .nav-actions { display: contents; }
+    header .nav #themeToggle { grid-area: theme; width: 44px; height: 44px; }
+    header .nav .nav-actions .btn-primary { grid-area: cta; width: 100%; min-height: 44px; }
+    header .nav #tishka-ask-ai { grid-area: ask; width: 100%; height: 44px; line-height: 1.5; }
+  }
 </style>
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -168,18 +168,10 @@
           <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
           <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
         </button>
-        <a href="#book" class="btn btn-primary">Book Diagnostic</a>
+        <a href="#book" class="btn btn-primary">Book the diagnostic</a>
       </div>
     </div>
   </header>
-
-  <!-- Founding partner offer — stamp card -->
-  <div class="container">
-    <div class="offer-banner" role="region" aria-label="Founding partner offer">
-      <span class="offer-badge">Founding partner offer</span>
-      <p class="offer-copy">The first 3 case-study clients get their <b>initial build fee waived</b> in exchange for a testimonial. The <b>£499 diagnostic is credited against your monthly fee</b> if you proceed. Ongoing management is <b>£300/month, locked in for life</b>.</p>
-    </div>
-  </div>
 
   <!-- Intro (left) + Form (right) -->
   <section id="book">
@@ -188,7 +180,8 @@
         <p class="eyebrow">The Diagnostic</p>
         <h1>Book the diagnostic.</h1>
         <p>One hour on how your week actually runs: who does what, when, and where the bottlenecks build up in the working day. No pitch, no tech talk.</p>
-        <div class="guarantee"><b>£499, one fixed fee.</b> We find five hours a week or the fee comes back in full. Go ahead with any build and every pound is credited against it.</div>
+        <div class="guarantee"><b>£499 fixed.</b> If we cannot find at least 5 reclaimable hours a week, you get the £499 back in full. If we go ahead with any work, the full £499 comes off the price of the build.</div>
+        <p class="ongoing">Ongoing management is <b>£250–£400</b> per month once the first win is live. You stay in control. Nothing sends without your approval.</p>
         <p class="fee-note">Send the form and you're taken straight to the booking page to pick your time.</p>
       </div>
       <div class="form-card">
@@ -199,7 +192,7 @@
           Thanks, you're being taken to the booking page to pick your time for the discovery call.
         </div>
         <div id="form-error" class="form-message error" role="alert" aria-live="polite">
-          Something went wrong sending your details. Please try again, or email Pete directly at <a href="mailto:pete@tishka.ai">pete@tishka.ai</a>.
+          We could not send your details just now. You can still pick a time on the <a href="https://cal.com/tishka/30min?user=tishka&amp;overlayCalendar=true">booking page</a>, or email Pete at <a href="mailto:pete@tishka.ai">pete@tishka.ai</a>.
         </div>
         <form id="book-diagnostic-form" action="https://armored-perch.pikapod.net/webhook/book-diagnostic" method="POST">
           <div class="form-grid">
@@ -286,14 +279,14 @@
           </ul>
         </div>
       </div>
-      <p class="footer-loc">Tishka AI &middot; Cardigan, Ceredigion &middot; Working across Ceredigion and Pembrokeshire.</p>
+      <p class="footer-loc">Tishka AI &middot; Cardigan, Ceredigion &middot; Working across Ceredigion, Pembrokeshire and Carmarthenshire.</p>
       <div class="footer-bottom">
         <div class="social-icons">
           <a href="https://x.com/tishkaai" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46L20 4"/></svg></a>
           <a href="https://www.linkedin.com/in/tishkaai/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
         </div>
         <div class="footer-brand"><span class="logo-text">Tishka AI</span> <span>&copy; 2026</span></div>
-        <a class="btn btn-primary" href="#book">Book a Diagnostic</a>
+        <a class="btn btn-primary" href="#book">Book the diagnostic</a>
       </div>
     </div>
   </footer>

@@ -18,14 +18,16 @@
   'use strict';
 
   // ─────────────────────────────────────────────────────────────
-  // CONFIG — edit here. Live webhooks point at the PikaPods n8n instance.
+  // CONFIG — edit here. The PikaPods n8n host is offline (pod gone), so the
+  // widget falls back to the short answers below. Point webhookUrl at a live
+  // endpoint again and the AI replies take over automatically.
   // ─────────────────────────────────────────────────────────────
   const CONFIG = {
     enabled:           true,    // LIVE — chat launcher shown
     webhookUrl:      'https://armored-perch.pikapod.net/webhook/chat',        // n8n chat endpoint (live PikaPods)
     emailWebhookUrl: 'https://armored-perch.pikapod.net/webhook/chat-email',  // email capture endpoint (live PikaPods)
     botName:         'Tishka AI',
-    greeting:        "Hi! I'm Tishka's AI assistant. Ask me anything about our services or how we work.",
+    greeting:        "Hi! Welcome to Tishka. Ask me anything about our services or how we work.",
     maxHistory: 10,    // past messages sent to the webhook for context
     timeout:    30000, // ms before showing the connection error (Ollama can be slow on follow-ups)
   };
@@ -675,6 +677,36 @@ body { transition: margin-right 0.25s ease; }
   }
 
   // ─────────────────────────────────────────────────────────────
+  // Local fallback while the n8n chat backend is offline.
+  // Straight answers from the site's own offer copy, no external call.
+  // ─────────────────────────────────────────────────────────────
+  function localAnswer(text) {
+    var t = (text || '').toLowerCase();
+    if (/(price|cost|fee|£|how much|charge)/.test(t)) {
+      return "The diagnostic is £499 fixed. If we cannot find at least 5 reclaimable hours a week, you get the £499 back in full. If we go ahead with any work, the full £499 comes off the price of the build.";
+    }
+    if (/(replace|team|staff|job|redundan)/.test(t)) {
+      return "No. We take the repetitive work so your team can do the valuable work.";
+    }
+    if (/(software|tools|apps|system|change|switch)/.test(t)) {
+      return "No. We work with the tools you already use.";
+    }
+    if (/(month|ongoing|retainer|manage|after|cost per month)/.test(t)) {
+      return "Ongoing management is £250–£400 per month once the first win is live. You stay in control. Nothing sends without your approval.";
+    }
+    if (/(where|area|cover|ceredigion|pembroke|carmarthen|cardigan|west wales)/.test(t)) {
+      return "We work with businesses across Ceredigion, Pembrokeshire and Carmarthenshire.";
+    }
+    if (/(book|call|contact|email|start|next step)/.test(t)) {
+      return "You can book the diagnostic at tishka.ai/contact, or email pete@tishka.ai.";
+    }
+    if (/(what|diagnostic|do you|service|help|work)/.test(t)) {
+      return "It starts with one conversation. We map your actual week and show exactly where the hours and money are leaking. You decide after that; nothing is built until you say yes.";
+    }
+    return "The full assistant is offline right now. The short version: the diagnostic is £499 fixed, with 5 reclaimable hours found or your money back. Book at tishka.ai/contact or email pete@tishka.ai.";
+  }
+
+  // ─────────────────────────────────────────────────────────────
   // Send a chat message
   // ─────────────────────────────────────────────────────────────
   async function sendMessage() {
@@ -720,7 +752,7 @@ body { transition: margin-right 0.25s ease; }
       const data = await response.json();
       const reply = (data && typeof data.reply === 'string' && data.reply)
         ? data.reply
-        : "Sorry, I'm having trouble connecting. Try again in a moment.";
+        : localAnswer(text);
 
       removeThinking();
       state.messages.push({ role: 'assistant', content: reply, ts: nowTs() });
@@ -734,9 +766,10 @@ body { transition: margin-right 0.25s ease; }
     } catch (err) {
       clearTimeout(timeoutId);
       removeThinking();
-      const fallback = "Sorry, I'm having trouble connecting. Try again in a moment.";
+      const fallback = localAnswer(text);
       state.messages.push({ role: 'assistant', content: fallback, ts: nowTs() });
       renderMessage('assistant', fallback);
+      hideEmailBar();
     } finally {
       state.isWaiting = false;
       el.send.disabled = false;
